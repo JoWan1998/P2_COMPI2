@@ -1,0 +1,51 @@
+let a = [5];
+console.log(a.length)
+console.log(a.pop())
+a.push([5,6])
+console.log(a.length);
+a[0].push([5,6]);
+a[0].pop();
+console.log(a[0].length);
+type AVLNode = {
+    left: AVLNode,
+    right: AVLNode,
+    height: number,
+    value: number
+}
+
+type AVLTree = {
+    root: AVLNode
+}
+let tree : AVLTree = {
+    root: null
+};
+let a1 = 5;
+a1 += 1005;
+let b = [5,6];
+b = [8,9,10];
+type c =
+{
+  root:number
+}
+
+let d: c =
+{
+  root: 1509
+}
+d.root = 1500;
+console.log(a1)
+console.log(b)
+console.log(d.root)
+let mensaje = 'hola'
+switch(mensaje)
+{
+  case 'hola':
+    console.log('como estas?')
+    break;
+  case 'como estas':
+    console.log('bien y tu que tal')
+    break;
+  default:
+    console.log('no reconozco tu mensaje')
+    break;
+}

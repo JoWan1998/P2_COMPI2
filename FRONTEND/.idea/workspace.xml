@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8273d9a9-2e76-421e-aae0-5513d92d4763" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1hXhQynfw1ChgR05Ux0FcsKWXU0" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.nodejs.core.library.configured.version" value="10.19.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="10.17.32" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/JWEV2/node_modules/typescript/lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/JWEV2/src" />
+      <recent name="$PROJECT_DIR$/JWEditor/src/assets" />
+      <recent name="$PROJECT_DIR$/JWEditor/src/app" />
+      <recent name="$PROJECT_DIR$/JWEditor/src" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/JWEV2/src/app" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8273d9a9-2e76-421e-aae0-5513d92d4763" name="Default Changelist" comment="" />
+      <created>1600163331447</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1600163331447</updated>
+      <workItem from="1600163332713" duration="765000" />
+      <workItem from="1600164439359" duration="9168000" />
+      <workItem from="1600203294002" duration="2005000" />
+      <workItem from="1600234407308" duration="6199000" />
+      <workItem from="1600241569627" duration="4297000" />
+      <workItem from="1600247673245" duration="1012000" />
+      <workItem from="1600328733198" duration="7495000" />
+      <workItem from="1600421827498" duration="487000" />
+      <workItem from="1600422975142" duration="212000" />
+      <workItem from="1600511888111" duration="157000" />
+      <workItem from="1600600594380" duration="5564000" />
+      <workItem from="1600898142498" duration="4498000" />
+      <workItem from="1601200805031" duration="596000" />
+      <workItem from="1601241407556" duration="14693000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="555" y="184" width="802" height="706" key="#Plugins" timestamp="1600247706635">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state x="555" y="184" width="802" height="706" key="#Plugins/0.28.1920.1024@0.28.1920.1024" timestamp="1600247706635" />
+    <state x="643" y="277" width="626" height="520" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1600247610323">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state x="643" y="277" width="626" height="520" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1600247610323" />
+    <state x="693" y="289" width="526" height="496" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1600236707938">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state x="693" y="289" width="526" height="496" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.28.1920.1024@0.28.1920.1024" timestamp="1600236707938" />
+    <state x="743" y="298" width="426" height="478" key="FileChooserDialogImpl" timestamp="1600329674934">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state x="743" y="298" width="426" height="478" key="FileChooserDialogImpl/0.28.1920.1024@0.28.1920.1024" timestamp="1600329674934" />
+    <state width="1897" height="270" key="GridCell.Tab.0.bottom" timestamp="1600385717384">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state width="1897" height="270" key="GridCell.Tab.0.bottom/0.28.1920.1024@0.28.1920.1024" timestamp="1600385717384" />
+    <state width="1897" height="270" key="GridCell.Tab.0.center" timestamp="1600385717383">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state width="1897" height="270" key="GridCell.Tab.0.center/0.28.1920.1024@0.28.1920.1024" timestamp="1600385717383" />
+    <state width="1897" height="270" key="GridCell.Tab.0.left" timestamp="1600385717382">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state width="1897" height="270" key="GridCell.Tab.0.left/0.28.1920.1024@0.28.1920.1024" timestamp="1600385717382" />
+    <state width="1897" height="270" key="GridCell.Tab.0.right" timestamp="1600385717383">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state width="1897" height="270" key="GridCell.Tab.0.right/0.28.1920.1024@0.28.1920.1024" timestamp="1600385717383" />
+    <state x="449" y="175" key="SettingsEditor" timestamp="1600172833428">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state x="449" y="175" key="SettingsEditor/0.28.1920.1024@0.28.1920.1024" timestamp="1600172833428" />
+    <state x="623" y="248" key="run.anything.popup" timestamp="1600422992590">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state x="623" y="248" key="run.anything.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1600422992590" />
+    <state x="623" y="253" width="672" height="678" key="search.everywhere.popup" timestamp="1600902596319">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state x="623" y="253" width="672" height="678" key="search.everywhere.popup/0.28.1920.1024@0.28.1920.1024" timestamp="1600902596319" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/JWEditor/src/app/app.module.ts</url>
+          <line>2</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

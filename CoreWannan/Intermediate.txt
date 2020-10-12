@@ -1,0 +1,404 @@
+Function_statements
+    : FUNCTION IDENT '(' ')' OPENBRACE Source2 CLOSEBRACE
+    {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"'+$2+'\",\"type\":[],\"params\":[],\"body\":['+$6+']}';
+    }
+    | FUNCTION IDENT '(' ParameterList ')' OPENBRACE Source2 CLOSEBRACE
+    {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"'+$2+'\",\"type\":[],\"params\":['+$4+'],\"body\":['+$7+']}';
+    }
+    | FUNCTION IDENT '(' ')' ':' Type OPENBRACE Source2 CLOSEBRACE
+    {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"'+$2+'\",\"type\":['+$6+'],\"params\":[],\"body\":['+$8+']}';
+    }
+    | FUNCTION IDENT '(' ParameterList ')' ':' Type OPENBRACE Source2 CLOSEBRACE
+    {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"'+$2+'\",\"type\":['+$7+'],\"params\":['+$4+'],\"body\":['+$9+']}';
+    }
+    | FUNCTION IDENT '(' ')' OPENBRACE  CLOSEBRACE
+    {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"'+$2+'\",\"type\":[],\"params\":[],\"body\":[]}';
+    }
+    | FUNCTION IDENT '(' ParameterList ')' OPENBRACE  CLOSEBRACE
+    {
+         $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"'+$2+'\",\"type\":[],\"params\":['+$4+'],\"body\":[]}';
+     }
+    | FUNCTION IDENT '(' ')' ':' Type OPENBRACE  CLOSEBRACE
+    {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"'+$2+'\",\"type\":['+$6+'],\"params\":[],\"body\":[]}';
+    }
+    | FUNCTION IDENT '(' ParameterList ')' ':' Type OPENBRACE  CLOSEBRACE
+    {
+         $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"'+$2+'\",\"type\":['+$7+'],\"params\":['+$4+'],\"body\":[]}';
+    }
+;
+FunctionExpr
+    : FUNCTION '(' ')' OPENBRACE Source2 CLOSEBRACE
+    {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"\",\"type\":[],\"params\":[],\"body\":['+$5+']}';
+    }
+    | FUNCTION '(' ParameterList ')' OPENBRACE Source2 CLOSEBRACE
+    {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"\",\"type\":[],\"params\":['+$3+'],\"body\":['+$5+']}';
+    }
+    | FUNCTION IDENT '(' ')' OPENBRACE Source2 CLOSEBRACE
+    {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"'+$2+'\",\"type\":[],\"params\":[],\"body\":['+$6+']}';
+    }
+    | FUNCTION IDENT '(' ParameterList ')' OPENBRACE Source2 CLOSEBRACE
+    {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"'+$2+'\",\"type\":[],\"params\":['+$4+'],\"body\":['+$7+']}';
+    }
+    | FUNCTION '(' ')' OPENBRACE  CLOSEBRACE
+    {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"\",\"type\":[],\"params\":[],\"body\":[]}';
+    }
+    | FUNCTION '(' ParameterList ')' OPENBRACE Source2 CLOSEBRACE
+    {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"\",\"type\":[],\"params\":['+$3+'],\"body\":['+$6+']}';
+    }
+    | FUNCTION IDENT '(' ')' OPENBRACE  CLOSEBRACE
+    {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"'+$2+'\",\"type\":[],\"params\":[],\"body\":[]}';
+    }
+    | FUNCTION IDENT '(' ParameterList ')' OPENBRACE  CLOSEBRACE
+    {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"funcion\",\"name\":\"'+$2+'\",\"type\":[],\"params\":['+$4+'],\"body\":[]}';
+    }
+;
+Source2
+    :  Statement1
+      {
+        $$ = $1;
+      }
+    |  Statement1 Source2
+      {
+        $$ = $1+',\n'+$2;
+      }
+    |  EOF
+      {
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"\"}';
+      }
+;
+
+Statement1
+    : Declaration_statements
+      {
+        $$ = $1;
+      }
+    | Expr_statements
+      {
+        $$ = $1;
+      }
+    | Assignation_statements
+      {
+        $$ = $1;
+      }
+    | Native_statements
+      {
+        $$ = $1;
+      }
+    | Block_statements
+      {
+        $$ = $1;
+      }
+    | If_statements
+      {
+        $$ = $1;
+      }
+    | Iteration_statements
+      {
+        $$ = $1;
+      }
+    | Return_statements
+      {
+        $$ = $1;
+      }
+    | Break_statements
+      {
+        $$ = $1;
+      }
+    | Continue_statements
+      {
+        $$ = $1;
+      }
+    | Switch_statements
+      {
+        $$ = $1;
+      }
+    | Empty_statements
+      {
+        $$ = $1;
+      }
+;
+
+
+
+Literal
+    : NULLTOKEN
+    | TRUETOKEN
+    | FALSETOKEN
+    | NUMBER
+    | CADENA
+    | CADENA1
+    | CADENA2
+;
+
+Property
+    : IDENT ':' AssignmentExpr
+    | STRING ':' AssignmentExpr
+    | NUMBER ':' AssignmentExpr
+    | IDENT IDENT '(' ')' OPENBRACE FunctionBody CLOSEBRACE
+    | IDENT IDENT '(' FormalParameterList ')' OPENBRACE FunctionBody CLOSEBRACE
+    ;
+
+PropertyList
+    : Property
+    | PropertyList ',' Property
+    ;
+
+PrimaryExpr
+    : PrimaryExprNoBrace
+    | OPENBRACE CLOSEBRACE
+    | OPENBRACE PropertyList CLOSEBRACE
+    | OPENBRACE PropertyList ',' CLOSEBRACE
+;
+
+PrimaryExprNoBrace
+    : Literal
+    | ArrayLiteral
+    | IDENT
+    | '(' Expr ')'
+    ;
+
+ArrayLiteral
+    : '[' ']'
+    | '[' ElementList ']'
+;
+
+ElementList
+    : AssignmentExpr
+    | ElementList ',' AssignmentExpr
+    ;
+
+
+MemberExpr
+    : PrimaryExpr
+    | FunctionExpr
+    | MemberExpr '[' Expr ']'
+    | MemberExpr '.' IDENT
+    | NEW MemberExpr Arguments
+    ;
+
+MemberExprNoBF
+    : PrimaryExprNoBrace
+    | MemberExprNoBF '[' Expr ']'
+    | MemberExprNoBF '.' IDENT
+    | NEW MemberExpr Arguments
+    ;
+
+
+CallExpr
+    : MemberExpr Arguments
+    | CallExpr Arguments
+    | CallExpr '[' Expr ']'
+    | CallExpr '.' IDENT
+    ;
+
+CallExprNoBF
+    : MemberExprNoBF Arguments
+    | CallExprNoBF Arguments
+    | CallExprNoBF '[' Expr ']'
+    | CallExprNoBF '.' IDENT
+    ;
+
+Arguments
+    : '(' ')'
+    | '(' ArgumentList ')'
+    ;
+
+ArgumentList
+    : AssignmentExpr
+    | ArgumentList ',' AssignmentExpr
+    ;
+
+LeftHandSideExpr
+    : MemberExpr
+    | CallExpr
+    ;
+
+LeftHandSideExprNoBF
+    : MemberExpr
+    | CallExprNoBF
+    ;
+
+PostfixExpr
+    : LeftHandSideExpr
+    | LeftHandSideExpr PLUSPLUS
+    | LeftHandSideExpr MINUSMINUS
+    ;
+
+PostfixExprNoBF
+    : LeftHandSideExprNoBF
+    | LeftHandSideExprNoBF PLUSPLUS
+    | LeftHandSideExprNoBF MINUSMINUS
+    ;
+
+UnaryExprCommon
+    : PLUSPLUS UnaryExpr
+    | MINSMINS UnaryExpr
+    | '+' UnaryExpr
+    | '-' UnaryExpr
+    | '~' UnaryExpr
+    | '!' UnaryExpr
+    ;
+
+UnaryExpr
+    : PostfixExpr
+    | UnaryExprCommon
+    ;
+
+UnaryExprNoBF
+    : PostfixExprNoBF
+    | UnaryExprCommon
+    ;
+
+MultiplicativeExpr
+    : UnaryExpr
+    | MultiplicativeExpr '*' UnaryExpr
+    | MultiplicativeExpr '/' UnaryExpr
+    | MultiplicativeExpr '%' UnaryExpr
+    ;
+
+MultiplicativeExprNoBF
+    : UnaryExprNoBF
+    | MultiplicativeExprNoBF '*' UnaryExpr
+    | MultiplicativeExprNoBF '/' UnaryExpr
+    | MultiplicativeExprNoBF '%' UnaryExpr
+    ;
+
+AdditiveExpr
+    : MultiplicativeExpr
+    | AdditiveExpr '+' MultiplicativeExpr
+    | AdditiveExpr '-' MultiplicativeExpr
+    ;
+
+AdditiveExprNoBF
+    : MultiplicativeExprNoBF
+    | AdditiveExprNoBF '+' MultiplicativeExpr
+    | AdditiveExprNoBF '-' MultiplicativeExpr
+    ;
+
+RelationalExpr
+    : AdditiveExpr
+    | RelationalExpr '<' ShiftExpr
+    | RelationalExpr '>' ShiftExpr
+    | RelationalExpr LE ShiftExpr
+    | RelationalExpr GE ShiftExpr
+    | RelationalExpr INSTANCEOF ShiftExpr
+    | RelationalExpr INTOKEN ShiftExpr
+    ;
+
+RelationalExprNoIn
+    : AdditiveExpr
+    | RelationalExprNoIn '<' ShiftExpr
+    | RelationalExprNoIn '>' ShiftExpr
+    | RelationalExprNoIn LE ShiftExpr
+    | RelationalExprNoIn GE ShiftExpr
+    | RelationalExprNoIn INSTANCEOF ShiftExpr
+    ;
+
+RelationalExprNoBF
+    : AdditiveExprNoBF
+    | RelationalExprNoBF '<' ShiftExpr
+    | RelationalExprNoBF '>' ShiftExpr
+    | RelationalExprNoBF LE ShiftExpr
+    | RelationalExprNoBF GE ShiftExpr
+    | RelationalExprNoBF INSTANCEOF ShiftExpr
+    | RelationalExprNoBF INTOKEN ShiftExpr
+    ;
+
+EqualityExpr
+    : RelationalExpr
+    | EqualityExpr EQEQ RelationalExpr
+    | EqualityExpr NE RelationalExpr
+    | EqualityExpr STREQ RelationalExpr
+    | EqualityExpr STRNEQ RelationalExpr
+    ;
+
+EqualityExprNoIn
+    : RelationalExprNoIn
+    | EqualityExprNoIn EQEQ RelationalExprNoIn
+    | EqualityExprNoIn NE RelationalExprNoIn
+    | EqualityExprNoIn STREQ RelationalExprNoIn
+    | EqualityExprNoIn STRNEQ RelationalExprNoIn
+    ;
+
+EqualityExprNoBF
+    : RelationalExprNoBF
+    | EqualityExprNoBF EQEQ RelationalExpr
+    | EqualityExprNoBF NE RelationalExpr
+    | EqualityExprNoBF STREQ RelationalExpr
+    | EqualityExprNoBF STRNEQ RelationalExpr
+    ;
+
+
+LogicalANDExpr
+    : EqualityExpr
+    | LogicalANDExpr AND BitwiseORExpr
+    ;
+
+LogicalANDExprNoIn
+    : EqualityExprNoIn
+    | LogicalANDExprNoIn AND BitwiseORExprNoIn
+    ;
+
+LogicalANDExprNoBF
+    : EqualityExprNoBF
+    | LogicalANDExprNoBF AND BitwiseORExpr
+    ;
+
+LogicalORExpr
+    : LogicalANDExpr
+    | LogicalORExpr OR LogicalANDExpr
+    ;
+
+LogicalORExprNoIn
+    : LogicalANDExprNoIn
+    | LogicalORExprNoIn OR LogicalANDExprNoIn
+    ;
+
+LogicalORExprNoBF
+    : LogicalANDExprNoBF
+    | LogicalORExprNoBF OR LogicalANDExpr
+    ;
+
+ConditionalExpr
+    : LogicalORExpr
+    | LogicalORExpr '?' AssignmentExpr ':' AssignmentExpr
+    ;
+
+ConditionalExprNoIn
+    : LogicalORExprNoIn
+    | LogicalORExprNoIn '?' AssignmentExprNoIn ':' AssignmentExprNoIn
+    ;
+
+ConditionalExprNoBF
+    : LogicalORExprNoBF
+    | LogicalORExprNoBF '?' AssignmentExpr ':' AssignmentExpr
+    ;
+
+AssignmentExpr
+    : ConditionalExpr
+    | LeftHandSideExpr '=' AssignmentExpr
+    ;
+
+AssignmentExprNoIn
+    : ConditionalExprNoIn
+    | LeftHandSideExpr '=' AssignmentExprNoIn
+    ;
+
+AssignmentExprNoBF
+    : ConditionalExprNoBF
+    | LeftHandSideExprNoBF '=' AssignmentExpr
+    ;
