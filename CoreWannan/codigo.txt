@@ -1,0 +1,128 @@
+declaracion
+string ----->
+pos strings -> 5000000
+t1 = 5000000 + 1
+t2 = stack[t1]
+t3 = t2 + 1
+t4 = arrayLentgh + 100000
+stack[t3] = t4
+stack[t1] = t2 + t4
+obtener cadenas y asignarlas consecutivamente -----> guardar en tabla de simbolos, variable, rol, ambito, posicion, tipo, direccion, direccion relativa
+
+enteros ----->
+t1 = <valor_entero>
+t0 //posicion actual stack
+t0 = t0+1
+stack[t0] = t1
+guardar en tabla de simbolos, variable, rol, ambito posicion, tipo, direccion, direccion relativa
+
+booleanos- ---->
+t1 = <valor_entero>
+t0 //posicion actual stack
+t0 = t0+1
+stack[t0] = t1
+guardar en tabla de simbolos, variable, rol, ambito, posicion, tipo, direccion, direccion relativa
+
+
+arrays ----->
+obtener contenido
+guardarlo en un solo arreglo, asignado desde cabecera
+guardar en tabla de simbolos, variable, rol, ambito, posicion, tipo, direccion, direccion relativa----> posicion por defecto -1
+
+arreglo = [valores];
+
+types ------>
+generar posicion heap
+tabla de simbolos, variable, ambito, rol, posicion, tipo, direccion, direccion relativa
+rol -> clase
+ejemplo
+
+type hola = {
+ nodo: string,
+ indice: num,
+ izq: hola,
+ der: hola
+}
+
+primera declaracion clase -> -2
+hola, 0, clase, -2, clase, 0, 0
+nodo, 0, string, 1, variable, 1, 1
+indice, 0, number, 2, variable, 2,2
+izq, 0, clase, -2, clase, 3,3
+der, 0, clase, -2, clase, 4,4
+
+asignamos espacio en heap
+stack[1] = posicionHeap -> 100
+t0 = posicionStringHeap
+heap[t0] = 500000
+stack[2] = posicionHeap -> 101
+
+
+
+
+
+
+
+
+
+int hola = 5;
+
+t1 = 5;
+stack[post] = t1;
+
+ts ->> // hola, variable, entero, global, 1
+
+hola = hola + 5 + 5 +5;
+
+//consultarTS -> pos
+
+t2 = 1;
+t3 = stack[t2];
+t4 = 5;
+t5 = t3 + t4;
+t6 = 5;
+t7 = t5 + t6;
+t8 = 5;
+t9 = t7 + t8;
+stack[t2] = t9;
+
+
+50000000 [ 50000001]
+50000001 [4] -> [10]
+50000002 [115]
+50000003 [116]
+...
+50000005 [120]
+50000006 [110]
+.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
