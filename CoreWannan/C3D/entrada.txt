@@ -1,6 +1,7 @@
-let a:string = "hola" + 1;
-let c:string = "hola" + 100 + "hola";
-let b:string = "hola" + "holaaas";
-console.log(a);
-console.log(b);
-console.log(c);
+let a:number = 5+5+5;
+let m:string = 'hola {' + a + '};';
+let c:number = a/a;
+let d:boolean = true;
+let f:boolean = a > 10;
+let k = d && f;
+let condicional = (25>15)?'string':15;

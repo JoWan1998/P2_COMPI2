@@ -21,6 +21,12 @@ var TablaSimbolos = /** @class */ (function () {
         this.simbolos = [];
         this.ambitoLevel = 0;
     }
+    TablaSimbolos.prototype.printSimbolos = function () {
+        for (var _i = 0, _a = this.simbolos; _i < _a.length; _i++) {
+            var simbolitos = _a[_i];
+            console.log("VARIABLE: " + simbolitos.name + "   |   TIPO: " + simbolitos.tipo + "    |   ROL: " + simbolitos.rol + "  |   AMBITO: " + simbolitos.ambito + "    |   POSITION: " + simbolitos.position + "   |   VALOR: " + simbolitos.valor);
+        }
+    };
     TablaSimbolos.prototype.insert = function (simbolo) {
         this.simbolos.push(simbolo);
     };

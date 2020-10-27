@@ -85,9 +85,9 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
 
-        console.log('----- CODIGO ------')
+        console.log('-----      CODIGO         ------')
         console.log(C3D);
-        console.log('----- ERRORES LEXICOS ------');
+        console.log('-----   ERRORES LEXICOS   ------');
         for(let m of lexicos)
         {
             console.log(m);
@@ -102,6 +102,8 @@ case 1:
         {
             console.log(m);
         }
+        console.log('----- TABLA DE SIMBOLOS  ------');
+        tab.printSimbolos();
     
 break;
 case 3:
@@ -215,7 +217,7 @@ case 19:
 
                             var temp2  = Temp.getTemporal();
                             valor += '\n';
-                            valor += temp2 + '= stack['+temp1+'];';
+                            valor += temp2 + '= heap['+temp1+'];';
 
                             var temp3 = Temp.getTemporal();
                             valor += '\n';
@@ -237,7 +239,7 @@ case 19:
                             valor += '\n';
 
                             var temp5 = Temp.getTemporal();
-                            valor += temp5 + ' = stack[' + temp4 + '];';
+                            valor += temp5 + ' = heap[' + temp4 + '];';
                             valor += '\n';
                             valor += 'printf("%c",' + temp5 + ');';
                             valor += '\n';
@@ -311,6 +313,7 @@ case 41:
                 sym.direccion = pos;
                 sym.direccionrelativa = pos;
                 sym.tipo = $$[$0];
+                sym.valor = null;
                 tab.insert(sym);
                 this.$ = r;
                 if(pos >0 && pos != 0) pos++;
@@ -375,6 +378,7 @@ case 42:
                 sym.direccion = pos;
                 sym.direccionrelativa = pos;
                 sym.tipo = '';
+                sym.valor = null;
                 tab.insert(sym);
                 this.$ = r;
                 if(pos >0 && pos != 0) pos++;
@@ -407,11 +411,11 @@ case 43: case 44:
                     valor += '\n';
                     valor += 'stack[' + temp1 + '] = ' + temp2 +';';
                     valor += '\n';
-                    valor += 'stack[' + temp2 + '] = ' + temp2 + ' + 1;';
+                    valor += 'heap[' + temp2 + '] = ' + temp2 + ' + 1;';
                     valor += '\n';
                     valor = valor  + temp2 + ' = ' + temp2 + ' + 1;';
                     valor += '\n';
-                    valor += 'stack[' + temp2 + '] = ' + u[1] + ';';
+                    valor += 'heap[' + temp2 + '] = ' + u[1] + ';';
                     valor += '\n';
                     var temp3 = Temp.getTemporal();
                     valor += temp3 + ' = 0;';
@@ -426,7 +430,7 @@ case 43: case 44:
                     valor += '\n';
                     valor += '\t' + temp3 + ' = ' + temp3 + ' + 1;';
                     valor += '\n';
-                    valor += '\t' + 'stack['+temp2+'] = -1;';
+                    valor += '\t' + 'heap['+temp2+'] = -1;';
                     valor += '\n';
                     valor += '\t' + 'goto ' + label + ';';
                     valor += '\n';
@@ -450,6 +454,7 @@ case 43: case 44:
                     sym.direccion = pos;
                     sym.direccionrelativa = pos;
                     sym.tipo = $$[$0-10];
+                    sym.valor = new Array(u[6]);
                     tab.insert(sym);
 
                     this.$ = r;
@@ -490,11 +495,11 @@ case 45:
                     valor += '\n';
                     valor += 'stack[' + temp1 + '] = ' + temp2 +';';
                     valor += '\n';
-                    valor += 'stack[' + temp2 + '] = ' + temp2 + ' + 1;';
+                    valor += 'heap[' + temp2 + '] = ' + temp2 + ' + 1;';
                     valor += '\n';
                     valor = valor  + temp2 + ' = ' + temp2 + ' + 1;';
                     valor += '\n';
-                    valor += 'stack[' + temp2 + '] = ' + u[1] + ';';
+                    valor += 'heap[' + temp2 + '] = ' + u[1] + ';';
                     valor += '\n';
                     var temp3 = Temp.getTemporal();
                     valor += temp3 + ' = 0;';
@@ -509,7 +514,7 @@ case 45:
                     valor += '\n';
                     valor += '\t' + temp3 + ' = ' + temp3 + ' + 1;';
                     valor += '\n';
-                    valor += '\t' + 'stack['+temp2+'] = -1;';
+                    valor += '\t' + 'heap['+temp2+'] = -1;';
                     valor += '\n';
                     valor += '\t' + 'goto ' + label + ';';
                     valor += '\n';
@@ -533,6 +538,7 @@ case 45:
                     sym.direccion = pos;
                     sym.direccionrelativa = pos;
                     sym.tipo = $$[$0-8];
+                    sym.valor = new Array(u[6]);
                     tab.insert(sym);
 
                     this.$ = r;
@@ -566,7 +572,7 @@ case 46:
                 switch($$[$0-2].toUpperCase())
                 {
                     case "STRING":
-                        var val = $$[$0][5].toString();
+                        var val = $$[$0][6].toString();
                         var valor = '';
                         var temp = Temp.getTemporal();
                         valor += temp + ' = ' + pos + ';';
@@ -582,10 +588,10 @@ case 46:
                         var temp2 = Temp.getTemporal();
                         valor += temp2 + ' = '+ val.length + ';';
                         valor += '\n';
-                        valor += 'stack['+temp1+'] = ' + temp2 + ';';
+                        valor += 'heap['+temp1+'] = ' + temp2 + ';';
                         valor += '\n';
                         valor += $$[$0][1] + ' = ' + temp1 + ';';
-                        //valor += '\n';
+                        valor += '\n';
                         valor += $$[$0][3];
 
                         var r = [];
@@ -606,6 +612,7 @@ case 46:
                         sym.direccion = pos;
                         sym.direccionrelativa = pos;
                         sym.tipo = $$[$0-2];
+                        sym.valor = $$[$0][6];
                         tab.insert(sym);
 
                         this.$ = r;
@@ -613,11 +620,122 @@ case 46:
                         if(pos >0 && pos != 0) pos++;
                         if (pos == 0) pos++;
                         posS += 50000;
-
                         break;
-                    case "NUMBER":
-                }
 
+                    case "NUMBER":
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = ' + pos + ';';
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+                        valor += 'stack['+ temp + '] = ' + $$[$0][1] +';';
+                        valor += '\n';
+
+                         var sym = new intermedia.simbolo();
+                         sym.ambito = tab.ambitoLevel;
+                         sym.name = $$[$0-4];
+                         sym.position = pos;
+                         sym.rol = 'variable';
+                         sym.direccion = pos;
+                         sym.direccionrelativa = pos;
+                         sym.tipo = $$[$0-2];
+                         sym.valor = $$[$0][6];
+                         tab.insert(sym);
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp3;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+
+                        this.$ = r;
+
+                        if(pos >0 && pos != 0) pos++;
+                        if (pos == 0) pos++;
+                        break;
+
+                    case 'BOOLEAN':
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = ' + pos + ';';
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+                        valor += 'stack['+ temp + '] = ' + $$[$0][1] +';';
+                        valor += '\n';
+
+                         var sym = new intermedia.simbolo();
+                         sym.ambito = tab.ambitoLevel;
+                         sym.name = $$[$0-4];
+                         sym.position = pos;
+                         sym.rol = 'variable';
+                         sym.direccion = pos;
+                         sym.direccionrelativa = pos;
+                         sym.tipo = $$[$0-2];
+                         sym.valor = $$[$0][6];
+                         tab.insert(sym);
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp3;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+
+                        this.$ = r;
+
+                        if(pos >0 && pos != 0) pos++;
+                        if (pos == 0) pos++;
+                        break;
+
+                    case "FLOAT":
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = ' + pos + ';';
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+                        valor += 'stack['+ temp + '] = ' + $$[$0][1] +';';
+                        valor += '\n';
+
+                         var sym = new intermedia.simbolo();
+                         sym.ambito = tab.ambitoLevel;
+                         sym.name = $$[$0-4];
+                         sym.position = pos;
+                         sym.rol = 'variable';
+                         sym.direccion = pos;
+                         sym.direccionrelativa = pos;
+                         sym.tipo = $$[$0-2];
+                         sym.valor = $$[$0][6];
+                         tab.insert(sym);
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp3;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+
+                        this.$ = r;
+
+                        if(pos >0 && pos != 0) pos++;
+                        if (pos == 0) pos++;
+                        break;
+                }
             }
             else
             {
@@ -632,6 +750,194 @@ case 46:
         }
     
 break;
+case 47:
+
+        if(tab.getPositionAmbito($$[$0-2])==null)
+        {
+            if($$[$0][0].toString().toUpperCase() != '')
+            {
+                switch($$[$0][0].toString().toUpperCase())
+                {
+                    case "STRING":
+                        var val = $$[$0][6].toString();
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = ' + pos + ';';
+                        valor += '\n';
+
+                        var temp1 = Temp.getTemporal();
+                        valor += temp1 + ' = ' + posS + ';';
+                        valor += '\n';
+                        valor += 'stack['+temp+'] = ' + temp1 + ';';
+                        valor += '\n';
+                        valor += temp1 + ' = ' + temp1 + ' + 1;';
+                        valor += '\n';
+                        var temp2 = Temp.getTemporal();
+                        valor += temp2 + ' = '+ val.length + ';';
+                        valor += '\n';
+                        valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                        valor += '\n';
+                        valor += $$[$0][1] + ' = ' + temp1 + ';';
+                        valor += '\n';
+                        valor += $$[$0][3];
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp3;
+                        r[2] = label1;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+                        var sym = new intermedia.simbolo();
+                        sym.ambito = tab.ambitoLevel;
+                        sym.name = $$[$0-2];
+                        sym.position = pos;
+                        sym.rol = 'variable';
+                        sym.direccion = pos;
+                        sym.direccionrelativa = pos;
+                        sym.tipo = $$[$0][0];
+                        sym.valor = $$[$0][6];
+                        tab.insert(sym);
+
+                        this.$ = r;
+
+                        if(pos >0 && pos != 0) pos++;
+                        if (pos == 0) pos++;
+                        posS += 50000;
+                        break;
+
+                    case "NUMBER":
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = ' + pos + ';';
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+                        valor += 'stack['+ temp + '] = ' + $$[$0][1] +';';
+                        valor += '\n';
+
+                         var sym = new intermedia.simbolo();
+                         sym.ambito = tab.ambitoLevel;
+                         sym.name = $$[$0-2];
+                         sym.position = pos;
+                         sym.rol = 'variable';
+                         sym.direccion = pos;
+                         sym.direccionrelativa = pos;
+                         sym.tipo = $$[$0][0];
+                         sym.valor = $$[$0][6];
+                         tab.insert(sym);
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp3;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+
+                        this.$ = r;
+
+                        if(pos >0 && pos != 0) pos++;
+                        if (pos == 0) pos++;
+                        break;
+
+                    case 'BOOLEAN':
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = ' + pos + ';';
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+                        valor += 'stack['+ temp + '] = ' + $$[$0][1] +';';
+                        valor += '\n';
+
+                         var sym = new intermedia.simbolo();
+                         sym.ambito = tab.ambitoLevel;
+                         sym.name = $$[$0-2];
+                         sym.position = pos;
+                         sym.rol = 'variable';
+                         sym.direccion = pos;
+                         sym.direccionrelativa = pos;
+                         sym.tipo = $$[$0][0];
+                         sym.valor = $$[$0][6];
+                         tab.insert(sym);
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp3;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+
+                        this.$ = r;
+
+                        if(pos >0 && pos != 0) pos++;
+                        if (pos == 0) pos++;
+                        break;
+
+                    case "FLOAT":
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = ' + pos + ';';
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+                        valor += 'stack['+ temp + '] = ' + $$[$0][1] +';';
+                        valor += '\n';
+
+                         var sym = new intermedia.simbolo();
+                         sym.ambito = tab.ambitoLevel;
+                         sym.name = $$[$0-2];
+                         sym.position = pos;
+                         sym.rol = 'variable';
+                         sym.direccion = pos;
+                         sym.direccionrelativa = pos;
+                         sym.tipo = $$[$0][0];
+                         sym.valor = $$[$0][6];
+                         tab.insert(sym);
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp3;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+
+                        this.$ = r;
+
+                        if(pos >0 && pos != 0) pos++;
+                        if (pos == 0) pos++;
+                        break;
+
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$$[$0][6]}, a una variable de tipo ${$$[$0][0]};`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, ya existe una variable con el nombre ${$$[$0-2]};`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
 case 156:
 
         var r = [];
@@ -639,11 +945,12 @@ case 156:
         var temp = Temp.getTemporal();
         r[1] = temp;
         r[2] = '';
-        var valor = '\n';
+        var valor = '';
         valor += temp + ' = 1;';
         r[3] = valor;
         r[4] = '';
         r[5] = 1;
+        r[6] = true;
         this.$ = r;
     
 break;
@@ -654,11 +961,12 @@ case 157:
         var temp = Temp.getTemporal();
         r[1] = temp;
         r[2] = '';
-        var valor = '\n';
+        var valor = '';
         valor += temp + ' = 0;';
         r[3] = valor;
         r[4] = '';
         r[5] = 1;
+        r[6] = false;
         this.$ = r;
     
 break;
@@ -669,12 +977,12 @@ case 158:
         var temp = Temp.getTemporal();
         r[1] = temp;
         r[2] = '';
-        var valor = '\n';
+        var valor = '';
         valor += temp + ' = ' + $$[$0] + ';';
         r[3] = valor;
         r[4] = '';
         r[5] = $$[$0];
-        r[6] = '';
+        r[6] = Number($$[$0]);
         this.$ = r;
 
     
@@ -692,13 +1000,13 @@ case 159:
         {
             valor += temp + ' = ' + temp + ' + 1;';
             valor += '\n';
-            valor += 'stack['+temp+'] = ' + $$[$0].charCodeAt(a) + ';';
+            valor += 'heap['+temp+'] = ' + $$[$0].charCodeAt(a) + ';';
             valor += '\n';
         }
         r[3] = valor;
         r[4] = '';
         r[5] = $$[$0];
-        r[6] = '';
+        r[6] = $$[$0];
 
         this.$ = r;
 
@@ -717,19 +1025,19 @@ case 160:
         {
             valor += temp + ' = ' + temp + ' + 1;';
             valor += '\n';
-            valor += 'stack['+temp+'] = ' + $$[$0].charCodeAt(a) + ';';
+            valor += 'heap['+temp+'] = ' + $$[$0].charCodeAt(a) + ';';
             valor += '\n'
         }
         r[3] = valor;
         r[4] = '';
         r[5] = $$[$0];
-        r[6] = '';
+        r[6] = $$[$0];
 
         this.$ = r;
 
     
 break;
-case 166: case 169: case 197: case 201: case 216: case 217: case 218: case 219: case 220: case 221: case 225: case 226: case 227: case 228: case 234: case 239: case 242: case 245: case 248: case 251: case 254: case 259: case 264: case 269: case 271: case 273: case 275: case 277: case 279: case 281: case 283: case 285: case 286: case 287: case 288:
+case 166: case 169: case 197: case 201: case 216: case 217: case 218: case 219: case 220: case 221: case 225: case 226: case 227: case 228: case 229: case 234: case 239: case 242: case 245: case 248: case 251: case 254: case 259: case 264: case 269: case 271: case 273: case 275: case 277: case 279: case 281: case 283: case 285: case 286: case 287: case 288:
 
         this.$ = $$[$0];
     
@@ -747,68 +1055,711 @@ case 171: case 204: case 208:
         this.$ = r;
     
 break;
-case 229:
+case 172:
 
-        this.$ =  $$[$0];
+        this.$ = $$[$0-1];
     
 break;
-case 240:
+case 230: case 235:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'*'+$$[$0][1]+';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])*Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'*'+tempant1+';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])*Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'*'+$$[$0][1]+';';
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)*Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'*'+tempant111+';';
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)*Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 231: case 236:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'/'+$$[$0][1]+';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])/Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'/'+tempant1+';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])/Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'/'+$$[$0][1]+';';
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)/Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'/'+tempant111+';';
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)/Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 232: case 237:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        var temp1 = Temp.getTemporal();
+                        var label0 = Temp.getTemporal();
+                        var label1 = Temp.getTemporal();
+                        var label2 = Temp.getTemporal();
+
+                        valor += 'if('+$$[$0][1]+'==0) goto '+label1+';\n';
+                        valor += temp + ' = 1;\n';
+                        valor += temp1 + ' = '+$$[$0-2][1] +';\n';
+                        valor += label0 + ':\n';
+                        valor += '\t'+'if('+$$[$0][1]+'=='+temp+') goto '+label2+';\n';
+                        valor += '\t'+temp1 + ' = '+temp1+'*'+$$[$0-2][1]+';\n';
+                        valor += '\t'+temp+'='+temp+'+'+1+';\n';
+                        valor += '\tgoto '+label0+';\n';
+                        valor += label1 +':\n';
+                        valor += '\t'+temp1+'=1;\n';
+                        valor += '\tgoto '+label2+';\n';
+                        valor += label2 + ':\n';
+
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp1;
+                        r[2] = label2;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Math.pow(Number($$[$0-2][6]),Number($$[$0][6]));
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        var temp1 = Temp.getTemporal();
+                        var label0 = Temp.getTemporal();
+                        var label1 = Temp.getTemporal();
+                        var label2 = Temp.getTemporal();
+
+                        valor += 'if('+tempant1+'==0) goto '+label1+';\n';
+                        valor += temp + ' = 1;\n';
+                        valor += temp1 + ' = '+$$[$0-2][1] +';\n';
+                        valor += label0 + ':\n';
+                        valor += '\t'+'if('+tempant1+'=='+temp+') goto '+label2+';\n';
+                        valor += '\t'+temp1 + ' = '+temp1+'*'+$$[$0-2][1]+';\n';
+                        valor += '\t'+temp+'='+temp+'+'+1+';\n';
+                        valor += '\tgoto '+label0+';\n';
+                        valor += label1 +':\n';
+                        valor += '\t'+temp1+'=1;\n';
+                        valor += '\tgoto '+label2+';\n';
+                        valor += label2 + ':\n';
+
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp1;
+                        r[2] = label2;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Math.pow(Number($$[$0-2][6]),Number(n.valor));
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            var temp1 = Temp.getTemporal();
+                            var label0 = Temp.getTemporal();
+                            var label1 = Temp.getTemporal();
+                            var label2 = Temp.getTemporal();
+
+                            valor += 'if('+$$[$0][1]+'==0) goto '+label1+';\n';
+                            valor += temp + ' = 1;\n';
+                            valor += temp1 + ' = '+tempant1+';\n';
+                            valor += label0 + ':\n';
+                            valor += '\t'+'if('+$$[$0][1]+'=='+temp+') goto '+label2+';\n';
+                            valor += '\t'+temp1 + ' = '+temp1+'*'+tempant1+';\n';
+                            valor += '\t'+temp+'='+temp+'+'+1+';\n';
+                            valor += '\tgoto '+label0+';\n';
+                            valor += label1 +':\n';
+                            valor += '\t'+temp1+'=1;\n';
+                            valor += '\tgoto '+label2+';\n';
+                            valor += label2 + ':\n';
+
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp1;
+                            r[2] = label2;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Math.pow(Number(n.valor),Number($$[$0][6]));
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            var temp1 = Temp.getTemporal();
+                            var label0 = Temp.getTemporal();
+                            var label1 = Temp.getTemporal();
+                            var label2 = Temp.getTemporal();
+
+                            valor += 'if('+tempant111+'==0) goto '+label1+';\n';
+                            valor += temp + ' = 1;\n';
+                            valor += temp1 + ' = '+tempant1 +';\n';
+                            valor += label0 + ':\n';
+                            valor += '\t'+'if('+tempant111+'=='+temp+') goto '+label2+';\n';
+                            valor += '\t'+temp1 + ' = '+temp1+'*'+tempant1+';\n';
+                            valor += '\t'+temp+'='+temp+'+'+1+';\n';
+                            valor += '\tgoto '+label0+';\n';
+                            valor += label1 +':\n';
+                            valor += '\t'+temp1+'=1;\n';
+                            valor += '\tgoto '+label2+';\n';
+                            valor += label2 + ':\n';
+
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp1;
+                            r[2] = label2;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Math.pow(Number(n.valor),Number(n1.valor));
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 233: case 238:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'%'+$$[$0][1]+';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])%Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'%'+tempant1+';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])%Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'%'+$$[$0][1]+';';
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)%Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'%'+tempant111+';';
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)%Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 240: case 243:
 
         if($$[$0-2][0] == 'STRING'  && $$[$0][0] == 'STRING')
         {
             var r = [];
             r[0] = "STRING";
             r[1] = $$[$0-2][1];
-            var valor = '' + '\n';
+            var valor = '';
             valor += $$[$0-2][3];
             for(var a = 0; a<$$[$0][5].length; a++)
              {
                  valor += $$[$0-2][1] + ' = ' + $$[$0-2][1] + ' + 1;';
                  valor += '\n';
-                 valor += 'stack['+$$[$0-2][1]+'] = ' + $$[$0][5].charCodeAt(a) + ';';
+                 valor += 'heap['+$$[$0-2][1]+'] = ' + $$[$0][5].charCodeAt(a) + ';';
                  valor += '\n'
              }
             r[2] = '';
             r[3] = valor;
             r[4] = '';
             r[5] = $$[$0-2][5] + $$[$0][5];
-            r[6] = '';
+            r[6] = $$[$0-2][6] + $$[$0][6];
             this.$ = r;
         }
-        else if($$[$0-2][0] == 'STRING' && $$[$0-2][0] != '')
+        else if($$[$0-2][0] == 'STRING' && $$[$0][0] != '')
         {
              var r = [];
              r[0] = "STRING";
              r[1] = $$[$0-2][1];
-             var valor = '' + '\n';
+             var valor = '';
              valor += $$[$0-2][3];
              var val = $$[$0][5].toString();
              for(var a = 0; a<val.length; a++)
               {
                   valor += $$[$0-2][1] + ' = ' + $$[$0-2][1] + ' + 1;';
                   valor += '\n';
-                  valor += 'stack['+$$[$0-2][1]+'] = ' + val.charCodeAt(a) + ';';
+                  valor += 'heap['+$$[$0-2][1]+'] = ' + val.charCodeAt(a) + ';';
                   valor += '\n'
               }
              r[2] = '';
              r[3] = valor;
              r[4] = '';
              r[5] = $$[$0-2][5] + $$[$0][5].toString();
-             r[6] = '';
+             r[6] = $$[$0-2][6] + $$[$0][6];
              this.$ = r;
         }
-        else if($$[$0-2][0] != '' && $$[$0-2][0] == 'STRING')
+        else if($$[$0-2][0] != '' && $$[$0][0] == 'STRING')
         {
              var r = [];
              r[0] = "STRING";
              r[1] = $$[$0-2][1];
-             var valor = '' + '\n';
+             var valor = '';
              var val = $$[$0-2][5].toString();
              for(var a = 0; a<val.length; a++)
               {
                   valor += $$[$0-2][1] + ' = ' + $$[$0-2][1] + ' + 1;';
                   valor += '\n';
-                  valor += 'stack['+$$[$0-2][1]+'] = ' + val.charCodeAt(a) + ';';
+                  valor += 'heap['+$$[$0-2][1]+'] = ' + val.charCodeAt(a) + ';';
                   valor += '\n'
               }
               valor += $$[$0][3];
@@ -816,8 +1767,3265 @@ case 240:
              r[3] = valor;
              r[4] = '';
              r[5] = $$[$0-2][5].toString() + $$[$0][5];
-             r[6] = '';
+             r[6] = $$[$0-2][6] + $$[$0][6];
              this.$ = r;
+        }
+        else if ($$[$0-2][0] != '' && $$[$0][0] != '')
+        {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = ' + $$[$0-2][1] + ' + ' + $$[$0][1] + ';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6]) + Number($$[$0][6]);
+                        this.$ = r;
+        }
+        else if ($$[$0-2][0] == '' && $$[$0][0] == '')
+        {
+            var n = tab.getPositionAmbito($$[$0-2][4]);
+            if(n!=null)
+            {
+                var n1 = tab.getPositionAmbito($$[$0][4]);
+                if(n1!=null)
+                {
+                    if(n.tipo.toUpperCase() != 'STRING' && n1.tipo.toUpperCase() != 'STRING')
+                    {
+                        var valor = '';
+                        var r = [];
+
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = ' + n.position + ';';
+                        valor += '\n';
+                        var temp1 = Temp.getTemporal();
+                        valor += temp1 + ' = stack['+temp+'];';
+                        valor += '\n';
+
+                        var temp2 = Temp.getTemporal();
+                        valor += temp2 + ' = ' + n1.position + ';';
+                        valor += '\n';
+                        var temp3 = Temp.getTemporal();
+                        valor += temp3 + ' = stack['+temp2+'];';
+                        valor += '\n';
+
+                        var temp4 = Temp.getTemporal();
+                        valor += temp4 + ' = ' + temp1 + ' + ' + temp3 + ';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp4;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number(n.valor) + Number(n1.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        if(n.valor != null && n1.valor != null)
+                        {
+                            var temp = Temp.getTemporal();
+                            var r = [];
+                            r[0] = "STRING";
+                            r[1] = temp;
+                            r[2] = '';
+
+                            var valor = '';
+                            for(var a = 0; a<n.toString().length; a++)
+                            {
+                                valor += temp + ' = ' + temp + ' + 1;';
+                                valor += '\n';
+                                valor += 'heap['+temp+'] = ' + n.toString().charCodeAt(a) + ';';
+                                valor += '\n';
+                            }
+                            for(var a = 0; a<n1.toString().length; a++)
+                            {
+                                valor += temp + ' = ' + temp + ' + 1;';
+                                valor += '\n';
+                                valor += 'heap['+temp+'] = ' + n1.toString().charCodeAt(a) + ';';
+                                valor += '\n';
+                            }
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = n.valor.toString() + n1.valor.toString();
+                            r[6] = n.valor.toString() + n1.valor.toString();
+
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se operar con variables nulas;`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe una variable con el identificador: ${$$[$0][4]};`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe una variable con el identificador:  ${$$[$0-2][4]};`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+            if($$[$0-2][0] == '' && $$[$0][0] != '')
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if(n.tipo.toUpperCase() == "STRING")
+                    {
+                         var r = [];
+                         r[0] = "STRING";
+
+                         var temp = Temp.getTemporal();
+                         var valor = '';
+                         for(var a = 0; a<n.valor.toString().length; a++)
+                         {
+                            valor += temp + ' = ' + temp + ' + 1;';
+                            valor += '\n';
+                            valor += 'heap['+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
+                            valor += '\n';
+                         }
+
+                         for(var a = 0; a<$$[$0][6].toString().length; a++)
+                         {
+                            valor += temp + ' = ' + temp + ' + 1;';
+                            valor += '\n';
+                            valor += 'heap['+temp+'] = ' + $$[$0][6].toString().charCodeAt(a) + ';';
+                            valor += '\n';
+                         }
+                         r[1] = temp;
+                         r[2] = '';
+                         r[3] = valor;
+                         r[4] = '';
+                         r[5] = n.valor + $$[$0][6].toString();
+                         r[6] = n.valor + $$[$0][6];
+                         this.$ = r;
+                    }
+                    else if ( $$[$0][0] == 'STRING')
+                    {
+                         var r = [];
+                         r[0] = "STRING";
+
+                         var temp = Temp.getTemporal();
+                         var valor = '';
+                         for(var a = 0; a<n.toString().length; a++)
+                         {
+                            valor += temp + ' = ' + temp + ' + 1;';
+                            valor += '\n';
+                            valor += 'heap['+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
+                            valor += '\n';
+                         }
+
+                         for(var a = 0; a<$$[$0][6].toString().length; a++)
+                         {
+                            valor += temp + ' = ' + temp + ' + 1;';
+                            valor += '\n';
+                            valor += 'heap['+temp+'] = ' + $$[$0][6].toString().charCodeAt(a) + ';';
+                            valor += '\n';
+                         }
+                         r[1] = temp;
+                         r[2] = '';
+                         r[3] = valor;
+                         r[4] = '';
+                         r[5] = n.valor + $$[$0][6].toString();
+                         r[6] = n.valor + $$[$0][6];
+                         this.$ = r;
+                    }
+                    else
+                    {
+                        var valor = '';
+                        var r = [];
+
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = ' + n.position + ';';
+                        valor += '\n';
+                        var temp1 = Temp.getTemporal();
+                        valor += temp1 + ' = stack['+temp+'];';
+                        valor += '\n';
+
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp4 = Temp.getTemporal();
+                        valor += temp4 + ' = ' + temp1 + ' + ' + $$[$0][1] + ';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp4;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = Number(n.valor) + Number($$[$0][6]);
+                        r[6] = Number(n.valor) + Number($$[$0][6]);
+                        this.$ = r;
+                    }
+                }
+                else
+                {
+                   semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe una variable con el identificador:  ${$$[$0-2][4]};`+'\"}');
+                   this.$ = ['','','',''];
+                }
+            }
+            else if($$[$0-2][0] != '' && $$[$0][0] == '')
+            {
+                var n = tab.getPositionAmbito($$[$0][4]);
+                if(n!=null)
+                {
+                    if(n.tipo.toUpperCase() == "STRING")
+                    {
+                         var r = [];
+                         r[0] = "STRING";
+
+                         var temp = Temp.getTemporal();
+                         var valor = '';
+
+
+                         for(var a = 0; a<$$[$0-2][6].toString().length; a++)
+                         {
+                            valor += temp + ' = ' + temp + ' + 1;';
+                            valor += '\n';
+                            valor += 'heap['+temp+'] = ' + $$[$0][6].toString().charCodeAt(a) + ';';
+                            valor += '\n';
+                         }
+
+                        for(var a = 0; a<n.valor.toString().length; a++)
+                         {
+                            valor += temp + ' = ' + temp + ' + 1;';
+                            valor += '\n';
+                            valor += 'heap['+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
+                            valor += '\n';
+                         }
+
+                         r[1] = temp;
+                         r[2] = '';
+                         r[3] = valor;
+                         r[4] = '';
+                         r[5] = $$[$0-2][6].toString() + n.valor;
+                         r[6] = $$[$0-2][6].toString() + n.valor;
+                         this.$ = r;
+                    }
+                    else if ( $$[$0-2][0] == 'STRING')
+                    {
+                         var r = [];
+                         r[0] = "STRING";
+
+                         var temp = Temp.getTemporal();
+                         var valor = '';
+
+                          for(var a = 0; a<$$[$0-2][6].toString().length; a++)
+                          {
+                             valor += temp + ' = ' + temp + ' + 1;';
+                             valor += '\n';
+                             valor += 'heap['+temp+'] = ' + $$[$0-2][6].toString().charCodeAt(a) + ';';
+                             valor += '\n';
+                          }
+
+                         for(var a = 0; a<n.valor.toString().length; a++)
+                         {
+                            valor += temp + ' = ' + temp + ' + 1;';
+                            valor += '\n';
+                            valor += 'heap['+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
+                            valor += '\n';
+                         }
+
+
+                         r[1] = temp;
+                         r[2] = '';
+                         r[3] = valor;
+                         r[4] = '';
+                         r[5] = $$[$0-2][6] + n.valor.toString();
+                         r[6] = $$[$0-2][6] + n.valor.toString();
+                         this.$ = r;
+                    }
+                    else
+                    {
+                        var valor = '';
+                        var r = [];
+
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = ' + n.position + ';';
+                        valor += '\n';
+                        var temp1 = Temp.getTemporal();
+                        valor += temp1 + ' = stack['+temp+'];';
+                        valor += '\n';
+
+                        var temp4 = Temp.getTemporal();
+                        valor += temp4 + ' = ' + $$[$0-2][1] + ' + ' + temp1 + ';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp4;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6]) + Number(n.valor);
+                        this.$ = r;
+                    }
+                }
+                else
+                {
+                   semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe una variable con el identificador:  ${$$[$0-2][4]};`+'\"}');
+                   this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = ' + $$[$0-2][1] + ' + ' + $$[$0][1] + ';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6]) + Number($$[$0][6]);
+                        this.$ = r;
+            }
+        }
+    
+break;
+case 241: case 244:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'-'+$$[$0][1]+';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])-Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'-'+tempant1+';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])-Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'-'+$$[$0][1]+';';
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)-Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'-'+tempant111+';';
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)-Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 246:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'<'+$$[$0][1]+';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])<Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'<'+tempant1+';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])<Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'<'+$$[$0][1]+';';
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)<Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'<'+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)<Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 247: case 250: case 253:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'>'+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])>Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'>'+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])>Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'>'+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)>Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'>'+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)>Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 249: case 252:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'<'+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])<Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'<'+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])<Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'<'+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)<Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'<'+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)<Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 255: case 260: case 265:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'=='+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])==Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'=='+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])==Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'=='+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)==Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'=='+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)==Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 256: case 261: case 266:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'!='+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])!=Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'!='+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])!=Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'!='+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)!=Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'!='+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)!=Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 257: case 262: case 267:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'>='+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])>=Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'>='+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])>=Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'>='+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)>=Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'>='+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)>=Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 258: case 263: case 268:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'<='+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])<=Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'<='+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])<=Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'<='+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)<=Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'<='+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)<=Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 270:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '' && $$[$0-2][0] == 'BOOLEAN')
+            {
+                if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) && Boolean(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                {
+                    if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean(n.valor) && Boolean($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null && n1.tipo.toUpperCase() == 'BOOLEAN')
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+tempant111+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean(n.valor) && Boolean(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}, de tipo booleano.`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO.`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 272:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '' && $$[$0-2][0] == 'BOOLEAN')
+            {
+                if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) && Boolean(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                {
+                    if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean(n.valor) && Boolean($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null && n1.tipo.toUpperCase() == 'BOOLEAN')
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+tempant111+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean(n.valor) && Boolean(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 274:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '' && $$[$0-2][0] == 'BOOLEAN')
+            {
+                if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) && Boolean(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else if($$[$0-2][0] == '')
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                {
+                    if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean(n.valor) && Boolean($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null && n1.tipo.toUpperCase() == 'BOOLEAN')
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+tempant111+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean(n.valor) && Boolean(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}, de tipo booleano`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente valores de tipo BOOLEANO`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 276:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '' && $$[$0-2][0] == 'BOOLEAN')
+            {
+                if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+                        var label5 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label2+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label5+';\n';
+                        valor += label5 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) || Boolean($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN' )
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+                        var label5 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label2+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label5+';\n';
+                        valor += label5 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) || Boolean($$[$0][6]);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else if($$[$0-2][0] == '')
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                {
+                    if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+                            var label5 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label2+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label5+';\n';
+                            valor += label5 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null && n1.tipo.toUpperCase() == 'BOOLEAN')
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+                            var label5 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+tempant11+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label2+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t if('+tempant11+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label5+';\n';
+                            valor += label5 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}, de tipo booleano`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 278:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '' && $$[$0-2][0] == 'BOOLEAN')
+            {
+                if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+                        var label5 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label2+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label5+';\n';
+                        valor += label5 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) || Boolean($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+                        var label5 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label2+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label5+';\n';
+                        valor += label5 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) || Boolean($$[$0][6]);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else if($$[$0-2][0] == '')
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                {
+                    if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+                            var label5 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label2+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label5+';\n';
+                            valor += label5 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null && n1.tipo.toUpperCase() == 'BOOLEAN')
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+                            var label5 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+tempant11+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label2+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t if('+tempant11+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label5+';\n';
+                            valor += label5 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}, de tipo booleano`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 280:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '' && $$[$0-2][0] == 'BOOLEAN')
+            {
+                if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+                        var label5 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label2+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label5+';\n';
+                        valor += label5 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) || Boolean($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack['+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+                        var label5 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label2+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label5+';\n';
+                        valor += label5 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) || Boolean($$[$0][6]);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]} de tipo booleano`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else if($$[$0-2][0] == '')
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                {
+                    if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+                            var label5 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label2+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label5+';\n';
+                            valor += label5 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null && n1.tipo.toUpperCase() == 'BOOLEAN')
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack['+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+                            var label5 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+tempant11+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label2+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t if('+tempant11+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label5+';\n';
+                            valor += label5 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]} de tipo booleano`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]} de tipo booleano`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 282:
+
+
+        if($$[$0-4][0] != 'STRING')
+        {
+            if($$[$0-4][0]!= '' && $$[$0-4][0] == 'BOOLEAN')
+            {
+                var valor = '';
+                var r = [];
+                valor += $$[$0-2][3];
+                valor += '\n';
+                valor += $$[$0][3];
+                valor += '\n';
+
+                var temp = Temp.getTemporal();
+                var label0 = Label.getBandera();
+                var label1 = Label.getBandera();
+                var label2 = Label.getBandera();
+                var label3 = Label.getBandera();
+
+                valor += label0 + ':\n';
+                valor += '\t if('+$$[$0-4][1]+'==1) goto '+label1+';\n';
+                valor += '\t goto '+label2+';\n';
+                valor += label1 + ':\n';
+                valor += '\t'+temp+'='+$$[$0-2][1]+';\n';
+                valor += '\t goto '+label3+';\n';
+                valor += label2 + ':\n';
+                valor += '\t'+temp+'='+$$[$0][1]+';\n';
+                valor += '\t goto '+label3+';\n';
+                valor += label3 + ':\n';
+
+                if($$[$0-4][6] == true)
+                {
+                    if(typeof $$[$0-2][6] == "string")
+                    {
+                        r[0] = 'STRING';
+                        r[6] = $$[$0-2][6];
+                    }
+                    else if(typeof $$[$0-2][6] == "number")
+                    {
+                        r[0] = (Number($$[$0-2][6])%1!==0)?'FLOAT':'NUMBER';
+                        r[6] = Number($$[$0-2][6]);
+                    }
+                    else if(typeof $$[$0-2][6] == "boolean")
+                    {
+                        r[0] = 'BOOLEAN';
+                        r[6] = $$[$0][6];
+                    }
+                    else if($$[$0-2][6] instanceof Array)
+                    {
+                        r[0] = 'ARREGLO';
+                        r[6] = $$[$0-2][6];
+                    }
+                }
+                else
+                {
+                    if(typeof $$[$0][6] == "string")
+                    {
+                        r[0] = 'STRING';
+                        r[6] = $$[$0][6];
+                    }
+                    else if(typeof $$[$0][6] == "number")
+                    {
+                        r[0] = (Number($$[$0][6])%1!==0)?'FLOAT':'NUMBER';
+                        r[6] = Number($$[$0][6]);
+                    }
+                    else if(typeof $$[$0][6] == "boolean")
+                    {
+                        r[0] = 'BOOLEAN';
+                        r[6] = $$[$0][6];
+                    }
+                    else if($$[$0][6] instanceof Array)
+                    {
+                        r[0] = 'ARREGLO';
+                        r[6] = $$[$0][6];
+                    }
+                }
+
+                r[1] = temp;
+                r[2] = label3;
+                r[3] = valor;
+                r[4] = '';
+                r[5] = '';
+                this.$ = r;
+            }
+            else if($$[$0-4][0] == '')
+            {
+                var n = tab.getPositionAmbito($$[$0-4][4]);
+                if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                {
+
+                    var valor = '';
+                    var r = [];
+                    var tempant = Temp.getTemporal();
+                    var tempant1 = Temp.getTemporal();
+
+                    valor += tempant +'='+n.position+';\n';
+                    valor += tempant1 +'=stack['+tempant+'];\n';
+                    valor += $$[$0-2][3];
+                    valor += '\n';
+
+                    var temp = Temp.getTemporal();
+                    var label0 = Label.getBandera();
+                    var label1 = Label.getBandera();
+                    var label2 = Label.getBandera();
+                    var label3 = Label.getBandera();
+
+                    valor += label0 + ':\n';
+                    valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                    valor += '\t goto '+label2+';\n';
+                    valor += label1 + ':\n';
+                    valor += '\t'+temp+'='+$$[$0-2][1]+';\n';
+                    valor += '\t goto '+label3+';\n';
+                    valor += label2 + ':\n';
+                    valor += '\t'+temp+'='+$$[$0][1]+';\n';
+                    valor += '\t goto '+label3+';\n';
+                    valor += label3 + ':\n';
+
+                    if($$[$0-4][6] == true)
+                    {
+                        if(typeof $$[$0-2][6] == "string")
+                        {
+                            r[0] = 'STRING';
+                            r[6] = $$[$0-2][6];
+                        }
+                        else if(typeof $$[$0-2][6] == "number")
+                        {
+                            r[0] = (Number($$[$0-2][6])%1!==0)?'FLOAT':'NUMBER';
+                            r[6] = Number($$[$0-2][6]);
+                        }
+                        else if(typeof $$[$0-2][6] == "boolean")
+                        {
+                            r[0] = 'BOOLEAN';
+                            r[6] = $$[$0][6];
+                        }
+                        else if($$[$0-2][6] instanceof Array)
+                        {
+                            r[0] = 'ARREGLO';
+                            r[6] = $$[$0-2][6];
+                        }
+                    }
+                    else
+                    {
+                        if(typeof $$[$0][6] == "string")
+                        {
+                            r[0] = 'STRING';
+                            r[6] = $$[$0][6];
+                        }
+                        else if(typeof $$[$0][6] == "number")
+                        {
+                            r[0] = (Number($$[$0][6])%1!==0)?'FLOAT':'NUMBER';
+                            r[6] = Number($$[$0][6]);
+                        }
+                        else if(typeof $$[$0][6] == "boolean")
+                        {
+                            r[0] = 'BOOLEAN';
+                            r[6] = $$[$0][6];
+                        }
+                        else if($$[$0][6] instanceof Array)
+                        {
+                            r[0] = 'ARREGLO';
+                            r[6] = $$[$0][6];
+                        }
+                    }
+
+                    r[1] = temp;
+                    r[2] = label3;
+                    r[3] = valor;
+                    r[4] = '';
+                    r[5] = '';
+                    this.$ = r;
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-4][4]} de tipo booleano`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 284:
+
+        if($$[$0-4][0] != 'STRING')
+        {
+            if($$[$0-4][0]!= '' && $$[$0-4][0] == 'BOOLEAN')
+            {
+                var valor = '';
+                var r = [];
+                valor += $$[$0-2][3];
+                valor += '\n';
+                valor += $$[$0][3];
+                valor += '\n';
+
+                var temp = Temp.getTemporal();
+                var label0 = Label.getBandera();
+                var label1 = Label.getBandera();
+                var label2 = Label.getBandera();
+                var label3 = Label.getBandera();
+
+                valor += label0 + ':\n';
+                valor += '\t if('+$$[$0-4][1]+'==1) goto '+label1+';\n';
+                valor += '\t goto '+label2+';\n';
+                valor += label1 + ':\n';
+                valor += '\t'+temp+'='+$$[$0-2][1]+';\n';
+                valor += '\t goto '+label3+';\n';
+                valor += label2 + ':\n';
+                valor += '\t'+temp+'='+$$[$0][1]+';\n';
+                valor += '\t goto '+label3+';\n';
+                valor += label3 + ':\n';
+
+
+                if($$[$0-4][6] == true)
+                {
+                    if(typeof $$[$0-2][6] == "string")
+                    {
+                        r[0] = 'STRING';
+                        r[6] = $$[$0-2][6];
+                    }
+                    else if(typeof $$[$0-2][6] == "number")
+                    {
+                        r[0] = (Number($$[$0-2][6])%1!==0)?'FLOAT':'NUMBER';
+                        r[6] = Number($$[$0-2][6]);
+                    }
+                    else if(typeof $$[$0-2][6] == "boolean")
+                    {
+                        r[0] = 'BOOLEAN';
+                        r[6] = $$[$0][6];
+                    }
+                    else if($$[$0-2][6] instanceof Array)
+                    {
+                        r[0] = 'ARREGLO';
+                        r[6] = $$[$0-2][6];
+                    }
+                }
+                else
+                {
+                    if(typeof $$[$0][6] == "string")
+                    {
+                        r[0] = 'STRING';
+                        r[6] = $$[$0][6];
+                    }
+                    else if(typeof $$[$0][6] == "number")
+                    {
+                        r[0] = (Number($$[$0][6])%1!==0)?'FLOAT':'NUMBER';
+                        r[6] = Number($$[$0][6]);
+                    }
+                    else if(typeof $$[$0][6] == "boolean")
+                    {
+                        r[0] = 'BOOLEAN';
+                        r[6] = $$[$0][6];
+                    }
+                    else if($$[$0][6] instanceof Array)
+                    {
+                        r[0] = 'ARREGLO';
+                        r[6] = $$[$0][6];
+                    }
+                }
+
+                r[1] = temp;
+                r[2] = label3;
+                r[3] = valor;
+                r[4] = '';
+                r[5] = '';
+                this.$ = r;
+            }
+            else if($$[$0-4][0] == '')
+            {
+                var n = tab.getPositionAmbito($$[$0-4][4]);
+                if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                {
+
+                    var valor = '';
+                    var r = [];
+                    var tempant = Temp.getTemporal();
+                    var tempant1 = Temp.getTemporal();
+
+                    valor += tempant +'='+n.position+';\n';
+                    valor += tempant1 +'=stack['+tempant+'];\n';
+                    valor += $$[$0-2][3];
+                    valor += '\n';
+
+                    var temp = Temp.getTemporal();
+                    var label0 = Label.getBandera();
+                    var label1 = Label.getBandera();
+                    var label2 = Label.getBandera();
+                    var label3 = Label.getBandera();
+
+                    valor += label0 + ':\n';
+                    valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                    valor += '\t goto '+label2+';\n';
+                    valor += label1 + ':\n';
+                    valor += '\t'+temp+'='+$$[$0-2][1]+';\n';
+                    valor += '\t goto '+label3+';\n';
+                    valor += label2 + ':\n';
+                    valor += '\t'+temp+'='+$$[$0][1]+';\n';
+                    valor += '\t goto '+label3+';\n';
+                    valor += label3 + ':\n';
+
+
+                    if($$[$0-4][6] == true)
+                    {
+                        if(typeof $$[$0-2][6] == "string")
+                        {
+                            r[0] = 'STRING';
+                            r[6] = $$[$0-2][6];
+                        }
+                        else if(typeof $$[$0-2][6] == "number")
+                        {
+                            r[0] = (Number($$[$0-2][6])%1!==0)?'FLOAT':'NUMBER';
+                            r[6] = Number($$[$0-2][6]);
+                        }
+                        else if(typeof $$[$0-2][6] == "boolean")
+                        {
+                            r[0] = 'BOOLEAN';
+                            r[6] = $$[$0][6];
+                        }
+                        else if($$[$0-2][6] instanceof Array)
+                        {
+                            r[0] = 'ARREGLO';
+                            r[6] = $$[$0-2][6];
+                        }
+                    }
+                    else
+                    {
+                        if(typeof $$[$0][6] == "string")
+                        {
+                            r[0] = 'STRING';
+                            r[6] = $$[$0][6];
+                        }
+                        else if(typeof $$[$0][6] == "number")
+                        {
+                            r[0] = (Number($$[$0][6])%1!==0)?'FLOAT':'NUMBER';
+                            r[6] = Number($$[$0][6]);
+                        }
+                        else if(typeof $$[$0][6] == "boolean")
+                        {
+                            r[0] = 'BOOLEAN';
+                            r[6] = $$[$0][6];
+                        }
+                        else if($$[$0][6] instanceof Array)
+                        {
+                            r[0] = 'ARREGLO';
+                            r[6] = $$[$0][6];
+                        }
+                    }
+
+                    r[1] = temp;
+                    r[2] = label3;
+                    r[3] = valor;
+                    r[4] = '';
+                    r[5] = '';
+                    this.$ = r;
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-4][4]} de tipo booleano`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion`+'\"}');
+            this.$ = ['','','',''];
         }
     
 break;
@@ -1083,8 +5291,8 @@ _handle_error:
     var Label = new intermedia.bandera();
     var pos = 0;
     var C3D = '';
-    var posS = 5000000;
-    var posA = 500000000;
+    var posS = 0;
+    var posA = 2145000000;
 /* generated by jison-lex 0.3.4 */
 var lexer = (function(){
 var lexer = ({

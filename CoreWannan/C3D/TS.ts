@@ -21,6 +21,13 @@ export class TablaSimbolos
         this.simbolos = [];
         this.ambitoLevel = 0;
     }
+    printSimbolos()
+    {
+        for(let simbolitos of this.simbolos)
+        {
+            console.log(`VARIABLE: ${simbolitos.name}   |   TIPO: ${simbolitos.tipo}    |   ROL: ${simbolitos.rol}  |   AMBITO: ${simbolitos.ambito}    |   POSITION: ${simbolitos.position}   |   VALOR: ${simbolitos.valor}`);
+        }
+    }
     insert(simbolo:any)
     {
         this.simbolos.push(simbolo);
@@ -149,6 +156,7 @@ export class simbolo
     direccion:number;
     direccionrelativa:number;
     tipo:string;
+    valor:any;
 
     constructor() {
         this.ambito = -1;
