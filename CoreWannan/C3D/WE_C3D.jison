@@ -10,6 +10,7 @@
     var tab = new intermedia.TablaSimbolos();
     var Temp = new intermedia.temporal();
     var Label = new intermedia.bandera();
+    var arr = new intermedia.Arreglos();
     var pos = 0;
     var C3D = '';
     var posS = 0;
@@ -428,11 +429,20 @@ Expr_statements
 
 Empty_statements
     : ';'
+    {
+        $$ = ['','','','','',''];
+    }
 ;
 
 Block_statements
     : OPENBRACE CLOSEBRACE
+    {
+        $$ = ['','','','','',''];
+    }
     | OPENBRACE Source2 CLOSEBRACE
+    {
+        $$ = $2;
+    }
 ;
 
 Assignation_statements
@@ -467,7 +477,7 @@ Arr
 ;
 
 Declaration_statements
-    : TypeV IDENT ':' Type
+    : TypeV IDENT ':' TypeV
     {
         if(tab.getPositionAmbito($2)==null)
         {
@@ -596,7 +606,8 @@ Declaration_statements
             $$ = ['','','',''];
         }
     }
-    | TypeV IDENT Array ':' Type '=' NEWT ARRAYS '(' Expr ')'
+/*
+    | TypeV IDENT Array ':' TypeV '=' NEWT ARRAYS '(' Expr ')'
     {
         if(tab.getPositionAmbito($2)==null)
         {
@@ -640,6 +651,14 @@ Declaration_statements
                     valor += '\n';
                     valor += label1 + ': ';
 
+                    var a = new intermedia.arreglo()
+                    a.name = $2;
+                    a.positions.push(u[6]);
+                    a.c3d = valor;
+                    a.temporal = temp3;
+                    a.bandera = label1;
+                    a.tipo = $5;
+
                     var r = [];
                     r[3] = valor;
                     r[0] = '';
@@ -657,9 +676,10 @@ Declaration_statements
                     sym.rol = 'arreglo';
                     sym.direccion = pos;
                     sym.direccionrelativa = pos;
-                    sym.tipo = $1;
-                    sym.valor = new Array(u[6]);
+                    sym.tipo = $5;
+                    sym.valor = a;
                     tab.insert(sym);
+                    arr.push(a);
 
                     $$ = r;
 
@@ -679,7 +699,101 @@ Declaration_statements
             $$ = ['','','',''];
         }
     }
-    | TypeV IDENT  ':' Type Array '=' NEWT ARRAYS '(' Expr ')'
+*/
+    | TypeV IDENT  ':' TypeV Array '=' AssignmentExpr
+    {
+        if(tab.getPositionAmbito($2)==null)
+        {
+            if($7[0].toString().toUpperCase() != '')
+            {
+                switch($7[0].toString().toUpperCase())
+                {
+                    case 'ARREGLO':
+                        if($7[8].toUpperCase() == $4.toUpperCase())
+                        {
+                            var valor = '';
+                            var temp = Temp.getTemporal();
+                            valor += temp + ' = ' + pos + ';';
+                            valor += '\n';
+
+                            var temp1 = Temp.getTemporal();
+                            var temp0 = Temp.getTemporal();
+                            valor += temp1 + ' = ' + posA + ';';
+                            valor += '\n';
+                            valor += temp0+ ' = ' + posA + ';\n';
+                            valor += 'stack['+temp+'] = ' + temp1 + ';';
+                            valor += '\n';
+                            valor += temp1 + ' = ' + temp1 + ' + 1;';
+                            valor += '\n';
+                            valor += 'heap['+temp0+'] = ' + temp1 + ';\n';
+                            var temp2 = Temp.getTemporal();
+                            valor += temp2 + ' = '+ $7[7] + ';';
+                            valor += '\n';
+                            valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                            valor += '\n';
+                            valor += $7[1] + ' = ' + temp1 + ';';
+                            valor += '\n';
+                            valor += $7[3];
+                            valor += '\n';
+
+                             var sym = new intermedia.simbolo();
+                             sym.ambito = tab.ambitoLevel;
+                             sym.name = $2;
+                             sym.position = pos;
+                             sym.rol = 'arreglo';
+                             sym.direccion = pos;
+                             sym.direccionrelativa = pos;
+                             sym.tipo = ($4[8]!='')?$7[8]:$4[0];
+                             sym.valor = $7[6];
+                             sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                             tab.insert(sym);
+
+                            var r = [];
+                            r[3] = valor;
+                            r[0] = '';
+                            r[1] = temp3;
+                            r[2] = '';
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = '';
+                            r[7] = '';
+
+                            arr.valores.push($7[6]);
+
+                            $$ = r;
+
+                            if(pos >0 && pos != 0) pos++;
+                            if (pos == 0) pos++;
+                            posA += 50000;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$7[8]}, a una variable de tipo ${$4};`+'\"}');
+                            $$ = ['','','','']
+                        }
+
+                        break;
+
+                    DEFAULT:
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$7[0]}, a una variable de tipo ${$4};`+'\"}');
+                        $$ = ['','','',''];
+                        break;
+
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$7[6]}, a una variable de tipo ${$4};`+'\"}');
+                $$ = ['','','',''];
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, ya existe una variable con el nombre ${$2};`+'\"}');
+            $$ = ['','','',''];
+        }
+    }
+    | TypeV IDENT  ':' TypeV Array '=' NEWT ARRAYS '(' Expr ')'
     {
         if(tab.getPositionAmbito($2)==null)
         {
@@ -723,6 +837,14 @@ Declaration_statements
                     valor += '\n';
                     valor += label1 + ': ';
 
+                    var a = new intermedia.arreglo()
+                    a.name = $2;
+                    a.tipo = $4;
+                    a.positions.push(u[6]);
+                    a.c3d = valor;
+                    a.temporal = temp3;
+                    a.bandera = label1;
+
                     var r = [];
                     r[3] = valor;
                     r[0] = '';
@@ -740,11 +862,14 @@ Declaration_statements
                     sym.rol = 'arreglo';
                     sym.direccion = pos;
                     sym.direccionrelativa = pos;
-                    sym.tipo = $1;
-                    sym.valor = new Array(u[6]);
+                    sym.tipo = $4;
+                    sym.valor = a;
+                    sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
                     tab.insert(sym);
 
                     $$ = r;
+
+                    arr.push(a);
 
                     if(pos >0 && pos != 0) pos++;
                     if (pos == 0) pos++;
@@ -762,13 +887,14 @@ Declaration_statements
             $$ = ['','','',''];
         }
     }
-    | TypeV IDENT Array '=' NEWT ARRAYS '(' Expr ')'
+
+    | TypeV IDENT  '=' NEWT ARRAYS '(' Expr ')'
     {
         if(tab.getPositionAmbito($2)==null)
         {
                 var temp1 = Temp.getTemporal();
 
-                var u = $8;
+                var u = $7;
                 if(u[0].toUpperCase() == 'NUMBER')
                 {
                     var valor = '';
@@ -806,6 +932,14 @@ Declaration_statements
                     valor += '\n';
                     valor += label1 + ': ';
 
+                    var a = new intermedia.arreglo()
+                    a.name = $2;
+                    a.positions.push(u[6]);
+                    a.c3d = valor;
+                    a.temporal = temp3;
+                    a.bandera = label1;
+                    a.tipo = $1;
+
                     var r = [];
                     r[3] = valor;
                     r[0] = '';
@@ -824,10 +958,13 @@ Declaration_statements
                     sym.direccion = pos;
                     sym.direccionrelativa = pos;
                     sym.tipo = $1;
-                    sym.valor = new Array(u[6]);
+
+                    sym.valor = a;
                     tab.insert(sym);
 
                     $$ = r;
+
+                    arr.valores.push(a);
 
                     if(pos >0 && pos != 0) pos++;
                     if (pos == 0) pos++;
@@ -848,7 +985,7 @@ Declaration_statements
             $$ = ['','','',''];
         }
     }
-    | TypeV IDENT ':' Type '=' AssignmentExpr
+    | TypeV IDENT ':' TypeV '=' AssignmentExpr
     {
         if(tab.getPositionAmbito($2)==null)
         {
@@ -898,6 +1035,7 @@ Declaration_statements
                         sym.direccionrelativa = pos;
                         sym.tipo = $4;
                         sym.valor = $6[6];
+                        sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
                         tab.insert(sym);
 
                         $$ = r;
@@ -926,6 +1064,7 @@ Declaration_statements
                          sym.direccionrelativa = pos;
                          sym.tipo = $4;
                          sym.valor = $6[6];
+                         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
                          tab.insert(sym);
 
                         var r = [];
@@ -964,6 +1103,7 @@ Declaration_statements
                          sym.direccionrelativa = pos;
                          sym.tipo = $4;
                          sym.valor = $6[6];
+                         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
                          tab.insert(sym);
 
                         var r = [];
@@ -1002,6 +1142,7 @@ Declaration_statements
                          sym.direccionrelativa = pos;
                          sym.tipo = $4;
                          sym.valor = $6[6];
+                         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
                          tab.insert(sym);
 
                         var r = [];
@@ -1020,19 +1161,240 @@ Declaration_statements
                         if(pos >0 && pos != 0) pos++;
                         if (pos == 0) pos++;
                         break;
+
+                    case 'ARREGLO':
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar un arreglo, a una variable de tipo ${$4};`+'\"}');
+                        $$ = ['','','',''];
+                        /*
+                         var val = $4[6].toString();
+                         var valor = '';
+                         var temp = Temp.getTemporal();
+                         valor += temp + ' = ' + pos + ';';
+                         valor += '\n';
+
+                         var temp1 = Temp.getTemporal();
+                         valor += temp1 + ' = ' + posA + ';';
+                         valor += '\n';
+                         valor += 'stack['+temp+'] = ' + temp1 + ';';
+                         valor += '\n';
+                         valor += temp1 + ' = ' + temp1 + ' + 1;';
+                         valor += '\n';
+                         var temp2 = Temp.getTemporal();
+                         valor += temp2 + ' = '+ $4[7] + ';';
+                         valor += '\n';
+                         valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                         valor += '\n';
+                         valor += $4[1] + ' = ' + temp1 + ';';
+                         valor += '\n';
+                         valor += $4[3]+'\n';
+
+                         var sym = new intermedia.simbolo();
+                         sym.ambito = tab.ambitoLevel;
+                         sym.name = $2;
+                         sym.position = pos;
+                         sym.rol = 'arreglo';
+                         sym.direccion = pos;
+                         sym.direccionrelativa = pos;
+                         sym.tipo = ($4[8]!='')?$4[8]:$4[0];
+                         sym.valor = $4[6];
+                         tab.insert(sym);
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp3;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+                        arr.valores.push($4[6]);
+
+                        $$ = r;
+
+                         if(pos >0 && pos != 0) pos++;
+                         if (pos == 0) pos++;
+                         posA += 50000;
+                         */
+                         break;
                 }
             }
-            else
+            else if($6[0] == '')
             {
-                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$6[0]}, a una variable de tipo ${$4};`+'\"}');
-                $$ = ['','','',''];
+                 var n = tab.getPositionAmbito($6[4]);
+                 if(n!=null)
+                 {
+                     if(n.tipo.toUpperCase() == $4.toUpperCase())
+                     {
+                         switch(n.tipo.toUpperCase())
+                         {
+                             case 'STRING':
+                                 var valor = '';
+                                  var temp = Temp.getTemporal();
+                                  valor += temp + ' = ' + pos + ';';
+                                  valor += '\n';
+
+                                  var temp1 = Temp.getTemporal();
+                                  valor += temp1 + ' = ' + posS + ';';
+                                  valor += '\n';
+                                  valor += 'stack['+temp+'] = ' + temp1 + ';';
+                                  valor += '\n';
+                                  valor += temp1 + ' = ' + temp1 + ' + 1;';
+                                  valor += '\n';
+                                  var temp2 = Temp.getTemporal();
+                                  valor += temp2 + ' = '+ val.length + ';';
+                                  valor += '\n';
+                                  valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                                  valor += '\n';
+
+                                 for(var a = 0; a<n.valor.length; a++)
+                                 {
+                                     valor += temp1 + ' = ' + temp1 + ' + 1;';
+                                     valor += '\n';
+                                     valor += 'heap['+temp1+'] = ' + n.valor.charCodeAt(a) + ';';
+                                     valor += '\n'
+                                 }
+                               var r = [];
+                               r[3] = valor;
+                               r[0] = '';
+                               r[1] = temp1;
+                               r[2] = '';
+                               r[4] = '';
+                               r[5] = '';
+                               r[6] = '';
+                               r[7] = '';
+
+                               var sym = new intermedia.simbolo();
+                               sym.ambito = tab.ambitoLevel;
+                               sym.name = $2;
+                               sym.position = pos;
+                               sym.rol = 'variable';
+                               sym.direccion = pos;
+                               sym.direccionrelativa = pos;
+                               sym.tipo = $4;
+                               sym.valor = n.valor;
+                               sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                               tab.insert(sym);
+
+                               $$ = r;
+
+                               if(pos >0 && pos != 0) pos++;
+                               if (pos == 0) pos++;
+                               posS += 50000;
+                               break;
+
+                             case 'NUMBER':
+                                  var valor = '';
+                                  var temp = Temp.getTemporal();
+                                  valor += temp + ' = ' + pos + ';';
+                                  valor += '\n';
+                                  var temp1 = Temp.getTemporal();
+                                  valor += temp1 + ' = stack['+n.position+'];';
+                                  valor += '\n';
+                                  valor += 'stack['+ temp + '] = ' + temp1 +';';
+                                  valor += '\n';
+
+                                   var sym = new intermedia.simbolo();
+                                   sym.ambito = tab.ambitoLevel;
+                                   sym.name = $2;
+                                   sym.position = pos;
+                                   sym.rol = 'variable';
+                                   sym.direccion = pos;
+                                   sym.direccionrelativa = pos;
+                                   sym.tipo = $4;
+                                   sym.valor = n.valor;
+                                   sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                                   tab.insert(sym);
+
+                                  var r = [];
+                                  r[3] = valor;
+                                  r[0] = '';
+                                  r[1] = temp3;
+                                  r[2] = '';
+                                  r[4] = '';
+                                  r[5] = '';
+                                  r[6] = '';
+                                  r[7] = '';
+
+
+                                  $$ = r;
+
+                                  if(pos >0 && pos != 0) pos++;
+                                  if (pos == 0) pos++;
+                                  break;
+
+                             case 'BOOLEAN':
+                                  var valor = '';
+                                  var temp = Temp.getTemporal();
+                                  valor += temp + ' = ' + pos + ';';
+                                  valor += '\n';
+                                  var temp1 = Temp.getTemporal();
+                                  valor += temp1 + ' = stack['+n.position+'];';
+                                  valor += '\n';
+                                  valor += 'stack['+ temp + '] = ' + temp1 +';';
+                                  valor += '\n';
+
+                                   var sym = new intermedia.simbolo();
+                                   sym.ambito = tab.ambitoLevel;
+                                   sym.name = $2;
+                                   sym.position = pos;
+                                   sym.rol = 'variable';
+                                   sym.direccion = pos;
+                                   sym.direccionrelativa = pos;
+                                   sym.tipo = $4;
+                                   sym.valor = n.valor;
+                                   sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                                   tab.insert(sym);
+
+                                  var r = [];
+                                  r[3] = valor;
+                                  r[0] = '';
+                                  r[1] = temp3;
+                                  r[2] = '';
+                                  r[4] = '';
+                                  r[5] = '';
+                                  r[6] = '';
+                                  r[7] = '';
+
+
+                                  $$ = r;
+
+                                  if(pos >0 && pos != 0) pos++;
+                                  if (pos == 0) pos++;
+                                  break;
+
+                             DEFAULT:
+                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$6[0]}, a una variable de tipo arreglo;`+'\"}');
+                              $$ = ['','','',''];
+                              break;
+                         }
+                     }
+                     else
+                     {
+                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$6[0]}, a una variable de tipo ${$4};`+'\"}');
+                         $$ = ['','','',''];
+                     }
+
+                 }
+                 else
+                 {
+                     semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$6[0]}, a una variable de tipo ${$4};`+'\"}');
+                     $$ = ['','','',''];
+                 }
             }
+             else
+             {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$6[0]}, a una variable de tipo ${$4};`+'\"}');
+                 $$ = ['','','',''];
+             }
         }
         else
         {
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, ya existe una variable con el nombre ${$2};`+'\"}');
             $$ = ['','','',''];
         }
+
     }
     | TypeV IDENT  '=' AssignmentExpr
     {
@@ -1084,6 +1446,7 @@ Declaration_statements
                         sym.direccionrelativa = pos;
                         sym.tipo = $4[0];
                         sym.valor = $4[6];
+                        sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
                         tab.insert(sym);
 
                         $$ = r;
@@ -1112,6 +1475,7 @@ Declaration_statements
                          sym.direccionrelativa = pos;
                          sym.tipo = $4[0];
                          sym.valor = $4[6];
+                         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
                          tab.insert(sym);
 
                         var r = [];
@@ -1150,6 +1514,7 @@ Declaration_statements
                          sym.direccionrelativa = pos;
                          sym.tipo = $4[0];
                          sym.valor = $4[6];
+                         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
                          tab.insert(sym);
 
                         var r = [];
@@ -1188,6 +1553,7 @@ Declaration_statements
                          sym.direccionrelativa = pos;
                          sym.tipo = $4[0];
                          sym.valor = $4[6];
+                         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
                          tab.insert(sym);
 
                         var r = [];
@@ -1207,7 +1573,231 @@ Declaration_statements
                         if (pos == 0) pos++;
                         break;
 
+                    case 'ARREGLO':
+                        var val = $4[6].toString();
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = ' + pos + ';';
+                        valor += '\n';
+
+                        var temp1 = Temp.getTemporal();
+                        var temp0 = Temp.getTemporal();
+                        valor += temp1 + ' = ' + posA + ';';
+                        valor += '\n';
+                        valor += temp0+ ' = ' + posA + ';\n';
+                        valor += 'stack['+temp+'] = ' + temp1 + ';';
+                        valor += '\n';
+                        valor += temp1 + ' = ' + temp1 + ' + 1;';
+                        valor += '\n';
+                        valor += 'heap['+temp0+'] = ' + temp1 + ';\n';
+
+                        var temp2 = Temp.getTemporal();
+                        valor += temp2 + ' = '+ $4[7] + ';';
+                        valor += '\n';
+                        valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                        valor += '\n';
+                        valor += $4[1] + ' = ' + temp1 + ';';
+                        valor += '\n';
+                        valor += $4[3];
+                        valor += '\n';
+
+                         var sym = new intermedia.simbolo();
+                         sym.ambito = tab.ambitoLevel;
+                         sym.name = $2;
+                         sym.position = pos;
+                         sym.rol = 'arreglo';
+                         sym.direccion = pos;
+                         sym.direccionrelativa = pos;
+                         sym.tipo = ($4[8]!='')?$4[8]:$4[0];
+                         sym.valor = $4[6];
+                         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                         tab.insert(sym);
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp3;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+                        arr.valores.push($4[6]);
+
+                        $$ = r;
+
+                        if(pos >0 && pos != 0) pos++;
+                        if (pos == 0) pos++;
+                        posA += 50000;
+                        break;
+
+                    DEFAULT:
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$4[0]}, a una variable de tipo arreglo;`+'\"}');
+                        $$ = ['','','',''];
+
                 }
+            }
+            else if($4[0] == '')
+            {
+                 var n = tab.getPositionAmbito($4[4]);
+                 if(n!=null)
+                 {
+                     if(n.tipo.toUpperCase()!='')
+                     {
+                         switch(n.tipo.toUpperCase())
+                         {
+                             case 'STRING':
+                                 var valor = '';
+                                  var temp = Temp.getTemporal();
+                                  valor += temp + ' = ' + pos + ';';
+                                  valor += '\n';
+
+                                  var temp1 = Temp.getTemporal();
+                                  valor += temp1 + ' = ' + posS + ';';
+                                  valor += '\n';
+                                  valor += 'stack['+temp+'] = ' + temp1 + ';';
+                                  valor += '\n';
+                                  valor += temp1 + ' = ' + temp1 + ' + 1;';
+                                  valor += '\n';
+                                  var temp2 = Temp.getTemporal();
+                                  valor += temp2 + ' = '+ val.length + ';';
+                                  valor += '\n';
+                                  valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                                  valor += '\n';
+
+                                 for(var a = 0; a<n.valor.length; a++)
+                                 {
+                                     valor += temp1 + ' = ' + temp1 + ' + 1;';
+                                     valor += '\n';
+                                     valor += 'heap['+temp1+'] = ' + n.valor.charCodeAt(a) + ';';
+                                     valor += '\n'
+                                 }
+                               var r = [];
+                               r[3] = valor;
+                               r[0] = '';
+                               r[1] = temp1;
+                               r[2] = '';
+                               r[4] = '';
+                               r[5] = '';
+                               r[6] = '';
+                               r[7] = '';
+
+                               var sym = new intermedia.simbolo();
+                               sym.ambito = tab.ambitoLevel;
+                               sym.name = $2;
+                               sym.position = pos;
+                               sym.rol = 'variable';
+                               sym.direccion = pos;
+                               sym.direccionrelativa = pos;
+                               sym.tipo = n.tipo;
+                               sym.valor = n.valor;
+                               sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                               tab.insert(sym);
+
+                               $$ = r;
+
+                               if(pos >0 && pos != 0) pos++;
+                               if (pos == 0) pos++;
+                               posS += 50000;
+                               break;
+
+                             case 'NUMBER':
+                                  var valor = '';
+                                  var temp = Temp.getTemporal();
+                                  valor += temp + ' = ' + pos + ';';
+                                  valor += '\n';
+                                  var temp1 = Temp.getTemporal();
+                                  valor += temp1 + ' = stack['+n.position+'];';
+                                  valor += '\n';
+                                  valor += 'stack['+ temp + '] = ' + temp1 +';';
+                                  valor += '\n';
+
+                                   var sym = new intermedia.simbolo();
+                                   sym.ambito = tab.ambitoLevel;
+                                   sym.name = $2;
+                                   sym.position = pos;
+                                   sym.rol = 'variable';
+                                   sym.direccion = pos;
+                                   sym.direccionrelativa = pos;
+                                   sym.tipo = n.tipo;
+                                   sym.valor = n.valor;
+                                   sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                                   tab.insert(sym);
+
+                                  var r = [];
+                                  r[3] = valor;
+                                  r[0] = '';
+                                  r[1] = temp3;
+                                  r[2] = '';
+                                  r[4] = '';
+                                  r[5] = '';
+                                  r[6] = '';
+                                  r[7] = '';
+
+
+                                  $$ = r;
+
+                                  if(pos >0 && pos != 0) pos++;
+                                  if (pos == 0) pos++;
+                                  break;
+                             case 'BOOLEAN':
+                                  var valor = '';
+                                  var temp = Temp.getTemporal();
+                                  valor += temp + ' = ' + pos + ';';
+                                  valor += '\n';
+                                  var temp1 = Temp.getTemporal();
+                                  valor += temp1 + ' = stack['+n.position+'];';
+                                  valor += '\n';
+                                  valor += 'stack['+ temp + '] = ' + temp1 +';';
+                                  valor += '\n';
+
+                                   var sym = new intermedia.simbolo();
+                                   sym.ambito = tab.ambitoLevel;
+                                   sym.name = $2;
+                                   sym.position = pos;
+                                   sym.rol = 'variable';
+                                   sym.direccion = pos;
+                                   sym.direccionrelativa = pos;
+                                   sym.tipo = n.tipo;
+                                   sym.valor = n.valor;
+                                   sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                                   tab.insert(sym);
+
+                                  var r = [];
+                                  r[3] = valor;
+                                  r[0] = '';
+                                  r[1] = temp3;
+                                  r[2] = '';
+                                  r[4] = '';
+                                  r[5] = '';
+                                  r[6] = '';
+                                  r[7] = '';
+
+
+                                  $$ = r;
+
+                                  if(pos >0 && pos != 0) pos++;
+                                  if (pos == 0) pos++;
+                                  break;
+                             DEFAULT:
+                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$6[0]}, a una variable de tipo arreglo;`+'\"}');
+                              $$ = ['','','',''];
+                              break;
+                         }
+                     }
+                     else
+                     {
+                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$6[0]}, a una variable de tipo ${$4};`+'\"}');
+                         $$ = ['','','',''];
+                     }
+
+                 }
+                 else
+                 {
+                     semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$6[0]}, a una variable de tipo ${$4};`+'\"}');
+                     $$ = ['','','',''];
+                 }
             }
             else
             {
@@ -1221,9 +1811,6 @@ Declaration_statements
             $$ = ['','','',''];
         }
     }
-    | TypeV IDENT Array ':' Type '=' AssignmentExpr
-    | TypeV IDENT  ':' Type Array '=' AssignmentExpr
-    | TypeV IDENT Array '=' AssignmentExpr
 ;
 
 ValStatement1
@@ -1266,21 +1853,115 @@ FunctionExpr
 ;
 Source2
     :  Statement1
+    {
+        if($1 instanceof Array)
+        {
+            C3D = $1[3] + C3D;
+        }
+    }
     |  Statement1 Source2
+    {
+        if($1 instanceof Array)
+        {
+            C3D = $1[3] + C3D;
+        }
+
+    }
     |  EOF
+
 ;
 
 Statement1
     : Declaration_statements
+    {
+        var r = [];
+        r[0]  = $1[0];
+        r[1] = $1[1];
+        r[2] = $1[2];
+        r[3] = $1[3];
+        $$ = r;
+    }
     | Assignation_statements
+    {
+        var r = [];
+        r[0]  = $1[0];
+        r[1] = $1[1];
+        r[2] = $1[2];
+        r[3] = $1[3];
+        $$ = r;
+    }
     | Native_statements
+    {
+        var r = [];
+        r[0]  = $1[0];
+        r[1] = $1[1];
+        r[2] = $1[2];
+        r[3] = $1[3];
+        $$ = r;
+    }
     | Block_statements
+    {
+        var r = [];
+        r[0]  = $1[0];
+        r[1] = $1[1];
+        r[2] = $1[2];
+        r[3] = $1[3];
+        $$ = r;
+    }
     | If_statements
+    {
+        var r = [];
+        r[0]  = $1[0];
+        r[1] = $1[1];
+        r[2] = $1[2];
+        r[3] = $1[3];
+        $$ = r;
+    }
     | Iteration_statements
+    {
+        var r = [];
+        r[0]  = $1[0];
+        r[1] = $1[1];
+        r[2] = $1[2];
+        r[3] = $1[3];
+        $$ = r;
+    }
     | Return_statements
+    {
+        var r = [];
+        r[0]  = $1[0];
+        r[1] = $1[1];
+        r[2] = $1[2];
+        r[3] = $1[3];
+        $$ = r;
+    }
     | Break_statements
+    {
+        var r = [];
+        r[0]  = $1[0];
+        r[1] = $1[1];
+        r[2] = $1[2];
+        r[3] = $1[3];
+        $$ = r;
+    }
     | Continue_statements
+    {
+        var r = [];
+        r[0]  = $1[0];
+        r[1] = $1[1];
+        r[2] = $1[2];
+        r[3] = $1[3];
+        $$ = r;
+    }
     | Switch_statements
+    {
+        var r = [];
+        r[0]  = $1[0];
+        r[1] = $1[1];
+        r[2] = $1[2];
+        r[3] = $1[3];
+        $$ = r;
+    }
     | Empty_statements
     | error
 ;
@@ -1353,24 +2034,39 @@ Iteration_statements
 
 ExprOpt
     :Expr
+    {
+        $$ = $1;
+    }
 ;
 
 ExprNoInOpt
     :ExprNoIn
+    {
+        $$ = $1;
+    }
 ;
 
 Expr
     : AssignmentExpr
+    {
+        $$ = $1;
+    }
     | Expr ',' AssignmentExpr
 ;
 
 ExprNoIn
     : AssignmentExprNoIn
+    {
+        $$ = $1;
+    }
     | ExprNoIn ',' AssignmentExprNoIn
 ;
 
 ExprNB
     : AssignmentExprNoBF
+    {
+        $$ = $1;
+    }
     | ExprNB ',' AssignmentExprNoBF
 ;
 
@@ -1396,10 +2092,6 @@ TypeV
     | LET
 ;
 
-Type
-    : TypeV ArrayList
-    | TypeV
-;
 
 ArrayList
     : Array ArrayList1
@@ -1423,6 +2115,9 @@ Elements
 
 Element
     : Expr
+    {
+        $$ = $1;
+    }
 ;
 
 Literal
@@ -1549,6 +2244,9 @@ PrimaryExprNoBrace
         $$ = $1;
     }
     | ArrayLiteral
+    {
+        $$ = $1;
+    }
     | IDENT
     {
         var r = [];
@@ -1566,6 +2264,9 @@ PrimaryExprNoBrace
         $$ = $2;
     }
     | Expr1_statements
+    {
+        $$ = $1;
+    }
 ;
 
 Expr1_statements
@@ -1590,7 +2291,182 @@ Expr1_statements
 
 ArrayLiteral
     : '[' ']'
+    {
+        var temp = Temp.getTemporal();
+        var r = [];
+        r[0] = "ARREGLO";
+        r[1] = temp;
+        r[2] = '';
+
+        var valor = '';
+        valor += temp + ' = ' + temp + ' + 1;';
+        valor += '\n';
+        valor += 'heap['+temp+'] = -1;';
+        valor += '\n';
+        var a = new intermedia.arreglo();
+        a.c3d = valor;
+        a.positions.push(0);
+
+        r[3] = valor;
+        r[4] = '';
+        r[5] = [];
+        r[6] = a;
+        r[7] = 0;
+        r[8] = '';
+
+        $$ = r;
+    }
     | '[' ElementList ']'
+    {
+        var temp = Temp.getTemporal();
+        var r = [];
+        r[0] = "ARREGLO";
+        r[1] = temp;
+        r[2] = '';
+        var lm = false;
+        var valor = '';
+        var arreglito = new intermedia.arreglo();
+
+        if($2[0][6] instanceof intermedia.arreglo)
+        {
+            var tipo = $2[0][6].tipo.toUpperCase();
+            var pass = false;
+            r[8] = tipo;
+
+            for(let pos of $2)
+            {
+                lm = true;
+
+                valor += temp + ' = ' + temp + ' + 1;';
+                valor += '\n';
+                if(pos[6] instanceof intermedia.arreglo)
+                {
+                    if(pos[6].tipo.toUpperCase() == tipo)
+                    {
+                        pass = true;
+                        var aux = pos[6].tipo.toUpperCase();
+                        switch(aux)
+                        {
+                            case 'STRING':
+                                var val = pos[6].valor;
+                                var temp0 = Temp.getTemporal();
+                                var temp1 = Temp.getTemporal();
+                                valor += temp1 + ' = ' + posS + ';';
+                                valor += temp0 + ' = ' + posS + ';';
+                                valor += '\n';
+                                valor += 'heap['+temp+'] = ' + temp1 + ';';
+                                valor += '\n';
+                                valor += temp1 + ' = ' + temp1 + ' + 1;';
+                                valor += '\n';
+                                var temp2 = Temp.getTemporal();
+                                valor += temp2 + ' = '+ val.length + ';';
+                                valor += '\n';
+                                valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                                valor += '\n';
+                                valor += pos[6].temporal + ' = ' + temp1 + ';';
+                                valor += '\n';
+                                valor += pos[6].c3d;
+                                valor += '\n';
+                                valor += 'heap['+temp+'] = '+temp0+';';
+                                valor += '\n';
+
+                                if(pos >0 && pos != 0) pos++;
+                                if (pos == 0) pos++;
+                                posS += 50000;
+                                break;
+                            case 'NUMBER':
+                                valor += pos[6].c3d;
+                                valor += '\n';
+                                valor += 'heap['+temp+'] = '+pos[6].temporal+';';
+                                valor += '\n';
+                                break;
+                            case 'BOOLEAN':
+                                valor += pos[6].c3d;
+                                valor += '\n';
+                                valor += 'heap['+temp+'] = '+pos[6].temporal+';';
+                                valor += '\n';
+                                break;
+
+                            case 'ARREGLO':
+                                var val = pos[7];
+                                var post = 1;
+                                for(let m of val) post *= m;
+
+                                var temp0 = Temp.getTemporal();
+                                var temp1 = Temp.getTemporal();
+                                valor += temp1 + ' = ' + posA + ';';
+                                valor += temp0 + ' = ' + posA + ';';
+
+                                var temp2 = Temp.getTemporal();
+                                valor += temp2 + ' = '+ post + ';';
+                                valor += '\n';
+                                valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                                valor += '\n';
+                                valor += pos[6].temporal + ' = ' + temp1 + ';';
+                                valor += '\n';
+                                valor += pos[6].c3d;
+                                valor += '\n';
+                                valor += 'heap['+temp+'] = '+temp0+';';
+                                valor += '\n';
+
+                                if(pos >0 && pos != 0) pos++;
+                                if (pos == 0) pos++;
+                                posA += 50000;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        pass = false;
+                        break;
+                    }
+                }
+                else
+                {
+                    pass = false;
+                    break;
+                }
+            }
+            if(pass)
+            {
+                arreglito.c3d = valor;
+                arreglito.temporal = temp;
+                arreglito.bandera = '';
+                arreglito.tipo = 'ARREGLO';
+                r[3] = valor;
+                r[4] = '';
+                r[5] = [];
+
+                var posis = [];
+                posis.push($2.length);
+                if( $2[0][6].tipo.toUpperCase() == 'ARREGLO' )
+                {
+                    for(let o of $2[0][6].positions)
+                    {
+                        posis.push(o);
+                    }
+                }
+                arreglito.positions = posis;
+                r[6] = arreglito;
+                var rra = 1;
+                for(let v of arreglito.positions)rra *= v;
+                r[7] = rra;
+                $$ = r;
+            }
+            else
+            {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar dicha operacion., error en implementacion de tipos.`+'\"}');
+                    $$ = ['','','',''];
+            }
+        }
+
+        if(!lm)
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar dicha operacion.`+'\"}');
+            $$ = ['','','','','','','',''];
+        }
+
+    }
 ;
 ArrayLiterals
     : '[' ElementList ']' ArrayLiterals
@@ -1599,6 +2475,37 @@ ArrayLiterals
 
 ElementList
     : AssignmentExpr
+    {
+        $$ = [];
+        if($1[0].tipo != '')
+        {
+            var r = [];
+            var arrs = new intermedia.arreglo();
+            if($1[0].tipo == 'ARREGLO')
+            {
+                arrs.positions.push($1[7]);
+            }
+            arrs.valor = $1[6];
+            arrs.tipo = $1[0];
+            arrs.c3d = $1[3];
+            arrs.temporal = $1[1];
+            arrs.bandera = $1[2];
+            r[0] = 'ARREGLO';
+            r[1] = $1[1];
+            r[2] = $1[2];
+            r[3] = $1[3];
+            r[4] = '';
+            r[5] = '';
+            r[6] = arrs;
+            r[7] = 1;
+            $$.push(r);
+        }
+        else
+        {
+
+        }
+
+    }
     | ElementList ',' AssignmentExpr
 ;
 
@@ -1708,8 +2615,210 @@ PostfixExprNoBF
 
 UnaryExprCommon
     : '+' UnaryExpr
+    {
+        if($2[0] == '')
+        {
+            var n = tab.getPositionAmbito($2[4]);
+            if(n != null)
+            {
+                var r = [];
+                var valor = '';
+                r[0] = n.tipo;
+
+                var temp0 = Temp.getTemporal();
+                var temp = Temp.getTemporal();
+                valor += $2[3];
+
+                valor += temp0 + ' = '+n.position +';\n';
+                valor += temp + ' = stack['+temp0+'];\n';
+
+                r[1] = temp;
+                r[2] = '';
+                r[3] = valor;
+                r[4] = '';
+                r[5] = '';
+                r[6] = n.valor;
+
+                $$ = r;
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar dicha operacion., la variable ${$2[4]} no existe.`+'\"}');
+                $$ = ['','','',''];
+            }
+        }
+        else if($2[0] != 'STRING' && $2[0] != 'BOOLEAN')
+        {
+            $$ = $2;
+        }
+
+    }
     | '-' UnaryExpr
+    {
+        if($2[0] != 'STRING' && $2[0] != 'BOOLEAN')
+        {
+            if($2[0] == '')
+            {
+                var n = tab.getPositionAmbito($2[4]);
+                if( n != null)
+                {
+                    if(n.tipo.toUpperCase() != 'STRING' && n.tipo.toUpperCase() != 'BOOLEAN')
+                    {
+                        var r = [];
+                        var valor = '';
+                        var temp0 = Temp.getTemporal();
+                        valor += temp0 + ' = ' + n.position + ';\n';
+                        valor += '';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = stack['+temp0+'];\n';
+
+                        var temp1 = Temp.getTemporal();
+                        valor += temp1 + ' = -1 * ' + temp + ';\n';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp1;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number(n.valor) * -1;
+
+                        $$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar dicha operacion.`+'\"}');
+                        $$ = ['','','',''];
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar dicha operacion., no existe la variable ${$2[4]}.`+'\"}');
+                    $$ = ['','','',''];
+                }
+            }
+            else
+            {
+                var r = [];
+                var valor = '';
+                valor += $2[3];
+                valor += '\n';
+
+                var temp = Temp.getTemporal();
+                valor += temp + ' = -1 * ' + $2[1] + ';';
+
+                r[0] = 'NUMBER';
+                r[1] = temp;
+                r[2] = '';
+                r[3] = valor;
+                r[4] = '';
+                r[5] = '';
+                r[6] = Number($2[6]) * -1;
+
+                $$ = r;
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar dicha operacion.`+'\"}');
+            $$ = ['','','',''];
+        }
+    }
     | '!' UnaryExpr
+    {
+        if($2[0] !='STRING' && $2[0] != 'NUMBER')
+        {
+            if($2[0] == 'BOOLEAN')
+            {
+                var r = [];
+                var valor = '';
+                r[0] = 'BOOLEAN';
+
+                var temp = Temp.getTemporal();
+                var label = Label.getBandera();
+                var label1 = Label.getBandera();
+                valor += $2[3];
+
+                valor += 'if('+$2[1]+' == 0) goto '+label+';\n';
+                valor += temp + ' = 0;\n';
+                valor += 'goto '+label1+';\n';
+
+                valor += label + ':\n';
+                valor += '\t'+temp + ' = 1;\n';
+                valor += '\tgoto '+label1+';\n';
+
+                valor += label1 + ':\n';
+
+                r[1] = temp;
+                r[2] = label1;
+                r[3] = valor;
+                r[4] = '';
+                r[5] = '';
+                r[6] = !$2[6];
+
+                $$ = r;
+
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($2[4]);
+                if(n != null)
+                {
+                    if(n.tipo.toUpperCase() == 'BOOLEAN')
+                    {
+                        var r = [];
+                        var valor = '';
+                        r[0] = 'BOOLEAN';
+
+                        var temp0 = Temp.getTemporal();
+                        var temp1 = Temp.getTemporal();
+                        var temp = Temp.getTemporal();
+                        var label = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        valor += $2[3];
+
+                        valor += temp0 + ' = '+n.position +';\n';
+                        valor += temp1 + ' = stack['+temp0+'];\n';
+
+                        valor += 'if('+temp1+' == 0) goto '+label+';\n';
+                        valor += temp + ' = 0;\n';
+                        valor += 'goto '+label1+';\n';
+
+                        valor += label + ':\n';
+                        valor += '\t'+temp + ' = 1;\n';
+                        valor += '\tgoto '+label1+';\n';
+
+                        valor += label1 + ':\n';
+
+                        r[1] = temp;
+                        r[2] = label1;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = !n.valor;
+
+                        $$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar dicha operacion.`+'\"}');
+                        $$ = ['','','',''];
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar dicha operacion., la variable ${$2[4]} no existe.`+'\"}');
+                    $$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar dicha operacion.`+'\"}');
+            $$ = ['','','',''];
+        }
+    }
 ;
 
 UnaryExpr
@@ -8212,6 +9321,7 @@ CondicionTernariaExpr
                 valor += '\t goto '+label3+';\n';
                 valor += label3 + ':\n';
 
+
                 if($1[6] == true)
                 {
                     if(typeof $3[6] == "string")
@@ -8221,13 +9331,13 @@ CondicionTernariaExpr
                     }
                     else if(typeof $3[6] == "number")
                     {
-                        r[0] = (Number($3[6])%1!==0)?'FLOAT':'NUMBER';
+                        r[0] = 'NUMBER';
                         r[6] = Number($3[6]);
                     }
-                    else if(typeof $3[6] == "boolean")
+                    else if(typeof $3[6] == 'boolean')
                     {
                         r[0] = 'BOOLEAN';
-                        r[6] = $5[6];
+                        r[6] = $3[6];
                     }
                     else if($3[6] instanceof Array)
                     {
@@ -8244,7 +9354,7 @@ CondicionTernariaExpr
                     }
                     else if(typeof $5[6] == "number")
                     {
-                        r[0] = (Number($5[6])%1!==0)?'FLOAT':'NUMBER';
+                        r[0] = 'NUMBER';
                         r[6] = Number($5[6]);
                     }
                     else if(typeof $5[6] == "boolean")
@@ -8308,13 +9418,13 @@ CondicionTernariaExpr
                         }
                         else if(typeof $3[6] == "number")
                         {
-                            r[0] = (Number($3[6])%1!==0)?'FLOAT':'NUMBER';
+                            r[0] = 'NUMBER';
                             r[6] = Number($3[6]);
                         }
                         else if(typeof $3[6] == "boolean")
                         {
                             r[0] = 'BOOLEAN';
-                            r[6] = $5[6];
+                            r[6] = $3[6];
                         }
                         else if($3[6] instanceof Array)
                         {
@@ -8418,13 +9528,13 @@ CondicionTernariaExprNoIn
                     }
                     else if(typeof $3[6] == "number")
                     {
-                        r[0] = (Number($3[6])%1!==0)?'FLOAT':'NUMBER';
+                        r[0] = 'NUMBER';
                         r[6] = Number($3[6]);
                     }
                     else if(typeof $3[6] == "boolean")
                     {
                         r[0] = 'BOOLEAN';
-                        r[6] = $5[6];
+                        r[6] = $3[6];
                     }
                     else if($3[6] instanceof Array)
                     {
@@ -8441,7 +9551,7 @@ CondicionTernariaExprNoIn
                     }
                     else if(typeof $5[6] == "number")
                     {
-                        r[0] = (Number($5[6])%1!==0)?'FLOAT':'NUMBER';
+                        r[0] = 'NUMBER';
                         r[6] = Number($5[6]);
                     }
                     else if(typeof $5[6] == "boolean")
@@ -8506,13 +9616,13 @@ CondicionTernariaExprNoIn
                         }
                         else if(typeof $3[6] == "number")
                         {
-                            r[0] = (Number($3[6])%1!==0)?'FLOAT':'NUMBER';
+                            r[0] = 'NUMBER';
                             r[6] = Number($3[6]);
                         }
                         else if(typeof $3[6] == "boolean")
                         {
                             r[0] = 'BOOLEAN';
-                            r[6] = $5[6];
+                            r[6] = $3[6];
                         }
                         else if($3[6] instanceof Array)
                         {

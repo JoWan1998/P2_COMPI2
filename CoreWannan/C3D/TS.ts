@@ -25,7 +25,7 @@ export class TablaSimbolos
     {
         for(let simbolitos of this.simbolos)
         {
-            console.log(`VARIABLE: ${simbolitos.name}   |   TIPO: ${simbolitos.tipo}    |   ROL: ${simbolitos.rol}  |   AMBITO: ${simbolitos.ambito}    |   POSITION: ${simbolitos.position}   |   VALOR: ${simbolitos.valor}`);
+            console.log(`VARIABLE: ${simbolitos.name}   |   TIPO: ${simbolitos.tipo}    |   ROL: ${simbolitos.rol}  |   AMBITO: ${simbolitos.ambito}    |   POSITION: ${simbolitos.position}   |   VALOR: ${simbolitos.valor}   |   CONSTANTE: ${simbolitos.constante}`);
         }
     }
     insert(simbolo:any)
@@ -156,6 +156,7 @@ export class simbolo
     direccion:number;
     direccionrelativa:number;
     tipo:string;
+    constante:boolean;
     valor:any;
 
     constructor() {
@@ -166,6 +167,7 @@ export class simbolo
         this.direccion = -1;
         this.direccionrelativa = -1;
         this.tipo = '';
+        this.constante = false;
     }
 }
 
@@ -207,10 +209,127 @@ export class bandera
     }
 }
 
-class intermediate
+export class Arreglos
 {
-    C3D:string;
-    label:string;
+    valores: any [];
+    constructor() {
+        this.valores = [];
+    }
+    getTam(id,level)
+    {
+        for(let simbolito of this.valores)
+        {
+            if(simbolito instanceof arreglo)
+            {
+                if(simbolito.name == name)
+                {
+                    let count = 1;
+                    for(let pos of simbolito.positions)
+                    {
+                        if(count == level) return pos;
+                        count++;
+                    }
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+    getValores(id)
+    {
+        for(let simbolito of this.valores)
+        {
+            if(simbolito instanceof arreglo)
+            {
+                if(simbolito.name == name)
+                {
+                    return simbolito.getValores();
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+}
+
+
+export class arreglo
+{
+    positions:any [];
+    valor:any [];
+    name:string;
+    tipo:string;
+    c3d:string;
     temporal:string;
+    bandera:string;
+
+    constructor() {
+        this.positions = [];
+        this.valor = [];
+        this.name = '';
+        this.c3d = '';
+    }
+
+    getValores(): any[]
+    {
+        let value = [];
+        for(let pos of this.positions)
+        {
+            if(pos instanceof Array)
+            {
+                let aux = this.getValores1(pos);
+                for(let posaux of aux)
+                {
+                    value.push(posaux);
+                }
+            }
+            else if(pos instanceof arreglo)
+            {
+                let aux = pos.getValores();
+                for(let posaux of aux)
+                {
+                    value.push(posaux);
+                }
+            }
+            else
+            {
+                value.push(pos);
+            }
+        }
+        return value;
+    }
+    getValores1(val):any[]
+    {
+        let value = []
+        for(let pos of val)
+        {
+            if(pos instanceof Array)
+            {
+                let aux = this.getValores1(pos);
+                for(let posaux of aux)
+                {
+                    value.push(posaux);
+                }
+            }
+            else if(pos instanceof arreglo)
+            {
+                let aux = pos.getValores();
+                for(let posaux of aux)
+                {
+                    value.push(posaux);
+                }
+            }
+            else
+            {
+                value.push(pos);
+            }
+        }
+        return value;
+    }
 
 }

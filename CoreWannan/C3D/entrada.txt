@@ -1,7 +1,16 @@
-let a:number = 5+5+5;
-let m:string = 'hola {' + a + '};';
-let c:number = a/a;
-let d:boolean = true;
-let f:boolean = a > 10;
-let k = d && f;
-let condicional = (25>15)?'string':15;
+//let a:number = 5+5+5;
+//let m:string = 'hola {' + a + '};';
+//let c:number = a/a;
+//let d:boolean = true;
+//let f:boolean = a > 10;
+//let k = d && f;
+//let condicional = (25>15)?true:15;
+//let condiciona1 = !!!!!!!!!!!!!!!!!!!!condicional;
+//let numeronegar = -1552;
+//let numeronega1 = +numeronegar
+let am = [0];
+let amm : number [] = ['1'];
+//let prueba = 1;
+//let prueb1 : number = prueba+1;
+//const prueb2 = prueb1+1;
+
