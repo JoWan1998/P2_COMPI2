@@ -1,0 +1,389 @@
+//  UNIVERSIDAD DE SAN CARLOS DE GUATEMALA
+//  JOSE ORLANDO WANNAN ESCOBAR - 2020
+
+%
+// ANALISIS LEXICO
+%lex
+%options case-sensitive
+%%
+
+"//".*                          /* ignore comment*/
+"/*"[^"*/"]* "*/"               /* ignore c-style comment*/
+\s+                             /* skip whitespace */
+\\r                              /* skip retorno de carro */
+\\n                              /* skip salto linea */
+\\t                              /* skip tabulacion */
+
+"null"                          return 'NULLTOKEN'
+"true"                          return 'TRUETOKEN'
+"false"                         return 'FALSETOKEN'
+
+"const"                         return 'CONST'
+"let"                           return 'LET'
+"var"                           return 'VAR'
+"number"                        return 'NUMBERS'
+"boolean"                       return 'BOOLEAN'
+"string"                        return 'STRING'
+"void"                          return 'VOID'
+"type"                          return 'TYPE'
+"Array"                         return 'ARRAYS'
+"new"                           return 'NEWT'
+
+'console'                       return 'CONSOLE'
+'log'                           return 'LOG'
+
+"break"                         return 'BREAK'
+"continue"                      return 'CONTINUE'
+"default"                       return 'DEFAULT'
+"case"                          return 'CASE'
+"switch"                        return 'SWITCH'
+"function"                      return 'FUNCTION'
+"if"                            return 'IF'
+"Do"                            return 'DO'
+"While"                         return 'WHILE'
+"else"                          return 'ELSE'
+"for"                           return 'FOR'
+"of"                            return 'OFTOKEN'
+"in"                            return 'INTOKEN'
+"return"                        return 'RETURN'
+
+"Length"                        return 'LENGTH'
+"CharAt"                        return 'CHARAT'
+"ToLowerCase"                   return 'TOLOWER'
+"ToUpperCase"                   return 'TOUPPER'
+"Concat"                        return 'CONCAT'
+
+"+="                            return '+='
+"-="                            return '-='
+"/="                            return '/='
+"*="                            return '*='
+"^="                            return '^='
+"%="                            return '%='
+
+"=="                            return 'EQQ'
+"!="                            return 'NOEQQ'
+">="                            return 'MAQ'
+"<="                            return 'MIQ'
+">"                             return '>'
+"<"                             return '<'
+
+"||"                            return 'OR'
+"&&"                            return 'AND'
+"!"                             return '!'
+
+"++"                            return 'PLUSPLUS'
+"--"                            return 'MINSMINS'
+"**"                             return 'POTENCIA'
+
+"+"                             return '+'
+"-"                             return '-'
+"*"                             return '*'
+"/"                             return '/'
+"%"                             return '%'
+
+[a-zA-Z_\$][a-zA-Z0-9_\$]*      return 'IDENT'
+[0-9]+("."[0-9]+)?\b            return 'NUMBER';
+\"[^\"]*\"
+\'[^\']*\'
+
+
+'='                             return '='
+';'                             return ';'
+':'                             return ':'
+','                             return ','
+'.'                             return '.'
+'('                             return '('
+')'                             return ')'
+'['                             return '['
+']'                             return ']'
+''                             return 'CLOSEBRACE'
+'?'                             return '?'
+
+<<EOF>>                         return 'EOF';
+.                               {};
+
+/lex
+
+// OPERATORS PRECEDENCE
+
+%left '+' '-'
+%left '*' '/'
+%left POTENCIA
+%left UMINUS
+
+
+%nonassoc IF_WITHOUT_ELSE
+%nonassoc ELSE
+
+%start S
+
+%%
+
+// ANALISIS SINTACTICO
+
+S
+    : Source1
+    | EOF
+;
+
+
+Source1
+    :  Statement
+    |  Statement Source1
+    |  EOF
+
+;
+
+
+Statement
+    : Declaration_statements
+    | Assignation_statements
+    | Function_statements
+    | Native_statements
+    | Block_statements
+    | If_statements
+    | Iteration_statements
+    | Return_statements
+    | Break_statements
+    | Continue_statements
+    | Switch_statement
+    | Empty_statements
+    | error
+;
+
+Native_statements
+    : CONSOLE '.' LOG '(' Expr ')' ';'
+    | CONSOLE '.' LOG '(' Expr ')'
+;
+
+Expr_statements
+    : ExprNB ';'
+    | ExprNB
+;
+
+Empty_statements
+    : ';'
+;
+
+Block_statements
+    : OPENBRACE CLOSEBRACE
+    | OPENBRACE Source2 CLOSEBRACE
+
+;
+
+Assignation_statements
+    : IDENT '=' NEWT ARRAYS '(' Expr ')'
+    | IDENT '=' AssignmentExpr
+    | Expr1_statements
+
+;
+
+Expr
+    : AssignmentExpr
+;
+
+ExprNoIn
+    : AssignmentExprNoIn
+
+;
+
+ExprNB
+    : AssignmentExprNoBF
+
+;
+
+ParameterList
+    : Parameter ',' ParameterList
+    | Parameter
+;
+
+Parameter
+    : IDENT ':' Type
+    | IDENT
+;
+
+TypeV
+    : STRING
+    | NUMBERS
+    | BOOLEAN
+    | VOID
+    | VAR
+    | CONST
+    | TYPE
+    | IDENT
+    | LET
+;
+
+
+ArrayList
+    : Array ArrayList1
+    | Array
+;
+ArrayList1
+    : Array ArrayList1
+    | Array
+    | EOF
+;
+
+Array
+    : '[' ']'
+;
+
+
+Elements
+    : Element ',' Elements
+    | Element
+;
+
+Element
+    : Expr
+
+;
+
+Literal
+    : NULLTOKEN
+    | TRUETOKEN
+    | FALSETOKEN
+    | NUMBER
+    | CADENA
+    | CADENA2
+;
+
+Property
+    : IDENT ':' AssignmentExpr
+    | IDENT ':' TypeV
+    | EOF
+;
+
+PropertyList
+    : Property
+    | Property ',' PropertyList
+;
+
+PrimaryExpr
+    : PrimaryExprNoBrace
+    | OPENBRACE CLOSEBRACE
+    | OPENBRACE PropertyList CLOSEBRACE
+
+;
+
+PrimaryExprNoBrace
+    : Literal
+    | ArrayLiteral
+    | IDENT
+    | '(' Expr ')'
+    | Expr1_statements
+
+;
+
+Expr1_statements
+    : IDENT Expr1_statement
+    | IDENT  PLUSPLUS
+    | IDENT  MINSMINS
+    | MINSMINS IDENT
+    | PLUSPLUS IDENT
+    | IDENT Expr1_statement PLUSPLUS
+    | IDENT Expr1_statement MINSMINS
+    | MINSMINS IDENT Expr1_statement
+    | PLUSPLUS IDENT Expr1_statement
+    | IDENT '.' LENGTH
+    | IDENT Expr1_statement '.' LENGTH
+    | IDENT '.' CHARAT '(' Expr ')'
+    | IDENT '.' TOLOWER '(' ')'
+    | IDENT '.' TOUPPER '(' ')'
+    | IDENT '.' CONCAT '(' Expr ')'
+    | IDENT Expr1_statement '=' AssignmentExpr ';'
+    | IDENT Expr1_statement '=' AssignmentExpr
+
+;
+
+ArrayLiteral
+    : '[' ']'
+
+    | '[' ElementList ']'
+
+;
+ArrayLiterals
+    : '[' ElementList ']' ArrayLiterals
+    | '[' ElementList ']'
+;
+
+ElementList
+    : AssignmentExpr
+    | ElementList ',' AssignmentExpr
+
+;
+
+
+MemberExpr
+    : PrimaryExpr
+    | MemberExpr '[' Expr ']'
+;
+
+MemberExprNoBF
+    : PrimaryExprNoBrace
+    | MemberExprNoBF '[' Expr ']'
+;
+
+
+
+CallExpr
+    : IDENT
+    | CallExpr Arguments
+    | CallExpr '[' Expr ']'
+;
+
+CallExprNoBF
+    : IDENT
+    | CallExprNoBF Arguments
+    | CallExprNoBF '[' Expr ']'
+;
+
+Arguments
+    : '(' ')'
+    | '(' ArgumentList ')'
+;
+
+ArgumentList
+    : AssignmentExpr
+    | ArgumentList ',' AssignmentExpr
+;
+
+LeftHandSideExpr
+    : MemberExpr
+    | CallExpr
+
+;
+
+LeftHandSideExprNoBF
+    : MemberExpr
+    | CallExprNoBF
+
+;
+
+PostfixExpr
+    : LeftHandSideExpr
+
+;
+
+PostfixExprNoBF
+    : LeftHandSideExprNoBF
+
+;
+
+UnaryExprCommon
+    : '+' UnaryExpr
+    | '-' UnaryExpr
+    | '!' UnaryExpr
+;
+
+UnaryExpr
+    : PostfixExpr
+    | UnaryExprCommon
+
+;
+
+AssignmentExpr
+    : UnaryExpr
+;
+

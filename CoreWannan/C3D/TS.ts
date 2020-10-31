@@ -30,7 +30,87 @@ export class TablaSimbolos
     }
     insert(simbolo:any)
     {
+        if(this.ambitoLevel = 0)
+        {
+            simbolo.entorno = 'global';
+        }
         this.simbolos.push(simbolo);
+    }
+    update(name:string, simbolor:any):boolean
+    {
+        let ambitoglob = true;
+        let ambitoloc = false;
+
+        for(let simbolito of this.simbolos) {
+            if (simbolito instanceof simbolo) {
+                if (simbolito.name == name) {
+
+                    if(simbolito.ambito == this.ambitoLevel && this.ambitoLevel>0 && simbolito.ambito >0)
+                    {
+                        ambitoglob = false;
+                        ambitoloc = true;
+                    }
+                    else if(simbolito.ambito < this.ambitoLevel && this.ambitoLevel>0 && simbolito.ambito >0)
+                    {
+                        ambitoglob = false;
+                    }
+                }
+            }
+        }
+
+        if(ambitoglob)
+        {
+            for(let simbolito of this.simbolos)
+            {
+                if(simbolito instanceof simbolo)
+                {
+                    if(simbolito.name == name && simbolito.ambito == 0)
+                    {
+                        simbolito = simbolor;
+                        return true;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if(ambitoloc)
+            {
+                for(let simbolito of this.simbolos)
+                {
+                    if (simbolito instanceof simbolo)
+                    {
+                        if (simbolito.name == name)
+                        {
+                            if(simbolito.ambito == this.ambitoLevel)
+                            {
+                                simbolito = simbolor;
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for(let simbolito of this.simbolos)
+                {
+                    if (simbolito instanceof simbolo)
+                    {
+                        if (simbolito.name == name)
+                        {
+                            if(simbolito.ambito < this.ambitoLevel && simbolito.ambito >0)
+                            {
+                                simbolito = simbolor;
+                                return true;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        return false;
     }
     getPosition(name:string): number
     {
@@ -158,6 +238,7 @@ export class simbolo
     tipo:string;
     constante:boolean;
     valor:any;
+    entorno:string;
 
     constructor() {
         this.ambito = -1;
@@ -168,6 +249,7 @@ export class simbolo
         this.direccionrelativa = -1;
         this.tipo = '';
         this.constante = false;
+        this.entorno  = '';
     }
 }
 
@@ -221,7 +303,7 @@ export class Arreglos
         {
             if(simbolito instanceof arreglo)
             {
-                if(simbolito.name == name)
+                if(simbolito.name == id)
                 {
                     let count = 1;
                     for(let pos of simbolito.positions)

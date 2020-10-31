@@ -28,7 +28,68 @@ var TablaSimbolos = /** @class */ (function () {
         }
     };
     TablaSimbolos.prototype.insert = function (simbolo) {
+        if (this.ambitoLevel = 0) {
+            simbolo.entorno = 'global';
+        }
         this.simbolos.push(simbolo);
+    };
+    TablaSimbolos.prototype.update = function (name, simbolor) {
+        var ambitoglob = true;
+        var ambitoloc = false;
+        for (var _i = 0, _a = this.simbolos; _i < _a.length; _i++) {
+            var simbolito = _a[_i];
+            if (simbolito instanceof simbolo) {
+                if (simbolito.name == name) {
+                    if (simbolito.ambito == this.ambitoLevel && this.ambitoLevel > 0 && simbolito.ambito > 0) {
+                        ambitoglob = false;
+                        ambitoloc = true;
+                    }
+                    else if (simbolito.ambito < this.ambitoLevel && this.ambitoLevel > 0 && simbolito.ambito > 0) {
+                        ambitoglob = false;
+                    }
+                }
+            }
+        }
+        if (ambitoglob) {
+            for (var _b = 0, _c = this.simbolos; _b < _c.length; _b++) {
+                var simbolito = _c[_b];
+                if (simbolito instanceof simbolo) {
+                    if (simbolito.name == name && simbolito.ambito == 0) {
+                        simbolito = simbolor;
+                        return true;
+                    }
+                }
+            }
+        }
+        else {
+            if (ambitoloc) {
+                for (var _d = 0, _e = this.simbolos; _d < _e.length; _d++) {
+                    var simbolito = _e[_d];
+                    if (simbolito instanceof simbolo) {
+                        if (simbolito.name == name) {
+                            if (simbolito.ambito == this.ambitoLevel) {
+                                simbolito = simbolor;
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                for (var _f = 0, _g = this.simbolos; _f < _g.length; _f++) {
+                    var simbolito = _g[_f];
+                    if (simbolito instanceof simbolo) {
+                        if (simbolito.name == name) {
+                            if (simbolito.ambito < this.ambitoLevel && simbolito.ambito > 0) {
+                                simbolito = simbolor;
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     };
     TablaSimbolos.prototype.getPosition = function (name) {
         for (var _i = 0, _a = this.simbolos; _i < _a.length; _i++) {
@@ -128,6 +189,7 @@ var simbolo = /** @class */ (function () {
         this.direccionrelativa = -1;
         this.tipo = '';
         this.constante = false;
+        this.entorno = '';
     }
     return simbolo;
 }());
@@ -168,7 +230,7 @@ var Arreglos = /** @class */ (function () {
         for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
             var simbolito = _a[_i];
             if (simbolito instanceof arreglo) {
-                if (simbolito.name == name) {
+                if (simbolito.name == id) {
                     var count = 1;
                     for (var _b = 0, _c = simbolito.positions; _b < _c.length; _b++) {
                         var pos = _c[_b];

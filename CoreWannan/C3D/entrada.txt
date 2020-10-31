@@ -1,16 +1,8 @@
-//let a:number = 5+5+5;
-//let m:string = 'hola {' + a + '};';
-//let c:number = a/a;
-//let d:boolean = true;
-//let f:boolean = a > 10;
-//let k = d && f;
-//let condicional = (25>15)?true:15;
-//let condiciona1 = !!!!!!!!!!!!!!!!!!!!condicional;
-//let numeronegar = -1552;
-//let numeronega1 = +numeronegar
-let am = [0];
-let amm : number [] = ['1'];
-//let prueba = 1;
-//let prueb1 : number = prueba+1;
-//const prueb2 = prueb1+1;
-
+let a:number = 1989.5 + 0.5 + 8;
+let b:string =  a + ': hola mundo';
+let c = !((a>1997)?true:false);
+let d = new Array(5);
+d = [[0],[1],[55],[1555]];
+a = 1900;
+console.log("TAMAÑO: ["+b.length, "], VALOR: ["+b+"]");
+let k = d[0][2];

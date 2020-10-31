@@ -5,6 +5,7 @@
     var lexicos = [];
     var sintacticos = [];
     var semanticos = [];
+    var errores = [];
     var ast = [];
     var intermedia = require('./TS.js');
     var tab = new intermedia.TablaSimbolos();
@@ -14,7 +15,7 @@
     var pos = 0;
     var C3D = '';
     var posS = 0;
-    var posA = 2145000000;
+    var posA = 300000;
 %}
 // ANALISIS LEXICO
 %lex
@@ -61,7 +62,7 @@
 "in"                            return 'INTOKEN'
 "return"                        return 'RETURN'
 
-"Length"                        return 'LENGTH'
+"length"                        return 'LENGTH'
 "CharAt"                        return 'CHARAT'
 "ToLowerCase"                   return 'TOLOWER'
 "ToUpperCase"                   return 'TOUPPER'
@@ -142,8 +143,27 @@
 S
     : Source1
     {
+        var valor = '';
+        valor += '#include <stdio.h>\n';
+        valor += 'float stack[10000000]={-1};\nfloat heap[10000000] = {-1};\n';
+        valor += 'float ';
+        for(let k of Temp.temporales)
+        {
+            valor += k + ',';
+        }
+        valor = valor.slice(0, -1);
+        valor +=' = -1;\nint main()\n{\n';
+        valor += C3D;
+        valor +='return 0;\n}';
+        $$ =[];
+        $$.push(valor);
         console.log('-----      CODIGO         ------')
-        console.log(C3D);
+        //console.log(valor);
+        console.log('-----      ERRORES        ------');
+        for(let m of errores)
+        {
+            console.log(m);
+        }
         console.log('-----   ERRORES LEXICOS   ------');
         for(let m of lexicos)
         {
@@ -161,6 +181,7 @@ S
         }
         console.log('----- TABLA DE SIMBOLOS  ------');
         tab.printSimbolos();
+        return $$;
     }
     | EOF
 ;
@@ -289,35 +310,218 @@ Statement
     }
     | Empty_statements
     | error
+      {
+        console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column);
+        sintacticos.push('{\"token\":\"'+yytext+'\", \"linea\":\"'+this._$.first_line+'\", \"columna\":\"'+this._$.first_column+'\"}');
+        $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"\"}';
+      }
 ;
 
 Native_statements
     : CONSOLE '.' LOG '(' Expr ')' ';'
     {
-        //0 -> tipo
-        //1 -> temporal
-        //2 -> label
-        //3 -> C3D
-        //4 -> nameVariable (if exists)
-
 
         var r = [];
-        if($5[0] == "STRING")
+        if($5[0] == 'ARPRINT')
         {
+            r[3] = '';
+            for(let val of $5[1])
+            {
+                 if(val[0] == "STRING")
+                 {
+                     var valor = '';
+                     for(var a =0; a<val[6].length;a++)
+                     {
+                         valor += 'printf("%c",(char)'+val[6].charCodeAt(a)+');\n';
+                     }
 
+                     r[3] += valor;
+                 }
+                 else if(val[0] == "NUMBER")
+                 {
+                     if(val[6]%1==0)
+                     {
+                         var valor = val[3];
+                         valor += '\n';
+                         valor += 'printf("%d",(int)'+val[1]+');\n';
+                         r[3] += valor;
+                     }
+                     else
+                     {
+                         var valor = val[3];
+                         valor += '\n';
+                         valor += 'printf("%f",(float)'+val[1]+');\n';
+                         r[3] += valor;
+                     }
+                 }
+                 else if(val[0] == "FLOAT")
+                 {
+                     var valor = val[3];
+                     valor += '\n';
+                     valor += 'printf("%f",(float)'+val[1]+');\n';
+                     r[3] += valor;
+                 }
+                 else if(val[0] == "BOOLEAN")
+                 {
+                     //convert ASCII
+                     var valor = val[3];
+                     valor += '\n';
+                     var label = Label.getBandera();
+                     var label1 = Label.getBandera();
+                     valor += `if(${$5[1]}==0) goto ${label};\n`;
+                     valor += `printf("true");\n`;
+                     valor += `goto ${label1};\n`;
+                     valor += `${label}:\n`;
+                     valor += `printf("false");\n`;
+                     valor += `goto ${label1};\n`;
+                     valor += `${label1}:\n`;
+                     valor += 'printf("\\n");\n';
+                     r[3] = valor;
+                 }
+                 else
+                 {
+                     if(val[4] != '')
+                     {
+                         var n = tab.getPositionAmbito(val[4]);
+                         if(n!=null && n!=undefined)
+                         {
+                             if(n.rol.toUpperCase() == "ARREGLO")
+                             {
+
+
+         
+                             }
+                             else if(n.rol.toUpperCase() == "VARIABLE")
+                             {
+                                 if(n.tipo.toUpperCase() == "NUMBER")
+                                 {
+                                     if(n.valor%1==0)
+                                     {
+                                         var valor = '';
+                                         valor += '\n';
+                                         var temp = Temp.getTemporal();
+                                         valor = temp+' = stack['+n.position+'];';
+                                         valor += '\n';
+                                         valor += 'printf("%d",(int)'+temp+');\n';
+
+                                         r[3] += valor;
+                                     }
+                                     else
+                                     {
+                                         var valor = '';
+                                         valor += '\n';
+                                         var temp = Temp.getTemporal();
+                                         valor = temp+' = stack['+n.position+'];';
+                                         valor += '\n';
+                                         valor += 'printf("%f",(float)'+temp+');\n';
+                                         r[3] += valor;
+                                     }
+         
+                                 }
+                                 else if(n.tipo.toUpperCase() == "FLOAT")
+                                 {
+                                     var valor = '';
+                                     valor += '\n';
+                                     var temp = Temp.getTemporal();
+                                     valor = temp+' = stack['+n.position+'];';
+                                     valor += '\n';
+                                     valor += 'printf("%f",(float)'+temp+');\n';
+                                     r[3] += valor;
+                                 }
+                                 else if(n.tipo.toUpperCase() == "STRING")
+                                 {
+                                     var valor = '';
+                                     valor += '\n';
+         
+                                     var temp = Temp.getTemporal();
+                                     valor = temp + ' = stack['+n.position+'];';
+         
+                                     var temp1 = Temp.getTemporal();
+                                     valor += '\n';
+                                     valor += temp1 + '= heap[(int)'+temp+'];\n';
+                                     valor += temp1 + ' = '+ temp1 + ' + 1;';
+         
+                                     var temp2  = Temp.getTemporal();
+                                     valor += '\n';
+                                     valor += temp2 + '= heap[(int)'+temp1+'];';
+         
+                                     var temp3 = Temp.getTemporal();
+                                     valor += '\n';
+                                     valor += temp3 + ' = 0;';
+         
+                                     var label = Label.getBandera();
+                                     valor += '\n';
+                                     valor += label + ':';
+                                     var label1 = Label.getBandera();
+         
+                                     valor += '\n';
+                                     valor += 'if(' + temp3 + '==' + temp2 + ') goto '+label1+';';
+                                     valor += '\n';
+         
+                                     var temp4 = Temp.getTemporal();
+                                     valor += temp4 + ' = ' + temp3 + ' + ' + temp1 + ';';
+                                     valor += '\n';
+                                     valor += temp3 + ' = ' + temp3 + ' + 1;';
+                                     valor += '\n';
+         
+                                     var temp5 = Temp.getTemporal();
+                                     valor += temp5 + ' = heap[(int)' + temp4 + '];';
+                                     valor += '\n';
+                                     valor += 'printf("%c",(char)' + temp5 + ');';
+                                     valor += '\n';
+                                     valor += 'goto ' + label + ';';
+                                     valor += '\n';
+                                     valor += label1 + ':';
+                                     valor += '\n';
+                                     r[3] += valor;
+                                 }
+                             }
+                         }
+                         else
+                         {
+                             semanticos.push('{\"valor\":\"'+`Error Semantico en la linea: ${(yylineno+1)}, no existe la variable ${val[4]}`+'\"}');
+                             r[3] = '';
+                         }
+                     }
+                 }
+            }
+            r[3] += 'printf("\\n");\n';
+        }
+        else if($5[0] == "STRING")
+        {
+            var valor = '';
+            for(var a =0; a<$5[6].length;a++)
+            {
+                valor += 'printf("%c",(char)'+$5[6].charCodeAt(a)+');\n';
+            }
+            valor += 'printf("\\n");\n';
+            r[3] = valor;
         }
         else if($5[0] == "NUMBER")
         {
-            var valor = $5[3];
-            valor += '\n';
-            valor += 'printf("%d",'+$5[1]+');';
-            r[3] = valor;
+            if($5[6]%1==0)
+            {
+                var valor = $5[3];
+                valor += '\n';
+                valor += 'printf("%d",(int)'+$5[1]+');\n';
+                valor += 'printf("\\n");\n';
+                r[3] = valor;
+            }
+            else
+            {
+                var valor = $5[3];
+                valor += '\n';
+                valor += 'printf("%f",(float)'+$5[1]+');\n';
+                valor += 'printf("\\n");\n';
+                r[3] = valor;
+            }
         }
         else if($5[0] == "FLOAT")
         {
             var valor = $5[3];
             valor += '\n';
-            valor += 'printf("%f",'+$5[1]+');';
+            valor += 'printf("%f",(float)'+$5[1]+');\n';
+            valor += 'printf("\\n");\n';
             r[3] = valor;
         }
         else if($5[0] == "BOOLEAN")
@@ -325,7 +529,16 @@ Native_statements
             //convert ASCII
             var valor = $5[3];
             valor += '\n';
-            valor += 'printf("%f",'+$5[1]+');';
+            var label = Label.getBandera();
+            var label1 = Label.getBandera();
+            valor += `if(${$5[1]}==0) goto ${label};\n`;
+            valor += `printf("true");\n`;
+            valor += `goto ${label1};\n`;
+            valor += `${label}:\n`;
+            valor += `printf("false");\n`;
+            valor += `goto ${label1};\n`;
+            valor += `${label1}:\n`;
+            valor += 'printf("\\n");\n';
             r[3] = valor;
         }
         else
@@ -343,13 +556,48 @@ Native_statements
                     {
                         if(n.tipo.toUpperCase() == "NUMBER")
                         {
+                            if(n.valor%1==0)
+                            {
+                                var valor = '';
+                                valor += '\n';
+                                var temp = Temp.getTemporal();
+                                valor = temp+' = stack['+n.position+'];';
+                                valor += '\n';
+                                valor += 'printf("%d",(int)'+temp+');\n';
+                                valor += 'printf("\\n");\n';
+                                r[3] = valor;
+                            }
+                            else
+                            {
+                                var valor = '';
+                                valor += '\n';
+                                var temp = Temp.getTemporal();
+                                valor = temp+' = stack['+n.position+'];';
+                                valor += '\n';
+                                valor += 'printf("%f",(float)'+temp+');\n';
+                                valor += 'printf("\\n");\n';
+                                r[3] = valor;
+                            }
+
+                        }
+                        else if(n.tipo.toUpperCase() == "BOOLEAN")
+                        {
                             var valor = '';
                             valor += '\n';
                             var temp = Temp.getTemporal();
-                            valor = temp+' = stack['+n.position+'];';
-                            valor += '\n';
-                            valor += 'printf("%d",'+temp+');';
+                            var label = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            valor = temp+' = stack['+n.position+'];\n';
+                            valor += `if(${temp}==0) goto ${label};\n`;
+                            valor += `printf("true");\n`;
+                            valor += `goto ${label1};\n`;
+                            valor += `${label}:\n`;
+                            valor += `printf("false");\n`;
+                            valor += `goto ${label1};\n`;
+                            valor += `${label1}:\n`;
+                            valor += 'printf("\\n");\n';
                             r[3] = valor;
+
                         }
                         else if(n.tipo.toUpperCase() == "FLOAT")
                         {
@@ -358,7 +606,8 @@ Native_statements
                             var temp = Temp.getTemporal();
                             valor = temp+' = stack['+n.position+'];';
                             valor += '\n';
-                            valor += 'printf("%f",'+temp+');';
+                            valor += 'printf("%f",(float)'+temp+');\n';
+                            valor += 'printf("\\n");\n';
                             r[3] = valor;
                         }
                         else if(n.tipo.toUpperCase() == "STRING")
@@ -371,16 +620,16 @@ Native_statements
 
                             var temp1 = Temp.getTemporal();
                             valor += '\n';
-                            valor += temp1 + '= stack['+temp+'];';
+                            valor += temp1 + '= heap[(int)'+temp+'];\n';
                             valor += temp1 + ' = '+ temp1 + ' + 1;';
 
                             var temp2  = Temp.getTemporal();
                             valor += '\n';
-                            valor += temp2 + '= heap['+temp1+'];';
+                            valor += temp2 + '= heap[(int)'+temp1+'];';
 
                             var temp3 = Temp.getTemporal();
                             valor += '\n';
-                            valor += temp3 + ' = 1;';
+                            valor += temp3 + ' = 0;';
 
                             var label = Label.getBandera();
                             valor += '\n';
@@ -392,20 +641,21 @@ Native_statements
                             valor += '\n';
 
                             var temp4 = Temp.getTemporal();
-                            valor += temp4 + ' = ' + temp3 + ' + ' + temp2 + ';';
+                            valor += temp4 + ' = ' + temp3 + ' + ' + temp1 + ';';
                             valor += '\n';
                             valor += temp3 + ' = ' + temp3 + ' + 1;';
                             valor += '\n';
 
                             var temp5 = Temp.getTemporal();
-                            valor += temp5 + ' = heap[' + temp4 + '];';
+                            valor += temp5 + ' = heap[(int)' + temp4 + '];';
                             valor += '\n';
-                            valor += 'printf("%c",' + temp5 + ');';
+                            valor += 'printf("%c",(char)' + temp5 + ');';
                             valor += '\n';
                             valor += 'goto ' + label + ';';
                             valor += '\n';
                             valor += label1 + ':';
                             valor += '\n';
+                            valor += 'printf("\\n");\n';
                             r[3] = valor;
                         }
                     }
@@ -420,11 +670,343 @@ Native_statements
         $$ = r;
     }
     | CONSOLE '.' LOG '(' Expr ')'
+    {
+        //0 -> tipo
+        //1 -> temporal
+        //2 -> label
+        //3 -> C3D
+        //4 -> nameVariable (if exists)
+
+
+        var r = [];
+        if($5[0] == 'ARPRINT')
+        {
+            r[3] = '';
+            for(let val of $5[1])
+            {
+                 if(val[0] == "STRING")
+                 {
+                     var valor = '';
+                     for(var a =0; a<val[6].length;a++)
+                     {
+                         valor += 'printf("%c",(char)'+val[6].charCodeAt(a)+');\n';
+                     }
+                     r[3] += valor;
+                 }
+                 else if(val[0] == "NUMBER")
+                 {
+                     if(val[6]%1==0)
+                     {
+                         var valor = val[3];
+                         valor += '\n';
+                         valor += 'printf("%d",(int)'+val[1]+');\n';
+                         r[3] += valor;
+                     }
+                     else
+                     {
+                         var valor = val[3];
+                         valor += '\n';
+                         valor += 'printf("%f",(float)'+val[1]+');\n';
+                         r[3] += valor;
+                     }
+                 }
+                 else if(val[0] == "FLOAT")
+                 {
+                     var valor = val[3];
+                     valor += '\n';
+                     valor += 'printf("%f",(float)'+val[1]+');\n';
+                     r[3] += valor;
+                 }
+                 else if(val[0] == "BOOLEAN")
+                 {
+                     //convert ASCII
+                    var valor = $5[3];
+                    valor += '\n';
+                    var label = Label.getBandera();
+                    var label1 = Label.getBandera();
+                    valor += `if(${$5[1]}==0) goto ${label};\n`;
+                    valor += `printf("true");\n`;
+                    valor += `goto ${label1};\n`;
+                    valor += `${label}:\n`;
+                    valor += `printf("false");\n`;
+                    valor += `goto ${label1};\n`;
+                    valor += `${label1}:\n`;
+                    valor += 'printf("\\n");\n';
+                    r[3] = valor;
+                 }
+                 else
+                 {
+                     if(val[4] != '')
+                     {
+                         var n = tab.getPositionAmbito(val[4]);
+                         if(n!=null && n!=undefined)
+                         {
+                             if(n.rol.toUpperCase() == "ARREGLO")
+                             {
+
+                             }
+                             else if(n.rol.toUpperCase() == "VARIABLE")
+                             {
+                                 if(n.tipo.toUpperCase() == "NUMBER")
+                                 {
+                                     if(n.valor%1==0)
+                                     {
+                                         var valor = '';
+                                         valor += '\n';
+                                         var temp = Temp.getTemporal();
+                                         valor = temp+' = stack['+n.position+'];';
+                                         valor += '\n';
+                                         valor += 'printf("%d",(int)'+temp+');\n';
+
+                                         r[3] += valor;
+                                     }
+                                     else
+                                     {
+                                         var valor = '';
+                                         valor += '\n';
+                                         var temp = Temp.getTemporal();
+                                         valor = temp+' = stack['+n.position+'];';
+                                         valor += '\n';
+                                         valor += 'printf("%f",(float)'+temp+');\n';
+                                         r[3] += valor;
+                                     }
+
+                                 }
+                                 else if(n.tipo.toUpperCase() == "FLOAT")
+                                 {
+                                     var valor = '';
+                                     valor += '\n';
+                                     var temp = Temp.getTemporal();
+                                     valor = temp+' = stack['+n.position+'];';
+                                     valor += '\n';
+                                     valor += 'printf("%f",(float)'+temp+');\n';
+                                     r[3] += valor;
+                                 }
+                                 else if(n.tipo.toUpperCase() == "STRING")
+                                 {
+                                     var valor = '';
+                                     valor += '\n';
+
+                                     var temp = Temp.getTemporal();
+                                     valor = temp + ' = stack['+n.position+'];';
+
+                                     var temp1 = Temp.getTemporal();
+                                     valor += '\n';
+                                     valor += temp1 + '= heap[(int)'+temp+'];\n';
+                                     valor += temp1 + ' = '+ temp1 + ' + 1;';
+
+                                     var temp2  = Temp.getTemporal();
+                                     valor += '\n';
+                                     valor += temp2 + '= heap[(int)'+temp1+'];';
+
+                                     var temp3 = Temp.getTemporal();
+                                     valor += '\n';
+                                     valor += temp3 + ' = 0;';
+
+                                     var label = Label.getBandera();
+                                     valor += '\n';
+                                     valor += label + ':';
+                                     var label1 = Label.getBandera();
+
+                                     valor += '\n';
+                                     valor += 'if(' + temp3 + '==' + temp2 + ') goto '+label1+';';
+                                     valor += '\n';
+
+                                     var temp4 = Temp.getTemporal();
+                                     valor += temp4 + ' = ' + temp3 + ' + ' + temp1 + ';';
+                                     valor += '\n';
+                                     valor += temp3 + ' = ' + temp3 + ' + 1;';
+                                     valor += '\n';
+
+                                     var temp5 = Temp.getTemporal();
+                                     valor += temp5 + ' = heap[(int)' + temp4 + '];';
+                                     valor += '\n';
+                                     valor += 'printf("%c",(char)' + temp5 + ');';
+                                     valor += '\n';
+                                     valor += 'goto ' + label + ';';
+                                     valor += '\n';
+                                     valor += label1 + ':';
+                                     valor += '\n';
+                                     r[3] += valor;
+                                 }
+                             }
+                         }
+                         else
+                         {
+                             semanticos.push('{\"valor\":\"'+`Error Semantico en la linea: ${(yylineno+1)}, no existe la variable ${val[4]}`+'\"}');
+                             r[3] = '';
+                         }
+                     }
+                 }
+            }
+            r[3] += 'printf("\\n");\n';
+        }
+        else if($5[0] == "STRING")
+        {
+            var valor = '';
+            for(var a =0; a<$5[6].length;a++)
+            {
+                valor += 'printf("%w",(char)'+$5[6].toCharCodeAt(a)+');\n';
+            }
+            valor += 'printf("\\n");\n';
+            r[3] = valor;
+        }
+        else if($5[0] == "NUMBER")
+        {
+            if($5[6]%1==0)
+            {
+                var valor = $5[3];
+                valor += '\n';
+                valor += 'printf("%d",(int)'+$5[1]+');\n';
+                valor += 'printf("\\n");\n';
+                r[3] = valor;
+            }
+            else
+            {
+                var valor = $5[3];
+                valor += '\n';
+                valor += 'printf("%f",(float)'+$5[1]+');\n';
+                valor += 'printf("\\n");\n';
+                r[3] = valor;
+            }
+        }
+        else if($5[0] == "FLOAT")
+        {
+            var valor = $5[3];
+            valor += '\n';
+            valor += 'printf("%f",(float)'+$5[1]+');\n';
+            valor += 'printf("\\n");\n';
+            r[3] = valor;
+        }
+        else if($5[0] == "BOOLEAN")
+        {
+            //convert ASCII
+            var valor = $5[3];
+            valor += '\n';
+            valor += 'printf("%d",(int)'+$5[1]+');\n';
+            valor += 'printf("\\n");\n';
+            r[3] = valor;
+        }
+        else
+        {
+            if($5[4] != '')
+            {
+                var n = tab.getPositionAmbito($5[4]);
+                if(n!=null && n!=undefined)
+                {
+                    if(n.rol.toUpperCase() == "ARREGLO")
+                    {
+
+                    }
+                    else if(n.rol.toUpperCase() == "VARIABLE")
+                    {
+                        if(n.tipo.toUpperCase() == "NUMBER")
+                        {
+                            if(n.valor%1==0)
+                            {
+                                var valor = '';
+                                valor += '\n';
+                                var temp = Temp.getTemporal();
+                                valor = temp+' = stack['+n.position+'];';
+                                valor += '\n';
+                                valor += 'printf("%d",(int)'+temp+');\n';
+                                valor += 'printf("\\n");\n';
+                                r[3] = valor;
+                            }
+                            else
+                            {
+                                var valor = '';
+                                valor += '\n';
+                                var temp = Temp.getTemporal();
+                                valor = temp+' = stack['+n.position+'];';
+                                valor += '\n';
+                                valor += 'printf("%f",(float)'+temp+');\n';
+                                valor += 'printf("\\n");\n';
+                                r[3] = valor;
+                            }
+
+                        }
+                        else if(n.tipo.toUpperCase() == "FLOAT")
+                        {
+                            var valor = '';
+                            valor += '\n';
+                            var temp = Temp.getTemporal();
+                            valor = temp+' = stack['+n.position+'];';
+                            valor += '\n';
+                            valor += 'printf("%f",(float)'+temp+');\n';
+                            valor += 'printf("\\n");\n';
+                            r[3] = valor;
+                        }
+                        else if(n.tipo.toUpperCase() == "STRING")
+                        {
+                            var valor = '';
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor = temp + ' = stack['+n.position+'];';
+
+                            var temp1 = Temp.getTemporal();
+                            valor += '\n';
+                            valor += temp1 + '= heap[(int)'+temp+'];\n';
+                            valor += temp1 + ' = '+ temp1 + ' + 1;';
+
+                            var temp2  = Temp.getTemporal();
+                            valor += '\n';
+                            valor += temp2 + '= heap[(int)'+temp1+'];';
+
+                            var temp3 = Temp.getTemporal();
+                            valor += '\n';
+                            valor += temp3 + ' = 0;';
+
+                            var label = Label.getBandera();
+                            valor += '\n';
+                            valor += label + ':';
+                            var label1 = Label.getBandera();
+
+                            valor += '\n';
+                            valor += 'if(' + temp3 + '==' + temp2 + ') goto '+label1+';';
+                            valor += '\n';
+
+                            var temp4 = Temp.getTemporal();
+                            valor += temp4 + ' = ' + temp3 + ' + ' + temp1 + ';';
+                            valor += '\n';
+                            valor += temp3 + ' = ' + temp3 + ' + 1;';
+                            valor += '\n';
+
+                            var temp5 = Temp.getTemporal();
+                            valor += temp5 + ' = heap[(int)' + temp4 + '];';
+                            valor += '\n';
+                            valor += 'printf("%c",(char)' + temp5 + ');';
+                            valor += '\n';
+                            valor += 'goto ' + label + ';';
+                            valor += '\n';
+                            valor += label1 + ':';
+                            valor += '\n';
+                            valor += 'printf("\\n");\n';
+                            r[3] = valor;
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error Semantico en la linea: ${(yylineno+1)}, no existe la variable ${$5[4]}`+'\"}');
+                    r[3] = '';
+                }
+            }
+        }
+        $$ = r;
+    }
 ;
 
 Expr_statements
     : ExprNB ';'
+    {
+        $$ = $1;
+    }
     | ExprNB
+    {
+        $$ = $1;
+    }
 ;
 
 Empty_statements
@@ -446,34 +1028,591 @@ Block_statements
 ;
 
 Assignation_statements
-    : IDENT initialNo ';'
-    | IDENT initialNo
+    : IDENT '=' NEWT ARRAYS '(' Expr ')'
+    {
+        var n = tab.getPositionAmbito($1);
+        if(n!=null)
+        {
+            if(!n.constante)
+            {
+                if(n.rol.toUpperCase() == 'ARREGLO')
+                {
+                    var u = $6;
+                    if(u[0].toUpperCase() == 'NUMBER')
+                    {
+                        var valor = '';
+                        valor += u[3];
+                        valor += '\n';
+                        var temp1 = Temp.getTemporal();
+                        valor += temp1 + ' = ' + n.position +';';
+                        valor += '\n';
+                        var temp2 = Temp.getTemporal();
+                        var temp3 = Temp.getTemporal();
+                        valor += temp2 + ' = stack[(int)'+temp1+'];';
+                        valor += '\n';
+                        valor += temp3+' = heap[(int)' + temp2 +'];';
+                        valor += '\n';
+
+                        var temp4 = Temp.getTemporal();
+                        valor += temp4 + ' = heap[(int)'+temp3+'];\n';
+                        var label0 = Label.getBandera();
+                        var label0_1 = Label.getBandera();
+                        var temp5 = Temp.getTemporal();
+                        var temp6 = Temp.getTemporal();
+                        valor += `${temp5} = 1;\n`;
+                        valor += `${label0}:\n`;
+                        valor += `if(${temp5}==${temp4}) goto ${label0_1};\n`;
+                        valor += `${temp6} = ${temp5} + ${temp4};\n`;
+                        valor += `${temp5} = ${temp5} + 1;\n`;
+                        valor += `heap[(int)${temp6}] = -1;\n`;
+                        valor += `goto ${label0};\n`;
+                        valor += `${label0_1}:\n`;
+
+                        var a = new intermedia.arreglo()
+                        a.name = n.name;
+                        a.tipo = n.tipo;
+                        a.positions.push(u[6]);
+                        a.c3d = valor;
+                        a.temporal = temp6;
+                        a.bandera = label0_1;
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp6;
+                        r[2] = label0_1;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+                        n.valor = a;
+                        var k = tab.update(n.name,n);
+                        if(k)
+                        {
+                            $$ = r;
+
+                            for(var m = 0; m<arr.valores.length;m++)
+                            {
+                                if(arr.valores[m].name == n.name)
+                                {
+                                    arr.valores[m] = a;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            errores.push('{\"valor\":\"'+`Error, linea ${(yylineno+1)}, no se ha logrado ejecutar la operacion;`+'\"}');
+                            $$ = ['','','',''];
+                        }
+                    }
+                    else if(u[0] == '')
+                    {
+                         var n1 = tab.getPositionAmbito(u[4]);
+                         if(n1!=null)
+                         {
+                             if(n1.tipo.toUpperCase()!='')
+                             {
+                                 switch(n1.tipo.toUpperCase())
+                                 {
+                                     case 'NUMBER':
+                                        var valor = '';
+                                        var temp1 = Temp.getTemporal();
+                                        var temp0 = Temp.getTemporal();
+                                        valor += temp0 + ' = ' + n1.position + ';\n';
+                                        var temp0_1 = Temp.getTemporal();
+                                        valor += temp0_1 + ' = stack[(int)'+temp0+'];';
+                                        valor += '\n';
+                                        valor += temp1 + ' = ' + n.position +';';
+                                        valor += '\n';
+                                        var temp2 = Temp.getTemporal();
+                                        var temp21 = Temp.getTemporal();
+                                        valor += temp2 +' = stack[(int)' + temp1 + '];';
+                                        valor += '\n';
+                                        valor += temp21 + ' = heap[(int)' + temp2 + '];';
+                                        valor += '\n';
+                                        valor += temp21 + ' = ' + temp21 + ' + 1;';
+                                        valor += '\n';
+                                        valor += 'heap[(int)' + temp21 + '] = ' + temp0_1 + ';';
+                                        valor += '\n';
+                                        var temp3 = Temp.getTemporal();
+                                        valor += temp3 + ' = 1;';
+                                        valor += '\n';
+                                        var label = Label.getBandera();
+                                        var label1 = Label.getBandera();
+                                        valor += label + ': ';
+                                        valor += '\n';
+                                        valor += '\t' + 'if( ' + temp3 + ' == ' + temp0_1 + ' ) goto ' + label1 + ';';
+                                        valor += '\n';
+                                        valor += '\t' + temp21 + ' = ' + temp21 + ' + 1;';
+                                        valor += '\n';
+                                        valor += '\t' + temp3 + ' = ' + temp3 + ' + 1;';
+                                        valor += '\n';
+                                        valor += '\t' + 'heap[(int)'+temp21+'] = -1;';
+                                        valor += '\n';
+                                        valor += '\t' + 'goto ' + label + ';';
+                                        valor += '\n';
+                                        valor += label1 + ': \n';
+
+                                        var a = new intermedia.arreglo()
+                                        a.name = n.name;
+                                        a.tipo = n.tipo;
+                                        a.positions.push(u[6]);
+                                        a.c3d = valor;
+                                        a.temporal = temp6;
+                                        a.bandera = label0_1;
+
+                                        var r = [];
+                                        r[3] = valor;
+                                        r[0] = '';
+                                        r[1] = temp6;
+                                        r[2] = label0_1;
+                                        r[4] = '';
+                                        r[5] = '';
+                                        r[6] = '';
+                                        r[7] = '';
+
+                                        n.valor = a;
+                                        var k = tab.update(n.name,n);
+                                        if(k)
+                                        {
+                                            $$ = r;
+
+                                            for(var m = 0; m<arr.valores.length;m++)
+                                            {
+                                                if(arr.valores[m].name == n.name)
+                                                {
+                                                    arr.valores[m] = a;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            errores.push('{\"valor\":\"'+`Error, linea ${(yylineno+1)}, no se ha logrado ejecutar la operacion;`+'\"}');
+                                            $$ = ['','','',''];
+                                        }
+                                        break;
+                                     DEFAULT:
+                                      semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${u[0]}, a una variable de tipo arreglo;`+'\"}');
+                                      $$ = ['','','',''];
+                                      break;
+                                 }
+                             }
+                             else
+                             {
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${u[0]}, a una variable de tipo arreglo;`+'\"}');
+                                 $$ = ['','','',''];
+                             }
+
+                         }
+                         else
+                         {
+                             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${u[0]}, a una variable de tipo arreglo;`+'\"}');
+                             $$ = ['','','',''];
+                         }
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar un tamaño  de tipo ${u[0]};`+'\"}');
+                        $$ = ['','','',''];
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error Semantico en la linea: ${(yylineno+1)}, no puedes asignar arreglo a una variable de tipo ${n.tipo};`+'\"}');
+                    $$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error Semantico en la linea: ${(yylineno+1)}, no puedes asignarle un valor a una constante;`+'\"}');
+                $$ = ['','','',''];
+            }
+
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error Semantico en la linea: ${(yylineno+1)}, no existe la variable ${$1};`+'\"}');
+            $$ = ['','','',''];
+        }
+    }
+    | IDENT '=' AssignmentExpr
+    {
+        var n = tab.getPositionAmbito($1);
+        if(n!=null)
+        {
+            if($3[0].toString().toUpperCase() != '')
+            {
+                if(n.rol.toUpperCase() == 'ARREGLO')
+                {
+                    var val = $3[6].toString();
+                    var valor = '';
+                    var temp = Temp.getTemporal();
+                    valor += temp + ' = stack[' + n.position + '];';
+                    valor += '\n';
+
+                    var temp1 = Temp.getTemporal();
+                    var temp0 = Temp.getTemporal();
+                    valor += temp1 + ' = heap[(int)' + temp + '];';
+                    valor += '\n';
+
+                    var temp2 = Temp.getTemporal();
+                    valor += temp2 + ' = '+ $3[7] + ';';
+                    valor += '\n';
+                    valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
+                    valor += '\n';
+                    valor += $3[1] + ' = ' + temp1 + ';';
+                    valor += '\n';
+                    valor += $3[3];
+                    valor += '\n';
+
+                    n.valor = $3[6];
+                    var r = [];
+                    r[3] = valor;
+                    r[0] = '';
+                    r[1] = temp1;
+                    r[2] = '';
+                    r[4] = '';
+                    r[5] = '';
+                    r[6] = '';
+                    r[7] = '';
+
+                    for(var m =0; m<arr.valores.length;m++)
+                    {
+                        if(arr.valores[m].name == n.name)
+                        {
+                            arr.valores[m] = $3[6];
+                        }
+                    }
+
+                    var k = tab.update(n.name,n);
+                    if(k)
+                    {
+                        $$ = r;
+                    }
+                    else
+                    {
+                        errores.push('{\"valor\":\"'+`Error, linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                        $$ = ['','','',''];
+                    }
+                }
+                else if($3[0].toUpperCase() == n.tipo.toUpperCase())
+                {
+                    switch($3[0].toString().toUpperCase())
+                    {
+                        case "STRING":
+                            var val = $3[6].toString();
+                            var valor = '';
+                            var temp = Temp.getTemporal();
+                            valor += temp + ' = ' + n.position + ';';
+                            valor += '\n';
+                            var temp1 = Temp.getTemporal();
+                            valor += `${temp} = ${temp} + 1;\n`;
+                            valor += temp1 + ' = '+ val.length + ';';
+                            valor += '\n';
+                            valor += 'heap[(int)'+temp+'] = ' + temp1 + ';';
+                            valor += '\n';
+                            valor += $3[1] + ' = ' + temp + ';';
+                            valor += '\n';
+                            valor += $3[3]+ '\n';
+
+                            var r = [];
+                            r[3] = valor;
+                            r[0] = '';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = '';
+                            r[7] = '';
+
+
+                            n.valor = $3[6];
+                            var k = tab.update(n.name,n);
+                            if(k)
+                            {
+                                $$ = r;
+                            }
+                            else
+                            {
+                                errores.push('{\"valor\":\"'+`Error, linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                                $$ = ['','','',''];
+                            }
+                            break;
+
+                        case "NUMBER":
+                            var valor = '';
+                            var temp = Temp.getTemporal();
+                            valor += $3[3];
+                            valor += '\n';
+                            valor += 'stack['+ n.position + '] = ' + $3[1] +';';
+                            valor += '\n';
+
+                            var r = [];
+                            r[3] = valor;
+                            r[0] = '';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = '';
+                            r[7] = '';
+
+
+                            n.valor = $3[6];
+                            var k = tab.update(n.name,n);
+                            if(k)
+                            {
+                                $$ = r;
+                            }
+                            else
+                            {
+                                errores.push('{\"valor\":\"'+`Error, linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                                $$ = ['','','',''];
+                            }
+                            break;
+
+                        case 'BOOLEAN':
+                            var valor = '';
+                            var temp = Temp.getTemporal();
+                            valor += $3[3];
+                            valor += '\n';
+                            valor += 'stack['+ n.position + '] = ' + $3[1] +';';
+                            valor += '\n';
+
+                            var r = [];
+                            r[3] = valor;
+                            r[0] = '';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = '';
+                            r[7] = '';
+
+
+                            n.valor = $3[6];
+                            var k = tab.update(n.name,n);
+                            if(k)
+                            {
+                                $$ = r;
+                            }
+                            else
+                            {
+                                errores.push('{\"valor\":\"'+`Error, linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                                $$ = ['','','',''];
+                            }
+                            break;
+
+                        case "FLOAT":
+                            var valor = '';
+                            var temp = Temp.getTemporal();
+                            valor += $3[3];
+                            valor += '\n';
+                            valor += 'stack['+ n.position + '] = ' + $3[1] +';';
+                            valor += '\n';
+
+                            var r = [];
+                            r[3] = valor;
+                            r[0] = '';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = '';
+                            r[7] = '';
+
+
+                            n.valor = $3[6];
+                            var k = tab.update(n.name,n);
+                            if(k)
+                            {
+                                $$ = r;
+                            }
+                            else
+                            {
+                                errores.push('{\"valor\":\"'+`Error, linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                                $$ = ['','','',''];
+                            }
+                            break;
+                        DEFAULT:
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$3[0]}, a una variable de tipo arreglo;`+'\"}');
+                            $$ = ['','','',''];
+
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$3[0]}, a una variable de tipo ${n.tipo};`+'\"}');
+                    $$ = ['','','',''];
+                }
+
+            }
+            else if($3[0] == '')
+            {
+                 var n1 = tab.getPositionAmbito($3[4]);
+                 if(n1!=null)
+                 {
+                     if(n1.tipo.toUpperCase()!='')
+                     {
+                        if(n1.tipo.toUpperCase() == n.tipo.toUpperCase())
+                        {
+                             switch(n1.tipo.toUpperCase())
+                             {
+                                 case 'STRING':
+                                     var valor = '';
+                                      var temp = Temp.getTemporal();
+                                      valor += temp + ' = ' + n.position + ';';
+                                      valor += '\n';
+                                      valor += temp + ' = ' + temp + ' + 1;\n';
+
+                                      var temp2 = Temp.getTemporal();
+                                      valor += temp2 + ' = '+ n1.valor.length + ';';
+                                      valor += '\n';
+                                      valor += 'heap[(int)'+temp+'] = ' + temp2 + ';';
+                                      valor += '\n';
+
+                                     for(var a = 0; a<n1.valor.length; a++)
+                                     {
+                                         valor += temp + ' = ' + temp + ' + 1;';
+                                         valor += '\n';
+                                         valor += 'heap[(int)'+temp+'] = ' + n1.valor.charCodeAt(a) + ';';
+                                         valor += '\n'
+                                     }
+
+                                    var r = [];
+                                    r[3] = valor;
+                                    r[0] = '';
+                                    r[1] = temp;
+                                    r[2] = '';
+                                    r[4] = '';
+                                    r[5] = '';
+                                    r[6] = '';
+                                    r[7] = '';
+
+                                    n.valor = n1.valor;
+                                    var k = tab.update(n.name,n);
+                                    if(k)
+                                    {
+                                        $$ = r;
+                                    }
+                                    else
+                                    {
+                                        errores.push('{\"valor\":\"'+`Error, linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                                        $$ = ['','','',''];
+                                    }
+                                   break;
+
+                                 case 'NUMBER':
+                                      var valor = '';
+                                      var temp = Temp.getTemporal();
+                                      valor += temp + ' = ' + n.position + ';';
+                                      valor += '\n';
+                                      var temp1 = Temp.getTemporal();
+                                      valor += temp1 + ' = stack['+n1.position+'];';
+                                      valor += '\n';
+                                      valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+
+
+                                      var r = [];
+                                      r[3] = valor;
+                                      r[0] = '';
+                                      r[1] = temp;
+                                      r[2] = '';
+                                      r[4] = '';
+                                      r[5] = '';
+                                      r[6] = '';
+                                      r[7] = '';
+
+
+                                        n.valor = n1.valor;
+                                        var k = tab.update(n.name,n);
+                                        if(k)
+                                        {
+                                            $$ = r;
+                                        }
+                                        else
+                                        {
+                                            errores.push('{\"valor\":\"'+`Error, linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                                            $$ = ['','','',''];
+                                        }
+                                      break;
+                                 case 'BOOLEAN':
+                                      var valor = '';
+                                      var temp = Temp.getTemporal();
+                                      valor += temp + ' = ' + n.position + ';';
+                                      valor += '\n';
+                                      var temp1 = Temp.getTemporal();
+                                      valor += temp1 + ' = stack['+n1.position+'];';
+                                      valor += '\n';
+                                      valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+
+
+                                      var r = [];
+                                      r[3] = valor;
+                                      r[0] = '';
+                                      r[1] = temp;
+                                      r[2] = '';
+                                      r[4] = '';
+                                      r[5] = '';
+                                      r[6] = '';
+                                      r[7] = '';
+
+                                        n.valor = n1.valor;
+                                        var k = tab.update(n.name,n);
+                                        if(k)
+                                        {
+                                            $$ = r;
+                                        }
+                                        else
+                                        {
+                                            errores.push('{\"valor\":\"'+`Error, linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                                            $$ = ['','','',''];
+                                        }
+                                      break;
+                                 DEFAULT:
+                                  semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$3[0]}.;`+'\"}');
+                                  $$ = ['','','',''];
+                                  break;
+                             }
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$3[0]}, a una variable de tipo ${n.tipo};`+'\"}');
+                            $$ = ['','','',''];
+                        }
+                     }
+                     else
+                     {
+                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$3[0]}, a una variable de tipo ${n.tipo};`+'\"}');
+                         $$ = ['','','',''];
+                     }
+
+                 }
+                 else
+                 {
+                     semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$3[0]}, a una variable de tipo ${n.tipo};`+'\"}');
+                     $$ = ['','','',''];
+                 }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$3[6]}, a una variable de tipo ${n.tipo};`+'\"}');
+                $$ = ['','','',''];
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe una variable con el nombre ${$1};`+'\"}');
+            $$ = ['','','',''];
+        }
+    }
     | Expr1_statements
-;
-CallExprNoIn
-    : CallExprNoIn Arguments
-    | CallExprNoIn ArrList
-    | CallExprNoIn '.' IDENT
-    | '.' IDENT
-    | ArrList
-;
-
-Expr1_statement
-    : Expr1_statement ArrList
-    | Expr1_statement '.' IDENT
-    | '.' IDENT
-    | ArrList
-;
-
-
-
-ArrList
-    : Arr ArrList
-    | Arr
-;
-
-Arr
-    : '[' Expr ']'
+    {
+        $$ = $1;
+    }
 ;
 
 Declaration_statements
@@ -509,7 +1648,7 @@ Declaration_statements
                 }
 
                 valor += '\n';
-                valor += 'stack[' + temp1 + '] = ' + temp2 +';';
+                valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
 
                 var r = [];
                 r[3] = valor;
@@ -573,7 +1712,7 @@ Declaration_statements
                     valor += temp2 + ' = -1;';
                 }
                 valor += '\n';
-                valor += 'stack[' + temp1 + '] = ' + temp2 +';';
+                valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
 
                 var r = [];
                 r[3] = valor;
@@ -606,100 +1745,6 @@ Declaration_statements
             $$ = ['','','',''];
         }
     }
-/*
-    | TypeV IDENT Array ':' TypeV '=' NEWT ARRAYS '(' Expr ')'
-    {
-        if(tab.getPositionAmbito($2)==null)
-        {
-                var temp1 = Temp.getTemporal();
-
-                var u = $10;
-                if(u[0].toUpperCase() == 'NUMBER')
-                {
-                    var valor = '';
-                    valor += u[3];
-                    valor += '\n';
-                    valor += temp1 + ' = ' + pos +';';
-                    valor += '\n';
-                    var temp2 = Temp.getTemporal();
-                    valor += temp2 + ' = '+posA+';';
-                    valor += '\n';
-                    valor += 'stack[' + temp1 + '] = ' + temp2 +';';
-                    valor += '\n';
-                    valor += 'heap[' + temp2 + '] = ' + temp2 + ' + 1;';
-                    valor += '\n';
-                    valor = valor  + temp2 + ' = ' + temp2 + ' + 1;';
-                    valor += '\n';
-                    valor += 'heap[' + temp2 + '] = ' + u[1] + ';';
-                    valor += '\n';
-                    var temp3 = Temp.getTemporal();
-                    valor += temp3 + ' = 0;';
-                    valor += '\n';
-                    var label = Label.getBandera();
-                    var label1 = Label.getBandera();
-                    valor += label + ': ';
-                    valor += '\n';
-                    valor += '\t' + 'if( ' + temp3 + ' == ' + u[1] + ' ) goto ' + label1 + ';';
-                    valor += '\n';
-                    valor += '\t' + temp2 + ' = ' + temp2 + ' + 1;';
-                    valor += '\n';
-                    valor += '\t' + temp3 + ' = ' + temp3 + ' + 1;';
-                    valor += '\n';
-                    valor += '\t' + 'heap['+temp2+'] = -1;';
-                    valor += '\n';
-                    valor += '\t' + 'goto ' + label + ';';
-                    valor += '\n';
-                    valor += label1 + ': ';
-
-                    var a = new intermedia.arreglo()
-                    a.name = $2;
-                    a.positions.push(u[6]);
-                    a.c3d = valor;
-                    a.temporal = temp3;
-                    a.bandera = label1;
-                    a.tipo = $5;
-
-                    var r = [];
-                    r[3] = valor;
-                    r[0] = '';
-                    r[1] = temp3;
-                    r[2] = label1;
-                    r[4] = '';
-                    r[5] = '';
-                    r[6] = '';
-                    r[7] = '';
-
-                    var sym = new intermedia.simbolo();
-                    sym.ambito = tab.ambitoLevel;
-                    sym.name = $2;
-                    sym.position = pos;
-                    sym.rol = 'arreglo';
-                    sym.direccion = pos;
-                    sym.direccionrelativa = pos;
-                    sym.tipo = $5;
-                    sym.valor = a;
-                    tab.insert(sym);
-                    arr.push(a);
-
-                    $$ = r;
-
-                    if(pos >0 && pos != 0) pos++;
-                    if (pos == 0) pos++;
-                    posA += 50000;
-                }
-                else
-                {
-                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar un tamaño  de tipo ${u[0]};`+'\"}');
-                    $$ = ['','','',''];
-                }
-        }
-        else
-        {
-            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, ya existe una variable con el nombre ${$2};`+'\"}');
-            $$ = ['','','',''];
-        }
-    }
-*/
     | TypeV IDENT  ':' TypeV Array '=' AssignmentExpr
     {
         if(tab.getPositionAmbito($2)==null)
@@ -721,15 +1766,15 @@ Declaration_statements
                             valor += temp1 + ' = ' + posA + ';';
                             valor += '\n';
                             valor += temp0+ ' = ' + posA + ';\n';
-                            valor += 'stack['+temp+'] = ' + temp1 + ';';
+                            valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
                             valor += '\n';
                             valor += temp1 + ' = ' + temp1 + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp0+'] = ' + temp1 + ';\n';
+                            valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
                             var temp2 = Temp.getTemporal();
                             valor += temp2 + ' = '+ $7[7] + ';';
                             valor += '\n';
-                            valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                            valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
                             valor += '\n';
                             valor += $7[1] + ' = ' + temp1 + ';';
                             valor += '\n';
@@ -764,7 +1809,7 @@ Declaration_statements
 
                             if(pos >0 && pos != 0) pos++;
                             if (pos == 0) pos++;
-                            posA += 50000;
+                            posA += 5000;
                         }
                         else
                         {
@@ -810,16 +1855,16 @@ Declaration_statements
                     var temp2 = Temp.getTemporal();
                     valor += temp2 + ' = '+posA+';';
                     valor += '\n';
-                    valor += 'stack[' + temp1 + '] = ' + temp2 +';';
+                    valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
                     valor += '\n';
-                    valor += 'heap[' + temp2 + '] = ' + temp2 + ' + 1;';
+                    valor += 'heap[(int)' + temp2 + '] = ' + temp2 + ' + 1;';
                     valor += '\n';
                     valor = valor  + temp2 + ' = ' + temp2 + ' + 1;';
                     valor += '\n';
-                    valor += 'heap[' + temp2 + '] = ' + u[1] + ';';
+                    valor += 'heap[(int)' + temp2 + '] = ' + u[1] + ';';
                     valor += '\n';
                     var temp3 = Temp.getTemporal();
-                    valor += temp3 + ' = 0;';
+                    valor += temp3 + ' = 1;';
                     valor += '\n';
                     var label = Label.getBandera();
                     var label1 = Label.getBandera();
@@ -831,7 +1876,7 @@ Declaration_statements
                     valor += '\n';
                     valor += '\t' + temp3 + ' = ' + temp3 + ' + 1;';
                     valor += '\n';
-                    valor += '\t' + 'heap['+temp2+'] = -1;';
+                    valor += '\t' + 'heap[(int)'+temp2+'] = -1;';
                     valor += '\n';
                     valor += '\t' + 'goto ' + label + ';';
                     valor += '\n';
@@ -869,11 +1914,116 @@ Declaration_statements
 
                     $$ = r;
 
-                    arr.push(a);
+                    arr.valores.push(a);
 
                     if(pos >0 && pos != 0) pos++;
                     if (pos == 0) pos++;
-                    posA += 50000;
+                    posA += 5000;
+                }
+                else if(u[0] == '')
+                {
+                     var n = tab.getPositionAmbito(u[4]);
+                     if(n!=null)
+                     {
+                         if(n.tipo.toUpperCase()!='')
+                         {
+                             switch(n.tipo.toUpperCase())
+                             {
+                                 case 'NUMBER':
+                                    var valor = '';
+                                    var temp0 = Temp.getTemporal();
+                                    valor += temp0 + ' = ' + n.position + ';\n';
+                                    var temp0_1 = Temp.getTemporal();
+                                    valor += temp0_1 + ' = stack[(int)'+temp0+'];';
+                                    valor += '\n';
+                                    valor += temp1 + ' = ' + pos +';';
+                                    valor += '\n';
+                                    var temp2 = Temp.getTemporal();
+                                    valor += temp2 + ' = '+posA+';';
+                                    valor += '\n';
+                                    valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
+                                    valor += '\n';
+                                    valor += 'heap[(int)' + temp2 + '] = ' + temp2 + ' + 1;';
+                                    valor += '\n';
+                                    valor = valor  + temp2 + ' = ' + temp2 + ' + 1;';
+                                    valor += '\n';
+                                    valor += 'heap[(int)' + temp2 + '] = ' + temp0_1 + ';';
+                                    valor += '\n';
+                                    var temp3 = Temp.getTemporal();
+                                    valor += temp3 + ' = 1;';
+                                    valor += '\n';
+                                    var label = Label.getBandera();
+                                    var label1 = Label.getBandera();
+                                    valor += label + ': ';
+                                    valor += '\n';
+                                    valor += '\t' + 'if( ' + temp3 + ' == ' + temp0_1 + ' ) goto ' + label1 + ';';
+                                    valor += '\n';
+                                    valor += '\t' + temp2 + ' = ' + temp2 + ' + 1;';
+                                    valor += '\n';
+                                    valor += '\t' + temp3 + ' = ' + temp3 + ' + 1;';
+                                    valor += '\n';
+                                    valor += '\t' + 'heap[(int)'+temp2+'] = -1;';
+                                    valor += '\n';
+                                    valor += '\t' + 'goto ' + label + ';';
+                                    valor += '\n';
+                                    valor += label1 + ': ';
+
+                                    var a = new intermedia.arreglo()
+                                    a.name = $2;
+                                    a.positions.push(n.valor);
+                                    a.c3d = valor;
+                                    a.temporal = temp3;
+                                    a.bandera = label1;
+                                    a.tipo = $1;
+
+                                    var r = [];
+                                    r[3] = valor;
+                                    r[0] = '';
+                                    r[1] = temp3;
+                                    r[2] = label1;
+                                    r[4] = '';
+                                    r[5] = '';
+                                    r[6] = '';
+                                    r[7] = '';
+
+                                    var sym = new intermedia.simbolo();
+                                    sym.ambito = tab.ambitoLevel;
+                                    sym.name = $2;
+                                    sym.position = pos;
+                                    sym.rol = 'arreglo';
+                                    sym.direccion = pos;
+                                    sym.direccionrelativa = pos;
+                                    sym.tipo = $1;
+
+                                    sym.valor = a;
+                                    tab.insert(sym);
+
+                                    $$ = r;
+
+                                    arr.valores.push(a);
+
+                                    if(pos >0 && pos != 0) pos++;
+                                    if (pos == 0) pos++;
+                                    posA += 5000;
+                                    break;
+                                 DEFAULT:
+                                  semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${u[0]}, a una variable de tipo arreglo;`+'\"}');
+                                  $$ = ['','','',''];
+                                  break;
+                             }
+                         }
+                         else
+                         {
+                             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${u[0]}, a una variable de tipo arreglo;`+'\"}');
+                             $$ = ['','','',''];
+                         }
+
+                     }
+                     else
+                     {
+                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${u[0]}, a una variable de tipo arreglo;`+'\"}');
+                         $$ = ['','','',''];
+                     }
                 }
                 else
                 {
@@ -905,16 +2055,16 @@ Declaration_statements
                     var temp2 = Temp.getTemporal();
                     valor += temp2 + ' = '+posA+';';
                     valor += '\n';
-                    valor += 'stack[' + temp1 + '] = ' + temp2 +';';
+                    valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
                     valor += '\n';
-                    valor += 'heap[' + temp2 + '] = ' + temp2 + ' + 1;';
+                    valor += 'heap[(int)' + temp2 + '] = ' + temp2 + ' + 1;';
                     valor += '\n';
                     valor = valor  + temp2 + ' = ' + temp2 + ' + 1;';
                     valor += '\n';
-                    valor += 'heap[' + temp2 + '] = ' + u[1] + ';';
+                    valor += 'heap[(int)' + temp2 + '] = ' + u[1] + ';';
                     valor += '\n';
                     var temp3 = Temp.getTemporal();
-                    valor += temp3 + ' = 0;';
+                    valor += temp3 + ' = 1;';
                     valor += '\n';
                     var label = Label.getBandera();
                     var label1 = Label.getBandera();
@@ -926,7 +2076,7 @@ Declaration_statements
                     valor += '\n';
                     valor += '\t' + temp3 + ' = ' + temp3 + ' + 1;';
                     valor += '\n';
-                    valor += '\t' + 'heap['+temp2+'] = -1;';
+                    valor += '\t' + 'heap[(int)'+temp2+'] = -1;';
                     valor += '\n';
                     valor += '\t' + 'goto ' + label + ';';
                     valor += '\n';
@@ -968,10 +2118,112 @@ Declaration_statements
 
                     if(pos >0 && pos != 0) pos++;
                     if (pos == 0) pos++;
-                    posA += 50000;
+                    posA += 5000;
                 }
                 else if(u[0] == '')
                 {
+                     var n = tab.getPositionAmbito(u[4]);
+                     if(n!=null)
+                     {
+                         if(n.tipo.toUpperCase()!='')
+                         {
+                             switch(n.tipo.toUpperCase())
+                             {
+                                 case 'NUMBER':
+                                    var valor = '';
+                                    var temp0 = Temp.getTemporal();
+                                    valor += temp0 + ' = ' + n.position + ';\n';
+                                    var temp0_1 = Temp.getTemporal();
+                                    valor += temp0_1 + ' = stack[(int)'+temp0+'];';
+                                    valor += '\n';
+                                    valor += temp1 + ' = ' + pos +';';
+                                    valor += '\n';
+                                    var temp2 = Temp.getTemporal();
+                                    valor += temp2 + ' = '+posA+';';
+                                    valor += '\n';
+                                    valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
+                                    valor += '\n';
+                                    valor += 'heap[(int)' + temp2 + '] = ' + temp2 + ' + 1;';
+                                    valor += '\n';
+                                    valor = valor  + temp2 + ' = ' + temp2 + ' + 1;';
+                                    valor += '\n';
+                                    valor += 'heap[(int)' + temp2 + '] = ' + temp0_1 + ';';
+                                    valor += '\n';
+                                    var temp3 = Temp.getTemporal();
+                                    valor += temp3 + ' = 1;';
+                                    valor += '\n';
+                                    var label = Label.getBandera();
+                                    var label1 = Label.getBandera();
+                                    valor += label + ': ';
+                                    valor += '\n';
+                                    valor += '\t' + 'if( ' + temp3 + ' == ' + temp0_1 + ' ) goto ' + label1 + ';';
+                                    valor += '\n';
+                                    valor += '\t' + temp2 + ' = ' + temp2 + ' + 1;';
+                                    valor += '\n';
+                                    valor += '\t' + temp3 + ' = ' + temp3 + ' + 1;';
+                                    valor += '\n';
+                                    valor += '\t' + 'heap[(int)'+temp2+'] = -1;';
+                                    valor += '\n';
+                                    valor += '\t' + 'goto ' + label + ';';
+                                    valor += '\n';
+                                    valor += label1 + ': ';
+
+                                    var a = new intermedia.arreglo()
+                                    a.name = $2;
+                                    a.positions.push(n.valor);
+                                    a.c3d = valor;
+                                    a.temporal = temp3;
+                                    a.bandera = label1;
+                                    a.tipo = $1;
+
+                                    var r = [];
+                                    r[3] = valor;
+                                    r[0] = '';
+                                    r[1] = temp3;
+                                    r[2] = label1;
+                                    r[4] = '';
+                                    r[5] = '';
+                                    r[6] = '';
+                                    r[7] = '';
+
+                                    var sym = new intermedia.simbolo();
+                                    sym.ambito = tab.ambitoLevel;
+                                    sym.name = $2;
+                                    sym.position = pos;
+                                    sym.rol = 'arreglo';
+                                    sym.direccion = pos;
+                                    sym.direccionrelativa = pos;
+                                    sym.tipo = $1;
+
+                                    sym.valor = a;
+                                    tab.insert(sym);
+
+                                    $$ = r;
+
+                                    arr.valores.push(a);
+
+                                    if(pos >0 && pos != 0) pos++;
+                                    if (pos == 0) pos++;
+                                    posA += 5000;
+                                    break;
+                                 DEFAULT:
+                                  semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${u[0]}, a una variable de tipo arreglo;`+'\"}');
+                                  $$ = ['','','',''];
+                                  break;
+                             }
+                         }
+                         else
+                         {
+                             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${u[0]}, a una variable de tipo arreglo;`+'\"}');
+                             $$ = ['','','',''];
+                         }
+
+                     }
+                     else
+                     {
+                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${u[0]}, a una variable de tipo arreglo;`+'\"}');
+                         $$ = ['','','',''];
+                     }
                 }
                 else
                 {
@@ -998,19 +2250,22 @@ Declaration_statements
                         var valor = '';
                         var temp = Temp.getTemporal();
                         valor += temp + ' = ' + pos + ';';
+                        var temp0 = Temp.getTemporal();
+                        valor += '\n';
+                        var temp1 = Temp.getTemporal();
+                        valor += temp1 + ' = ' + posS + ';\n';
+                        valor += temp0 + ' = ' + posS + ';';
+                        valor += '\n';
+                        valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
                         valor += '\n';
 
-                        var temp1 = Temp.getTemporal();
-                        valor += temp1 + ' = ' + posS + ';';
-                        valor += '\n';
-                        valor += 'stack['+temp+'] = ' + temp1 + ';';
-                        valor += '\n';
                         valor += temp1 + ' = ' + temp1 + ' + 1;';
                         valor += '\n';
+                        valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
                         var temp2 = Temp.getTemporal();
                         valor += temp2 + ' = '+ val.length + ';';
                         valor += '\n';
-                        valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                        valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
                         valor += '\n';
                         valor += $6[1] + ' = ' + temp1 + ';';
                         valor += '\n';
@@ -1042,7 +2297,7 @@ Declaration_statements
 
                         if(pos >0 && pos != 0) pos++;
                         if (pos == 0) pos++;
-                        posS += 50000;
+                        posS += 5000;
                         break;
 
                     case "NUMBER":
@@ -1052,7 +2307,7 @@ Declaration_statements
                         valor += '\n';
                         valor += $6[3];
                         valor += '\n';
-                        valor += 'stack['+ temp + '] = ' + $6[1] +';';
+                        valor += 'stack[(int)'+ temp + '] = ' + $6[1] +';';
                         valor += '\n';
 
                          var sym = new intermedia.simbolo();
@@ -1091,7 +2346,7 @@ Declaration_statements
                         valor += '\n';
                         valor += $6[3];
                         valor += '\n';
-                        valor += 'stack['+ temp + '] = ' + $6[1] +';';
+                        valor += 'stack[(int)'+ temp + '] = ' + $6[1] +';';
                         valor += '\n';
 
                          var sym = new intermedia.simbolo();
@@ -1130,7 +2385,7 @@ Declaration_statements
                         valor += '\n';
                         valor += $6[3];
                         valor += '\n';
-                        valor += 'stack['+ temp + '] = ' + $6[1] +';';
+                        valor += 'stack[(int)'+ temp + '] = ' + $6[1] +';';
                         valor += '\n';
 
                          var sym = new intermedia.simbolo();
@@ -1165,58 +2420,6 @@ Declaration_statements
                     case 'ARREGLO':
                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar un arreglo, a una variable de tipo ${$4};`+'\"}');
                         $$ = ['','','',''];
-                        /*
-                         var val = $4[6].toString();
-                         var valor = '';
-                         var temp = Temp.getTemporal();
-                         valor += temp + ' = ' + pos + ';';
-                         valor += '\n';
-
-                         var temp1 = Temp.getTemporal();
-                         valor += temp1 + ' = ' + posA + ';';
-                         valor += '\n';
-                         valor += 'stack['+temp+'] = ' + temp1 + ';';
-                         valor += '\n';
-                         valor += temp1 + ' = ' + temp1 + ' + 1;';
-                         valor += '\n';
-                         var temp2 = Temp.getTemporal();
-                         valor += temp2 + ' = '+ $4[7] + ';';
-                         valor += '\n';
-                         valor += 'heap['+temp1+'] = ' + temp2 + ';';
-                         valor += '\n';
-                         valor += $4[1] + ' = ' + temp1 + ';';
-                         valor += '\n';
-                         valor += $4[3]+'\n';
-
-                         var sym = new intermedia.simbolo();
-                         sym.ambito = tab.ambitoLevel;
-                         sym.name = $2;
-                         sym.position = pos;
-                         sym.rol = 'arreglo';
-                         sym.direccion = pos;
-                         sym.direccionrelativa = pos;
-                         sym.tipo = ($4[8]!='')?$4[8]:$4[0];
-                         sym.valor = $4[6];
-                         tab.insert(sym);
-
-                        var r = [];
-                        r[3] = valor;
-                        r[0] = '';
-                        r[1] = temp3;
-                        r[2] = '';
-                        r[4] = '';
-                        r[5] = '';
-                        r[6] = '';
-                        r[7] = '';
-
-                        arr.valores.push($4[6]);
-
-                        $$ = r;
-
-                         if(pos >0 && pos != 0) pos++;
-                         if (pos == 0) pos++;
-                         posA += 50000;
-                         */
                          break;
                 }
             }
@@ -1238,21 +2441,25 @@ Declaration_statements
                                   var temp1 = Temp.getTemporal();
                                   valor += temp1 + ' = ' + posS + ';';
                                   valor += '\n';
-                                  valor += 'stack['+temp+'] = ' + temp1 + ';';
+                                  var temp0 = Temp.getTemporal();
+                                  valor += temp0 + ' = ' + posS + ';';
+                                  valor += '\n';
+                                  valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
                                   valor += '\n';
                                   valor += temp1 + ' = ' + temp1 + ' + 1;';
                                   valor += '\n';
+                                  valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
                                   var temp2 = Temp.getTemporal();
                                   valor += temp2 + ' = '+ val.length + ';';
                                   valor += '\n';
-                                  valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                                  valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
                                   valor += '\n';
 
                                  for(var a = 0; a<n.valor.length; a++)
                                  {
                                      valor += temp1 + ' = ' + temp1 + ' + 1;';
                                      valor += '\n';
-                                     valor += 'heap['+temp1+'] = ' + n.valor.charCodeAt(a) + ';';
+                                     valor += 'heap[(int)'+temp1+'] = ' + n.valor.charCodeAt(a) + ';';
                                      valor += '\n'
                                  }
                                var r = [];
@@ -1281,7 +2488,7 @@ Declaration_statements
 
                                if(pos >0 && pos != 0) pos++;
                                if (pos == 0) pos++;
-                               posS += 50000;
+                               posS += 5000;
                                break;
 
                              case 'NUMBER':
@@ -1290,9 +2497,9 @@ Declaration_statements
                                   valor += temp + ' = ' + pos + ';';
                                   valor += '\n';
                                   var temp1 = Temp.getTemporal();
-                                  valor += temp1 + ' = stack['+n.position+'];';
+                                  valor += temp1 + ' = stack[(int)'+n.position+'];';
                                   valor += '\n';
-                                  valor += 'stack['+ temp + '] = ' + temp1 +';';
+                                  valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
                                   valor += '\n';
 
                                    var sym = new intermedia.simbolo();
@@ -1310,7 +2517,7 @@ Declaration_statements
                                   var r = [];
                                   r[3] = valor;
                                   r[0] = '';
-                                  r[1] = temp3;
+                                  r[1] = temp1;
                                   r[2] = '';
                                   r[4] = '';
                                   r[5] = '';
@@ -1330,9 +2537,9 @@ Declaration_statements
                                   valor += temp + ' = ' + pos + ';';
                                   valor += '\n';
                                   var temp1 = Temp.getTemporal();
-                                  valor += temp1 + ' = stack['+n.position+'];';
+                                  valor += temp1 + ' = stack[(int)'+n.position+'];';
                                   valor += '\n';
-                                  valor += 'stack['+ temp + '] = ' + temp1 +';';
+                                  valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
                                   valor += '\n';
 
                                    var sym = new intermedia.simbolo();
@@ -1350,7 +2557,7 @@ Declaration_statements
                                   var r = [];
                                   r[3] = valor;
                                   r[0] = '';
-                                  r[1] = temp3;
+                                  r[1] = temp1;
                                   r[2] = '';
                                   r[4] = '';
                                   r[5] = '';
@@ -1414,14 +2621,18 @@ Declaration_statements
                         var temp1 = Temp.getTemporal();
                         valor += temp1 + ' = ' + posS + ';';
                         valor += '\n';
-                        valor += 'stack['+temp+'] = ' + temp1 + ';';
-                        valor += '\n';
-                        valor += temp1 + ' = ' + temp1 + ' + 1;';
-                        valor += '\n';
+                          var temp0 = Temp.getTemporal();
+                          valor += temp0 + ' = ' + posS + ';';
+                          valor += '\n';
+                          valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
+                          valor += '\n';
+                          valor += temp1 + ' = ' + temp1 + ' + 1;';
+                          valor += '\n';
+                          valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
                         var temp2 = Temp.getTemporal();
                         valor += temp2 + ' = '+ val.length + ';';
                         valor += '\n';
-                        valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                        valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
                         valor += '\n';
                         valor += $4[1] + ' = ' + temp1 + ';';
                         valor += '\n';
@@ -1430,7 +2641,7 @@ Declaration_statements
                         var r = [];
                         r[3] = valor;
                         r[0] = '';
-                        r[1] = temp3;
+                        r[1] = temp2;
                         r[2] = label1;
                         r[4] = '';
                         r[5] = '';
@@ -1453,7 +2664,7 @@ Declaration_statements
 
                         if(pos >0 && pos != 0) pos++;
                         if (pos == 0) pos++;
-                        posS += 50000;
+                        posS += 5000;
                         break;
 
                     case "NUMBER":
@@ -1463,7 +2674,7 @@ Declaration_statements
                         valor += '\n';
                         valor += $4[3];
                         valor += '\n';
-                        valor += 'stack['+ temp + '] = ' + $4[1] +';';
+                        valor += 'stack[(int)'+ temp + '] = ' + $4[1] +';';
                         valor += '\n';
 
                          var sym = new intermedia.simbolo();
@@ -1481,7 +2692,7 @@ Declaration_statements
                         var r = [];
                         r[3] = valor;
                         r[0] = '';
-                        r[1] = temp3;
+                        r[1] = temp;
                         r[2] = '';
                         r[4] = '';
                         r[5] = '';
@@ -1502,7 +2713,7 @@ Declaration_statements
                         valor += '\n';
                         valor += $4[3];
                         valor += '\n';
-                        valor += 'stack['+ temp + '] = ' + $4[1] +';';
+                        valor += 'stack[(int)'+ temp + '] = ' + $4[1] +';';
                         valor += '\n';
 
                          var sym = new intermedia.simbolo();
@@ -1520,7 +2731,7 @@ Declaration_statements
                         var r = [];
                         r[3] = valor;
                         r[0] = '';
-                        r[1] = temp3;
+                        r[1] = temp;
                         r[2] = '';
                         r[4] = '';
                         r[5] = '';
@@ -1541,7 +2752,7 @@ Declaration_statements
                         valor += '\n';
                         valor += $4[3];
                         valor += '\n';
-                        valor += 'stack['+ temp + '] = ' + $4[1] +';';
+                        valor += 'stack[(int)'+ temp + '] = ' + $4[1] +';';
                         valor += '\n';
 
                          var sym = new intermedia.simbolo();
@@ -1559,7 +2770,7 @@ Declaration_statements
                         var r = [];
                         r[3] = valor;
                         r[0] = '';
-                        r[1] = temp3;
+                        r[1] = temp;
                         r[2] = '';
                         r[4] = '';
                         r[5] = '';
@@ -1585,16 +2796,16 @@ Declaration_statements
                         valor += temp1 + ' = ' + posA + ';';
                         valor += '\n';
                         valor += temp0+ ' = ' + posA + ';\n';
-                        valor += 'stack['+temp+'] = ' + temp1 + ';';
+                        valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
                         valor += '\n';
                         valor += temp1 + ' = ' + temp1 + ' + 1;';
                         valor += '\n';
-                        valor += 'heap['+temp0+'] = ' + temp1 + ';\n';
+                        valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
 
                         var temp2 = Temp.getTemporal();
                         valor += temp2 + ' = '+ $4[7] + ';';
                         valor += '\n';
-                        valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                        valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
                         valor += '\n';
                         valor += $4[1] + ' = ' + temp1 + ';';
                         valor += '\n';
@@ -1616,7 +2827,7 @@ Declaration_statements
                         var r = [];
                         r[3] = valor;
                         r[0] = '';
-                        r[1] = temp3;
+                        r[1] = temp2;
                         r[2] = '';
                         r[4] = '';
                         r[5] = '';
@@ -1629,7 +2840,7 @@ Declaration_statements
 
                         if(pos >0 && pos != 0) pos++;
                         if (pos == 0) pos++;
-                        posA += 50000;
+                        posA += 5000;
                         break;
 
                     DEFAULT:
@@ -1656,21 +2867,25 @@ Declaration_statements
                                   var temp1 = Temp.getTemporal();
                                   valor += temp1 + ' = ' + posS + ';';
                                   valor += '\n';
-                                  valor += 'stack['+temp+'] = ' + temp1 + ';';
+                                  var temp0 = Temp.getTemporal();
+                                  valor += temp0 + ' = ' + posS + ';';
+                                  valor += '\n';
+                                  valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
                                   valor += '\n';
                                   valor += temp1 + ' = ' + temp1 + ' + 1;';
                                   valor += '\n';
+                                  valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
                                   var temp2 = Temp.getTemporal();
                                   valor += temp2 + ' = '+ val.length + ';';
                                   valor += '\n';
-                                  valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                                  valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
                                   valor += '\n';
 
                                  for(var a = 0; a<n.valor.length; a++)
                                  {
                                      valor += temp1 + ' = ' + temp1 + ' + 1;';
                                      valor += '\n';
-                                     valor += 'heap['+temp1+'] = ' + n.valor.charCodeAt(a) + ';';
+                                     valor += 'heap[(int)'+temp1+'] = ' + n.valor.charCodeAt(a) + ';';
                                      valor += '\n'
                                  }
                                var r = [];
@@ -1699,7 +2914,7 @@ Declaration_statements
 
                                if(pos >0 && pos != 0) pos++;
                                if (pos == 0) pos++;
-                               posS += 50000;
+                               posS += 5000;
                                break;
 
                              case 'NUMBER':
@@ -1708,9 +2923,9 @@ Declaration_statements
                                   valor += temp + ' = ' + pos + ';';
                                   valor += '\n';
                                   var temp1 = Temp.getTemporal();
-                                  valor += temp1 + ' = stack['+n.position+'];';
+                                  valor += temp1 + ' = stack[(int)'+n.position+'];';
                                   valor += '\n';
-                                  valor += 'stack['+ temp + '] = ' + temp1 +';';
+                                  valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
                                   valor += '\n';
 
                                    var sym = new intermedia.simbolo();
@@ -1728,7 +2943,7 @@ Declaration_statements
                                   var r = [];
                                   r[3] = valor;
                                   r[0] = '';
-                                  r[1] = temp3;
+                                  r[1] = temp1;
                                   r[2] = '';
                                   r[4] = '';
                                   r[5] = '';
@@ -1747,9 +2962,9 @@ Declaration_statements
                                   valor += temp + ' = ' + pos + ';';
                                   valor += '\n';
                                   var temp1 = Temp.getTemporal();
-                                  valor += temp1 + ' = stack['+n.position+'];';
+                                  valor += temp1 + ' = stack[(int)'+n.position+'];';
                                   valor += '\n';
-                                  valor += 'stack['+ temp + '] = ' + temp1 +';';
+                                  valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
                                   valor += '\n';
 
                                    var sym = new intermedia.simbolo();
@@ -1767,7 +2982,7 @@ Declaration_statements
                                   var r = [];
                                   r[3] = valor;
                                   r[0] = '';
-                                  r[1] = temp3;
+                                  r[1] = temp1;
                                   r[2] = '';
                                   r[4] = '';
                                   r[5] = '';
@@ -1781,27 +2996,27 @@ Declaration_statements
                                   if (pos == 0) pos++;
                                   break;
                              DEFAULT:
-                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$6[0]}, a una variable de tipo arreglo;`+'\"}');
+                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$4[0]}, a una variable de tipo arreglo;`+'\"}');
                               $$ = ['','','',''];
                               break;
                          }
                      }
                      else
                      {
-                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$6[0]}, a una variable de tipo ${$4};`+'\"}');
+                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$4[0]}, a una variable de tipo ${$4};`+'\"}');
                          $$ = ['','','',''];
                      }
 
                  }
                  else
                  {
-                     semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$6[0]}, a una variable de tipo ${$4};`+'\"}');
+                     semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$4[0]}, a una variable de tipo ${$4};`+'\"}');
                      $$ = ['','','',''];
                  }
             }
             else
             {
-                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$4[6]}, a una variable de tipo ${$4[0]};`+'\"}');
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$4[6]}, a una variable de tipo ${$4[0]};d`+'\"}');
                 $$ = ['','','',''];
             }
         }
@@ -2052,6 +3267,27 @@ Expr
         $$ = $1;
     }
     | Expr ',' AssignmentExpr
+    {
+        var r  = [];
+        r[0] = 'ARPRINT';
+        r[1] = [];
+
+        if($1[0] == 'ARPRINT')
+        {
+            for(let m of $1[1])
+            {
+                r[1].push(m);
+            }
+            r[1].push($3);
+        }
+        else
+        {
+            r[1].push($1);
+            r[1].push($3);
+        }
+        $$ = r;
+
+    }
 ;
 
 ExprNoIn
@@ -2059,7 +3295,6 @@ ExprNoIn
     {
         $$ = $1;
     }
-    | ExprNoIn ',' AssignmentExprNoIn
 ;
 
 ExprNB
@@ -2067,7 +3302,6 @@ ExprNB
     {
         $$ = $1;
     }
-    | ExprNB ',' AssignmentExprNoBF
 ;
 
 ParameterList
@@ -2181,7 +3415,7 @@ Literal
         {
             valor += temp + ' = ' + temp + ' + 1;';
             valor += '\n';
-            valor += 'heap['+temp+'] = ' + $1.charCodeAt(a) + ';';
+            valor += 'heap[(int)'+temp+'] = ' + $1.charCodeAt(a) + ';';
             valor += '\n';
         }
         r[3] = valor;
@@ -2205,7 +3439,7 @@ Literal
         {
             valor += temp + ' = ' + temp + ' + 1;';
             valor += '\n';
-            valor += 'heap['+temp+'] = ' + $1.charCodeAt(a) + ';';
+            valor += 'heap[(int)'+temp+'] = ' + $1.charCodeAt(a) + ';';
             valor += '\n'
         }
         r[3] = valor;
@@ -2235,7 +3469,13 @@ PrimaryExpr
         $$ = $1;
     }
     | OPENBRACE CLOSEBRACE
+    {
+        $$ = ['','','','','','']
+    }
     | OPENBRACE PropertyList CLOSEBRACE
+    {
+        $$ = ['','','','','','']
+    }
 ;
 
 PrimaryExprNoBrace
@@ -2269,24 +3509,208 @@ PrimaryExprNoBrace
     }
 ;
 
+Expr1_statement
+    : Expr1_statement ArrList
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
+    | Expr1_statement '.' IDENT
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
+    | Expr1_statement '.' CHARAT '(' Expr ')'
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
+    | Expr1_statement '.' TOLOWER '(' ')'
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
+    | Expr1_statement '.' TOUPPER '(' ')'
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
+    | Expr1_statement '.' CONCAT '(' Expr ')'
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
+    | Expr1_statement '.' LENGTH
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
+    | '.' IDENT
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
+    | ArrList
+    {
+        $$ = $1;
+    }
+    | '.' CHARAT '(' Expr ')'
+    | '.' TOLOWER '(' ')'
+    | '.' TOUPPER '(' ')'
+    | '.' CONCAT '(' Expr ')'
+    | '.' LENGTH
+    {
+        var r = [];
+        r[10] = 'LENGTH';
+        $$ = r;
+    }
+;
+
+
+
+ArrList
+    : ArrList Arr
+    {
+        $$ = $1;
+        var r = [];
+        r[10] = 'ARRPOS';
+        r[11] = $$.length+1;
+        r[12] = $2;
+        $$ = [];
+        $$.push(r);
+    }
+    | Arr
+    {
+        var r = [];
+        r[10] = 'ARRPOS';
+        r[11] = 1;
+        r[12] = $1;
+        $$ = [];
+        $$.push(r);
+
+    }
+;
+
+Arr
+    : '[' Expr ']'
+    {
+        $$ = $2;
+    }
+;
+
+
 Expr1_statements
     : IDENT Expr1_statement
+    {
+        if($2[0] instanceof Array)
+        {
+            var n = tab.getPositionAmbito($1);
+            if(n!=null)
+            {
+                var valor = '';
+                var temp  = Temp.getTemporal();
+                var l = arr.getTam($1,1);
+                if(l==$2.length)
+                {
+                    console.log(true);
+                }
+                else
+                {
+                    console.log(false);
+                }
+            }
+            else
+            {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$1}`+'\"}');
+                 $$ = ['','','',''];
+            }
+
+        }
+        else if($2[10] == 'LENGTH')
+        {
+            var n = tab.getPositionAmbito($1);
+            if(n!=null)
+            {
+                if(n.rol.toUpperCase() == 'ARREGLO')
+                {
+                     var valor = '';
+                     var temp1 = Temp.getTemporal();
+                     valor += temp1 + ' = ' + n.position +';';
+                     valor += '\n';
+                     var temp2 = Temp.getTemporal();
+                     var temp3 = Temp.getTemporal();
+                     valor += temp2 + ' = stack[(int)'+temp1+'];';
+                     valor += '\n';
+                     valor += temp3+' = heap[(int)' + temp2 +'];';
+                     valor += '\n';
+                     valor += `${temp2} = heap[(int)${temp3}];`
+
+                     var r = [];
+                     r[0] = "NUMBER";
+                     r[1] = temp2;
+                     r[2] = ''
+                     r[3] = valor;
+                     r[4] = '';
+                     r[5] = Number(arr.getTam($1,1));
+                     r[6] = Number(arr.getTam($1,1));
+                     r[7] = '';
+                     r[8] = '';
+
+                     $$ = r;
+
+                }
+                else
+                {
+                    if(n.tipo.toUpperCase() == 'STRING')
+                    {
+                          var valor = '';
+                          var temp1 = Temp.getTemporal();
+                          valor += temp1 + ' = ' + n.position +';';
+                          valor += '\n';
+                          var temp2 = Temp.getTemporal();
+                          var temp3 = Temp.getTemporal();
+                          valor += temp2 + ' = stack[(int)'+temp1+'];';
+                          valor += '\n';
+                          valor += temp3+' = heap[(int)' + temp2 +'];';
+                          valor += '\n';
+                          valor += `${temp2} = heap[(int)${temp3}];`
+
+                          var r = [];
+                          r[0] = "NUMBER";
+                          r[1] = temp2;
+                          r[2] = ''
+                          r[3] = valor;
+                          r[4] = '';
+                          r[5] = n.valor.length;
+                          r[6] = n.valor.length;
+                          r[7] = '';
+                          r[8] = '';
+
+                          $$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion`+'\"}');
+                        $$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$1}`+'\"}');
+                 $$ = ['','','',''];
+            }
+        }
+        else
+        {
+            $$ = ['','','','','','','',''];
+        }
+    }
     | IDENT  PLUSPLUS
     | IDENT  MINSMINS
-    | IDENT '.' CHARAT '(' Expr ')'
-    | IDENT '.' TOLOWER '(' ')'
-    | IDENT '.' TOUPPER '(' ')'
-    | IDENT '.' CONCAT '(' Expr ')'
     | MINSMINS IDENT
     | PLUSPLUS IDENT
     | IDENT Expr1_statement PLUSPLUS
     | IDENT Expr1_statement MINSMINS
     | MINSMINS IDENT Expr1_statement
     | PLUSPLUS IDENT Expr1_statement
-    | IDENT '.' LENGTH
-    | IDENT Expr1_statement '.' LENGTH
-    | IDENT Expr1_statement initialNo ';'
-    | IDENT Expr1_statement initialNo
+    | IDENT Expr1_statement '=' AssignmentExpr
+    {
+        $$ = ['','','','','','','',''];
+    }
+
 ;
 
 ArrayLiteral
@@ -2301,7 +3725,7 @@ ArrayLiteral
         var valor = '';
         valor += temp + ' = ' + temp + ' + 1;';
         valor += '\n';
-        valor += 'heap['+temp+'] = -1;';
+        valor += 'heap[(int)'+temp+'] = -1;';
         valor += '\n';
         var a = new intermedia.arreglo();
         a.c3d = valor;
@@ -2354,64 +3778,64 @@ ArrayLiteral
                                 valor += temp1 + ' = ' + posS + ';';
                                 valor += temp0 + ' = ' + posS + ';';
                                 valor += '\n';
-                                valor += 'heap['+temp+'] = ' + temp1 + ';';
+                                valor += 'heap[(int)'+temp+'] = ' + temp1 + ';';
                                 valor += '\n';
                                 valor += temp1 + ' = ' + temp1 + ' + 1;';
                                 valor += '\n';
                                 var temp2 = Temp.getTemporal();
                                 valor += temp2 + ' = '+ val.length + ';';
                                 valor += '\n';
-                                valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                                valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
                                 valor += '\n';
                                 valor += pos[6].temporal + ' = ' + temp1 + ';';
                                 valor += '\n';
                                 valor += pos[6].c3d;
                                 valor += '\n';
-                                valor += 'heap['+temp+'] = '+temp0+';';
+                                valor += 'heap[(int)'+temp+'] = '+temp0+';';
                                 valor += '\n';
 
                                 if(pos >0 && pos != 0) pos++;
                                 if (pos == 0) pos++;
-                                posS += 50000;
+                                posS += 5000;
                                 break;
                             case 'NUMBER':
                                 valor += pos[6].c3d;
                                 valor += '\n';
-                                valor += 'heap['+temp+'] = '+pos[6].temporal+';';
+                                valor += 'heap[(int)'+temp+'] = '+pos[6].temporal+';';
                                 valor += '\n';
                                 break;
                             case 'BOOLEAN':
                                 valor += pos[6].c3d;
                                 valor += '\n';
-                                valor += 'heap['+temp+'] = '+pos[6].temporal+';';
+                                valor += 'heap[(int)'+temp+'] = '+pos[6].temporal+';';
                                 valor += '\n';
                                 break;
 
                             case 'ARREGLO':
-                                var val = pos[7];
+                                var val = pos[6].positions;
                                 var post = 1;
                                 for(let m of val) post *= m;
 
                                 var temp0 = Temp.getTemporal();
                                 var temp1 = Temp.getTemporal();
-                                valor += temp1 + ' = ' + posA + ';';
-                                valor += temp0 + ' = ' + posA + ';';
+                                valor += temp1 + ' = ' + posA + ';\n';
+                                valor += temp0 + ' = ' + posA + ';\n';
 
                                 var temp2 = Temp.getTemporal();
                                 valor += temp2 + ' = '+ post + ';';
                                 valor += '\n';
-                                valor += 'heap['+temp1+'] = ' + temp2 + ';';
+                                valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
                                 valor += '\n';
                                 valor += pos[6].temporal + ' = ' + temp1 + ';';
                                 valor += '\n';
                                 valor += pos[6].c3d;
                                 valor += '\n';
-                                valor += 'heap['+temp+'] = '+temp0+';';
+                                valor += 'heap[(int)'+temp+'] = '+temp0+';';
                                 valor += '\n';
 
                                 if(pos >0 && pos != 0) pos++;
                                 if (pos == 0) pos++;
-                                posA += 50000;
+                                posA += 5000;
                                 break;
                         }
                     }
@@ -2507,6 +3931,40 @@ ElementList
 
     }
     | ElementList ',' AssignmentExpr
+    {
+        r1 = $1;
+        if($3[0].tipo != '')
+        {
+            var r = [];
+            var arrs = new intermedia.arreglo();
+            if($1[0].tipo == 'ARREGLO')
+            {
+                arrs.positions.push($3[7]);
+            }
+            arrs.valor = $3[6];
+            arrs.tipo = $3[0];
+            arrs.c3d = $3[3];
+            arrs.temporal = $3[1];
+            arrs.bandera = $3[2];
+            r[0] = 'ARREGLO';
+            r[1] = $3[1];
+            r[2] = $3[2];
+            r[3] = $3[3];
+            r[4] = '';
+            r[5] = '';
+            r[6] = arrs;
+            r[7] = 1;
+            r1.push(r);
+
+        }
+        else
+        {
+
+        }
+
+        $$ = r1;
+
+    }
 ;
 
 
@@ -2515,9 +3973,11 @@ MemberExpr
     {
         $$ = $1;
     }
-    | FunctionExpr
     | MemberExpr '[' Expr ']'
     | MemberExpr '.' IDENT
+    {
+        $$ = ['','','','','','']
+    }
 ;
 
 MemberExprNoBF
@@ -2527,6 +3987,9 @@ MemberExprNoBF
     }
     | MemberExprNoBF '[' Expr ']'
     | MemberExprNoBF '.' IDENT
+    {
+        $$ = ['','','','','','']
+    }
 ;
 
 
@@ -2547,6 +4010,9 @@ CallExpr
     | CallExpr Arguments
     | CallExpr '[' Expr ']'
     | CallExpr '.' IDENT
+    {
+        $$ = ['','','','','','']
+    }
 ;
 
 CallExprNoBF
@@ -2565,6 +4031,9 @@ CallExprNoBF
     | CallExprNoBF Arguments
     | CallExprNoBF '[' Expr ']'
     | CallExprNoBF '.' IDENT
+    {
+        $$ = ['','','','','','']
+    }
 ;
 
 Arguments
@@ -2630,7 +4099,7 @@ UnaryExprCommon
                 valor += $2[3];
 
                 valor += temp0 + ' = '+n.position +';\n';
-                valor += temp + ' = stack['+temp0+'];\n';
+                valor += temp + ' = stack[(int)'+temp0+'];\n';
 
                 r[1] = temp;
                 r[2] = '';
@@ -2671,7 +4140,7 @@ UnaryExprCommon
                         valor += '';
 
                         var temp = Temp.getTemporal();
-                        valor += temp + ' = stack['+temp0+'];\n';
+                        valor += temp + ' = stack[(int)'+temp0+'];\n';
 
                         var temp1 = Temp.getTemporal();
                         valor += temp1 + ' = -1 * ' + temp + ';\n';
@@ -2779,7 +4248,7 @@ UnaryExprCommon
                         valor += $2[3];
 
                         valor += temp0 + ' = '+n.position +';\n';
-                        valor += temp1 + ' = stack['+temp0+'];\n';
+                        valor += temp1 + ' = stack[(int)'+temp0+'];\n';
 
                         valor += 'if('+temp1+' == 0) goto '+label+';\n';
                         valor += temp + ' = 0;\n';
@@ -2889,7 +4358,7 @@ MultiplicativeExpr
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'*'+tempant1+';';
@@ -2923,7 +4392,7 @@ MultiplicativeExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -2950,14 +4419,14 @@ MultiplicativeExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'*'+tempant111+';';
@@ -3032,7 +4501,7 @@ MultiplicativeExpr
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'/'+tempant1+';';
@@ -3066,7 +4535,7 @@ MultiplicativeExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -3093,14 +4562,14 @@ MultiplicativeExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'/'+tempant111+';';
@@ -3192,7 +4661,7 @@ MultiplicativeExpr
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         var temp1 = Temp.getTemporal();
@@ -3243,7 +4712,7 @@ MultiplicativeExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -3287,13 +4756,13 @@ MultiplicativeExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             var temp1 = Temp.getTemporal();
@@ -3385,7 +4854,7 @@ MultiplicativeExpr
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'%'+tempant1+';';
@@ -3419,7 +4888,7 @@ MultiplicativeExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -3446,14 +4915,14 @@ MultiplicativeExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'%'+tempant111+';';
@@ -3535,7 +5004,7 @@ MultiplicativeExprNoBF
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'*'+tempant1+';';
@@ -3569,7 +5038,7 @@ MultiplicativeExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -3596,14 +5065,14 @@ MultiplicativeExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'*'+tempant111+';';
@@ -3678,7 +5147,7 @@ MultiplicativeExprNoBF
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'/'+tempant1+';';
@@ -3712,7 +5181,7 @@ MultiplicativeExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -3739,14 +5208,14 @@ MultiplicativeExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'/'+tempant111+';';
@@ -3838,7 +5307,7 @@ MultiplicativeExprNoBF
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         var temp1 = Temp.getTemporal();
@@ -3889,7 +5358,7 @@ MultiplicativeExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -3933,13 +5402,13 @@ MultiplicativeExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             var temp1 = Temp.getTemporal();
@@ -4031,7 +5500,7 @@ MultiplicativeExprNoBF
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'%'+tempant1+';';
@@ -4065,7 +5534,7 @@ MultiplicativeExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -4092,14 +5561,14 @@ MultiplicativeExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'%'+tempant111+';';
@@ -4153,7 +5622,7 @@ AdicionExpr
              {
                  valor += $1[1] + ' = ' + $1[1] + ' + 1;';
                  valor += '\n';
-                 valor += 'heap['+$1[1]+'] = ' + $3[5].charCodeAt(a) + ';';
+                 valor += 'heap[(int)'+$1[1]+'] = ' + $3[5].charCodeAt(a) + ';';
                  valor += '\n'
              }
             r[2] = '';
@@ -4170,19 +5639,19 @@ AdicionExpr
              r[1] = $1[1];
              var valor = '';
              valor += $1[3];
-             var val = $3[5].toString();
+             var val = $3[6].toString();
              for(var a = 0; a<val.length; a++)
               {
                   valor += $1[1] + ' = ' + $1[1] + ' + 1;';
                   valor += '\n';
-                  valor += 'heap['+$1[1]+'] = ' + val.charCodeAt(a) + ';';
+                  valor += 'heap[(int)'+$1[1]+'] = ' + val.charCodeAt(a) + ';';
                   valor += '\n'
               }
              r[2] = '';
              r[3] = valor;
              r[4] = '';
              r[5] = $1[5] + $3[5].toString();
-             r[6] = $1[6] + $3[6];
+             r[6] = $1[6] + $3[6].toString();
              $$ = r;
         }
         else if($1[0] != '' && $3[0] == 'STRING')
@@ -4191,12 +5660,12 @@ AdicionExpr
              r[0] = "STRING";
              r[1] = $1[1];
              var valor = '';
-             var val = $1[5].toString();
+             var val = $1[6].toString();
              for(var a = 0; a<val.length; a++)
               {
                   valor += $1[1] + ' = ' + $1[1] + ' + 1;';
                   valor += '\n';
-                  valor += 'heap['+$1[1]+'] = ' + val.charCodeAt(a) + ';';
+                  valor += 'heap[(int)'+$1[1]+'] = ' + val.charCodeAt(a) + ';';
                   valor += '\n'
               }
               valor += $3[3];
@@ -4204,29 +5673,29 @@ AdicionExpr
              r[3] = valor;
              r[4] = '';
              r[5] = $1[5].toString() + $3[5];
-             r[6] = $1[6] + $3[6];
+             r[6] = $1[6].toString() + $3[6];
              $$ = r;
         }
         else if ($1[0] != '' && $3[0] != '')
         {
-                        var valor = '';
-                        var r = [];
-                        valor += $1[3];
-                        valor += '\n';
-                        valor += $3[3];
-                        valor += '\n';
+            var valor = '';
+            var r = [];
+            valor += $1[3];
+            valor += '\n';
+            valor += $3[3];
+            valor += '\n';
 
-                        var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + $1[1] + ' + ' + $3[1] + ';';
+            var temp = Temp.getTemporal();
+            valor += temp + ' = ' + $1[1] + ' + ' + $3[1] + ';';
 
-                        r[0] = 'NUMBER';
-                        r[1] = temp;
-                        r[2] = '';
-                        r[3] = valor;
-                        r[4] = '';
-                        r[5] = '';
-                        r[6] = Number($1[6]) + Number($3[6]);
-                        $$ = r;
+            r[0] = 'NUMBER';
+            r[1] = temp;
+            r[2] = '';
+            r[3] = valor;
+            r[4] = '';
+            r[5] = '';
+            r[6] = Number($1[6]) + Number($3[6]);
+            $$ = r;
         }
         else if ($1[0] == '' && $3[0] == '')
         {
@@ -4245,14 +5714,14 @@ AdicionExpr
                         valor += temp + ' = ' + n.position + ';';
                         valor += '\n';
                         var temp1 = Temp.getTemporal();
-                        valor += temp1 + ' = stack['+temp+'];';
+                        valor += temp1 + ' = stack[(int)'+temp+'];';
                         valor += '\n';
 
                         var temp2 = Temp.getTemporal();
                         valor += temp2 + ' = ' + n1.position + ';';
                         valor += '\n';
                         var temp3 = Temp.getTemporal();
-                        valor += temp3 + ' = stack['+temp2+'];';
+                        valor += temp3 + ' = stack[(int)'+temp2+'];';
                         valor += '\n';
 
                         var temp4 = Temp.getTemporal();
@@ -4282,14 +5751,14 @@ AdicionExpr
                             {
                                 valor += temp + ' = ' + temp + ' + 1;';
                                 valor += '\n';
-                                valor += 'heap['+temp+'] = ' + n.toString().charCodeAt(a) + ';';
+                                valor += 'heap[(int)'+temp+'] = ' + n.toString().charCodeAt(a) + ';';
                                 valor += '\n';
                             }
                             for(var a = 0; a<n1.toString().length; a++)
                             {
                                 valor += temp + ' = ' + temp + ' + 1;';
                                 valor += '\n';
-                                valor += 'heap['+temp+'] = ' + n1.toString().charCodeAt(a) + ';';
+                                valor += 'heap[(int)'+temp+'] = ' + n1.toString().charCodeAt(a) + ';';
                                 valor += '\n';
                             }
                             r[3] = valor;
@@ -4336,7 +5805,7 @@ AdicionExpr
                          {
                             valor += temp + ' = ' + temp + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
+                            valor += 'heap[(int)'+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
                             valor += '\n';
                          }
 
@@ -4344,15 +5813,15 @@ AdicionExpr
                          {
                             valor += temp + ' = ' + temp + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp+'] = ' + $3[6].toString().charCodeAt(a) + ';';
+                            valor += 'heap[(int)'+temp+'] = ' + $3[6].toString().charCodeAt(a) + ';';
                             valor += '\n';
                          }
                          r[1] = temp;
                          r[2] = '';
                          r[3] = valor;
                          r[4] = '';
-                         r[5] = n.valor + $3[6].toString();
-                         r[6] = n.valor + $3[6];
+                         r[5] = n.valor.toString() + $3[6].toString();
+                         r[6] = n.valor.toString() + $3[6].toString();
                          $$ = r;
                     }
                     else if ( $3[0] == 'STRING')
@@ -4362,11 +5831,11 @@ AdicionExpr
 
                          var temp = Temp.getTemporal();
                          var valor = '';
-                         for(var a = 0; a<n.toString().length; a++)
+                         for(var a = 0; a<n.valor.toString().length; a++)
                          {
                             valor += temp + ' = ' + temp + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
+                            valor += 'heap[(int)'+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
                             valor += '\n';
                          }
 
@@ -4374,15 +5843,15 @@ AdicionExpr
                          {
                             valor += temp + ' = ' + temp + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp+'] = ' + $3[6].toString().charCodeAt(a) + ';';
+                            valor += 'heap[(int)'+temp+'] = ' + $3[6].toString().charCodeAt(a) + ';';
                             valor += '\n';
                          }
                          r[1] = temp;
                          r[2] = '';
                          r[3] = valor;
                          r[4] = '';
-                         r[5] = n.valor + $3[6].toString();
-                         r[6] = n.valor + $3[6];
+                         r[5] = n.valor.toString() + $3[6].toString();
+                         r[6] = n.valor.toString() + $3[6];
                          $$ = r;
                     }
                     else
@@ -4394,7 +5863,7 @@ AdicionExpr
                         valor += temp + ' = ' + n.position + ';';
                         valor += '\n';
                         var temp1 = Temp.getTemporal();
-                        valor += temp1 + ' = stack['+temp+'];';
+                        valor += temp1 + ' = stack[(int)'+temp+'];';
                         valor += '\n';
 
                         valor += $3[3];
@@ -4437,7 +5906,7 @@ AdicionExpr
                          {
                             valor += temp + ' = ' + temp + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp+'] = ' + $3[6].toString().charCodeAt(a) + ';';
+                            valor += 'heap[(int)'+temp+'] = ' + $1[6].toString().charCodeAt(a) + ';';
                             valor += '\n';
                          }
 
@@ -4445,7 +5914,7 @@ AdicionExpr
                          {
                             valor += temp + ' = ' + temp + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
+                            valor += 'heap[(int)'+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
                             valor += '\n';
                          }
 
@@ -4453,8 +5922,8 @@ AdicionExpr
                          r[2] = '';
                          r[3] = valor;
                          r[4] = '';
-                         r[5] = $1[6].toString() + n.valor;
-                         r[6] = $1[6].toString() + n.valor;
+                         r[5] = $1[6].toString() + n.valor.toString();
+                         r[6] = $1[6].toString() + n.valor.toString();
                          $$ = r;
                     }
                     else if ( $1[0] == 'STRING')
@@ -4464,12 +5933,12 @@ AdicionExpr
 
                          var temp = Temp.getTemporal();
                          var valor = '';
-
-                          for(var a = 0; a<$1[6].toString().length; a++)
+                          var val = $1[6].toString();
+                          for(var a = 0; a<val.length; a++)
                           {
                              valor += temp + ' = ' + temp + ' + 1;';
                              valor += '\n';
-                             valor += 'heap['+temp+'] = ' + $1[6].toString().charCodeAt(a) + ';';
+                             valor += 'heap[(int)'+temp+'] = ' + val.charCodeAt(a) + ';';
                              valor += '\n';
                           }
 
@@ -4477,7 +5946,7 @@ AdicionExpr
                          {
                             valor += temp + ' = ' + temp + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
+                            valor += 'heap[(int)'+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
                             valor += '\n';
                          }
 
@@ -4486,8 +5955,8 @@ AdicionExpr
                          r[2] = '';
                          r[3] = valor;
                          r[4] = '';
-                         r[5] = $1[6] + n.valor.toString();
-                         r[6] = $1[6] + n.valor.toString();
+                         r[5] = $1[6].toString() + n.valor.toString();
+                         r[6] = $1[6].toString() + n.valor.toString();
                          $$ = r;
                     }
                     else
@@ -4502,7 +5971,7 @@ AdicionExpr
                         valor += temp + ' = ' + n.position + ';';
                         valor += '\n';
                         var temp1 = Temp.getTemporal();
-                        valor += temp1 + ' = stack['+temp+'];';
+                        valor += temp1 + ' = stack[(int)'+temp+'];';
                         valor += '\n';
 
                         var temp4 = Temp.getTemporal();
@@ -4588,7 +6057,7 @@ AdicionExpr
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'-'+tempant1+';';
@@ -4622,7 +6091,7 @@ AdicionExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -4649,14 +6118,14 @@ AdicionExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'-'+tempant111+';';
@@ -4710,7 +6179,7 @@ AdicionExprNoBF
              {
                  valor += $1[1] + ' = ' + $1[1] + ' + 1;';
                  valor += '\n';
-                 valor += 'heap['+$1[1]+'] = ' + $3[5].charCodeAt(a) + ';';
+                 valor += 'heap[(int)'+$1[1]+'] = ' + $3[5].charCodeAt(a) + ';';
                  valor += '\n'
              }
             r[2] = '';
@@ -4732,14 +6201,14 @@ AdicionExprNoBF
               {
                   valor += $1[1] + ' = ' + $1[1] + ' + 1;';
                   valor += '\n';
-                  valor += 'heap['+$1[1]+'] = ' + val.charCodeAt(a) + ';';
+                  valor += 'heap[(int)'+$1[1]+'] = ' + val.charCodeAt(a) + ';';
                   valor += '\n'
               }
              r[2] = '';
              r[3] = valor;
              r[4] = '';
-             r[5] = $1[5] + $3[5].toString();
-             r[6] = $1[6] + $3[6];
+             r[5] = $1[5].toString() + $3[5].toString();
+             r[6] = $1[6].toString() + $3[6].toString();
              $$ = r;
         }
         else if($1[0] != '' && $3[0] == 'STRING')
@@ -4753,37 +6222,37 @@ AdicionExprNoBF
               {
                   valor += $1[1] + ' = ' + $1[1] + ' + 1;';
                   valor += '\n';
-                  valor += 'heap['+$1[1]+'] = ' + val.charCodeAt(a) + ';';
+                  valor += 'heap[(int)'+$1[1]+'] = ' + val.charCodeAt(a) + ';';
                   valor += '\n'
               }
               valor += $3[3];
              r[2] = '';
              r[3] = valor;
              r[4] = '';
-             r[5] = $1[5].toString() + $3[5];
-             r[6] = $1[6] + $3[6];
+             r[5] = $1[5].toString() + $3[5].toString();
+             r[6] = $1[6].toString() + $3[6].toString();
              $$ = r;
         }
         else if ($1[0] != '' && $3[0] != '')
         {
-                        var valor = '';
-                        var r = [];
-                        valor += $1[3];
-                        valor += '\n';
-                        valor += $3[3];
-                        valor += '\n';
+            var valor = '';
+            var r = [];
+            valor += $1[3];
+            valor += '\n';
+            valor += $3[3];
+            valor += '\n';
 
-                        var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + $1[1] + ' + ' + $3[1] + ';';
+            var temp = Temp.getTemporal();
+            valor += temp + ' = ' + $1[1] + ' + ' + $3[1] + ';';
 
-                        r[0] = 'NUMBER';
-                        r[1] = temp;
-                        r[2] = '';
-                        r[3] = valor;
-                        r[4] = '';
-                        r[5] = '';
-                        r[6] = Number($1[6]) + Number($3[6]);
-                        $$ = r;
+            r[0] = 'NUMBER';
+            r[1] = temp;
+            r[2] = '';
+            r[3] = valor;
+            r[4] = '';
+            r[5] = '';
+            r[6] = Number($1[6]) + Number($3[6]);
+            $$ = r;
         }
         else if ($1[0] == '' && $3[0] == '')
         {
@@ -4802,14 +6271,14 @@ AdicionExprNoBF
                         valor += temp + ' = ' + n.position + ';';
                         valor += '\n';
                         var temp1 = Temp.getTemporal();
-                        valor += temp1 + ' = stack['+temp+'];';
+                        valor += temp1 + ' = stack[(int)'+temp+'];';
                         valor += '\n';
 
                         var temp2 = Temp.getTemporal();
                         valor += temp2 + ' = ' + n1.position + ';';
                         valor += '\n';
                         var temp3 = Temp.getTemporal();
-                        valor += temp3 + ' = stack['+temp2+'];';
+                        valor += temp3 + ' = stack[(int)'+temp2+'];';
                         valor += '\n';
 
                         var temp4 = Temp.getTemporal();
@@ -4839,14 +6308,14 @@ AdicionExprNoBF
                             {
                                 valor += temp + ' = ' + temp + ' + 1;';
                                 valor += '\n';
-                                valor += 'heap['+temp+'] = ' + n.toString().charCodeAt(a) + ';';
+                                valor += 'heap[(int)'+temp+'] = ' + n.toString().charCodeAt(a) + ';';
                                 valor += '\n';
                             }
                             for(var a = 0; a<n1.toString().length; a++)
                             {
                                 valor += temp + ' = ' + temp + ' + 1;';
                                 valor += '\n';
-                                valor += 'heap['+temp+'] = ' + n1.toString().charCodeAt(a) + ';';
+                                valor += 'heap[(int)'+temp+'] = ' + n1.toString().charCodeAt(a) + ';';
                                 valor += '\n';
                             }
                             r[3] = valor;
@@ -4893,23 +6362,23 @@ AdicionExprNoBF
                          {
                             valor += temp + ' = ' + temp + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
+                            valor += 'heap[(int)'+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
                             valor += '\n';
                          }
 
-                         for(var a = 0; a<$3[6].toString().length; a++)
+                         for(var a = 0; a<$1[6].toString().length; a++)
                          {
                             valor += temp + ' = ' + temp + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp+'] = ' + $3[6].toString().charCodeAt(a) + ';';
+                            valor += 'heap[(int)'+temp+'] = ' + $1[6].toString().charCodeAt(a) + ';';
                             valor += '\n';
                          }
                          r[1] = temp;
                          r[2] = '';
                          r[3] = valor;
                          r[4] = '';
-                         r[5] = n.valor + $3[6].toString();
-                         r[6] = n.valor + $3[6];
+                         r[5] = $1[6].toString() + n.valor;
+                         r[6] = $1[6] + n.valor;
                          $$ = r;
                     }
                     else if ( $3[0] == 'STRING')
@@ -4919,11 +6388,11 @@ AdicionExprNoBF
 
                          var temp = Temp.getTemporal();
                          var valor = '';
-                         for(var a = 0; a<n.toString().length; a++)
+                         for(var a = 0; a<n.valor.toString().length; a++)
                          {
                             valor += temp + ' = ' + temp + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
+                            valor += 'heap[(int)'+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
                             valor += '\n';
                          }
 
@@ -4931,15 +6400,15 @@ AdicionExprNoBF
                          {
                             valor += temp + ' = ' + temp + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp+'] = ' + $3[6].toString().charCodeAt(a) + ';';
+                            valor += 'heap[(int)'+temp+'] = ' + $3[6].toString().charCodeAt(a) + ';';
                             valor += '\n';
                          }
                          r[1] = temp;
                          r[2] = '';
                          r[3] = valor;
                          r[4] = '';
-                         r[5] = n.valor + $3[6].toString();
-                         r[6] = n.valor + $3[6];
+                         r[5] = n.valor.toString() + $3[6].toString();
+                         r[6] = n.valor.toString() + $3[6];
                          $$ = r;
                     }
                     else
@@ -4951,7 +6420,7 @@ AdicionExprNoBF
                         valor += temp + ' = ' + n.position + ';';
                         valor += '\n';
                         var temp1 = Temp.getTemporal();
-                        valor += temp1 + ' = stack['+temp+'];';
+                        valor += temp1 + ' = stack[(int)'+temp+'];';
                         valor += '\n';
 
                         valor += $3[3];
@@ -4994,7 +6463,7 @@ AdicionExprNoBF
                          {
                             valor += temp + ' = ' + temp + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp+'] = ' + $3[6].toString().charCodeAt(a) + ';';
+                            valor += 'heap[(int)'+temp+'] = ' + $1[6].toString().charCodeAt(a) + ';';
                             valor += '\n';
                          }
 
@@ -5002,7 +6471,7 @@ AdicionExprNoBF
                          {
                             valor += temp + ' = ' + temp + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
+                            valor += 'heap[(int)'+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
                             valor += '\n';
                          }
 
@@ -5026,7 +6495,7 @@ AdicionExprNoBF
                           {
                              valor += temp + ' = ' + temp + ' + 1;';
                              valor += '\n';
-                             valor += 'heap['+temp+'] = ' + $1[6].toString().charCodeAt(a) + ';';
+                             valor += 'heap[(int)'+temp+'] = ' + $1[6].toString().charCodeAt(a) + ';';
                              valor += '\n';
                           }
 
@@ -5034,7 +6503,7 @@ AdicionExprNoBF
                          {
                             valor += temp + ' = ' + temp + ' + 1;';
                             valor += '\n';
-                            valor += 'heap['+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
+                            valor += 'heap[(int)'+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
                             valor += '\n';
                          }
 
@@ -5059,7 +6528,7 @@ AdicionExprNoBF
                         valor += temp + ' = ' + n.position + ';';
                         valor += '\n';
                         var temp1 = Temp.getTemporal();
-                        valor += temp1 + ' = stack['+temp+'];';
+                        valor += temp1 + ' = stack[(int)'+temp+'];';
                         valor += '\n';
 
                         var temp4 = Temp.getTemporal();
@@ -5145,7 +6614,7 @@ AdicionExprNoBF
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'-'+tempant1+';';
@@ -5179,7 +6648,7 @@ AdicionExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -5206,14 +6675,14 @@ AdicionExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'-'+tempant111+';';
@@ -5295,7 +6764,7 @@ RelacionalExpr
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'<'+tempant1+';';
@@ -5329,7 +6798,7 @@ RelacionalExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -5356,14 +6825,14 @@ RelacionalExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'<'+tempant111+';';
@@ -5438,7 +6907,7 @@ RelacionalExpr
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'>'+tempant1+';';
@@ -5472,7 +6941,7 @@ RelacionalExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -5499,14 +6968,14 @@ RelacionalExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'>'+tempant111+';';
@@ -5588,7 +7057,7 @@ RelacionalExprNoIn
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'<'+tempant1+';';
@@ -5622,7 +7091,7 @@ RelacionalExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -5649,14 +7118,14 @@ RelacionalExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'<'+tempant111+';';
@@ -5731,7 +7200,7 @@ RelacionalExprNoIn
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'>'+tempant1+';';
@@ -5765,7 +7234,7 @@ RelacionalExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -5792,14 +7261,14 @@ RelacionalExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'>'+tempant111+';';
@@ -5881,7 +7350,7 @@ RelacionalExprNoBF
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'<'+tempant1+';';
@@ -5915,7 +7384,7 @@ RelacionalExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -5942,14 +7411,14 @@ RelacionalExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'<'+tempant111+';';
@@ -6024,7 +7493,7 @@ RelacionalExprNoBF
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'>'+tempant1+';';
@@ -6058,7 +7527,7 @@ RelacionalExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -6085,14 +7554,14 @@ RelacionalExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'>'+tempant111+';';
@@ -6174,7 +7643,7 @@ IgualdadExpr
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'=='+tempant1+';';
@@ -6208,7 +7677,7 @@ IgualdadExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -6235,14 +7704,14 @@ IgualdadExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'=='+tempant111+';';
@@ -6317,7 +7786,7 @@ IgualdadExpr
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'!='+tempant1+';';
@@ -6351,7 +7820,7 @@ IgualdadExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -6378,14 +7847,14 @@ IgualdadExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'!='+tempant111+';';
@@ -6460,7 +7929,7 @@ IgualdadExpr
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'>='+tempant1+';';
@@ -6494,7 +7963,7 @@ IgualdadExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -6521,14 +7990,14 @@ IgualdadExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'>='+tempant111+';';
@@ -6603,7 +8072,7 @@ IgualdadExpr
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'<='+tempant1+';';
@@ -6637,7 +8106,7 @@ IgualdadExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -6664,14 +8133,14 @@ IgualdadExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'<='+tempant111+';';
@@ -6753,7 +8222,7 @@ IgualdadExprNoIn
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'=='+tempant1+';';
@@ -6787,7 +8256,7 @@ IgualdadExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -6814,14 +8283,14 @@ IgualdadExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'=='+tempant111+';';
@@ -6896,7 +8365,7 @@ IgualdadExprNoIn
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'!='+tempant1+';';
@@ -6930,7 +8399,7 @@ IgualdadExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -6957,14 +8426,14 @@ IgualdadExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'!='+tempant111+';';
@@ -7039,7 +8508,7 @@ IgualdadExprNoIn
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'>='+tempant1+';';
@@ -7073,7 +8542,7 @@ IgualdadExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -7100,14 +8569,14 @@ IgualdadExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'>='+tempant111+';';
@@ -7182,7 +8651,7 @@ IgualdadExprNoIn
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'<='+tempant1+';';
@@ -7216,7 +8685,7 @@ IgualdadExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -7243,14 +8712,14 @@ IgualdadExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'<='+tempant111+';';
@@ -7332,7 +8801,7 @@ IgualdadExprNoBF
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'=='+tempant1+';';
@@ -7366,7 +8835,7 @@ IgualdadExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -7393,14 +8862,14 @@ IgualdadExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'=='+tempant111+';';
@@ -7475,7 +8944,7 @@ IgualdadExprNoBF
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'!='+tempant1+';';
@@ -7509,7 +8978,7 @@ IgualdadExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -7536,14 +9005,14 @@ IgualdadExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'!='+tempant111+';';
@@ -7618,7 +9087,7 @@ IgualdadExprNoBF
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'>='+tempant1+';';
@@ -7652,7 +9121,7 @@ IgualdadExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -7679,14 +9148,14 @@ IgualdadExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'>='+tempant111+';';
@@ -7761,7 +9230,7 @@ IgualdadExprNoBF
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$1[1]+'<='+tempant1+';';
@@ -7795,7 +9264,7 @@ IgualdadExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -7822,14 +9291,14 @@ IgualdadExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'<='+tempant111+';';
@@ -7931,7 +9400,7 @@ LogicaYYExpr
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         var label0 = Label.getBandera();
@@ -7984,7 +9453,7 @@ LogicaYYExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -8030,14 +9499,14 @@ LogicaYYExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             var label0 = Label.getBandera();
@@ -8157,7 +9626,7 @@ LogicaYYExprNoIn
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         var label0 = Label.getBandera();
@@ -8210,7 +9679,7 @@ LogicaYYExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -8256,14 +9725,14 @@ LogicaYYExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             var label0 = Label.getBandera();
@@ -8378,7 +9847,7 @@ LogicaYYExprNoBF
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         var label0 = Label.getBandera();
@@ -8431,7 +9900,7 @@ LogicaYYExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -8477,14 +9946,14 @@ LogicaYYExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             var label0 = Label.getBandera();
@@ -8613,7 +10082,7 @@ LogicaOOExpr
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         var label0 = Label.getBandera();
@@ -8670,7 +10139,7 @@ LogicaOOExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -8720,14 +10189,14 @@ LogicaOOExpr
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             var label0 = Label.getBandera();
@@ -8860,7 +10329,7 @@ LogicaOOExprNoIn
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         var label0 = Label.getBandera();
@@ -8917,7 +10386,7 @@ LogicaOOExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -8967,14 +10436,14 @@ LogicaOOExprNoIn
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             var label0 = Label.getBandera();
@@ -9107,7 +10576,7 @@ LogicaOOExprNoBF
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack['+tempant+'];\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
 
                         var temp = Temp.getTemporal();
                         var label0 = Label.getBandera();
@@ -9164,7 +10633,7 @@ LogicaOOExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += $3[3];
                             valor += '\n';
 
@@ -9214,14 +10683,14 @@ LogicaOOExprNoBF
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack['+tempant+'];\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack['+tempant11+'];\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             var label0 = Label.getBandera();
@@ -9299,10 +10768,9 @@ CondicionTernariaExpr
             {
                 var valor = '';
                 var r = [];
-                valor += $3[3];
-                valor += '\n';
-                valor += $5[3];
-                valor += '\n';
+                valor += $1[3]+'\n';
+                valor += $3[3]+'\n';
+                valor += $5[3]+'\n';
 
                 var temp = Temp.getTemporal();
                 var label0 = Label.getBandera();
@@ -9328,21 +10796,25 @@ CondicionTernariaExpr
                     {
                         r[0] = 'STRING';
                         r[6] = $3[6];
+                        r[1] = $3[1];
                     }
                     else if(typeof $3[6] == "number")
                     {
                         r[0] = 'NUMBER';
                         r[6] = Number($3[6]);
+                        r[1] = temp;
                     }
                     else if(typeof $3[6] == 'boolean')
                     {
                         r[0] = 'BOOLEAN';
                         r[6] = $3[6];
+                        r[1] = temp;
                     }
                     else if($3[6] instanceof Array)
                     {
                         r[0] = 'ARREGLO';
                         r[6] = $3[6];
+                        r[1] = temp;
                     }
                 }
                 else
@@ -9351,25 +10823,28 @@ CondicionTernariaExpr
                     {
                         r[0] = 'STRING';
                         r[6] = $5[6];
+                        r[1] = $5[1];
                     }
                     else if(typeof $5[6] == "number")
                     {
                         r[0] = 'NUMBER';
                         r[6] = Number($5[6]);
+                        r[1] = temp;
                     }
                     else if(typeof $5[6] == "boolean")
                     {
                         r[0] = 'BOOLEAN';
                         r[6] = $5[6];
+                        r[1] = temp;
                     }
                     else if($5[6] instanceof Array)
                     {
                         r[0] = 'ARREGLO';
                         r[6] = $5[6];
+                        r[1] = temp;
                     }
                 }
 
-                r[1] = temp;
                 r[2] = label3;
                 r[3] = valor;
                 r[4] = '';
@@ -9388,9 +10863,9 @@ CondicionTernariaExpr
                     var tempant1 = Temp.getTemporal();
 
                     valor += tempant +'='+n.position+';\n';
-                    valor += tempant1 +'=stack['+tempant+'];\n';
-                    valor += $3[3];
-                    valor += '\n';
+                    valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                    valor += $3[3]+'\n';
+                    valor += $5[3]+'\n';
 
                     var temp = Temp.getTemporal();
                     var label0 = Label.getBandera();
@@ -9415,21 +10890,25 @@ CondicionTernariaExpr
                         {
                             r[0] = 'STRING';
                             r[6] = $3[6];
+                            r[1] = $3[1];
                         }
                         else if(typeof $3[6] == "number")
                         {
                             r[0] = 'NUMBER';
                             r[6] = Number($3[6]);
+                            r[1] = temp;
                         }
                         else if(typeof $3[6] == "boolean")
                         {
                             r[0] = 'BOOLEAN';
                             r[6] = $3[6];
+                            r[1] = temp;
                         }
                         else if($3[6] instanceof Array)
                         {
                             r[0] = 'ARREGLO';
                             r[6] = $3[6];
+                            r[1] = temp;
                         }
                     }
                     else
@@ -9438,25 +10917,28 @@ CondicionTernariaExpr
                         {
                             r[0] = 'STRING';
                             r[6] = $5[6];
+                            r[1] = $5[1];
                         }
                         else if(typeof $5[6] == "number")
                         {
-                            r[0] = (Number($5[6])%1!==0)?'FLOAT':'NUMBER';
+                            r[0] = 'NUMBER';
                             r[6] = Number($5[6]);
+                            r[1] = temp;
                         }
                         else if(typeof $5[6] == "boolean")
                         {
                             r[0] = 'BOOLEAN';
                             r[6] = $5[6];
+                            r[1] = temp;
                         }
                         else if($5[6] instanceof Array)
                         {
                             r[0] = 'ARREGLO';
                             r[6] = $5[6];
+                            r[1] = temp;
                         }
                     }
 
-                    r[1] = temp;
                     r[2] = label3;
                     r[3] = valor;
                     r[4] = '';
@@ -9496,10 +10978,10 @@ CondicionTernariaExprNoIn
             {
                 var valor = '';
                 var r = [];
-                valor += $3[3];
-                valor += '\n';
-                valor += $5[3];
-                valor += '\n';
+                valor += $1[3]+'\n';
+                valor += $3[3]+'\n';
+                valor += $5[3]+'\n';
+
 
                 var temp = Temp.getTemporal();
                 var label0 = Label.getBandera();
@@ -9525,21 +11007,25 @@ CondicionTernariaExprNoIn
                     {
                         r[0] = 'STRING';
                         r[6] = $3[6];
+                        r[1] = $3[1];
                     }
                     else if(typeof $3[6] == "number")
                     {
                         r[0] = 'NUMBER';
                         r[6] = Number($3[6]);
+                        r[1] = temp;
                     }
                     else if(typeof $3[6] == "boolean")
                     {
                         r[0] = 'BOOLEAN';
                         r[6] = $3[6];
+                        r[1] = temp;
                     }
                     else if($3[6] instanceof Array)
                     {
                         r[0] = 'ARREGLO';
                         r[6] = $3[6];
+                        r[1] = temp;
                     }
                 }
                 else
@@ -9548,25 +11034,29 @@ CondicionTernariaExprNoIn
                     {
                         r[0] = 'STRING';
                         r[6] = $5[6];
+                        r[1] = $5[1];
                     }
                     else if(typeof $5[6] == "number")
                     {
                         r[0] = 'NUMBER';
                         r[6] = Number($5[6]);
+                        r[1] = temp;
                     }
                     else if(typeof $5[6] == "boolean")
                     {
                         r[0] = 'BOOLEAN';
                         r[6] = $5[6];
+                        r[1] = temp;
                     }
                     else if($5[6] instanceof Array)
                     {
                         r[0] = 'ARREGLO';
                         r[6] = $5[6];
+                        r[1] = temp;
                     }
                 }
 
-                r[1] = temp;
+
                 r[2] = label3;
                 r[3] = valor;
                 r[4] = '';
@@ -9585,9 +11075,9 @@ CondicionTernariaExprNoIn
                     var tempant1 = Temp.getTemporal();
 
                     valor += tempant +'='+n.position+';\n';
-                    valor += tempant1 +'=stack['+tempant+'];\n';
-                    valor += $3[3];
-                    valor += '\n';
+                    valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                    valor += $3[3]+'\n';
+                    valor += $5[3]+'\n';
 
                     var temp = Temp.getTemporal();
                     var label0 = Label.getBandera();
@@ -9613,21 +11103,25 @@ CondicionTernariaExprNoIn
                         {
                             r[0] = 'STRING';
                             r[6] = $3[6];
+                            r[1] = $3[1];
                         }
                         else if(typeof $3[6] == "number")
                         {
                             r[0] = 'NUMBER';
                             r[6] = Number($3[6]);
+                            r[1] = temp;
                         }
                         else if(typeof $3[6] == "boolean")
                         {
                             r[0] = 'BOOLEAN';
                             r[6] = $3[6];
+                            r[1] = temp;
                         }
                         else if($3[6] instanceof Array)
                         {
                             r[0] = 'ARREGLO';
                             r[6] = $3[6];
+                            r[1] = temp;
                         }
                     }
                     else
@@ -9636,25 +11130,28 @@ CondicionTernariaExprNoIn
                         {
                             r[0] = 'STRING';
                             r[6] = $5[6];
+                            r[1] = $5[1];
                         }
                         else if(typeof $5[6] == "number")
                         {
-                            r[0] = (Number($5[6])%1!==0)?'FLOAT':'NUMBER';
+                            r[0] = 'NUMBER';
                             r[6] = Number($5[6]);
+                            r[1] = temp;
                         }
                         else if(typeof $5[6] == "boolean")
                         {
                             r[0] = 'BOOLEAN';
                             r[6] = $5[6];
+                            r[1] = temp;
                         }
                         else if($5[6] instanceof Array)
                         {
                             r[0] = 'ARREGLO';
                             r[6] = $5[6];
+                            r[1] = temp;
                         }
                     }
 
-                    r[1] = temp;
                     r[2] = label3;
                     r[3] = valor;
                     r[4] = '';
