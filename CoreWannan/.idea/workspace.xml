@@ -24,17 +24,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e7fdf22b-a013-458f-bf4c-2ee3c5c3b35f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C3D/TS.js" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/TS.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C3D/TS.ts" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/TS.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C3D/WE_C3D.jison" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/WE_C3D.jison" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C3D/WE_C3D.js" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/WE_C3D.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C3D/entrada.txt" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/entrada.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C3D/output.txt" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/output.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C3D/pruebas.js" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/pruebas.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRONTEND/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/main.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,6 +101,7 @@
       <workItem from="1604038011981" duration="16596000" />
       <workItem from="1604118348231" duration="5032000" />
       <workItem from="1604123999301" duration="14579000" />
+      <workItem from="1604200895730" duration="1199000" />
     </task>
     <servers />
   </component>
