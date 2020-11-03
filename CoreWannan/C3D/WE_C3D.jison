@@ -1245,56 +1245,61 @@ Assignation_statements
             {
                 if(n.rol.toUpperCase() == 'ARREGLO')
                 {
-                    var val = $3[6].toString();
-                    var valor = '';
-                    var temp = Temp.getTemporal();
-                    valor += temp + ' = stack[' + n.position + '];';
-                    valor += '\n';
-
-                    var temp1 = Temp.getTemporal();
-                    var temp0 = Temp.getTemporal();
-                    valor += temp1 + ' = heap[(int)' + temp + '];';
-                    valor += '\n';
-
-                    var temp2 = Temp.getTemporal();
-                    valor += temp2 + ' = '+ $3[7] + ';';
-                    valor += '\n';
-                    valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
-                    valor += '\n';
-                    valor += $3[1] + ' = ' + temp1 + ';';
-                    valor += '\n';
-                    valor += $3[3];
-                    valor += '\n';
-
-                    n.valor = $3[6];
-                    var r = [];
-                    r[3] = valor;
-                    r[0] = '';
-                    r[1] = temp1;
-                    r[2] = '';
-                    r[4] = '';
-                    r[5] = '';
-                    r[6] = '';
-                    r[7] = '';
-
-                    for(var m =0; m<arr.valores.length;m++)
+                    if($3[0] == 'ARREGLO')
                     {
-                        if(arr.valores[m].name == n.name)
+                        var val = $3[6].toString();
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = stack[' + n.position + '];';
+                        valor += '\n';
+                        var temp1 = Temp.getTemporal();
+                        var temp0 = Temp.getTemporal();
+                        valor += temp1 + ' = heap[(int)' + temp + '];';
+                        valor += '\n';
+
+                        var temp2 = Temp.getTemporal();
+                        valor += temp2 + ' = '+ $3[7] + ';';
+                        valor += '\n';
+                        valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
+                        valor += '\n';
+                        valor += $3[1] + ' = ' + temp1 + ';';
+                        valor += '\n';
+                        valor += $3[3];
+                        valor += '\n';
+
+                        n.valor = $3[6];
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp1;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+                        $3[6].name = n.name;
+
+                        for(var m =0; m<arr.valores.length;m++)
                         {
-                            arr.valores[m] = $3[6];
+                            if(arr.valores[m].name == n.name)
+                            {
+                                arr.valores[m] = $3[6];
+                            }
+                        }
+
+                        var k = tab.update(n.name,n);
+                        if(k)
+                        {
+                            $$ = r;
+                        }
+                        else
+                        {
+                            errores.push('{\"valor\":\"'+`Error, linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                            $$ = ['','','',''];
                         }
                     }
 
-                    var k = tab.update(n.name,n);
-                    if(k)
-                    {
-                        $$ = r;
-                    }
-                    else
-                    {
-                        errores.push('{\"valor\":\"'+`Error, linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
-                        $$ = ['','','',''];
-                    }
                 }
                 else if($3[0].toUpperCase() == n.tipo.toUpperCase())
                 {
@@ -3536,7 +3541,11 @@ Expr1_statement
     }
     | Expr1_statement '.' LENGTH
     {
-        $$ = ['','','','','','','','','','','','','','',''];
+        var r = [];
+        r[10] = 'LENGTHPOS';
+        r[11] = $1;
+        $$ = r;
+
     }
     | '.' IDENT
     {
@@ -3568,7 +3577,6 @@ ArrList
         r[10] = 'ARRPOS';
         r[11] = $$.length+1;
         r[12] = $2;
-        $$ = [];
         $$.push(r);
     }
     | Arr
@@ -3601,14 +3609,46 @@ Expr1_statements
             {
                 var valor = '';
                 var temp  = Temp.getTemporal();
-                var l = arr.getTam($1,1);
-                if(l==$2.length)
+                var l = arr.getProf($1);
+                if(l>=$2.length)
                 {
-                    console.log(true);
+                    var nivel = 1;
+                    for(let posi of $2)
+                    {
+                        var m = arr.getTam($1,nivel);
+                        var pass = false;
+
+                        if(posi[12][0] != '')
+                        {
+                            if(posi[12][0].toUpperCase() == 'NUMBER')
+                            {
+                                var num = posi[12][6];
+                                if(num <= (m-1))
+                                {
+                                    pass = true;
+                                }
+                                else
+                                {
+                                    pass = false;
+                                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                    $$ = ['','','',''];
+                                }
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                        nivel++;
+                    }
+                    if(pass)
+                    {
+                    }
                 }
                 else
                 {
-                    console.log(false);
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$1}, el tamaño del arreglo es de: ${l}`+'\"}');
+                    $$ = ['','','',''];
                 }
             }
             else
@@ -3617,6 +3657,79 @@ Expr1_statements
                  $$ = ['','','',''];
             }
 
+        }
+        else if($2[10] == 'LENGTHPOS')
+        {
+            var n = tab.getPositionAmbito($1);
+            if(n!=null)
+            {
+                var valor = '';
+                var temp  = Temp.getTemporal();
+                var l = arr.getProf($1);
+                if(l>=$2[11].length)
+                {
+                    var nivel = 1;
+                    k = null;
+                    for(let posi of $2[11])
+                    {
+                        var m = arr.getTam($1,nivel);
+                        var pass = false;
+
+                        if(posi[12][0] != '')
+                        {
+                            if(posi[12][0].toUpperCase() == 'NUMBER')
+                            {
+                                var num = posi[12][6];
+                                if(num <= (m-1))
+                                {
+                                    if(k!=null)
+                                    {
+                                        k = arr.getsize1(k,posi[12][6]);
+                                    }
+                                    else
+                                    {
+                                        k = arr.getTampos($1,nivel, posi[12][6]);
+                                    }
+                                    pass = true;
+                                }
+                                else
+                                {
+                                    pass = false;
+                                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                    $$ = ['','','',''];
+                                }
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                        nivel++;
+                    }
+                    if(pass)
+                    {
+                       console.log(k);
+                       if(k!=null)
+                       {
+                            var valor = '\n';
+                            var temp = Temp.getTemporal();
+                            valor += `${temp} = ${n.position};\n`;
+                            valor += `${temp1} = stack[(int)${temp}];\n`;
+                            valor += `${temp2} = heap[(int)${temp1}];\n`;
+                       }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$1}, el tamaño del arreglo es de: ${l}`+'\"}');
+                    $$ = ['','','',''];
+                }
+            }
+            else
+            {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$1}`+'\"}');
+                 $$ = ['','','',''];
+            }
         }
         else if($2[10] == 'LENGTH')
         {
@@ -3742,6 +3855,7 @@ ArrayLiteral
     }
     | '[' ElementList ']'
     {
+
         var temp = Temp.getTemporal();
         var r = [];
         r[0] = "ARREGLO";
@@ -3750,7 +3864,7 @@ ArrayLiteral
         var lm = false;
         var valor = '';
         var arreglito = new intermedia.arreglo();
-
+        var vals = [];
         if($2[0][6] instanceof intermedia.arreglo)
         {
             var tipo = $2[0][6].tipo.toUpperCase();
@@ -3765,6 +3879,7 @@ ArrayLiteral
                 valor += '\n';
                 if(pos[6] instanceof intermedia.arreglo)
                 {
+                    vals.push(pos[6]);
                     if(pos[6].tipo.toUpperCase() == tipo)
                     {
                         pass = true;
@@ -3857,6 +3972,7 @@ ArrayLiteral
                 arreglito.temporal = temp;
                 arreglito.bandera = '';
                 arreglito.tipo = 'ARREGLO';
+                arreglito.valor = vals;
                 r[3] = valor;
                 r[4] = '';
                 r[5] = [];
@@ -3901,66 +4017,68 @@ ElementList
     : AssignmentExpr
     {
         $$ = [];
-        if($1[0].tipo != '')
-        {
-            var r = [];
-            var arrs = new intermedia.arreglo();
-            if($1[0].tipo == 'ARREGLO')
-            {
-                arrs.positions.push($1[7]);
-            }
-            arrs.valor = $1[6];
-            arrs.tipo = $1[0];
-            arrs.c3d = $1[3];
-            arrs.temporal = $1[1];
-            arrs.bandera = $1[2];
-            r[0] = 'ARREGLO';
-            r[1] = $1[1];
-            r[2] = $1[2];
-            r[3] = $1[3];
-            r[4] = '';
-            r[5] = '';
-            r[6] = arrs;
-            r[7] = 1;
-            $$.push(r);
-        }
-        else
-        {
+        var r = [];
 
-        }
+          if($1[0] != '')
+          {   var arrs = new intermedia.arreglo();
+              if($1[0].tipo == 'ARREGLO')
+              {
+                  arrs.positions.push($1[7]);
+              }
+              arrs.valor.push($1[6]);
+              arrs.tipo = $1[0];
+              arrs.c3d = $1[3];
+              arrs.temporal = $1[1];
+              arrs.bandera = $1[2];
+              r[0] = 'ARREGLO';
+              r[1] = $1[1];
+              r[2] = $1[2];
+              r[3] = $1[3];
+              r[4] = '';
+              r[5] = $1[6];
+              r[6] = arrs;
+              r[7] = 1;
 
+          }
+          else
+          {
+
+          }
+        $$.push(r);
     }
     | ElementList ',' AssignmentExpr
     {
+
         r1 = $1;
         if($3[0].tipo != '')
-        {
-            var r = [];
-            var arrs = new intermedia.arreglo();
-            if($1[0].tipo == 'ARREGLO')
-            {
-                arrs.positions.push($3[7]);
-            }
-            arrs.valor = $3[6];
-            arrs.tipo = $3[0];
-            arrs.c3d = $3[3];
-            arrs.temporal = $3[1];
-            arrs.bandera = $3[2];
-            r[0] = 'ARREGLO';
-            r[1] = $3[1];
-            r[2] = $3[2];
-            r[3] = $3[3];
-            r[4] = '';
-            r[5] = '';
-            r[6] = arrs;
-            r[7] = 1;
-            r1.push(r);
+         {
+             var r = [];
+             var arrs = new intermedia.arreglo();
+             if($3[0].tipo == 'ARREGLO')
+             {
+                 arrs.positions.push($3[7]);
+             }
+             arrs.valor.push($3[6]);
+             arrs.tipo = $3[0];
+             arrs.c3d = $3[3];
+             arrs.temporal = $3[1];
+             arrs.bandera = $3[2];
 
-        }
+             r[0] = 'ARREGLO';
+             r[1] = $3[1];
+             r[2] = $3[2];
+             r[3] = $3[3];
+             r[4] = '';
+             r[5] = '';
+             r[6] = arrs;
+             r[7] = 1;
+             $$.push(r);
+         }
         else
         {
 
         }
+
 
         $$ = r1;
 

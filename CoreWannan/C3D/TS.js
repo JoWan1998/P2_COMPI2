@@ -226,25 +226,176 @@ var Arreglos = /** @class */ (function () {
     function Arreglos() {
         this.valores = [];
     }
+    Arreglos.prototype.getProf = function (id) {
+        for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
+            var simbolito = _a[_i];
+            if (simbolito instanceof arreglo) {
+                if (simbolito.name == id) {
+                    var vals = simbolito.valor;
+                    if (vals[0] instanceof arreglo) {
+                        if (vals[0].valor instanceof Array) {
+                            if (vals[0].valor[0] instanceof arreglo) {
+                                return 1 + this.getProf1(vals[0].valor[0]);
+                            }
+                            else {
+                                return 1;
+                            }
+                        }
+                        else {
+                            return 1;
+                        }
+                    }
+                    else {
+                        return 1;
+                    }
+                }
+                else {
+                    return -1;
+                }
+            }
+            else {
+                return -1;
+            }
+        }
+    };
+    Arreglos.prototype.getProf1 = function (vals1) {
+        if (vals1 instanceof arreglo) {
+            var vals = vals1.valor;
+            if (vals[0] instanceof arreglo) {
+                if (vals[0].valor instanceof Array) {
+                    if (vals[0].valor[0] instanceof arreglo) {
+                        return 1 + this.getProf1(vals[0].valor[0]);
+                    }
+                    else {
+                        return 1;
+                    }
+                }
+                else {
+                    return 1;
+                }
+            }
+            else {
+                return 1;
+            }
+        }
+        else {
+            return 1;
+        }
+    };
+    Arreglos.prototype.getTampos = function (id, level, pos) {
+        for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
+            var simbolito = _a[_i];
+            if (simbolito instanceof arreglo) {
+                if (simbolito.name == id) {
+                    var vals = simbolito.valor;
+                    if (vals instanceof Array) {
+                        if (vals.length >= pos) {
+                            var count = 1;
+                            if (level == count)
+                                return this.getsize(simbolito.valor, pos);
+                            return this.getTampos1(simbolito.valor[0], level, count + 1, pos);
+                        }
+                    }
+                }
+            }
+        }
+        return -1;
+    };
+    Arreglos.prototype.getsize = function (vals1, pos) {
+        if (vals1 instanceof Array) {
+            if (vals1.length >= pos) {
+                if (vals1[pos] instanceof arreglo) {
+                    if (vals1[pos].valor instanceof Array) {
+                        return vals1[pos].valor;
+                    }
+                    else {
+                        return vals1[pos];
+                    }
+                }
+            }
+        }
+        return -1;
+    };
+    Arreglos.prototype.getsize1 = function (vals1, pos) {
+        if (vals1[0] instanceof arreglo) {
+            if (vals1[0].valor.length >= pos) {
+                if (vals1[0].valor[pos] instanceof arreglo) {
+                    if (vals1[0].valor[pos].valor instanceof Array) {
+                        return vals1[0].valor[pos].valor;
+                    }
+                    else {
+                        return vals1[0].valor[pos];
+                    }
+                }
+            }
+        }
+        return -1;
+    };
+    Arreglos.prototype.getTampos1 = function (vals1, level, count, pos) {
+        if (vals1 instanceof arreglo) {
+            var vals = vals1.valor;
+            if (vals[0] instanceof arreglo) {
+                if (vals[0].valor instanceof Array) {
+                    if (level == count)
+                        return this.getsize(vals[0].valor, pos);
+                    return this.getTampos1(vals[0].valor, level, count + 1, pos);
+                }
+            }
+        }
+        return -1;
+    };
     Arreglos.prototype.getTam = function (id, level) {
         for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
             var simbolito = _a[_i];
             if (simbolito instanceof arreglo) {
                 if (simbolito.name == id) {
-                    var count = 1;
-                    for (var _b = 0, _c = simbolito.positions; _b < _c.length; _b++) {
-                        var pos = _c[_b];
-                        if (count == level)
-                            return pos;
-                        count++;
+                    var vals = simbolito.valor;
+                    if (vals instanceof Array) {
+                        var count = 1;
+                        if (level == count)
+                            return simbolito.valor.length;
+                        return this.getTam1(simbolito.valor[0], level, count + 1);
                     }
-                    return null;
+                    else {
+                        return simbolito.valor.length;
+                    }
+                }
+            }
+        }
+        return -1;
+    };
+    Arreglos.prototype.getTam1 = function (vals1, level, count) {
+        if (vals1 instanceof arreglo) {
+            var vals = vals1.valor;
+            if (vals[0] instanceof arreglo) {
+                if (vals[0].valor instanceof Array) {
+                    if (level == count)
+                        return vals[0].valor.length;
+                    return this.getTam1(vals[0].valor, level, count + 1);
+                }
+                else {
+                    return vals1.valor.length;
                 }
             }
             else {
-                return null;
+                return vals1.valor.length;
             }
         }
+        else {
+            if (vals1[0] instanceof arreglo) {
+                if (vals1[0].valor instanceof Array) {
+                    if (level == count) {
+                        if (vals1[0].valor instanceof Array) {
+                            var va = vals1[0].valor[0];
+                            if (va instanceof arreglo) {
+                                return va.positions[0];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return -1;
     };
     Arreglos.prototype.getValores = function (id) {
         for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {

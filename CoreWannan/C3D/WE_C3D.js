@@ -1073,56 +1073,61 @@ case 27:
             {
                 if(n.rol.toUpperCase() == 'ARREGLO')
                 {
-                    var val = $$[$0][6].toString();
-                    var valor = '';
-                    var temp = Temp.getTemporal();
-                    valor += temp + ' = stack[' + n.position + '];';
-                    valor += '\n';
-
-                    var temp1 = Temp.getTemporal();
-                    var temp0 = Temp.getTemporal();
-                    valor += temp1 + ' = heap[(int)' + temp + '];';
-                    valor += '\n';
-
-                    var temp2 = Temp.getTemporal();
-                    valor += temp2 + ' = '+ $$[$0][7] + ';';
-                    valor += '\n';
-                    valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
-                    valor += '\n';
-                    valor += $$[$0][1] + ' = ' + temp1 + ';';
-                    valor += '\n';
-                    valor += $$[$0][3];
-                    valor += '\n';
-
-                    n.valor = $$[$0][6];
-                    var r = [];
-                    r[3] = valor;
-                    r[0] = '';
-                    r[1] = temp1;
-                    r[2] = '';
-                    r[4] = '';
-                    r[5] = '';
-                    r[6] = '';
-                    r[7] = '';
-
-                    for(var m =0; m<arr.valores.length;m++)
+                    if($$[$0][0] == 'ARREGLO')
                     {
-                        if(arr.valores[m].name == n.name)
+                        var val = $$[$0][6].toString();
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        valor += temp + ' = stack[' + n.position + '];';
+                        valor += '\n';
+                        var temp1 = Temp.getTemporal();
+                        var temp0 = Temp.getTemporal();
+                        valor += temp1 + ' = heap[(int)' + temp + '];';
+                        valor += '\n';
+
+                        var temp2 = Temp.getTemporal();
+                        valor += temp2 + ' = '+ $$[$0][7] + ';';
+                        valor += '\n';
+                        valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
+                        valor += '\n';
+                        valor += $$[$0][1] + ' = ' + temp1 + ';';
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        n.valor = $$[$0][6];
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp1;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+                        $$[$0][6].name = n.name;
+
+                        for(var m =0; m<arr.valores.length;m++)
                         {
-                            arr.valores[m] = $$[$0][6];
+                            if(arr.valores[m].name == n.name)
+                            {
+                                arr.valores[m] = $$[$0][6];
+                            }
+                        }
+
+                        var k = tab.update(n.name,n);
+                        if(k)
+                        {
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            errores.push('{\"valor\":\"'+`Error, linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                            this.$ = ['','','',''];
                         }
                     }
 
-                    var k = tab.update(n.name,n);
-                    if(k)
-                    {
-                        this.$ = r;
-                    }
-                    else
-                    {
-                        errores.push('{\"valor\":\"'+`Error, linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
-                        this.$ = ['','','',''];
-                    }
                 }
                 else if($$[$0][0].toUpperCase() == n.tipo.toUpperCase())
                 {
@@ -2994,9 +2999,18 @@ case 152: case 194: case 198:
         this.$ = r;
     
 break;
-case 155: case 156: case 157: case 158: case 159: case 160: case 161: case 162:
+case 155: case 156: case 157: case 158: case 159: case 160: case 162:
 
         this.$ = ['','','','','','','','','','','','','','',''];
+    
+break;
+case 161:
+
+        var r = [];
+        r[10] = 'LENGTHPOS';
+        r[11] = $$[$0-2];
+        this.$ = r;
+
     
 break;
 case 168:
@@ -3013,7 +3027,6 @@ case 169:
         r[10] = 'ARRPOS';
         r[11] = this.$.length+1;
         r[12] = $$[$0];
-        this.$ = [];
         this.$.push(r);
     
 break;
@@ -3037,14 +3050,46 @@ case 172:
             {
                 var valor = '';
                 var temp  = Temp.getTemporal();
-                var l = arr.getTam($$[$0-1],1);
-                if(l==$$[$0].length)
+                var l = arr.getProf($$[$0-1]);
+                if(l>=$$[$0].length)
                 {
-                    console.log(true);
+                    var nivel = 1;
+                    for(let posi of $$[$0])
+                    {
+                        var m = arr.getTam($$[$0-1],nivel);
+                        var pass = false;
+
+                        if(posi[12][0] != '')
+                        {
+                            if(posi[12][0].toUpperCase() == 'NUMBER')
+                            {
+                                var num = posi[12][6];
+                                if(num <= (m-1))
+                                {
+                                    pass = true;
+                                }
+                                else
+                                {
+                                    pass = false;
+                                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                    this.$ = ['','','',''];
+                                }
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                        nivel++;
+                    }
+                    if(pass)
+                    {
+                    }
                 }
                 else
                 {
-                    console.log(false);
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$$[$0-1]}, el tamaño del arreglo es de: ${l}`+'\"}');
+                    this.$ = ['','','',''];
                 }
             }
             else
@@ -3053,6 +3098,71 @@ case 172:
                  this.$ = ['','','',''];
             }
 
+        }
+        else if($$[$0][10] == 'LENGTHPOS')
+        {
+            var n = tab.getPositionAmbito($$[$0-1]);
+            if(n!=null)
+            {
+                var valor = '';
+                var temp  = Temp.getTemporal();
+                var l = arr.getProf($$[$0-1]);
+                if(l>=$$[$0][11].length)
+                {
+                    var nivel = 1;
+                    k = null;
+                    for(let posi of $$[$0][11])
+                    {
+                        var m = arr.getTam($$[$0-1],nivel);
+                        var pass = false;
+
+                        if(posi[12][0] != '')
+                        {
+                            if(posi[12][0].toUpperCase() == 'NUMBER')
+                            {
+                                var num = posi[12][6];
+                                if(num <= (m-1))
+                                {
+                                    if(k!=null)
+                                    {
+                                        k = arr.getsize1(k,posi[12][6]);
+                                    }
+                                    else
+                                    {
+                                        k = arr.getTampos($$[$0-1],nivel, posi[12][6]);
+                                    }
+                                    pass = true;
+                                }
+                                else
+                                {
+                                    pass = false;
+                                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                    this.$ = ['','','',''];
+                                }
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                        nivel++;
+                    }
+                    if(pass)
+                    {
+                       console.log(k);
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$$[$0-1]}, el tamaño del arreglo es de: ${l}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
+                 this.$ = ['','','',''];
+            }
         }
         else if($$[$0][10] == 'LENGTH')
         {
@@ -3169,6 +3279,7 @@ case 182:
 break;
 case 183:
 
+
         var temp = Temp.getTemporal();
         var r = [];
         r[0] = "ARREGLO";
@@ -3177,7 +3288,7 @@ case 183:
         var lm = false;
         var valor = '';
         var arreglito = new intermedia.arreglo();
-
+        var vals = [];
         if($$[$0-1][0][6] instanceof intermedia.arreglo)
         {
             var tipo = $$[$0-1][0][6].tipo.toUpperCase();
@@ -3192,6 +3303,7 @@ case 183:
                 valor += '\n';
                 if(pos[6] instanceof intermedia.arreglo)
                 {
+                    vals.push(pos[6]);
                     if(pos[6].tipo.toUpperCase() == tipo)
                     {
                         pass = true;
@@ -3284,6 +3396,7 @@ case 183:
                 arreglito.temporal = temp;
                 arreglito.bandera = '';
                 arreglito.tipo = 'ARREGLO';
+                arreglito.valor = vals;
                 r[3] = valor;
                 r[4] = '';
                 r[5] = [];
@@ -3322,67 +3435,69 @@ break;
 case 186:
 
         this.$ = [];
-        if($$[$0][0].tipo != '')
-        {
-            var r = [];
-            var arrs = new intermedia.arreglo();
-            if($$[$0][0].tipo == 'ARREGLO')
-            {
-                arrs.positions.push($$[$0][7]);
-            }
-            arrs.valor = $$[$0][6];
-            arrs.tipo = $$[$0][0];
-            arrs.c3d = $$[$0][3];
-            arrs.temporal = $$[$0][1];
-            arrs.bandera = $$[$0][2];
-            r[0] = 'ARREGLO';
-            r[1] = $$[$0][1];
-            r[2] = $$[$0][2];
-            r[3] = $$[$0][3];
-            r[4] = '';
-            r[5] = '';
-            r[6] = arrs;
-            r[7] = 1;
-            this.$.push(r);
-        }
-        else
-        {
+        var r = [];
 
-        }
+          if($$[$0][0] != '')
+          {   var arrs = new intermedia.arreglo();
+              if($$[$0][0].tipo == 'ARREGLO')
+              {
+                  arrs.positions.push($$[$0][7]);
+              }
+              arrs.valor.push($$[$0][6]);
+              arrs.tipo = $$[$0][0];
+              arrs.c3d = $$[$0][3];
+              arrs.temporal = $$[$0][1];
+              arrs.bandera = $$[$0][2];
+              r[0] = 'ARREGLO';
+              r[1] = $$[$0][1];
+              r[2] = $$[$0][2];
+              r[3] = $$[$0][3];
+              r[4] = '';
+              r[5] = $$[$0][6];
+              r[6] = arrs;
+              r[7] = 1;
 
+          }
+          else
+          {
+
+          }
+        this.$.push(r);
     
 break;
 case 187:
 
+
         r1 = $$[$0-2];
         if($$[$0][0].tipo != '')
-        {
-            var r = [];
-            var arrs = new intermedia.arreglo();
-            if($$[$0-2][0].tipo == 'ARREGLO')
-            {
-                arrs.positions.push($$[$0][7]);
-            }
-            arrs.valor = $$[$0][6];
-            arrs.tipo = $$[$0][0];
-            arrs.c3d = $$[$0][3];
-            arrs.temporal = $$[$0][1];
-            arrs.bandera = $$[$0][2];
-            r[0] = 'ARREGLO';
-            r[1] = $$[$0][1];
-            r[2] = $$[$0][2];
-            r[3] = $$[$0][3];
-            r[4] = '';
-            r[5] = '';
-            r[6] = arrs;
-            r[7] = 1;
-            r1.push(r);
+         {
+             var r = [];
+             var arrs = new intermedia.arreglo();
+             if($$[$0][0].tipo == 'ARREGLO')
+             {
+                 arrs.positions.push($$[$0][7]);
+             }
+             arrs.valor.push($$[$0][6]);
+             arrs.tipo = $$[$0][0];
+             arrs.c3d = $$[$0][3];
+             arrs.temporal = $$[$0][1];
+             arrs.bandera = $$[$0][2];
 
-        }
+             r[0] = 'ARREGLO';
+             r[1] = $$[$0][1];
+             r[2] = $$[$0][2];
+             r[3] = $$[$0][3];
+             r[4] = '';
+             r[5] = '';
+             r[6] = arrs;
+             r[7] = 1;
+             this.$.push(r);
+         }
         else
         {
 
         }
+
 
         this.$ = r1;
 

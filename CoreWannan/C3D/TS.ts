@@ -294,10 +294,12 @@ export class bandera
 export class Arreglos
 {
     valores: any [];
+
     constructor() {
         this.valores = [];
     }
-    getTam(id,level)
+
+    getProf(id) : number
     {
         for(let simbolito of this.valores)
         {
@@ -305,20 +307,235 @@ export class Arreglos
             {
                 if(simbolito.name == id)
                 {
-                    let count = 1;
-                    for(let pos of simbolito.positions)
+                    let vals = simbolito.valor
+                    if(vals[0] instanceof arreglo)
                     {
-                        if(count == level) return pos;
-                        count++;
+                        if(vals[0].valor instanceof Array)
+                        {
+                            if(vals[0].valor[0] instanceof arreglo)
+                            {
+                                return 1 + this.getProf1(vals[0].valor[0]);
+                            }
+                            else
+                            {
+                                return 1;
+                            }
+                        }
+                        else
+                        {
+                            return 1;
+                        }
                     }
-                    return null;
+                    else
+                    {
+                        return 1;
+                    }
+
+                }
+                else
+                {
+                    return -1;
                 }
             }
             else
             {
-                return null;
+                return -1;
             }
         }
+    }
+    getProf1(vals1): number
+    {
+        if(vals1 instanceof arreglo)
+        {
+            let vals = vals1.valor
+            if(vals[0] instanceof arreglo)
+            {
+                if(vals[0].valor instanceof Array)
+                {
+                    if(vals[0].valor[0] instanceof arreglo)
+                    {
+                        return 1 + this.getProf1(vals[0].valor[0]);
+                    }
+                    else
+                    {
+                        return 1;
+                    }
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
+    getTampos(id,level, pos) : number
+    {
+        for(let simbolito of this.valores)
+        {
+            if(simbolito instanceof arreglo)
+            {
+                if(simbolito.name == id)
+                {
+                    let vals = simbolito.valor
+                    if(vals instanceof Array)
+                    {
+                        if(vals.length >= pos)
+                        {
+                            let count = 1;
+                            if(level==count) return this.getsize(simbolito.valor, pos);
+                            return this.getTampos1(simbolito.valor[0], level, count+1, pos)
+                        }
+                    }
+
+                }
+            }
+        }
+        return -1;
+    }
+    getsize(vals1, pos)
+    {
+        if(vals1 instanceof Array)
+        {
+            if(vals1.length >= pos)
+            {
+                if(vals1[pos] instanceof arreglo)
+                {
+                    if(vals1[pos].valor instanceof Array)
+                    {
+                        return vals1[pos].valor;
+                    }
+                    else
+                    {
+                        return vals1[pos];
+                    }
+                }
+            }
+        }
+        return -1;
+
+    }
+    getsize1(vals1, pos)
+    {
+        if(vals1[0] instanceof arreglo)
+        {
+            if(vals1[0].valor.length >= pos)
+            {
+                if(vals1[0].valor[pos] instanceof arreglo)
+                {
+                    if(vals1[0].valor[pos].valor instanceof Array)
+                    {
+                        return vals1[0].valor[pos].valor;
+                    }
+                    else
+                    {
+                        return vals1[0].valor[pos];
+                    }
+                }
+            }
+        }
+        return -1;
+
+    }
+
+    getTampos1(vals1, level, count, pos): number
+    {
+
+        if(vals1 instanceof arreglo)
+        {
+            let vals = vals1.valor
+
+            if(vals[0] instanceof arreglo)
+            {
+                if(vals[0].valor instanceof Array)
+                {
+                    if(level==count) return this.getsize(vals[0].valor,pos);
+                    return this.getTampos1(vals[0].valor, level, count+1, pos)
+                }
+            }
+        }
+        return -1;
+    }
+
+    getTam(id,level) : number
+    {
+        for(let simbolito of this.valores)
+        {
+            if(simbolito instanceof arreglo)
+            {
+                if(simbolito.name == id)
+                {
+                    let vals = simbolito.valor
+                    if(vals instanceof Array)
+                    {
+                        let count = 1;
+                        if(level==count) return simbolito.valor.length;
+                        return this.getTam1(simbolito.valor[0], level, count+1)
+                    }
+                    else
+                    {
+                        return simbolito.valor.length;
+                    }
+
+                }
+            }
+        }
+        return -1;
+    }
+
+    getTam1(vals1, level, count): number
+    {
+        if(vals1 instanceof arreglo)
+        {
+            let vals = vals1.valor
+
+            if(vals[0] instanceof arreglo)
+            {
+                if(vals[0].valor instanceof Array)
+                {
+                    if(level==count) return vals[0].valor.length;
+                    return this.getTam1(vals[0].valor, level, count+1)
+                }
+                else
+                {
+                    return vals1.valor.length;
+                }
+            }
+            else
+            {
+                return vals1.valor.length;
+            }
+        }
+        else
+        {
+            if(vals1[0] instanceof arreglo)
+            {
+                if(vals1[0].valor instanceof Array)
+                {
+                    if(level==count)
+                    {
+                        if(vals1[0].valor instanceof Array)
+                        {
+                            let va = vals1[0].valor[0];
+                            if(va instanceof arreglo)
+                            {
+                                return va.positions[0];
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        return -1;
     }
     getValores(id)
     {
