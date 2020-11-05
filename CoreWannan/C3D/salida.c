@@ -1,7 +1,9 @@
 #include <stdio.h>
 float stack[10000000]={-1};
 float heap[10000000] = {-1};
-float t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15,t16,t17,t18,t19,t20,t21,t22,t23,t24,t25,t26,t27,t28,t29,t30,t31,t32,t33,t34,t35,t36,t37,t38,t39,t40,t41,t42,t43,t44,t45,t46,t47,t48,t49,t50,t51,t52,t53,t54,t55,t56,t57,t58,t59,t60,t61,t62,t63,t64,t65,t66,t67,t68,t69,t70,t71,t72,t73,t74,t75,t76,t77,t78 = -1;
+float P = 0;
+ float H = 0;
+float t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15,t16,t17,t18,t19,t20,t21,t22,t23,t24,t25,t26,t27,t28,t29,t30,t31,t32,t33,t34,t35,t36 = -1;
 int main()
 {
 t6 = 0;
@@ -10,11 +12,12 @@ t2 = 0.5;
 t3 = t1 + t2;
 t4 = 8;
 t5 = t3 + t4;
-stack[(int)t6] = t5;
+heap[(int)t6] = t5;
 t9 = 1;
-t11 = 0;
-t10 = 0;
-stack[(int)t9] = t11;
+
+t11 = 50000;
+t10 = 50000;
+heap[(int)t9] = t11;
 t11 = t11 + 1;
 heap[(int)t10] = t11;
 t12 = 16;
@@ -77,11 +80,11 @@ L5:
 	goto L6;
 L6:
 
-stack[(int)t21] = t20;
+heap[(int)t21] = t20;
 t22 = 5;
 t23 = 3;
-t24 = 300000;
-stack[(int)t23] = t24;
+t24 = 1000000;
+heap[(int)t23] = t24;
 heap[(int)t24] = t24 + 1;
 t24 = t24 + 1;
 heap[(int)t24] = t22;
@@ -92,137 +95,37 @@ L7:
 	t25 = t25 + 1;
 	heap[(int)t24] = -1;
 	goto L7;
-L8: t26 = 1900;
-stack[0] = t26;
-printf("%c",(char)84);
-printf("%c",(char)65);
-printf("%c",(char)77);
-printf("%c",(char)65);
-printf("%c",(char)209);
-printf("%c",(char)79);
-printf("%c",(char)58);
-printf("%c",(char)32);
-printf("%c",(char)91);
-printf("%c",(char)49);
-printf("%c",(char)54);
-printf("%c",(char)93);
-printf("%c",(char)44);
-printf("%c",(char)32);
-printf("%c",(char)86);
-printf("%c",(char)65);
-printf("%c",(char)76);
-printf("%c",(char)79);
-printf("%c",(char)82);
-printf("%c",(char)58);
-printf("%c",(char)32);
-printf("%c",(char)91);
-printf("%c",(char)49);
-printf("%c",(char)57);
-printf("%c",(char)57);
-printf("%c",(char)56);
-printf("%c",(char)58);
-printf("%c",(char)32);
-printf("%c",(char)104);
-printf("%c",(char)111);
-printf("%c",(char)108);
-printf("%c",(char)97);
-printf("%c",(char)32);
-printf("%c",(char)109);
-printf("%c",(char)117);
-printf("%c",(char)110);
-printf("%c",(char)100);
-printf("%c",(char)111);
-printf("%c",(char)93);
+L8: t26 = heap[0];
+printf("%d",(int)t26);
 printf("\n");
-t72 = stack[3];
-t73 = heap[(int)t72];
-t75 = 2;
-heap[(int)t73] = t75;
-t65 = t73;
-t65 = t65 + 1;
-t67 = 325000;
-t66 = 325000;
-t68 = 1;
-heap[(int)t67] = t68;
-t43 = t67;
-t43 = t43 + 1;
-t45 = 305000;
-t44 = 305000;
-t46 = 1;
-heap[(int)t45] = t46;
-t38 = t45;
-t38 = t38 + 1;
-t35 = 0;
-heap[(int)t38] = t35;
-t38 = t38 + 1;
-t36 = 1;
-heap[(int)t38] = t36;
-t38 = t38 + 1;
-t37 = 2;
-heap[(int)t38] = t37;
+t27 = 1900;
+heap[0] = t27;
+t29 = heap[0];
+printf("%d",(int)t29);
+printf("\n");
+t30 = heap[1];
 
-heap[(int)t43] = t44;
-t43 = t43 + 1;
-t48 = 310000;
-t47 = 310000;
-t49 = 1;
-heap[(int)t48] = t49;
-t42 = t48;
-t42 = t42 + 1;
-t39 = 3;
-heap[(int)t42] = t39;
-t42 = t42 + 1;
-t40 = 4;
-heap[(int)t42] = t40;
-t42 = t42 + 1;
-t41 = 5;
-heap[(int)t42] = t41;
-
-heap[(int)t43] = t47;
-
-heap[(int)t65] = t66;
-t65 = t65 + 1;
-t70 = 330000;
-t69 = 330000;
-t71 = 1;
-heap[(int)t70] = t71;
-t58 = t70;
-t58 = t58 + 1;
-t60 = 315000;
-t59 = 315000;
-t61 = 1;
-heap[(int)t60] = t61;
-t53 = t60;
-t53 = t53 + 1;
-t50 = 6;
-heap[(int)t53] = t50;
-t53 = t53 + 1;
-t51 = 7;
-heap[(int)t53] = t51;
-t53 = t53 + 1;
-t52 = 8;
-heap[(int)t53] = t52;
-
-heap[(int)t58] = t59;
-t58 = t58 + 1;
-t63 = 320000;
-t62 = 320000;
-t64 = 1;
-heap[(int)t63] = t64;
-t57 = t63;
-t57 = t57 + 1;
-t54 = 9;
-heap[(int)t57] = t54;
-t57 = t57 + 1;
-t55 = 10;
-heap[(int)t57] = t55;
-t57 = t57 + 1;
-t56 = 11;
-heap[(int)t57] = t56;
-
-heap[(int)t58] = t62;
-
-heap[(int)t65] = t69;
-
+t31= heap[(int)t30];
+t31 = t31 + 1;
+t32= heap[(int)t31];
+t33 = 0;
+L9:
+if(t33==t32) goto L10;
+t34 = t33 + t31;
+t33 = t33 + 1;
+t35 = heap[(int)t34];
+printf("%c",(char)t35);
+goto L9;
+L10:
+printf("\n");
+t36 = heap[2];
+if(t36==0) goto L11;
+printf("true");
+goto L12;
+L11:
+printf("false");
+goto L12;
+L12:
+printf("\n");
 return 0;
 }

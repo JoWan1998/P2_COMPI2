@@ -18,17 +18,18 @@ var s;
 })(s = exports.s || (exports.s = {}));
 var TablaSimbolos = /** @class */ (function () {
     function TablaSimbolos() {
+        this.entornoactual = '';
         this.simbolos = [];
         this.ambitoLevel = 0;
     }
     TablaSimbolos.prototype.printSimbolos = function () {
         for (var _i = 0, _a = this.simbolos; _i < _a.length; _i++) {
             var simbolitos = _a[_i];
-            console.log("VARIABLE: " + simbolitos.name + "   |   TIPO: " + simbolitos.tipo + "    |   ROL: " + simbolitos.rol + "  |   AMBITO: " + simbolitos.ambito + "    |   POSITION: " + simbolitos.position + "   |   VALOR: " + simbolitos.valor + "   |   CONSTANTE: " + simbolitos.constante);
+            console.log("VARIABLE: " + simbolitos.name + "   |   TIPO: " + simbolitos.tipo + "    |   ROL: " + simbolitos.rol + "  |   AMBITO: " + simbolitos.ambito + "    |   POSITION: " + simbolitos.position + "   |   VALOR: " + simbolitos.valor + "   |   CONSTANTE: " + simbolitos.constante + " | ENTORNO: " + simbolitos.entorno);
         }
     };
     TablaSimbolos.prototype.insert = function (simbolo) {
-        if (this.ambitoLevel = 0) {
+        if (this.ambitoLevel == 0) {
             simbolo.entorno = 'global';
         }
         this.simbolos.push(simbolo);
@@ -296,6 +297,18 @@ var Arreglos = /** @class */ (function () {
                             return this.getTampos1(simbolito.valor[0], level, count + 1, pos);
                         }
                     }
+                }
+            }
+        }
+        return -1;
+    };
+    Arreglos.prototype.getTamposd = function (id) {
+        for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
+            var simbolito = _a[_i];
+            if (simbolito instanceof arreglo) {
+                if (simbolito.name == id) {
+                    var vals = simbolito.valor;
+                    return vals.length;
                 }
             }
         }

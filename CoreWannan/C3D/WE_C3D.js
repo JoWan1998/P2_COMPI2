@@ -88,6 +88,7 @@ case 1:
         var valor = '';
         valor += '#include <stdio.h>\n';
         valor += 'float stack[10000000]={-1};\nfloat heap[10000000] = {-1};\n';
+        valor += 'float P = 0;\n float H = 0;\n'
         valor += 'float ';
         for(let k of Temp.temporales)
         {
@@ -242,8 +243,16 @@ case 19:
                                          var valor = '';
                                          valor += '\n';
                                          var temp = Temp.getTemporal();
-                                         valor = temp+' = stack['+n.position+'];';
-                                         valor += '\n';
+                                         if(n.entorno == 'global')
+                                         {
+                                             valor = temp+' = heap['+n.position+'];';
+                                             valor += '\n';
+                                         }
+                                         else
+                                         {
+                                             valor = temp+' = stack['+n.position+'];';
+                                             valor += '\n';
+                                         }
                                          valor += 'printf("%d",(int)'+temp+');\n';
 
                                          r[3] += valor;
@@ -253,8 +262,16 @@ case 19:
                                          var valor = '';
                                          valor += '\n';
                                          var temp = Temp.getTemporal();
-                                         valor = temp+' = stack['+n.position+'];';
-                                         valor += '\n';
+                                         if(n.entorno == 'global')
+                                         {
+                                             valor = temp+' = heap['+n.position+'];';
+                                             valor += '\n';
+                                         }
+                                         else
+                                         {
+                                             valor = temp+' = stack['+n.position+'];';
+                                             valor += '\n';
+                                         }
                                          valor += 'printf("%f",(float)'+temp+');\n';
                                          r[3] += valor;
                                      }
@@ -265,8 +282,16 @@ case 19:
                                      var valor = '';
                                      valor += '\n';
                                      var temp = Temp.getTemporal();
-                                     valor = temp+' = stack['+n.position+'];';
-                                     valor += '\n';
+                                        if(n.entorno == 'global')
+                                         {
+                                             valor = temp+' = heap['+n.position+'];';
+                                             valor += '\n';
+                                         }
+                                         else
+                                         {
+                                             valor = temp+' = stack['+n.position+'];';
+                                             valor += '\n';
+                                         }
                                      valor += 'printf("%f",(float)'+temp+');\n';
                                      r[3] += valor;
                                  }
@@ -276,7 +301,16 @@ case 19:
                                      valor += '\n';
          
                                      var temp = Temp.getTemporal();
-                                     valor = temp + ' = stack['+n.position+'];';
+                                        if(n.entorno == 'global')
+                                         {
+                                             valor = temp+' = heap['+n.position+'];';
+                                             valor += '\n';
+                                         }
+                                         else
+                                         {
+                                             valor = temp+' = stack['+n.position+'];';
+                                             valor += '\n';
+                                         }
          
                                      var temp1 = Temp.getTemporal();
                                      valor += '\n';
@@ -403,8 +437,16 @@ case 19:
                                 var valor = '';
                                 valor += '\n';
                                 var temp = Temp.getTemporal();
-                                valor = temp+' = stack['+n.position+'];';
-                                valor += '\n';
+                                if(n.entorno == 'global')
+                                 {
+                                     valor = temp+' = heap['+n.position+'];';
+                                     valor += '\n';
+                                 }
+                                 else
+                                 {
+                                     valor = temp+' = stack['+n.position+'];';
+                                     valor += '\n';
+                                 }
                                 valor += 'printf("%d",(int)'+temp+');\n';
                                 valor += 'printf("\\n");\n';
                                 r[3] = valor;
@@ -414,8 +456,16 @@ case 19:
                                 var valor = '';
                                 valor += '\n';
                                 var temp = Temp.getTemporal();
-                                valor = temp+' = stack['+n.position+'];';
-                                valor += '\n';
+                                if(n.entorno == 'global')
+                                 {
+                                     valor = temp+' = heap['+n.position+'];';
+                                     valor += '\n';
+                                 }
+                                 else
+                                 {
+                                     valor = temp+' = stack['+n.position+'];';
+                                     valor += '\n';
+                                 }
                                 valor += 'printf("%f",(float)'+temp+');\n';
                                 valor += 'printf("\\n");\n';
                                 r[3] = valor;
@@ -429,7 +479,16 @@ case 19:
                             var temp = Temp.getTemporal();
                             var label = Label.getBandera();
                             var label1 = Label.getBandera();
-                            valor = temp+' = stack['+n.position+'];\n';
+                            if(n.entorno == 'global')
+                             {
+                                 valor = temp+' = heap['+n.position+'];';
+                                 valor += '\n';
+                             }
+                             else
+                             {
+                                 valor = temp+' = stack['+n.position+'];';
+                                 valor += '\n';
+                             }
                             valor += `if(${temp}==0) goto ${label};\n`;
                             valor += `printf("true");\n`;
                             valor += `goto ${label1};\n`;
@@ -446,8 +505,16 @@ case 19:
                             var valor = '';
                             valor += '\n';
                             var temp = Temp.getTemporal();
-                            valor = temp+' = stack['+n.position+'];';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                             {
+                                 valor = temp+' = heap['+n.position+'];';
+                                 valor += '\n';
+                             }
+                             else
+                             {
+                                 valor = temp+' = stack['+n.position+'];';
+                                 valor += '\n';
+                             }
                             valor += 'printf("%f",(float)'+temp+');\n';
                             valor += 'printf("\\n");\n';
                             r[3] = valor;
@@ -458,7 +525,16 @@ case 19:
                             valor += '\n';
 
                             var temp = Temp.getTemporal();
-                            valor = temp + ' = stack['+n.position+'];';
+                            if(n.entorno == 'global')
+                             {
+                                 valor = temp+' = heap['+n.position+'];';
+                                 valor += '\n';
+                             }
+                             else
+                             {
+                                 valor = temp+' = stack['+n.position+'];';
+                                 valor += '\n';
+                             }
 
                             var temp1 = Temp.getTemporal();
                             valor += '\n';
@@ -514,12 +590,6 @@ case 19:
 break;
 case 20:
 
-        //0 -> tipo
-        //1 -> temporal
-        //2 -> label
-        //3 -> C3D
-        //4 -> nameVariable (if exists)
-
 
         var r = [];
         if($$[$0-1][0] == 'ARPRINT')
@@ -534,6 +604,7 @@ case 20:
                      {
                          valor += 'printf("%c",(char)'+val[6].charCodeAt(a)+');\n';
                      }
+
                      r[3] += valor;
                  }
                  else if(val[0] == "NUMBER")
@@ -563,19 +634,19 @@ case 20:
                  else if(val[0] == "BOOLEAN")
                  {
                      //convert ASCII
-                    var valor = $$[$0-1][3];
-                    valor += '\n';
-                    var label = Label.getBandera();
-                    var label1 = Label.getBandera();
-                    valor += `if(${$$[$0-1][1]}==0) goto ${label};\n`;
-                    valor += `printf("true");\n`;
-                    valor += `goto ${label1};\n`;
-                    valor += `${label}:\n`;
-                    valor += `printf("false");\n`;
-                    valor += `goto ${label1};\n`;
-                    valor += `${label1}:\n`;
-                    valor += 'printf("\\n");\n';
-                    r[3] = valor;
+                     var valor = val[3];
+                     valor += '\n';
+                     var label = Label.getBandera();
+                     var label1 = Label.getBandera();
+                     valor += `if(${$$[$0-1][1]}==0) goto ${label};\n`;
+                     valor += `printf("true");\n`;
+                     valor += `goto ${label1};\n`;
+                     valor += `${label}:\n`;
+                     valor += `printf("false");\n`;
+                     valor += `goto ${label1};\n`;
+                     valor += `${label1}:\n`;
+                     valor += 'printf("\\n");\n';
+                     r[3] = valor;
                  }
                  else
                  {
@@ -586,7 +657,14 @@ case 20:
                          {
                              if(n.rol.toUpperCase() == "ARREGLO")
                              {
-
+                                if(n.tipo.toUpperCase == 'NUMBER')
+                                {
+                                    this.$ = ['','','','',''];
+                                }
+                                else
+                                {
+                                    this.$ = ['','','','',''];
+                                }
                              }
                              else if(n.rol.toUpperCase() == "VARIABLE")
                              {
@@ -597,8 +675,16 @@ case 20:
                                          var valor = '';
                                          valor += '\n';
                                          var temp = Temp.getTemporal();
-                                         valor = temp+' = stack['+n.position+'];';
-                                         valor += '\n';
+                                         if(n.entorno == 'global')
+                                         {
+                                             valor = temp+' = heap['+n.position+'];';
+                                             valor += '\n';
+                                         }
+                                         else
+                                         {
+                                             valor = temp+' = stack['+n.position+'];';
+                                             valor += '\n';
+                                         }
                                          valor += 'printf("%d",(int)'+temp+');\n';
 
                                          r[3] += valor;
@@ -608,8 +694,16 @@ case 20:
                                          var valor = '';
                                          valor += '\n';
                                          var temp = Temp.getTemporal();
-                                         valor = temp+' = stack['+n.position+'];';
-                                         valor += '\n';
+                                         if(n.entorno == 'global')
+                                         {
+                                             valor = temp+' = heap['+n.position+'];';
+                                             valor += '\n';
+                                         }
+                                         else
+                                         {
+                                             valor = temp+' = stack['+n.position+'];';
+                                             valor += '\n';
+                                         }
                                          valor += 'printf("%f",(float)'+temp+');\n';
                                          r[3] += valor;
                                      }
@@ -620,8 +714,16 @@ case 20:
                                      var valor = '';
                                      valor += '\n';
                                      var temp = Temp.getTemporal();
-                                     valor = temp+' = stack['+n.position+'];';
-                                     valor += '\n';
+                                        if(n.entorno == 'global')
+                                         {
+                                             valor = temp+' = heap['+n.position+'];';
+                                             valor += '\n';
+                                         }
+                                         else
+                                         {
+                                             valor = temp+' = stack['+n.position+'];';
+                                             valor += '\n';
+                                         }
                                      valor += 'printf("%f",(float)'+temp+');\n';
                                      r[3] += valor;
                                  }
@@ -631,7 +733,16 @@ case 20:
                                      valor += '\n';
 
                                      var temp = Temp.getTemporal();
-                                     valor = temp + ' = stack['+n.position+'];';
+                                        if(n.entorno == 'global')
+                                         {
+                                             valor = temp+' = heap['+n.position+'];';
+                                             valor += '\n';
+                                         }
+                                         else
+                                         {
+                                             valor = temp+' = stack['+n.position+'];';
+                                             valor += '\n';
+                                         }
 
                                      var temp1 = Temp.getTemporal();
                                      valor += '\n';
@@ -689,7 +800,7 @@ case 20:
             var valor = '';
             for(var a =0; a<$$[$0-1][6].length;a++)
             {
-                valor += 'printf("%w",(char)'+$$[$0-1][6].toCharCodeAt(a)+');\n';
+                valor += 'printf("%c",(char)'+$$[$0-1][6].charCodeAt(a)+');\n';
             }
             valor += 'printf("\\n");\n';
             r[3] = valor;
@@ -726,7 +837,15 @@ case 20:
             //convert ASCII
             var valor = $$[$0-1][3];
             valor += '\n';
-            valor += 'printf("%d",(int)'+$$[$0-1][1]+');\n';
+            var label = Label.getBandera();
+            var label1 = Label.getBandera();
+            valor += `if(${$$[$0-1][1]}==0) goto ${label};\n`;
+            valor += `printf("true");\n`;
+            valor += `goto ${label1};\n`;
+            valor += `${label}:\n`;
+            valor += `printf("false");\n`;
+            valor += `goto ${label1};\n`;
+            valor += `${label1}:\n`;
             valor += 'printf("\\n");\n';
             r[3] = valor;
         }
@@ -739,7 +858,7 @@ case 20:
                 {
                     if(n.rol.toUpperCase() == "ARREGLO")
                     {
-
+                           this.$ = ['','','',''];
                     }
                     else if(n.rol.toUpperCase() == "VARIABLE")
                     {
@@ -750,8 +869,16 @@ case 20:
                                 var valor = '';
                                 valor += '\n';
                                 var temp = Temp.getTemporal();
-                                valor = temp+' = stack['+n.position+'];';
-                                valor += '\n';
+                                if(n.entorno == 'global')
+                                 {
+                                     valor = temp+' = heap['+n.position+'];';
+                                     valor += '\n';
+                                 }
+                                 else
+                                 {
+                                     valor = temp+' = stack['+n.position+'];';
+                                     valor += '\n';
+                                 }
                                 valor += 'printf("%d",(int)'+temp+');\n';
                                 valor += 'printf("\\n");\n';
                                 r[3] = valor;
@@ -761,12 +888,48 @@ case 20:
                                 var valor = '';
                                 valor += '\n';
                                 var temp = Temp.getTemporal();
-                                valor = temp+' = stack['+n.position+'];';
-                                valor += '\n';
+                                if(n.entorno == 'global')
+                                 {
+                                     valor = temp+' = heap['+n.position+'];';
+                                     valor += '\n';
+                                 }
+                                 else
+                                 {
+                                     valor = temp+' = stack['+n.position+'];';
+                                     valor += '\n';
+                                 }
                                 valor += 'printf("%f",(float)'+temp+');\n';
                                 valor += 'printf("\\n");\n';
                                 r[3] = valor;
                             }
+
+                        }
+                        else if(n.tipo.toUpperCase() == "BOOLEAN")
+                        {
+                            var valor = '';
+                            valor += '\n';
+                            var temp = Temp.getTemporal();
+                            var label = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            if(n.entorno == 'global')
+                             {
+                                 valor = temp+' = heap['+n.position+'];';
+                                 valor += '\n';
+                             }
+                             else
+                             {
+                                 valor = temp+' = stack['+n.position+'];';
+                                 valor += '\n';
+                             }
+                            valor += `if(${temp}==0) goto ${label};\n`;
+                            valor += `printf("true");\n`;
+                            valor += `goto ${label1};\n`;
+                            valor += `${label}:\n`;
+                            valor += `printf("false");\n`;
+                            valor += `goto ${label1};\n`;
+                            valor += `${label1}:\n`;
+                            valor += 'printf("\\n");\n';
+                            r[3] = valor;
 
                         }
                         else if(n.tipo.toUpperCase() == "FLOAT")
@@ -774,8 +937,16 @@ case 20:
                             var valor = '';
                             valor += '\n';
                             var temp = Temp.getTemporal();
-                            valor = temp+' = stack['+n.position+'];';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                             {
+                                 valor = temp+' = heap['+n.position+'];';
+                                 valor += '\n';
+                             }
+                             else
+                             {
+                                 valor = temp+' = stack['+n.position+'];';
+                                 valor += '\n';
+                             }
                             valor += 'printf("%f",(float)'+temp+');\n';
                             valor += 'printf("\\n");\n';
                             r[3] = valor;
@@ -786,7 +957,16 @@ case 20:
                             valor += '\n';
 
                             var temp = Temp.getTemporal();
-                            valor = temp + ' = stack['+n.position+'];';
+                            if(n.entorno == 'global')
+                             {
+                                 valor = temp+' = heap['+n.position+'];';
+                                 valor += '\n';
+                             }
+                             else
+                             {
+                                 valor = temp+' = stack['+n.position+'];';
+                                 valor += '\n';
+                             }
 
                             var temp1 = Temp.getTemporal();
                             valor += '\n';
@@ -875,8 +1055,18 @@ case 26:
                         valor += '\n';
                         var temp2 = Temp.getTemporal();
                         var temp3 = Temp.getTemporal();
-                        valor += temp2 + ' = stack[(int)'+temp1+'];';
-                        valor += '\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += temp2 + ' = heap[(int)'+temp1+'];';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += temp2 + ' = stack[(int)'+temp1+'];';
+                            valor += '\n';
+                        }
+
+
                         valor += temp3+' = heap[(int)' + temp2 +'];';
                         valor += '\n';
 
@@ -948,14 +1138,32 @@ case 26:
                                         var temp0 = Temp.getTemporal();
                                         valor += temp0 + ' = ' + n1.position + ';\n';
                                         var temp0_1 = Temp.getTemporal();
-                                        valor += temp0_1 + ' = stack[(int)'+temp0+'];';
-                                        valor += '\n';
+                                        if(n1.entorno == 'global')
+                                        {
+                                            valor += temp0_1 + ' = heap[(int)'+temp0+'];';
+                                            valor += '\n';
+                                        }
+                                        else
+                                        {
+                                            valor += temp0_1 + ' = stack[(int)'+temp0+'];';
+                                            valor += '\n';
+                                        }
+
                                         valor += temp1 + ' = ' + n.position +';';
                                         valor += '\n';
                                         var temp2 = Temp.getTemporal();
                                         var temp21 = Temp.getTemporal();
-                                        valor += temp2 +' = stack[(int)' + temp1 + '];';
-                                        valor += '\n';
+                                        if(n.entorno == 'global')
+                                        {
+                                            valor += temp2 +' = heap[(int)' + temp1 + '];';
+                                            valor += '\n';
+                                        }
+                                        else
+                                        {
+                                            valor += temp2 +' = stack[(int)' + temp1 + '];';
+                                            valor += '\n';
+                                        }
+
                                         valor += temp21 + ' = heap[(int)' + temp2 + '];';
                                         valor += '\n';
                                         valor += temp21 + ' = ' + temp21 + ' + 1;';
@@ -1078,8 +1286,17 @@ case 27:
                         var val = $$[$0][6].toString();
                         var valor = '';
                         var temp = Temp.getTemporal();
-                        valor += temp + ' = stack[' + n.position + '];';
-                        valor += '\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += temp + ' = heap[' + n.position + '];';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += temp + ' = stack[' + n.position + '];';
+                            valor += '\n';
+                        }
+
                         var temp1 = Temp.getTemporal();
                         var temp0 = Temp.getTemporal();
                         valor += temp1 + ' = heap[(int)' + temp + '];';
@@ -1137,8 +1354,17 @@ case 27:
                             var val = $$[$0][6].toString();
                             var valor = '';
                             var temp = Temp.getTemporal();
-                            valor += temp + ' = ' + n.position + ';';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                 valor += temp + ' = heap[' + n.position + '];';
+                                 valor += '\n';
+                            }
+                            else
+                            {
+                                 valor += temp + ' = stack[' + n.position + '];';
+                                 valor += '\n';
+                            }
+
                             var temp1 = Temp.getTemporal();
                             valor += `${temp} = ${temp} + 1;\n`;
                             valor += temp1 + ' = '+ val.length + ';';
@@ -1178,8 +1404,17 @@ case 27:
                             var temp = Temp.getTemporal();
                             valor += $$[$0][3];
                             valor += '\n';
-                            valor += 'stack['+ n.position + '] = ' + $$[$0][1] +';';
-                            valor += '\n';
+
+                            if(n.entorno == 'global')
+                            {
+                                valor += 'heap['+ n.position + '] = ' + $$[$0][1] +';';
+                                valor += '\n';
+                            }
+                            else
+                            {
+                                valor += 'stack['+ n.position + '] = ' + $$[$0][1] +';';
+                                valor += '\n';
+                            }
 
                             var r = [];
                             r[3] = valor;
@@ -1210,8 +1445,16 @@ case 27:
                             var temp = Temp.getTemporal();
                             valor += $$[$0][3];
                             valor += '\n';
-                            valor += 'stack['+ n.position + '] = ' + $$[$0][1] +';';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += 'heap['+ n.position + '] = ' + $$[$0][1] +';';
+                                valor += '\n';
+                            }
+                            else
+                            {
+                                valor += 'stack['+ n.position + '] = ' + $$[$0][1] +';';
+                                valor += '\n';
+                            }
 
                             var r = [];
                             r[3] = valor;
@@ -1242,8 +1485,16 @@ case 27:
                             var temp = Temp.getTemporal();
                             valor += $$[$0][3];
                             valor += '\n';
-                            valor += 'stack['+ n.position + '] = ' + $$[$0][1] +';';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += 'heap['+ n.position + '] = ' + $$[$0][1] +';';
+                                valor += '\n';
+                            }
+                            else
+                            {
+                                valor += 'stack['+ n.position + '] = ' + $$[$0][1] +';';
+                                valor += '\n';
+                            }
 
                             var r = [];
                             r[3] = valor;
@@ -1295,8 +1546,17 @@ case 27:
                                  case 'STRING':
                                      var valor = '';
                                       var temp = Temp.getTemporal();
-                                      valor += temp + ' = ' + n.position + ';';
-                                      valor += '\n';
+                                      if(n.entorno == 'global')
+                                      {
+                                          valor += temp + ' = heap[' + n.position + '];';
+                                          valor += '\n';
+                                      }
+                                      else
+                                      {
+                                          valor += temp + ' = stack[' + n.position + '];';
+                                          valor += '\n';
+                                      }
+
                                       valor += temp + ' = ' + temp + ' + 1;\n';
 
                                       var temp2 = Temp.getTemporal();
@@ -1342,11 +1602,27 @@ case 27:
                                       valor += temp + ' = ' + n.position + ';';
                                       valor += '\n';
                                       var temp1 = Temp.getTemporal();
-                                      valor += temp1 + ' = stack['+n1.position+'];';
-                                      valor += '\n';
-                                      valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
-                                      valor += '\n';
+                                      if(n1.entorno == 'global')
+                                      {
+                                          valor += temp1 + ' = heap['+n1.position+'];';
+                                          valor += '\n';
+                                      }
+                                      else
+                                      {
+                                          valor += temp1 + ' = stack['+n1.position+'];';
+                                          valor += '\n';
+                                      }
 
+                                      if(n.entorno == 'global')
+                                      {
+                                          valor += 'heap[(int)'+ temp + '] = ' + temp1 +';';
+                                          valor += '\n';
+                                      }
+                                      else
+                                      {
+                                          valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
+                                          valor += '\n';
+                                      }
 
                                       var r = [];
                                       r[3] = valor;
@@ -1377,11 +1653,27 @@ case 27:
                                       valor += temp + ' = ' + n.position + ';';
                                       valor += '\n';
                                       var temp1 = Temp.getTemporal();
-                                      valor += temp1 + ' = stack['+n1.position+'];';
-                                      valor += '\n';
-                                      valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
-                                      valor += '\n';
+                                      if(n1.entorno == 'global')
+                                      {
+                                          valor += temp1 + ' = heap['+n1.position+'];';
+                                          valor += '\n';
+                                      }
+                                      else
+                                      {
+                                          valor += temp1 + ' = stack['+n1.position+'];';
+                                          valor += '\n';
+                                      }
 
+                                      if(n.entorno == 'global')
+                                      {
+                                          valor += 'heap[(int)'+ temp + '] = ' + temp1 +';';
+                                          valor += '\n';
+                                      }
+                                      else
+                                      {
+                                          valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
+                                          valor += '\n';
+                                      }
 
                                       var r = [];
                                       r[3] = valor;
@@ -1458,8 +1750,24 @@ case 29:
 
                 var valor = '';
                 valor += '\n';
-                valor += temp1 + ' = ' + pos +';';
-                valor += '\n';
+                var posicion = -1;
+                if(entorno == 'global')
+                {
+                    posicion = pos;
+                    valor += temp1 + ' = ' + pos +';';
+                    valor += '\n';
+                    pos++;
+                }
+                else
+                {
+                    posicion = stack;
+                    valor += temp1 + ' =  P;';
+                    valor += '\n';
+                    valor += 'P = P + 1;\n';
+                    stac++;
+                }
+                //valor += temp1 + ' = ' + pos +';';
+                //valor += '\n';
                 var temp2 = Temp.getTemporal();
                 if($$[$0-3].toUpperCase() == 'NUMBER')
                 {
@@ -1474,8 +1782,17 @@ case 29:
                     valor += temp2 + ' = -1;';
                 }
 
-                valor += '\n';
-                valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
+                if(entorno == 'global')
+                {
+                    valor += '\n';
+                    valor += 'heap[(int)' + temp1 + '] = ' + temp2 +';';
+                }
+                else
+                {
+                    valor += '\n';
+                    valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
+                }
+
 
                 var r = [];
                 r[3] = valor;
@@ -1490,16 +1807,20 @@ case 29:
                 var sym = new intermedia.simbolo();
                 sym.ambito = tab.ambitoLevel;
                 sym.name = $$[$0-2];
-                sym.position = pos;
+                sym.position = posicion;
                 sym.rol = 'variable';
-                sym.direccion = pos;
-                sym.direccionrelativa = pos;
+                sym.direccion = posicion;
+                sym.direccionrelativa = posicion;
+                if(entorno != 'global')
+                {
+                    sym.entorno = entorno;
+                }
                 sym.tipo = $$[$0];
                 sym.valor = null;
                 tab.insert(sym);
                 this.$ = r;
-                if(pos >0 && pos != 0) pos++;
-                if (pos == 0) pos++;
+                //if(pos >0 && pos != 0) pos++;
+                //if (pos == 0) pos++;
             }
         }
         else
@@ -1524,8 +1845,24 @@ case 30:
 
                 var valor = '';
                 valor += '\n';
-                valor += temp1 + ' = ' + pos +';';
-                valor += '\n';
+                var posicion = -1;
+                if(entorno == 'global')
+                {
+                    posicion = pos;
+                    valor += temp1 + ' = ' + pos +';';
+                    valor += '\n';
+                    pos++;
+                }
+                else
+                {
+                    posicion = stac;
+                    valor += temp1 + ' =  P;';
+                    valor += '\n';
+                    valor += 'P = P + 1;\n';
+                    stac++;
+                }
+                //valor += temp1 + ' = ' + pos +';';
+                //valor += '\n';
                 var temp2 = Temp.getTemporal();
                 if($$[$0-1].toUpperCase() == 'NUMBER')
                 {
@@ -1540,7 +1877,15 @@ case 30:
                     valor += temp2 + ' = -1;';
                 }
                 valor += '\n';
-                valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
+                if(entorno == 'global')
+                {
+                    valor += 'heap[(int)' + temp1 + '] = ' + temp2 +';\n';
+                }
+                else
+                {
+                    valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';\n';
+                }
+
 
                 var r = [];
                 r[3] = valor;
@@ -1555,16 +1900,20 @@ case 30:
                 var sym = new intermedia.simbolo();
                 sym.ambito = tab.ambitoLevel;
                 sym.name = $$[$0];
-                sym.position = pos;
+                sym.position = posicion;
                 sym.rol = 'variable';
-                sym.direccion = pos;
-                sym.direccionrelativa = pos;
+                sym.direccion = posicion;
+                sym.direccionrelativa = posicion;
                 sym.tipo = '';
                 sym.valor = null;
+                if(entorno != 'global')
+                {
+                    sym.entorno = entorno;
+                }
                 tab.insert(sym);
                 this.$ = r;
-                if(pos >0 && pos != 0) pos++;
-                if (pos == 0) pos++;
+                //if(pos >0 && pos != 0) pos++;
+                //if (pos == 0) pos++;
             }
         }
         else
@@ -1587,15 +1936,39 @@ case 31:
                         {
                             var valor = '';
                             var temp = Temp.getTemporal();
-                            valor += temp + ' = ' + pos + ';';
-                            valor += '\n';
+                            var posicion = -1;
+                            if(entorno == 'global')
+                            {
+                                posicion = pos;
+                                valor += temp + ' = ' + pos +';';
+                                valor += '\n';
+                                pos++;
+                            }
+                            else
+                            {
+                                posicion = stac;
+                                valor += temp + ' =  P;';
+                                valor += '\n';
+                                valor += 'P = P + 1;\n';
+                                stac++;
+                            }
+                            //valor += temp + ' = ' + pos + ';';
+                            //valor += '\n';
 
                             var temp1 = Temp.getTemporal();
                             var temp0 = Temp.getTemporal();
                             valor += temp1 + ' = ' + posA + ';';
                             valor += '\n';
                             valor += temp0+ ' = ' + posA + ';\n';
-                            valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
+                            if(entorno == 'global')
+                            {
+                                valor += 'heap[(int)'+temp+'] = ' + temp1 + ';';
+                            }
+                            else
+                            {
+                                valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
+                            }
+                            //valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
                             valor += '\n';
                             valor += temp1 + ' = ' + temp1 + ' + 1;';
                             valor += '\n';
@@ -1613,13 +1986,17 @@ case 31:
                              var sym = new intermedia.simbolo();
                              sym.ambito = tab.ambitoLevel;
                              sym.name = $$[$0-5];
-                             sym.position = pos;
+                             sym.position = posicion;
                              sym.rol = 'arreglo';
-                             sym.direccion = pos;
-                             sym.direccionrelativa = pos;
+                             sym.direccion = posicion;
+                             sym.direccionrelativa = posicion;
                              sym.tipo = ($$[$0-3][8]!='')?$$[$0][8]:$$[$0-3][0];
                              sym.valor = $$[$0][6];
                              sym.constante = ($$[$0-6].toUpperCase() == 'CONST')?true:false;
+                             if(entorno != 'global')
+                             {
+                                 sym.entorno = entorno;
+                             }
                              tab.insert(sym);
 
                             var r = [];
@@ -1636,8 +2013,8 @@ case 31:
 
                             this.$ = r;
 
-                            if(pos >0 && pos != 0) pos++;
-                            if (pos == 0) pos++;
+                            //if(pos >0 && pos != 0) pos++;
+                            //if (pos == 0) pos++;
                             posA += 5000;
                         }
                         else
@@ -1680,13 +2057,38 @@ case 32:
                     var valor = '';
                     valor += u[3];
                     valor += '\n';
-                    valor += temp1 + ' = ' + pos +';';
-                    valor += '\n';
+                    var posicion = -1;
+                    if(entorno == 'global')
+                    {
+                        posicion = pos;
+                        valor += temp1 + ' = ' + pos +';';
+                        valor += '\n';
+                        pos++;
+                    }
+                    else
+                    {
+                        posicion = stac;
+                        valor += temp1 + ' =  P;';
+                        valor += '\n';
+                        valor += 'P = P + 1;\n';
+                        stac++;
+                    }
+                    //valor += temp1 + ' = ' + pos +';';
+                    //valor += '\n';
                     var temp2 = Temp.getTemporal();
                     valor += temp2 + ' = '+posA+';';
                     valor += '\n';
-                    valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
-                    valor += '\n';
+                    if(entorno == 'global')
+                    {
+                        valor += 'heap[(int)' + temp1 + '] = ' + temp2 +';';
+                        valor += '\n';
+                    }
+                    else
+                    {
+                        valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';\n';
+                    }
+                    //valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
+                    //valor += '\n';
                     valor += 'heap[(int)' + temp2 + '] = ' + temp2 + ' + 1;';
                     valor += '\n';
                     valor = valor  + temp2 + ' = ' + temp2 + ' + 1;';
@@ -1733,21 +2135,25 @@ case 32:
                     var sym = new intermedia.simbolo();
                     sym.ambito = tab.ambitoLevel;
                     sym.name = $$[$0-9];
-                    sym.position = pos;
+                    sym.position = posicion;
                     sym.rol = 'arreglo';
-                    sym.direccion = pos;
-                    sym.direccionrelativa = pos;
+                    sym.direccion = posicion;
+                    sym.direccionrelativa = posicion;
                     sym.tipo = $$[$0-7];
                     sym.valor = a;
                     sym.constante = ($$[$0-10].toUpperCase() == 'CONST')?true:false;
+                    if(entorno != 'global')
+                    {
+                        sym.entorno = entorno;
+                    }
                     tab.insert(sym);
 
                     this.$ = r;
 
                     arr.valores.push(a);
 
-                    if(pos >0 && pos != 0) pos++;
-                    if (pos == 0) pos++;
+                    //if(pos >0 && pos != 0) pos++;
+                    //if (pos == 0) pos++;
                     posA += 5000;
                 }
                 else if(u[0] == '')
@@ -1764,15 +2170,48 @@ case 32:
                                     var temp0 = Temp.getTemporal();
                                     valor += temp0 + ' = ' + n.position + ';\n';
                                     var temp0_1 = Temp.getTemporal();
-                                    valor += temp0_1 + ' = stack[(int)'+temp0+'];';
+                                    if(n.entorno == 'global')
+                                    {
+                                         valor += temp0_1 + ' = heap[(int)'+temp0+'];';
+                                    }
+                                    else
+                                    {
+                                         valor += temp0_1 + ' = stack[(int)'+temp0+'];';
+                                    }
                                     valor += '\n';
-                                    valor += temp1 + ' = ' + pos +';';
-                                    valor += '\n';
+                                    var posicion = -1;
+                                    if(entorno == 'global')
+                                    {
+                                        posicion = pos;
+                                        valor += temp1 + ' = ' + pos +';';
+                                        valor += '\n';
+                                        pos++;
+                                    }
+                                    else
+                                    {
+                                        posicion = stac;
+                                        valor += temp1 + ' =  P;';
+                                        valor += '\n';
+                                        valor += 'P = P + 1;\n';
+                                        stac++;
+                                    }
+                                    //valor += temp1 + ' = ' + pos +';';
+                                    //valor += '\n';
                                     var temp2 = Temp.getTemporal();
                                     valor += temp2 + ' = '+posA+';';
                                     valor += '\n';
-                                    valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
-                                    valor += '\n';
+                                    if(entorno == 'global')
+                                    {
+                                        valor += 'heap[(int)' + temp1 + '] = ' + temp2 +';';
+                                        valor += '\n';
+                                    }
+                                    else
+                                    {
+                                        valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
+                                        valor += '\n';
+                                    }
+                                    //valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
+                                    //valor += '\n';
                                     valor += 'heap[(int)' + temp2 + '] = ' + temp2 + ' + 1;';
                                     valor += '\n';
                                     valor = valor  + temp2 + ' = ' + temp2 + ' + 1;';
@@ -1819,11 +2258,15 @@ case 32:
                                     var sym = new intermedia.simbolo();
                                     sym.ambito = tab.ambitoLevel;
                                     sym.name = $$[$0-9];
-                                    sym.position = pos;
+                                    sym.position = posicion;
                                     sym.rol = 'arreglo';
-                                    sym.direccion = pos;
-                                    sym.direccionrelativa = pos;
+                                    sym.direccion = posicion;
+                                    sym.direccionrelativa = posicion;
                                     sym.tipo = $$[$0-10];
+                                    if(entorno != 'global')
+                                    {
+                                        sym.entorno = entorno;
+                                    }
 
                                     sym.valor = a;
                                     tab.insert(sym);
@@ -1832,8 +2275,8 @@ case 32:
 
                                     arr.valores.push(a);
 
-                                    if(pos >0 && pos != 0) pos++;
-                                    if (pos == 0) pos++;
+                                    //if(pos >0 && pos != 0) pos++;
+                                    //if (pos == 0) pos++;
                                     posA += 5000;
                                     break;
                                  DEFAULT:
@@ -1880,13 +2323,41 @@ case 33:
                     var valor = '';
                     valor += u[3];
                     valor += '\n';
-                    valor += temp1 + ' = ' + pos +';';
-                    valor += '\n';
+                    var posicion = -1;
+                    if(entorno == 'global')
+                    {
+                        posicion = pos;
+                        valor += temp1 + ' = ' + pos +';';
+                        valor += '\n';
+                        pos++;
+                    }
+                    else
+                    {
+                        posicion = stac;
+                        valor += temp1 + ' =  P;';
+                        valor += '\n';
+                        valor += 'P = P + 1;\n';
+                        stac++;
+                    }
+
+                    //valor += temp1 + ' = ' + pos +';';
+                    //valor += '\n';
+
                     var temp2 = Temp.getTemporal();
                     valor += temp2 + ' = '+posA+';';
                     valor += '\n';
-                    valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
-                    valor += '\n';
+                    if(entorno == 'global')
+                    {
+                        valor += 'heap[(int)' + temp1 + '] = ' + temp2 +';';
+                        valor += '\n';
+                    }
+                    else
+                    {
+                        valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
+                        valor += '\n';
+                    }
+                    //valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
+                    //valor += '\n';
                     valor += 'heap[(int)' + temp2 + '] = ' + temp2 + ' + 1;';
                     valor += '\n';
                     valor = valor  + temp2 + ' = ' + temp2 + ' + 1;';
@@ -1933,12 +2404,12 @@ case 33:
                     var sym = new intermedia.simbolo();
                     sym.ambito = tab.ambitoLevel;
                     sym.name = $$[$0-6];
-                    sym.position = pos;
+                    sym.position = posicion;
                     sym.rol = 'arreglo';
-                    sym.direccion = pos;
-                    sym.direccionrelativa = pos;
+                    sym.direccion = posicion;
+                    sym.direccionrelativa = posicion;
                     sym.tipo = $$[$0-7];
-
+                    if(entorno != 'global') sym.entorno = entorno;
                     sym.valor = a;
                     tab.insert(sym);
 
@@ -1946,8 +2417,8 @@ case 33:
 
                     arr.valores.push(a);
 
-                    if(pos >0 && pos != 0) pos++;
-                    if (pos == 0) pos++;
+                    //if(pos >0 && pos != 0) pos++;
+                    //if (pos == 0) pos++;
                     posA += 5000;
                 }
                 else if(u[0] == '')
@@ -1964,15 +2435,49 @@ case 33:
                                     var temp0 = Temp.getTemporal();
                                     valor += temp0 + ' = ' + n.position + ';\n';
                                     var temp0_1 = Temp.getTemporal();
-                                    valor += temp0_1 + ' = stack[(int)'+temp0+'];';
-                                    valor += '\n';
-                                    valor += temp1 + ' = ' + pos +';';
+                                    if(n.entorno == 'global')
+                                    {
+                                        valor += temp0_1 + ' = heap[(int)'+temp0+'];\n';
+
+                                    }
+                                    else
+                                    {
+                                        valor += temp0_1 + ' = stack[(int)'+temp0+'];\n';
+
+                                    }
+                                    //valor += temp0_1 + ' = stack[(int)'+temp0+'];';
+                                    //valor += '\n';
+                                    //valor += temp1 + ' = ' + pos +';';
+                                    var posicion = -1;
+                                    if(entorno == 'global')
+                                    {
+                                        posicion = pos;
+                                        valor += temp1 + ' = ' + pos +';';
+                                        valor += '\n';
+                                        pos++;
+                                    }
+                                    else
+                                    {
+                                        posicion = stac;
+                                        valor += temp1 + ' =  P;';
+                                        valor += '\n';
+                                        valor += 'P = P + 1;\n';
+                                        stac++;
+                                    }
                                     valor += '\n';
                                     var temp2 = Temp.getTemporal();
                                     valor += temp2 + ' = '+posA+';';
                                     valor += '\n';
-                                    valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
-                                    valor += '\n';
+                                    if(entorno == 'global')
+                                    {
+                                        valor += 'heap[(int)' + temp1 + '] = ' + temp2 +';\n';
+                                    }
+                                    else
+                                    {
+                                        valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';\n';
+                                    }
+                                    //valor += 'stack[(int)' + temp1 + '] = ' + temp2 +';';
+                                    //valor += '\n';
                                     valor += 'heap[(int)' + temp2 + '] = ' + temp2 + ' + 1;';
                                     valor += '\n';
                                     valor = valor  + temp2 + ' = ' + temp2 + ' + 1;';
@@ -2019,11 +2524,12 @@ case 33:
                                     var sym = new intermedia.simbolo();
                                     sym.ambito = tab.ambitoLevel;
                                     sym.name = $$[$0-6];
-                                    sym.position = pos;
+                                    sym.position = posicion;
                                     sym.rol = 'arreglo';
-                                    sym.direccion = pos;
-                                    sym.direccionrelativa = pos;
+                                    sym.direccion = posicion;
+                                    sym.direccionrelativa = posicion;
                                     sym.tipo = $$[$0-7];
+                                    if(entorno != 'global') sym.entorno = entorno;
 
                                     sym.valor = a;
                                     tab.insert(sym);
@@ -2032,8 +2538,8 @@ case 33:
 
                                     arr.valores.push(a);
 
-                                    if(pos >0 && pos != 0) pos++;
-                                    if (pos == 0) pos++;
+                                    //if(pos >0 && pos != 0) pos++;
+                                    //if (pos == 0) pos++;
                                     posA += 5000;
                                     break;
                                  DEFAULT:
@@ -2080,15 +2586,41 @@ case 34:
                         var val = $$[$0][6].toString();
                         var valor = '';
                         var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + pos + ';';
+                        var posicion = -1;
+                        if(entorno == 'global')
+                        {
+                            posicion = pos;
+                            valor += temp + ' = ' + pos +';';
+                            valor += '\n';
+                            pos++;
+                        }
+                        else
+                        {
+                            posicion = stac;
+                            valor += temp + ' =  P;';
+                            valor += '\n';
+                            valor += 'P = P + 1;\n';
+                            stac++;
+                        }
+                        //valor += temp + ' = ' + pos + ';';
                         var temp0 = Temp.getTemporal();
                         valor += '\n';
                         var temp1 = Temp.getTemporal();
                         valor += temp1 + ' = ' + posS + ';\n';
                         valor += temp0 + ' = ' + posS + ';';
                         valor += '\n';
-                        valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
-                        valor += '\n';
+                        if(entorno == 'global')
+                        {
+                            valor += 'heap[(int)'+temp+'] = ' + temp1 + ';';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
+                            valor += '\n';
+                        }
+                       // valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
+                        //valor += '\n';
 
                         valor += temp1 + ' = ' + temp1 + ' + 1;';
                         valor += '\n';
@@ -2115,42 +2647,68 @@ case 34:
                         var sym = new intermedia.simbolo();
                         sym.ambito = tab.ambitoLevel;
                         sym.name = $$[$0-4];
-                        sym.position = pos;
+                        sym.position = posicion;
                         sym.rol = 'variable';
-                        sym.direccion = pos;
-                        sym.direccionrelativa = pos;
+                        sym.direccion = posicion;
+                        sym.direccionrelativa = posicion;
                         sym.tipo = $$[$0-2];
                         sym.valor = $$[$0][6];
                         sym.constante = ($$[$0-5].toUpperCase() == 'CONST')?true:false;
+                        if(entorno != 'global') sym.entorno = entorno;
                         tab.insert(sym);
 
                         this.$ = r;
 
-                        if(pos >0 && pos != 0) pos++;
-                        if (pos == 0) pos++;
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
                         posS += 5000;
                         break;
 
                     case "NUMBER":
                         var valor = '';
                         var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + pos + ';';
-                        valor += '\n';
+                        var posicion = -1;
+                        if(entorno == 'global')
+                        {
+                            posicion = pos;
+                            valor += temp + ' = ' + pos +';';
+                            valor += '\n';
+                            pos++;
+                        }
+                        else
+                        {
+                            posicion = stac;
+                            valor += temp + ' =  P;';
+                            valor += '\n';
+                            valor += 'P = P + 1;\n';
+                            stac++;
+                        }
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
                         valor += $$[$0][3];
                         valor += '\n';
-                        valor += 'stack[(int)'+ temp + '] = ' + $$[$0][1] +';';
-                        valor += '\n';
+                        if(entorno == 'global')
+                        {
+                            valor += 'heap[(int)'+ temp + '] = ' + $$[$0][1] +';';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += 'stack[(int)'+ temp + '] = ' + $$[$0][1] +';';
+                            valor += '\n';
+                        }
 
                          var sym = new intermedia.simbolo();
                          sym.ambito = tab.ambitoLevel;
                          sym.name = $$[$0-4];
-                         sym.position = pos;
+                         sym.position = posicion;
                          sym.rol = 'variable';
-                         sym.direccion = pos;
-                         sym.direccionrelativa = pos;
+                         sym.direccion = posicion;
+                         sym.direccionrelativa = posicion;
                          sym.tipo = $$[$0-2];
                          sym.valor = $$[$0][6];
                          sym.constante = ($$[$0-5].toUpperCase() == 'CONST')?true:false;
+                         if(entorno != 'global') sym.entorno = entorno;
                          tab.insert(sym);
 
                         var r = [];
@@ -2166,30 +2724,56 @@ case 34:
 
                         this.$ = r;
 
-                        if(pos >0 && pos != 0) pos++;
-                        if (pos == 0) pos++;
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
                         break;
 
                     case 'BOOLEAN':
                         var valor = '';
                         var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + pos + ';';
-                        valor += '\n';
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
+                        var posicion = -1;
+                        if(entorno == 'global')
+                        {
+                            posicion = pos;
+                            valor += temp + ' = ' + pos +';';
+                            valor += '\n';
+                            pos++;
+                        }
+                        else
+                        {
+                            posicion = stac;
+                            valor += temp + ' =  P;';
+                            valor += '\n';
+                            valor += 'P = P + 1;\n';
+                            stac++;
+                        }
                         valor += $$[$0][3];
                         valor += '\n';
-                        valor += 'stack[(int)'+ temp + '] = ' + $$[$0][1] +';';
-                        valor += '\n';
+                        if(entorno == 'global')
+                        {
+                            valor += 'heap[(int)'+ temp + '] = ' + $$[$0][1] +';';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += 'stack[(int)'+ temp + '] = ' + $$[$0][1] +';';
+                            valor += '\n';
+                        }
+
 
                          var sym = new intermedia.simbolo();
                          sym.ambito = tab.ambitoLevel;
                          sym.name = $$[$0-4];
-                         sym.position = pos;
+                         sym.position = posicion;
                          sym.rol = 'variable';
-                         sym.direccion = pos;
-                         sym.direccionrelativa = pos;
+                         sym.direccion = posicion;
+                         sym.direccionrelativa = posicion;
                          sym.tipo = $$[$0-2];
                          sym.valor = $$[$0][6];
                          sym.constante = ($$[$0-5].toUpperCase() == 'CONST')?true:false;
+                         if(entorno!='global') sym.entorno = entorno;
                          tab.insert(sym);
 
                         var r = [];
@@ -2205,30 +2789,56 @@ case 34:
 
                         this.$ = r;
 
-                        if(pos >0 && pos != 0) pos++;
-                        if (pos == 0) pos++;
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
                         break;
 
                     case "FLOAT":
                         var valor = '';
                         var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + pos + ';';
-                        valor += '\n';
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
+                        var posicion = -1;
+                        if(entorno == 'global')
+                        {
+                            posicion = pos;
+                            valor += temp + ' = ' + pos +';';
+                            valor += '\n';
+                            pos++;
+                        }
+                        else
+                        {
+                            posicion = stac;
+                            valor += temp + ' =  P;';
+                            valor += '\n';
+                            valor += 'P = P + 1;\n';
+                            stac++;
+                        }
                         valor += $$[$0][3];
                         valor += '\n';
-                        valor += 'stack[(int)'+ temp + '] = ' + $$[$0][1] +';';
-                        valor += '\n';
+                        if(entorno == 'global')
+                        {
+                            valor += 'heap[(int)'+ temp + '] = ' + $$[$0][1] +';';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += 'stack[(int)'+ temp + '] = ' + $$[$0][1] +';';
+                            valor += '\n';
+                        }
+
 
                          var sym = new intermedia.simbolo();
                          sym.ambito = tab.ambitoLevel;
                          sym.name = $$[$0-4];
-                         sym.position = pos;
+                         sym.position = posicion;
                          sym.rol = 'variable';
-                         sym.direccion = pos;
-                         sym.direccionrelativa = pos;
+                         sym.direccion = posicion;
+                         sym.direccionrelativa = posicion;
                          sym.tipo = $$[$0-2];
                          sym.valor = $$[$0][6];
                          sym.constante = ($$[$0-5].toUpperCase() == 'CONST')?true:false;
+                         if(entorno != 'global') sym.entorno = entorno;
                          tab.insert(sym);
 
                         var r = [];
@@ -2244,8 +2854,8 @@ case 34:
 
                         this.$ = r;
 
-                        if(pos >0 && pos != 0) pos++;
-                        if (pos == 0) pos++;
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
                         break;
 
                     case 'ARREGLO':
@@ -2266,8 +2876,24 @@ case 34:
                              case 'STRING':
                                  var valor = '';
                                   var temp = Temp.getTemporal();
-                                  valor += temp + ' = ' + pos + ';';
-                                  valor += '\n';
+                                  //valor += temp + ' = ' + pos + ';';
+                                  //valor += '\n';
+                                 var posicion = -1;
+                                 if(entorno == 'global')
+                                 {
+                                     posicion = pos;
+                                     valor += temp + ' = ' + pos +';';
+                                     valor += '\n';
+                                     pos++;
+                                 }
+                                 else
+                                 {
+                                     posicion = stac;
+                                     valor += temp + ' =  P;';
+                                     valor += '\n';
+                                     valor += 'P = P + 1;\n';
+                                     stac++;
+                                 }
 
                                   var temp1 = Temp.getTemporal();
                                   valor += temp1 + ' = ' + posS + ';';
@@ -2275,8 +2901,17 @@ case 34:
                                   var temp0 = Temp.getTemporal();
                                   valor += temp0 + ' = ' + posS + ';';
                                   valor += '\n';
-                                  valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
-                                  valor += '\n';
+                                  if(entorno == 'global')
+                                  {
+                                      valor += 'heap[(int)'+temp+'] = ' + temp1 + ';';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
+                                      valor += '\n';
+                                  }
+
                                   valor += temp1 + ' = ' + temp1 + ' + 1;';
                                   valor += '\n';
                                   valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
@@ -2306,43 +2941,80 @@ case 34:
                                var sym = new intermedia.simbolo();
                                sym.ambito = tab.ambitoLevel;
                                sym.name = $$[$0-4];
-                               sym.position = pos;
+                               sym.position = posicion;
                                sym.rol = 'variable';
-                               sym.direccion = pos;
-                               sym.direccionrelativa = pos;
+                               sym.direccion = posicion;
+                               sym.direccionrelativa = posicion;
                                sym.tipo = $$[$0-2];
                                sym.valor = n.valor;
                                sym.constante = ($$[$0-5].toUpperCase() == 'CONST')?true:false;
+                               if(entorno != 'global') sym.entorno = entorno;
                                tab.insert(sym);
 
                                this.$ = r;
 
-                               if(pos >0 && pos != 0) pos++;
-                               if (pos == 0) pos++;
+                               //if(pos >0 && pos != 0) pos++;
+                               //if (pos == 0) pos++;
                                posS += 5000;
                                break;
 
                              case 'NUMBER':
                                   var valor = '';
                                   var temp = Temp.getTemporal();
-                                  valor += temp + ' = ' + pos + ';';
-                                  valor += '\n';
+                                  //valor += temp + ' = ' + pos + ';';
+                                  //valor += '\n';
+                                  var posicion = -1;
+                                  if(entorno == 'global')
+                                  {
+                                      posicion = pos;
+                                      valor += temp + ' = ' + pos +';';
+                                      valor += '\n';
+                                      pos++;
+                                  }
+                                  else
+                                  {
+                                      posicion = stac;
+                                      valor += temp + ' =  P;';
+                                      valor += '\n';
+                                      valor += 'P = P + 1;\n';
+                                      stac++;
+                                  }
+
                                   var temp1 = Temp.getTemporal();
-                                  valor += temp1 + ' = stack[(int)'+n.position+'];';
-                                  valor += '\n';
-                                  valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
-                                  valor += '\n';
+                                  if(n.entorno == 'global')
+                                  {
+                                      valor += temp1 + ' = heap[(int)'+n.position+'];';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += temp1 + ' = stack[(int)'+n.position+'];';
+                                      valor += '\n';
+                                  }
+
+                                  if(entorno == 'global')
+                                  {
+                                      valor += 'heap[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  }
+
 
                                    var sym = new intermedia.simbolo();
                                    sym.ambito = tab.ambitoLevel;
                                    sym.name = $$[$0-4];
-                                   sym.position = pos;
+                                   sym.position = posicion;
                                    sym.rol = 'variable';
-                                   sym.direccion = pos;
-                                   sym.direccionrelativa = pos;
+                                   sym.direccion = posicion;
+                                   sym.direccionrelativa = posicion;
                                    sym.tipo = $$[$0-2];
                                    sym.valor = n.valor;
                                    sym.constante = ($$[$0-5].toUpperCase() == 'CONST')?true:false;
+                                   if(entorno != 'global') sym.entorno = entorno;
                                    tab.insert(sym);
 
                                   var r = [];
@@ -2358,31 +3030,66 @@ case 34:
 
                                   this.$ = r;
 
-                                  if(pos >0 && pos != 0) pos++;
-                                  if (pos == 0) pos++;
+                                  //if(pos >0 && pos != 0) pos++;
+                                  //if (pos == 0) pos++;
                                   break;
 
                              case 'BOOLEAN':
                                   var valor = '';
                                   var temp = Temp.getTemporal();
-                                  valor += temp + ' = ' + pos + ';';
-                                  valor += '\n';
+                                  //valor += temp + ' = ' + pos + ';';
+                                  //valor += '\n';
+                                  var posicion = -1;
+                                  if(entorno == 'global')
+                                  {
+                                      posicion = pos;
+                                      valor += temp + ' = ' + pos +';';
+                                      valor += '\n';
+                                      pos++;
+                                  }
+                                  else
+                                  {
+                                      posicion = stac;
+                                      valor += temp + ' =  P;';
+                                      valor += '\n';
+                                      valor += 'P = P + 1;\n';
+                                      stac++;
+                                  }
                                   var temp1 = Temp.getTemporal();
-                                  valor += temp1 + ' = stack[(int)'+n.position+'];';
-                                  valor += '\n';
-                                  valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
-                                  valor += '\n';
+                                  if(n.entorno == 'global' )
+                                  {
+                                      valor += temp1 + ' = heap[(int)'+n.position+'];';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += temp1 + ' = stack[(int)'+n.position+'];';
+                                      valor += '\n';
+                                  }
+
+                                  if(entorno == 'global')
+                                  {
+                                      valor += 'heap[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  }
+
 
                                    var sym = new intermedia.simbolo();
                                    sym.ambito = tab.ambitoLevel;
                                    sym.name = $$[$0-4];
-                                   sym.position = pos;
+                                   sym.position = posicion;
                                    sym.rol = 'variable';
-                                   sym.direccion = pos;
-                                   sym.direccionrelativa = pos;
+                                   sym.direccion = posicion;
+                                   sym.direccionrelativa = posicion;
                                    sym.tipo = $$[$0-2];
                                    sym.valor = n.valor;
                                    sym.constante = ($$[$0-5].toUpperCase() == 'CONST')?true:false;
+                                   if(entorno != 'global') sym.entorno = entorno;
                                    tab.insert(sym);
 
                                   var r = [];
@@ -2398,8 +3105,8 @@ case 34:
 
                                   this.$ = r;
 
-                                  if(pos >0 && pos != 0) pos++;
-                                  if (pos == 0) pos++;
+                                  //if(pos >0 && pos != 0) pos++;
+                                  //if (pos == 0) pos++;
                                   break;
 
                              DEFAULT:
@@ -2447,28 +3154,53 @@ case 35:
                         var val = $$[$0][6].toString();
                         var valor = '';
                         var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + pos + ';';
-                        valor += '\n';
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
+                       var posicion = -1;
+                       if(entorno == 'global')
+                       {
+                           posicion = pos;
+                           valor += temp + ' = ' + pos +';';
+                           valor += '\n';
+                           pos++;
+                       }
+                       else
+                       {
+                           posicion = stac;
+                           valor += temp + ' =  P;';
+                           valor += '\n';
+                           valor += 'P = P + 1;\n';
+                           stac++;
+                      }
 
-                        var temp1 = Temp.getTemporal();
-                        valor += temp1 + ' = ' + posS + ';';
-                        valor += '\n';
-                          var temp0 = Temp.getTemporal();
-                          valor += temp0 + ' = ' + posS + ';';
-                          valor += '\n';
-                          valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
-                          valor += '\n';
-                          valor += temp1 + ' = ' + temp1 + ' + 1;';
-                          valor += '\n';
-                          valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
-                        var temp2 = Temp.getTemporal();
-                        valor += temp2 + ' = '+ val.length + ';';
-                        valor += '\n';
-                        valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
-                        valor += '\n';
-                        valor += $$[$0][1] + ' = ' + temp1 + ';';
-                        valor += '\n';
-                        valor += $$[$0][3];
+                      var temp1 = Temp.getTemporal();
+                      valor += temp1 + ' = ' + posS + ';';
+                      valor += '\n';
+                      var temp0 = Temp.getTemporal();
+                      valor += temp0 + ' = ' + posS + ';';
+                      valor += '\n';
+                      if(entorno == 'global')
+                      {
+                         valor += 'heap[(int)'+temp+'] = ' + temp1 + ';';
+                         valor += '\n';
+                      }
+                      else
+                      {
+                         valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
+                         valor += '\n';
+                      }
+
+                      valor += temp1 + ' = ' + temp1 + ' + 1;';
+                      valor += '\n';
+                      valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
+                      var temp2 = Temp.getTemporal();
+                      valor += temp2 + ' = '+ val.length + ';';
+                      valor += '\n';
+                      valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
+                      valor += '\n';
+                      valor += $$[$0][1] + ' = ' + temp1 + ';';
+                      valor += '\n';
+                      valor += $$[$0][3];
 
                         var r = [];
                         r[3] = valor;
@@ -2483,42 +3215,69 @@ case 35:
                         var sym = new intermedia.simbolo();
                         sym.ambito = tab.ambitoLevel;
                         sym.name = $$[$0-2];
-                        sym.position = pos;
+                        sym.position = posicion;
                         sym.rol = 'variable';
-                        sym.direccion = pos;
-                        sym.direccionrelativa = pos;
+                        sym.direccion = posicion;
+                        sym.direccionrelativa = posicion;
                         sym.tipo = $$[$0][0];
                         sym.valor = $$[$0][6];
                         sym.constante = ($$[$0-3].toUpperCase() == 'CONST')?true:false;
+                        if(entorno != 'global') sym.entorno = entorno;
                         tab.insert(sym);
 
                         this.$ = r;
 
-                        if(pos >0 && pos != 0) pos++;
-                        if (pos == 0) pos++;
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
                         posS += 5000;
                         break;
 
                     case "NUMBER":
                         var valor = '';
                         var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + pos + ';';
-                        valor += '\n';
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
+                           var posicion = -1;
+                           if(entorno == 'global')
+                           {
+                               posicion = pos;
+                               valor += temp + ' = ' + pos +';';
+                               valor += '\n';
+                               pos++;
+                           }
+                           else
+                           {
+                               posicion = stac;
+                               valor += temp + ' =  P;';
+                               valor += '\n';
+                               valor += 'P = P + 1;\n';
+                               stac++;
+                          }
                         valor += $$[$0][3];
                         valor += '\n';
-                        valor += 'stack[(int)'+ temp + '] = ' + $$[$0][1] +';';
-                        valor += '\n';
+                        if(entorno == 'global')
+                        {
+                            valor += 'heap[(int)'+ temp + '] = ' + $$[$0][1] +';';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += 'stack[(int)'+ temp + '] = ' + $$[$0][1] +';';
+                            valor += '\n';
+                        }
+
 
                          var sym = new intermedia.simbolo();
                          sym.ambito = tab.ambitoLevel;
                          sym.name = $$[$0-2];
-                         sym.position = pos;
+                         sym.position = posicion;
                          sym.rol = 'variable';
-                         sym.direccion = pos;
-                         sym.direccionrelativa = pos;
+                         sym.direccion = posicion;
+                         sym.direccionrelativa = posicion;
                          sym.tipo = $$[$0][0];
                          sym.valor = $$[$0][6];
                          sym.constante = ($$[$0-3].toUpperCase() == 'CONST')?true:false;
+                         if(entorno != 'global') sym.entorno = entorno ;
                          tab.insert(sym);
 
                         var r = [];
@@ -2534,30 +3293,56 @@ case 35:
 
                         this.$ = r;
 
-                        if(pos >0 && pos != 0) pos++;
-                        if (pos == 0) pos++;
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
                         break;
 
                     case 'BOOLEAN':
                         var valor = '';
                         var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + pos + ';';
-                        valor += '\n';
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
+                           var posicion = -1;
+                           if(entorno == 'global')
+                           {
+                               posicion = pos;
+                               valor += temp + ' = ' + pos +';';
+                               valor += '\n';
+                               pos++;
+                           }
+                           else
+                           {
+                               posicion = stac;
+                               valor += temp + ' =  P;';
+                               valor += '\n';
+                               valor += 'P = P + 1;\n';
+                               stac++;
+                          }
                         valor += $$[$0][3];
                         valor += '\n';
-                        valor += 'stack[(int)'+ temp + '] = ' + $$[$0][1] +';';
-                        valor += '\n';
+                        if(entorno == 'global')
+                        {
+                            valor += 'heap[(int)'+ temp + '] = ' + $$[$0][1] +';';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += 'stack[(int)'+ temp + '] = ' + $$[$0][1] +';';
+                            valor += '\n';
+                        }
+
 
                          var sym = new intermedia.simbolo();
                          sym.ambito = tab.ambitoLevel;
                          sym.name = $$[$0-2];
-                         sym.position = pos;
+                         sym.position = posicion;
                          sym.rol = 'variable';
-                         sym.direccion = pos;
-                         sym.direccionrelativa = pos;
+                         sym.direccion = posicion;
+                         sym.direccionrelativa = posicion;
                          sym.tipo = $$[$0][0];
                          sym.valor = $$[$0][6];
                          sym.constante = ($$[$0-3].toUpperCase() == 'CONST')?true:false;
+                         if(entorno != 'global') sym.entorno = entorno;
                          tab.insert(sym);
 
                         var r = [];
@@ -2573,30 +3358,56 @@ case 35:
 
                         this.$ = r;
 
-                        if(pos >0 && pos != 0) pos++;
-                        if (pos == 0) pos++;
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
                         break;
 
                     case "FLOAT":
                         var valor = '';
                         var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + pos + ';';
-                        valor += '\n';
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
+                           var posicion = -1;
+                           if(entorno == 'global')
+                           {
+                               posicion = pos;
+                               valor += temp + ' = ' + pos +';';
+                               valor += '\n';
+                               pos++;
+                           }
+                           else
+                           {
+                               posicion = stac;
+                               valor += temp + ' =  P;';
+                               valor += '\n';
+                               valor += 'P = P + 1;\n';
+                               stac++;
+                          }
                         valor += $$[$0][3];
                         valor += '\n';
-                        valor += 'stack[(int)'+ temp + '] = ' + $$[$0][1] +';';
-                        valor += '\n';
+                        if(entorno == 'global')
+                        {
+                            valor += 'heap[(int)'+ temp + '] = ' + $$[$0][1] +';';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += 'stack[(int)'+ temp + '] = ' + $$[$0][1] +';';
+                            valor += '\n';
+                        }
+
 
                          var sym = new intermedia.simbolo();
                          sym.ambito = tab.ambitoLevel;
                          sym.name = $$[$0-2];
-                         sym.position = pos;
+                         sym.position = posicion;
                          sym.rol = 'variable';
-                         sym.direccion = pos;
-                         sym.direccionrelativa = pos;
+                         sym.direccion = posicion;
+                         sym.direccionrelativa = posicion;
                          sym.tipo = $$[$0][0];
                          sym.valor = $$[$0][6];
                          sym.constante = ($$[$0-3].toUpperCase() == 'CONST')?true:false;
+                         if(entorno != 'global') sym.entorno = entorno;
                          tab.insert(sym);
 
                         var r = [];
@@ -2612,24 +3423,49 @@ case 35:
 
                         this.$ = r;
 
-                        if(pos >0 && pos != 0) pos++;
-                        if (pos == 0) pos++;
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
                         break;
 
                     case 'ARREGLO':
                         var val = $$[$0][6].toString();
                         var valor = '';
                         var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + pos + ';';
-                        valor += '\n';
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
+                           var posicion = -1;
+                           if(entorno == 'global')
+                           {
+                               posicion = pos;
+                               valor += temp + ' = ' + pos +';';
+                               valor += '\n';
+                               pos++;
+                           }
+                           else
+                           {
+                               posicion = stac;
+                               valor += temp + ' =  P;';
+                               valor += '\n';
+                               valor += 'P = P + 1;\n';
+                               stac++;
+                          }
 
                         var temp1 = Temp.getTemporal();
                         var temp0 = Temp.getTemporal();
                         valor += temp1 + ' = ' + posA + ';';
                         valor += '\n';
                         valor += temp0+ ' = ' + posA + ';\n';
-                        valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
-                        valor += '\n';
+                        if(entorno == 'global')
+                        {
+                            valor += 'heap[(int)'+temp+'] = ' + temp1 + ';';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
+                            valor += '\n';
+                        }
+
                         valor += temp1 + ' = ' + temp1 + ' + 1;';
                         valor += '\n';
                         valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
@@ -2647,13 +3483,14 @@ case 35:
                          var sym = new intermedia.simbolo();
                          sym.ambito = tab.ambitoLevel;
                          sym.name = $$[$0-2];
-                         sym.position = pos;
+                         sym.position = posicion;
                          sym.rol = 'arreglo';
-                         sym.direccion = pos;
-                         sym.direccionrelativa = pos;
+                         sym.direccion = posicion;
+                         sym.direccionrelativa = posicion;
                          sym.tipo = ($$[$0][8]!='')?$$[$0][8]:$$[$0][0];
                          sym.valor = $$[$0][6];
                          sym.constante = ($$[$0-3].toUpperCase() == 'CONST')?true:false;
+                         if(entorno != 'global') sym.entorno = entorno;
                          tab.insert(sym);
 
                         var r = [];
@@ -2670,8 +3507,8 @@ case 35:
 
                         this.$ = r;
 
-                        if(pos >0 && pos != 0) pos++;
-                        if (pos == 0) pos++;
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
                         posA += 5000;
                         break;
 
@@ -2693,8 +3530,25 @@ case 35:
                              case 'STRING':
                                  var valor = '';
                                   var temp = Temp.getTemporal();
-                                  valor += temp + ' = ' + pos + ';';
-                                  valor += '\n';
+                                  //valor += temp + ' = ' + pos + ';';
+                                  //valor += '\n';
+                                   var posicion = -1;
+                                   if(entorno == 'global')
+                                   {
+                                       posicion = pos;
+                                       valor += temp + ' = ' + pos +';';
+                                       valor += '\n';
+                                       pos++;
+                                   }
+                                   else
+                                   {
+                                       posicion = stac;
+                                       valor += temp + ' =  P;';
+                                       valor += '\n';
+                                       valor += 'P = P + 1;\n';
+                                       stac++;
+                                  }
+
 
                                   var temp1 = Temp.getTemporal();
                                   valor += temp1 + ' = ' + posS + ';';
@@ -2702,8 +3556,17 @@ case 35:
                                   var temp0 = Temp.getTemporal();
                                   valor += temp0 + ' = ' + posS + ';';
                                   valor += '\n';
-                                  valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
-                                  valor += '\n';
+                                  if(entorno == 'global')
+                                  {
+                                      valor += 'heap[(int)'+temp+'] = ' + temp1 + ';';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
+                                      valor += '\n';
+                                  }
+
                                   valor += temp1 + ' = ' + temp1 + ' + 1;';
                                   valor += '\n';
                                   valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
@@ -2733,43 +3596,79 @@ case 35:
                                var sym = new intermedia.simbolo();
                                sym.ambito = tab.ambitoLevel;
                                sym.name = $$[$0-2];
-                               sym.position = pos;
+                               sym.position = posicion;
                                sym.rol = 'variable';
-                               sym.direccion = pos;
-                               sym.direccionrelativa = pos;
+                               sym.direccion = posicion;
+                               sym.direccionrelativa = posicion;
                                sym.tipo = n.tipo;
                                sym.valor = n.valor;
                                sym.constante = ($$[$0-3].toUpperCase() == 'CONST')?true:false;
+                               if(entorno != 'global') sym.entorno = entorno;
                                tab.insert(sym);
 
                                this.$ = r;
 
-                               if(pos >0 && pos != 0) pos++;
-                               if (pos == 0) pos++;
+                               //if(pos >0 && pos != 0) pos++;
+                               //if (pos == 0) pos++;
                                posS += 5000;
                                break;
 
                              case 'NUMBER':
                                   var valor = '';
                                   var temp = Temp.getTemporal();
-                                  valor += temp + ' = ' + pos + ';';
-                                  valor += '\n';
+                                  //valor += temp + ' = ' + pos + ';';
+                                  //valor += '\n';
+                                   var posicion = -1;
+                                   if(entorno == 'global')
+                                   {
+                                       posicion = pos;
+                                       valor += temp + ' = ' + pos +';';
+                                       valor += '\n';
+                                       pos++;
+                                   }
+                                   else
+                                   {
+                                       posicion = stac;
+                                       valor += temp + ' =  P;';
+                                       valor += '\n';
+                                       valor += 'P = P + 1;\n';
+                                       stac++;
+                                  }
                                   var temp1 = Temp.getTemporal();
-                                  valor += temp1 + ' = stack[(int)'+n.position+'];';
-                                  valor += '\n';
-                                  valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
-                                  valor += '\n';
+                                  if(entorno == 'global')
+                                  {
+                                      valor += temp1 + ' = heap[(int)'+n.position+'];';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += temp1 + ' = stack[(int)'+n.position+'];';
+                                      valor += '\n';
+                                  }
+
+                                  if(entorno == 'global')
+                                  {
+                                      valor += 'heap[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  }
+
 
                                    var sym = new intermedia.simbolo();
                                    sym.ambito = tab.ambitoLevel;
                                    sym.name = $$[$0-2];
-                                   sym.position = pos;
+                                   sym.position = posicion;
                                    sym.rol = 'variable';
-                                   sym.direccion = pos;
-                                   sym.direccionrelativa = pos;
+                                   sym.direccion = posicion;
+                                   sym.direccionrelativa = posicion;
                                    sym.tipo = n.tipo;
                                    sym.valor = n.valor;
                                    sym.constante = ($$[$0-3].toUpperCase() == 'CONST')?true:false;
+                                   if(entorno != 'global') sym.entorno = entorno;
                                    tab.insert(sym);
 
                                   var r = [];
@@ -2785,30 +3684,71 @@ case 35:
 
                                   this.$ = r;
 
-                                  if(pos >0 && pos != 0) pos++;
-                                  if (pos == 0) pos++;
+                                  //if(pos >0 && pos != 0) pos++;
+                                  //if (pos == 0) pos++;
                                   break;
                              case 'BOOLEAN':
                                   var valor = '';
                                   var temp = Temp.getTemporal();
-                                  valor += temp + ' = ' + pos + ';';
-                                  valor += '\n';
+                                   var posicion = -1;
+                                   if(entorno == 'global')
+                                   {
+                                       posicion = pos;
+                                       valor += temp + ' = ' + pos +';';
+                                       valor += '\n';
+                                       pos++;
+                                   }
+                                   else
+                                   {
+                                       posicion = stac;
+                                       valor += temp + ' =  P;';
+                                       valor += '\n';
+                                       valor += 'P = P + 1;\n';
+                                       stac++;
+                                  }
                                   var temp1 = Temp.getTemporal();
-                                  valor += temp1 + ' = stack[(int)'+n.position+'];';
-                                  valor += '\n';
-                                  valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
-                                  valor += '\n';
+                                  if(entorno == 'global')
+                                  {
+                                      valor += temp1 + ' = heap[(int)'+n.position+'];';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += temp1 + ' = stack[(int)'+n.position+'];';
+                                      valor += '\n';
+                                  }
+
+                                  if(entorno == 'global')
+                                  {
+                                      valor += 'heap[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  }
+                                  /*
+                                      valor += temp + ' = ' + pos + ';';
+                                      valor += '\n';
+                                      var temp1 = Temp.getTemporal();
+                                      valor += temp1 + ' = stack[(int)'+n.position+'];';
+                                      valor += '\n';
+                                      valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  */
 
                                    var sym = new intermedia.simbolo();
                                    sym.ambito = tab.ambitoLevel;
                                    sym.name = $$[$0-2];
-                                   sym.position = pos;
+                                   sym.position = posicion;
                                    sym.rol = 'variable';
-                                   sym.direccion = pos;
-                                   sym.direccionrelativa = pos;
+                                   sym.direccion = posicion;
+                                   sym.direccionrelativa = posicion;
                                    sym.tipo = n.tipo;
                                    sym.valor = n.valor;
                                    sym.constante = ($$[$0-3].toUpperCase() == 'CONST')?true:false;
+                                   if(entorno != 'global') sym.entorno = entorno;
                                    tab.insert(sym);
 
                                   var r = [];
@@ -2824,8 +3764,8 @@ case 35:
 
                                   this.$ = r;
 
-                                  if(pos >0 && pos != 0) pos++;
-                                  if (pos == 0) pos++;
+                                  //if(pos >0 && pos != 0) pos++;
+                                  //if (pos == 0) pos++;
                                   break;
                              DEFAULT:
                               semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$$[$0][0]}, a una variable de tipo arreglo;`+'\"}');
@@ -3123,8 +4063,10 @@ case 172:
                                 var num = posi[12][6];
                                 if(num <= (m-1))
                                 {
+                                    //console.log(k!=null);
                                     if(k!=null)
                                     {
+                                        //console.log(k);
                                         k = arr.getsize1(k,posi[12][6]);
                                     }
                                     else
@@ -3149,7 +4091,38 @@ case 172:
                     }
                     if(pass)
                     {
-                       console.log(k);
+                       //console.log(k);
+                       if(k!=null && k[0] instanceof intermedia.arreglo)
+                       {
+                            var valor = '\n';
+                            var temp = Temp.getTemporal();
+                            var temp1 = Temp.getTemporal();
+                            var temp2 = Temp.getTemporal();
+                            valor += `${temp} = ${n.position};\n`;
+                            valor += `${temp1} = stack[(int)${temp}];\n`;
+                            valor += `${temp2} = heap[(int)${temp1}];\n`;
+                            var temp3 = Temp.getTemporal();
+                            valor += `${temp3} = ${k[0].positions[0]};\n`;
+
+                             var r = [];
+                             r[0] = "NUMBER";
+                             r[1] = temp3;
+                             r[2] = ''
+                             r[3] = valor;
+                             r[4] = '';
+                             r[5] = Number(k[0].positions[0]);
+                             r[6] = Number(k[0].positions[0]);
+                             r[7] = '';
+                             r[8] = '';
+
+                             this.$ = r;
+
+                       }
+                       else
+                       {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, el valor en la ultima posicion no es un arreglo.`+'\"}');
+                            this.$ = ['','','',''];
+                       }
                     }
                 }
                 else
@@ -3181,7 +4154,8 @@ case 172:
                      valor += '\n';
                      valor += temp3+' = heap[(int)' + temp2 +'];';
                      valor += '\n';
-                     valor += `${temp2} = heap[(int)${temp3}];`
+                     var k = arr.getTamposd($$[$0-1]);
+                     valor += `${temp2} = ${k};\n`
 
                      var r = [];
                      r[0] = "NUMBER";
@@ -3189,8 +4163,8 @@ case 172:
                      r[2] = ''
                      r[3] = valor;
                      r[4] = '';
-                     r[5] = Number(arr.getTam($$[$0-1],1));
-                     r[6] = Number(arr.getTam($$[$0-1],1));
+                     r[5] = Number(arr.getTamposd($$[$0-1]));
+                     r[6] = Number(arr.getTamposd($$[$0-1]));
                      r[7] = '';
                      r[8] = '';
 
@@ -3519,7 +4493,15 @@ case 212:
                 valor += $$[$0][3];
 
                 valor += temp0 + ' = '+n.position +';\n';
-                valor += temp + ' = stack[(int)'+temp0+'];\n';
+                if(n.entorno == 'global')
+                {
+                    valor += temp + ' = heap[(int)'+temp0+'];\n';
+                }
+                else
+                {
+                    valor += temp + ' = stack[(int)'+temp0+'];\n';
+                }
+
 
                 r[1] = temp;
                 r[2] = '';
@@ -3561,7 +4543,15 @@ case 213:
                         valor += '';
 
                         var temp = Temp.getTemporal();
-                        valor += temp + ' = stack[(int)'+temp0+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += temp + ' = heap[(int)'+temp0+'];\n';
+                        }
+                        else
+                        {
+                            valor += temp + ' = stack[(int)'+temp0+'];\n';
+                        }
+
 
                         var temp1 = Temp.getTemporal();
                         valor += temp1 + ' = -1 * ' + temp + ';\n';
@@ -3670,7 +4660,15 @@ case 214:
                         valor += $$[$0][3];
 
                         valor += temp0 + ' = '+n.position +';\n';
-                        valor += temp1 + ' = stack[(int)'+temp0+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += temp1 + ' = heap[(int)'+temp0+'];\n';
+                        }
+                        else
+                        {
+                            valor += temp1 + ' = stack[(int)'+temp0+'];\n';
+                        }
+
 
                         valor += 'if('+temp1+' == 0) goto '+label+';\n';
                         valor += temp + ' = 0;\n';
@@ -3711,7 +4709,7 @@ case 214:
         }
     
 break;
-case 220: case 225:
+case 220:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -3752,7 +4750,15 @@ case 220: case 225:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$$[$0-2][1]+'*'+tempant1+';';
@@ -4331,6 +5337,150 @@ case 223: case 228:
                             r[4] = '';
                             r[5] = '';
                             r[6] = Number(n.valor)%Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 225:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'*'+$$[$0][1]+';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])*Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'*'+tempant1+';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])*Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'*'+$$[$0][1]+';';
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)*Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'*'+tempant111+';';
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)*Number(n1.valor);
                             this.$ = r;
                         }
                         else
@@ -8380,9 +9530,13 @@ _handle_error:
     var Label = new intermedia.bandera();
     var arr = new intermedia.Arreglos();
     var pos = 0;
-    var C3D = '';
+    var stac = 0;
     var posS = 0;
-    var posA = 300000;
+    var C3D = '';
+    var posS = 50000;
+    var posA = 1000000;
+    var entorno = 'global';
+    var entornoanterior = 'global';
 /* generated by jison-lex 0.3.4 */
 var lexer = (function(){
 var lexer = ({

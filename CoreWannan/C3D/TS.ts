@@ -17,7 +17,9 @@ export class TablaSimbolos
 {
     simbolos: any[];
     ambitoLevel: number;
+    entornoactual:string;
     constructor() {
+        this.entornoactual = '';
         this.simbolos = [];
         this.ambitoLevel = 0;
     }
@@ -25,12 +27,12 @@ export class TablaSimbolos
     {
         for(let simbolitos of this.simbolos)
         {
-            console.log(`VARIABLE: ${simbolitos.name}   |   TIPO: ${simbolitos.tipo}    |   ROL: ${simbolitos.rol}  |   AMBITO: ${simbolitos.ambito}    |   POSITION: ${simbolitos.position}   |   VALOR: ${simbolitos.valor}   |   CONSTANTE: ${simbolitos.constante}`);
+            console.log(`VARIABLE: ${simbolitos.name}   |   TIPO: ${simbolitos.tipo}    |   ROL: ${simbolitos.rol}  |   AMBITO: ${simbolitos.ambito}    |   POSITION: ${simbolitos.position}   |   VALOR: ${simbolitos.valor}   |   CONSTANTE: ${simbolitos.constante} | ENTORNO: ${simbolitos.entorno}`);
         }
     }
     insert(simbolo:any)
     {
-        if(this.ambitoLevel = 0)
+        if(this.ambitoLevel == 0 && simbolo.entorno != '')
         {
             simbolo.entorno = 'global';
         }
@@ -401,6 +403,21 @@ export class Arreglos
         }
         return -1;
     }
+    getTamposd(id) : number
+    {
+        for(let simbolito of this.valores)
+        {
+            if(simbolito instanceof arreglo)
+            {
+                if(simbolito.name == id)
+                {
+                    let vals = simbolito.valor
+                    return vals.length;
+                }
+            }
+        }
+        return -1;
+    }
     getsize(vals1, pos)
     {
         if(vals1 instanceof Array)
@@ -484,7 +501,6 @@ export class Arreglos
                     {
                         return simbolito.valor.length;
                     }
-
                 }
             }
         }
@@ -531,7 +547,6 @@ export class Arreglos
                             }
                         }
                     }
-
                 }
             }
         }
