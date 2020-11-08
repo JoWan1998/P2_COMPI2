@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -23,15 +26,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7fdf22b-a013-458f-bf4c-2ee3c5c3b35f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/C3D/pf.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/C3D/pff.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/C3D/TS.js" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/TS.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/C3D/TS.ts" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/TS.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/C3D/WE_C3D.jison" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/WE_C3D.jison" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/C3D/WE_C3D.js" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/WE_C3D.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/C3D/entrada.txt" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/entrada.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C3D/output.txt" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/output.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/C3D/salida.c" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/salida.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WE.jison" beforeDir="false" afterPath="$PROJECT_DIR$/WE.jison" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,8 +73,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.19.0" />
     <property name="javascript.nodejs.core.library.typings.version" value="10.17.40" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../FRONTEND" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/C3D" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -112,6 +116,9 @@
       <workItem from="1604200895730" duration="1199000" />
       <workItem from="1604387007381" duration="13534000" />
       <workItem from="1604557367326" duration="15185000" />
+      <workItem from="1604574923372" duration="3113000" />
+      <workItem from="1604757458633" duration="9121000" />
+      <workItem from="1604811220259" duration="30657000" />
     </task>
     <servers />
   </component>
@@ -144,6 +151,10 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="682" y="342" width="547" height="390" key="#com.intellij.fileTypes.FileTypeChooser/0.28.1920.1024@0.28.1920.1024" timestamp="1604566904156" />
+    <state x="695" y="393" width="521" height="288" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1604846050096">
+      <screen x="0" y="28" width="1920" height="1024" />
+    </state>
+    <state x="695" y="393" width="521" height="288" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.28.1920.1024@0.28.1920.1024" timestamp="1604846050096" />
     <state x="743" y="298" width="426" height="478" key="FileChooserDialogImpl" timestamp="1604045688462">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>

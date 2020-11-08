@@ -29,10 +29,25 @@ var TablaSimbolos = /** @class */ (function () {
         }
     };
     TablaSimbolos.prototype.insert = function (simbolo) {
-        if (this.ambitoLevel == 0) {
+        if (this.ambitoLevel == 0 && simbolo.entorno == '') {
             simbolo.entorno = 'global';
         }
         this.simbolos.push(simbolo);
+    };
+    TablaSimbolos.prototype.deleteAmbitoLast = function () {
+        var simbols = [];
+        for (var _i = 0, _a = this.simbolos; _i < _a.length; _i++) {
+            var a = _a[_i];
+            if (a instanceof simbolo) {
+                if (a.ambito == 0)
+                    simbols.push(a);
+            }
+        }
+        this.simbolos = [];
+        for (var _b = 0, simbols_1 = simbols; _b < simbols_1.length; _b++) {
+            var b = simbols_1[_b];
+            this.simbolos.push(b);
+        }
     };
     TablaSimbolos.prototype.update = function (name, simbolor) {
         var ambitoglob = true;
@@ -227,6 +242,20 @@ var Arreglos = /** @class */ (function () {
     function Arreglos() {
         this.valores = [];
     }
+    Arreglos.prototype.insert = function (val) {
+        this.valores.push(val);
+    };
+    Arreglos.prototype.update = function (id, val) {
+        for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
+            var simbolito = _a[_i];
+            if (simbolito instanceof arreglo) {
+                if (simbolito.name == id) {
+                    val.name = simbolito.name;
+                    simbolito = val;
+                }
+            }
+        }
+    };
     Arreglos.prototype.getProf = function (id) {
         for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
             var simbolito = _a[_i];
@@ -250,14 +279,9 @@ var Arreglos = /** @class */ (function () {
                         return 1;
                     }
                 }
-                else {
-                    return -1;
-                }
-            }
-            else {
-                return -1;
             }
         }
+        return -1;
     };
     Arreglos.prototype.getProf1 = function (vals1) {
         if (vals1 instanceof arreglo) {
@@ -358,13 +382,15 @@ var Arreglos = /** @class */ (function () {
         return -1;
     };
     Arreglos.prototype.getTam = function (id, level) {
+        var count = 1;
         for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
             var simbolito = _a[_i];
             if (simbolito instanceof arreglo) {
                 if (simbolito.name == id) {
                     var vals = simbolito.valor;
+                    if (id == 'e')
+                        console.log(vals);
                     if (vals instanceof Array) {
-                        var count = 1;
                         if (level == count)
                             return simbolito.valor.length;
                         return this.getTam1(simbolito.valor[0], level, count + 1);
@@ -414,12 +440,23 @@ var Arreglos = /** @class */ (function () {
         for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
             var simbolito = _a[_i];
             if (simbolito instanceof arreglo) {
-                if (simbolito.name == name) {
+                if (simbolito.name == id) {
                     return simbolito.getValores();
                 }
             }
             else {
                 return null;
+            }
+        }
+    };
+    Arreglos.prototype.changeValue = function (id, data, pos) {
+        for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
+            var simbolito = _a[_i];
+            if (simbolito instanceof arreglo) {
+                if (simbolito.name == id) {
+                    simbolito.valor = simbolito.changeData(data, pos);
+                    console.log(this.getProf(simbolito.name));
+                }
             }
         }
     };
@@ -435,7 +472,7 @@ var arreglo = /** @class */ (function () {
     }
     arreglo.prototype.getValores = function () {
         var value = [];
-        for (var _i = 0, _a = this.positions; _i < _a.length; _i++) {
+        for (var _i = 0, _a = this.valor; _i < _a.length; _i++) {
             var pos = _a[_i];
             if (pos instanceof Array) {
                 var aux = this.getValores1(pos);
@@ -480,6 +517,55 @@ var arreglo = /** @class */ (function () {
             }
         }
         return value;
+    };
+    arreglo.prototype.changeData = function (data, pos) {
+        var posi = pos.pop();
+        if (pos.length > 0) {
+            if (this.valor[posi] instanceof arreglo) {
+                this.valor[posi].valor = this.changeData1(this.valor[posi].valor, data, pos);
+            }
+            else {
+                this.valor[posi] = this.changeData2(this.valor[posi], data, pos);
+            }
+        }
+        else {
+            this.valor[posi] = data;
+        }
+        return this.valor;
+    };
+    arreglo.prototype.changeData1 = function (arr, data, pos) {
+        var posi = pos.pop();
+        if (pos.length > 0) {
+            if (arr[posi] instanceof arreglo) {
+                arr[posi].valor = this.changeData1(arr[posi].valor, data, pos);
+                return arr;
+            }
+            else {
+                arr[posi] = this.changeData2(arr[posi], data, pos);
+                return arr;
+            }
+        }
+        else {
+            arr[posi] = data;
+            return arr;
+        }
+    };
+    arreglo.prototype.changeData2 = function (arr, data, pos) {
+        var posi = pos.pop();
+        if (pos.length > 0) {
+            if (arr[posi] instanceof arreglo) {
+                arr[posi].valor = this.changeData1(arr[posi].valor, data, pos);
+                return arr;
+            }
+            else {
+                arr[posi] = this.changeData2(arr[posi], data, pos);
+                return arr;
+            }
+        }
+        else {
+            arr[posi] = data;
+            return arr;
+        }
     };
     return arreglo;
 }());

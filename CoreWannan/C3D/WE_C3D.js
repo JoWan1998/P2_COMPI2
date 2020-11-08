@@ -72,12 +72,12 @@
   }
 */
 var WE_C3D = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,17],$V1=[1,22],$V2=[1,32],$V3=[1,23],$V4=[1,19],$V5=[1,21],$V6=[1,30],$V7=[1,29],$V8=[1,28],$V9=[1,31],$Va=[1,24],$Vb=[1,25],$Vc=[1,26],$Vd=[1,27],$Ve=[1,33],$Vf=[1,34],$Vg=[1,35],$Vh=[1,36],$Vi=[1,37],$Vj=[1,38],$Vk=[1,39],$Vl=[1,40],$Vm=[1,42],$Vn=[1,41],$Vo=[1,2,5,19,25,28,29,31,50,54,55,56,57,63,64,66,67,68,69,70,81,82,83,84,85,86,87,88,115,116],$Vp=[1,50],$Vq=[2,125],$Vr=[1,53],$Vs=[1,48],$Vt=[1,49],$Vu=[1,71],$Vv=[1,59],$Vw=[1,101],$Vx=[1,98],$Vy=[1,96],$Vz=[1,109],$VA=[1,103],$VB=[1,104],$VC=[1,105],$VD=[1,106],$VE=[1,107],$VF=[1,108],$VG=[1,90],$VH=[1,91],$VI=[1,92],$VJ=[1,2,5,19,28,29,31,50,54,55,56,57,63,64,66,67,68,69,70,81,82,83,84,85,86,87,88,115,116],$VK=[1,2,5,19,25,28,29,31,32,50,54,55,56,57,63,64,66,67,68,69,70,77,81,82,83,84,85,86,87,88,91,115,116],$VL=[1,123],$VM=[1,2,5,19,20,24,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,115,116,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],$VN=[1,2,5,19,20,24,25,28,29,31,32,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,92,115,116,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],$VO=[1,2,5,19,20,24,25,28,29,31,32,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,115,116,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],$VP=[29,63,64],$VQ=[2,5,19,25,28,29,31,54,55,56,57,63,64,66,68,69,70,81,82,83,84,85,86,87,88,115,116],$VR=[1,142],$VS=[1,144],$VT=[1,2,5,19,24,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,77,81,82,83,84,85,86,87,88,92,115,116],$VU=[1,2,5,19,20,24,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,115,116,129,131,135,136,137,138,143,144,148,149,150,151,159,163],$VV=[1,147],$VW=[1,2,5,19,20,24,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,115,116,129,131,135,136,137,138,143,144,155,159,163],$VX=[1,148],$VY=[1,149],$VZ=[1,150],$V_=[1,151],$V$=[1,2,5,19,20,24,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,115,116,129,131,135,136,137,138,148,149,150,151,155,159,163],$V01=[1,152],$V11=[1,153],$V21=[1,2,5,19,20,24,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,115,116,135,136,137,138,143,144,148,149,150,151,155,159,163],$V31=[1,154],$V41=[1,155],$V51=[1,2,5,19,20,24,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,115,116,129,131,143,144,148,149,150,151,155,159,163],$V61=[1,156],$V71=[1,157],$V81=[1,158],$V91=[1,159],$Va1=[1,2,5,19,24,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,92,115,116,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],$Vb1=[1,173],$Vc1=[1,172],$Vd1=[1,201],$Ve1=[1,2,5,19,20,22,24,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,115,116,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],$Vf1=[29,77],$Vg1=[77,92],$Vh1=[24,77],$Vi1=[1,271],$Vj1=[1,272],$Vk1=[1,273],$Vl1=[1,274],$Vm1=[1,275],$Vn1=[1,276],$Vo1=[1,277],$Vp1=[22,28,31,91,96,97,98,99,100,101,115,116,129,131,132],$Vq1=[1,322],$Vr1=[1,323];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,17],$V1=[1,32],$V2=[1,22],$V3=[1,23],$V4=[1,19],$V5=[1,21],$V6=[1,30],$V7=[1,29],$V8=[1,28],$V9=[1,31],$Va=[1,24],$Vb=[1,25],$Vc=[1,26],$Vd=[1,27],$Ve=[1,33],$Vf=[1,34],$Vg=[1,35],$Vh=[1,36],$Vi=[1,37],$Vj=[1,38],$Vk=[1,39],$Vl=[1,40],$Vm=[1,42],$Vn=[1,41],$Vo=[1,2,5,19,20,28,29,31,50,54,55,56,57,63,64,66,67,68,69,70,81,82,83,84,85,86,87,88,110,111],$Vp=[1,2,5,20,28,29,31,50,54,55,56,57,63,64,66,67,68,69,70,81,82,83,84,85,86,87,88,110,111],$Vq=[1,51],$Vr=[2,126],$Vs=[1,54],$Vt=[1,49],$Vu=[1,50],$Vv=[1,72],$Vw=[1,60],$Vx=[1,102],$Vy=[1,99],$Vz=[1,97],$VA=[1,110],$VB=[1,104],$VC=[1,105],$VD=[1,106],$VE=[1,107],$VF=[1,108],$VG=[1,109],$VH=[1,91],$VI=[1,92],$VJ=[1,93],$VK=[1,2,5,19,20,28,29,31,32,50,54,55,56,57,63,64,66,67,68,69,70,77,81,82,83,84,85,86,87,88,91,110,111],$VL=[1,2,5,19,20,21,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,110,111,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],$VM=[1,130],$VN=[1,2,5,19,20,21,25,28,29,31,32,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,92,110,111,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],$VO=[1,2,5,19,20,21,25,28,29,31,32,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,110,111,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],$VP=[29,63,64],$VQ=[2,5,19,20,28,29,31,54,55,56,57,63,64,66,68,69,70,81,82,83,84,85,86,87,88,110,111],$VR=[1,143],$VS=[1,145],$VT=[1,2,5,19,20,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,77,81,82,83,84,85,86,87,88,92,110,111],$VU=[1,2,5,19,20,21,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,110,111,129,131,135,136,137,138,143,144,148,149,150,151,159,163],$VV=[1,148],$VW=[1,2,5,19,20,21,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,110,111,129,131,135,136,137,138,143,144,155,159,163],$VX=[1,149],$VY=[1,150],$VZ=[1,151],$V_=[1,152],$V$=[1,2,5,19,20,21,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,110,111,129,131,135,136,137,138,148,149,150,151,155,159,163],$V01=[1,153],$V11=[1,154],$V21=[1,2,5,19,20,21,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,110,111,135,136,137,138,143,144,148,149,150,151,155,159,163],$V31=[1,155],$V41=[1,156],$V51=[1,2,5,19,20,21,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,110,111,129,131,143,144,148,149,150,151,155,159,163],$V61=[1,157],$V71=[1,158],$V81=[1,159],$V91=[1,160],$Va1=[1,2,5,19,20,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,92,110,111,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],$Vb1=[1,174],$Vc1=[1,173],$Vd1=[1,181],$Ve1=[1,193],$Vf1=[1,203],$Vg1=[1,2,5,19,20,21,23,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,110,111,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],$Vh1=[29,77],$Vi1=[77,92],$Vj1=[1,242],$Vk1=[25,77],$Vl1=[1,274],$Vm1=[1,275],$Vn1=[1,276],$Vo1=[1,277],$Vp1=[1,278],$Vq1=[1,279],$Vr1=[1,280],$Vs1=[23,28,31,91,96,97,98,99,100,101,110,111,129,131,132],$Vt1=[1,325],$Vu1=[1,326];
 var parser = {trace: function trace () { },
 yy: {},
-symbols_: {"error":2,"S":3,"Source1":4,"EOF":5,"Statement":6,"Declaration_statements":7,"Assignation_statements":8,"Function_statements":9,"Native_statements":10,"Block_statements":11,"If_statements":12,"Iteration_statements":13,"Return_statements":14,"Break_statements":15,"Continue_statements":16,"Switch_statements":17,"Empty_statements":18,"CONSOLE":19,".":20,"LOG":21,"(":22,"Expr":23,")":24,";":25,"Expr_statements":26,"ExprNB":27,"OPENBRACE":28,"CLOSEBRACE":29,"Source2":30,"IDENT":31,"=":32,"NEWT":33,"ARRAYS":34,"AssignmentExpr":35,"Expr1_statements":36,"TypeV":37,":":38,"Array":39,"ValStatement1":40,"Type":41,"initialNo":42,"AssignmentOperator":43,"+=":44,"-=":45,"*=":46,"/=":47,"^=":48,"%=":49,"FUNCTION":50,"ParameterList":51,"FunctionExpr":52,"Statement1":53,"CONTINUE":54,"BREAK":55,"RETURN":56,"SWITCH":57,"CaseBlock":58,"CaseClausesOpt":59,"CaseClauses1":60,"CaseClauses":61,"CaseClause":62,"CASE":63,"DEFAULT":64,"DefaultClause":65,"IF":66,"ELSE":67,"DO":68,"WHILE":69,"FOR":70,"ExprOpt":71,"LeftHandSideExpr":72,"INTOKEN":73,"OFTOKEN":74,"ExprNoInOpt":75,"ExprNoIn":76,",":77,"AssignmentExprNoIn":78,"AssignmentExprNoBF":79,"Parameter":80,"STRING":81,"NUMBERS":82,"BOOLEAN":83,"VOID":84,"VAR":85,"CONST":86,"TYPE":87,"LET":88,"ArrayList":89,"ArrayList1":90,"[":91,"]":92,"Elements":93,"Element":94,"Literal":95,"NULLTOKEN":96,"TRUETOKEN":97,"FALSETOKEN":98,"NUMBER":99,"CADENA":100,"CADENA2":101,"Property":102,"PropertyList":103,"PrimaryExpr":104,"PrimaryExprNoBrace":105,"ArrayLiteral":106,"Expr1_statement":107,"ArrList":108,"CHARAT":109,"TOLOWER":110,"TOUPPER":111,"CONCAT":112,"LENGTH":113,"Arr":114,"PLUSPLUS":115,"MINSMINS":116,"ElementList":117,"ArrayLiterals":118,"MemberExpr":119,"MemberExprNoBF":120,"CallExpr":121,"Arguments":122,"CallExprNoBF":123,"ArgumentList":124,"LeftHandSideExprNoBF":125,"PostfixExpr":126,"PostfixExprNoBF":127,"UnaryExprCommon":128,"+":129,"UnaryExpr":130,"-":131,"!":132,"UnaryExprNoBF":133,"MultiplicativeExpr":134,"*":135,"/":136,"POTENCIA":137,"%":138,"MultiplicativeExprNoBF":139,"AdicionExpr":140,"AdicionExprNoBF":141,"RelacionalExpr":142,"<":143,">":144,"RelacionalExprNoIn":145,"RelacionalExprNoBF":146,"IgualdadExpr":147,"EQQ":148,"NOEQQ":149,"MAQ":150,"MIQ":151,"IgualdadExprNoIn":152,"IgualdadExprNoBF":153,"LogicaYYExpr":154,"AND":155,"LogicaYYExprNoIn":156,"LogicaYYExprNoBF":157,"LogicaOOExpr":158,"OR":159,"LogicaOOExprNoIn":160,"LogicaOOExprNoBF":161,"CondicionTernariaExpr":162,"?":163,"CondicionTernariaExprNoIn":164,"CondicionTernariaExprNoBF":165,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",19:"CONSOLE",20:".",21:"LOG",22:"(",24:")",25:";",28:"OPENBRACE",29:"CLOSEBRACE",31:"IDENT",32:"=",33:"NEWT",34:"ARRAYS",38:":",41:"Type",44:"+=",45:"-=",46:"*=",47:"/=",48:"^=",49:"%=",50:"FUNCTION",54:"CONTINUE",55:"BREAK",56:"RETURN",57:"SWITCH",63:"CASE",64:"DEFAULT",66:"IF",67:"ELSE",68:"DO",69:"WHILE",70:"FOR",73:"INTOKEN",74:"OFTOKEN",77:",",81:"STRING",82:"NUMBERS",83:"BOOLEAN",84:"VOID",85:"VAR",86:"CONST",87:"TYPE",88:"LET",91:"[",92:"]",96:"NULLTOKEN",97:"TRUETOKEN",98:"FALSETOKEN",99:"NUMBER",100:"CADENA",101:"CADENA2",109:"CHARAT",110:"TOLOWER",111:"TOUPPER",112:"CONCAT",113:"LENGTH",115:"PLUSPLUS",116:"MINSMINS",129:"+",131:"-",132:"!",135:"*",136:"/",137:"POTENCIA",138:"%",143:"<",144:">",148:"EQQ",149:"NOEQQ",150:"MAQ",151:"MIQ",155:"AND",159:"OR",163:"?"},
-productions_: [0,[3,1],[3,1],[4,1],[4,2],[4,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[10,7],[10,6],[26,2],[26,1],[18,1],[11,2],[11,3],[8,7],[8,3],[8,1],[7,4],[7,2],[7,7],[7,11],[7,8],[7,6],[7,4],[40,5],[40,3],[42,2],[43,1],[43,1],[43,1],[43,1],[43,1],[43,1],[43,1],[9,7],[9,8],[9,9],[9,10],[9,6],[9,7],[9,8],[9,9],[52,6],[52,7],[52,7],[52,8],[52,5],[52,7],[52,6],[52,7],[30,1],[30,2],[30,1],[53,1],[53,1],[53,1],[53,1],[53,1],[53,1],[53,1],[53,1],[53,1],[53,1],[53,1],[53,1],[16,2],[16,1],[15,2],[15,1],[14,2],[14,1],[14,3],[14,2],[17,5],[58,3],[59,0],[59,1],[61,2],[60,2],[60,1],[62,3],[62,4],[62,2],[62,3],[65,2],[65,3],[12,5],[12,7],[13,7],[13,6],[13,5],[13,9],[13,7],[13,8],[13,7],[13,8],[71,1],[75,1],[23,1],[23,3],[76,1],[27,1],[51,3],[51,1],[80,3],[80,1],[37,1],[37,1],[37,1],[37,1],[37,1],[37,1],[37,1],[37,1],[37,1],[89,2],[89,1],[90,2],[90,1],[90,1],[39,2],[93,3],[93,1],[94,1],[95,1],[95,1],[95,1],[95,1],[95,1],[95,1],[102,3],[102,3],[102,1],[103,1],[103,3],[104,1],[104,2],[104,3],[105,1],[105,1],[105,1],[105,3],[105,1],[107,2],[107,3],[107,6],[107,5],[107,5],[107,6],[107,3],[107,2],[107,1],[107,5],[107,4],[107,4],[107,5],[107,2],[108,2],[108,1],[114,3],[36,2],[36,2],[36,2],[36,2],[36,2],[36,3],[36,3],[36,3],[36,3],[36,4],[106,2],[106,3],[118,4],[118,3],[117,1],[117,3],[119,1],[119,4],[119,3],[120,1],[120,4],[120,3],[121,1],[121,2],[121,4],[121,3],[123,1],[123,2],[123,4],[123,3],[122,2],[122,3],[124,1],[124,3],[72,1],[72,1],[125,1],[125,1],[126,1],[127,1],[128,2],[128,2],[128,2],[130,1],[130,1],[133,1],[133,1],[134,1],[134,3],[134,3],[134,3],[134,3],[139,1],[139,3],[139,3],[139,3],[139,3],[140,1],[140,3],[140,3],[141,1],[141,3],[141,3],[142,1],[142,3],[142,3],[145,1],[145,3],[145,3],[146,1],[146,3],[146,3],[147,1],[147,3],[147,3],[147,3],[147,3],[152,1],[152,3],[152,3],[152,3],[152,3],[153,1],[153,3],[153,3],[153,3],[153,3],[154,1],[154,3],[156,1],[156,3],[157,1],[157,3],[158,1],[158,3],[160,1],[160,3],[161,1],[161,3],[162,1],[162,5],[164,1],[164,5],[165,1],[35,1],[78,1],[79,1]],
+symbols_: {"error":2,"S":3,"Source1":4,"EOF":5,"Statement":6,"Declaration_statements":7,"Assignation_statements":8,"Function_statements":9,"Native_statements":10,"Block_statements":11,"If_statements":12,"Iteration_statements":13,"Return_statements":14,"Break_statements":15,"Continue_statements":16,"Switch_statements":17,"Empty_statements":18,";":19,"CONSOLE":20,".":21,"LOG":22,"(":23,"Expr":24,")":25,"Expr_statements":26,"ExprNB":27,"OPENBRACE":28,"CLOSEBRACE":29,"Source2":30,"IDENT":31,"=":32,"NEWT":33,"ARRAYS":34,"AssignmentExpr":35,"Expr1_statements":36,"TypeV":37,":":38,"Array":39,"ValStatement1":40,"Type":41,"initialNo":42,"AssignmentOperator":43,"+=":44,"-=":45,"*=":46,"/=":47,"^=":48,"%=":49,"FUNCTION":50,"ParameterList":51,"FunctionExpr":52,"Statement1":53,"CONTINUE":54,"BREAK":55,"RETURN":56,"SWITCH":57,"CaseBlock":58,"CaseClausesOpt":59,"CaseClauses1":60,"CaseClauses":61,"CaseClause":62,"CASE":63,"DEFAULT":64,"DefaultClause":65,"IF":66,"ELSE":67,"DO":68,"WHILE":69,"FOR":70,"ExprOpt":71,"LeftHandSideExpr":72,"INTOKEN":73,"OFTOKEN":74,"ExprNoInOpt":75,"ExprNoIn":76,",":77,"AssignmentExprNoIn":78,"AssignmentExprNoBF":79,"Parameter":80,"STRING":81,"NUMBERS":82,"BOOLEAN":83,"VOID":84,"VAR":85,"CONST":86,"TYPE":87,"LET":88,"ArrayList":89,"ArrayList1":90,"[":91,"]":92,"Elements":93,"Element":94,"Literal":95,"NULLTOKEN":96,"TRUETOKEN":97,"FALSETOKEN":98,"NUMBER":99,"CADENA":100,"CADENA2":101,"Property":102,"PropertyList":103,"PrimaryExpr":104,"PrimaryExprNoBrace":105,"ArrayLiteral":106,"Expr1_statement":107,"ArrList":108,"Arr":109,"PLUSPLUS":110,"MINSMINS":111,"TOUPPER":112,"TOLOWER":113,"LENGTH":114,"CONCAT":115,"CHARAT":116,"ElementList":117,"ArrayLiterals":118,"MemberExpr":119,"MemberExprNoBF":120,"CallExpr":121,"Arguments":122,"CallExprNoBF":123,"ArgumentList":124,"LeftHandSideExprNoBF":125,"PostfixExpr":126,"PostfixExprNoBF":127,"UnaryExprCommon":128,"+":129,"UnaryExpr":130,"-":131,"!":132,"UnaryExprNoBF":133,"MultiplicativeExpr":134,"*":135,"/":136,"POTENCIA":137,"%":138,"MultiplicativeExprNoBF":139,"AdicionExpr":140,"AdicionExprNoBF":141,"RelacionalExpr":142,"<":143,">":144,"RelacionalExprNoIn":145,"RelacionalExprNoBF":146,"IgualdadExpr":147,"EQQ":148,"NOEQQ":149,"MAQ":150,"MIQ":151,"IgualdadExprNoIn":152,"IgualdadExprNoBF":153,"LogicaYYExpr":154,"AND":155,"LogicaYYExprNoIn":156,"LogicaYYExprNoBF":157,"LogicaOOExpr":158,"OR":159,"LogicaOOExprNoIn":160,"LogicaOOExprNoBF":161,"CondicionTernariaExpr":162,"?":163,"CondicionTernariaExprNoIn":164,"CondicionTernariaExprNoBF":165,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",19:";",20:"CONSOLE",21:".",22:"LOG",23:"(",25:")",28:"OPENBRACE",29:"CLOSEBRACE",31:"IDENT",32:"=",33:"NEWT",34:"ARRAYS",38:":",41:"Type",44:"+=",45:"-=",46:"*=",47:"/=",48:"^=",49:"%=",50:"FUNCTION",54:"CONTINUE",55:"BREAK",56:"RETURN",57:"SWITCH",63:"CASE",64:"DEFAULT",66:"IF",67:"ELSE",68:"DO",69:"WHILE",70:"FOR",73:"INTOKEN",74:"OFTOKEN",77:",",81:"STRING",82:"NUMBERS",83:"BOOLEAN",84:"VOID",85:"VAR",86:"CONST",87:"TYPE",88:"LET",91:"[",92:"]",96:"NULLTOKEN",97:"TRUETOKEN",98:"FALSETOKEN",99:"NUMBER",100:"CADENA",101:"CADENA2",110:"PLUSPLUS",111:"MINSMINS",112:"TOUPPER",113:"TOLOWER",114:"LENGTH",115:"CONCAT",116:"CHARAT",129:"+",131:"-",132:"!",135:"*",136:"/",137:"POTENCIA",138:"%",143:"<",144:">",148:"EQQ",149:"NOEQQ",150:"MAQ",151:"MIQ",155:"AND",159:"OR",163:"?"},
+productions_: [0,[3,1],[3,1],[4,1],[4,2],[4,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,2],[6,1],[10,7],[10,6],[26,2],[26,1],[18,1],[11,2],[11,3],[8,7],[8,3],[8,1],[7,4],[7,2],[7,7],[7,11],[7,8],[7,6],[7,4],[40,5],[40,3],[42,2],[43,1],[43,1],[43,1],[43,1],[43,1],[43,1],[43,1],[9,7],[9,8],[9,9],[9,10],[9,6],[9,7],[9,8],[9,9],[52,6],[52,7],[52,7],[52,8],[52,5],[52,7],[52,6],[52,7],[30,1],[30,2],[30,1],[53,1],[53,1],[53,1],[53,1],[53,1],[53,1],[53,1],[53,1],[53,1],[53,1],[53,1],[53,1],[16,2],[16,1],[15,2],[15,1],[14,2],[14,1],[14,3],[14,2],[17,5],[58,3],[59,0],[59,1],[61,2],[60,2],[60,1],[62,3],[62,4],[62,2],[62,3],[65,2],[65,3],[12,5],[12,7],[13,7],[13,6],[13,5],[13,9],[13,7],[13,8],[13,7],[13,8],[71,1],[75,1],[24,1],[24,3],[76,1],[27,1],[51,3],[51,1],[80,3],[80,1],[37,1],[37,1],[37,1],[37,1],[37,1],[37,1],[37,1],[37,1],[37,1],[89,2],[89,1],[90,2],[90,1],[90,1],[39,2],[93,3],[93,1],[94,1],[95,1],[95,1],[95,1],[95,1],[95,1],[95,1],[102,3],[102,3],[102,1],[103,1],[103,3],[104,1],[104,2],[104,3],[105,1],[105,1],[105,1],[105,3],[105,1],[107,2],[107,3],[107,2],[107,1],[108,2],[108,1],[109,3],[36,2],[36,2],[36,2],[36,2],[36,2],[36,3],[36,3],[36,3],[36,3],[36,5],[36,5],[36,3],[36,6],[36,6],[36,6],[36,6],[36,4],[36,7],[36,7],[36,6],[36,4],[106,2],[106,3],[118,4],[118,3],[117,1],[117,3],[119,1],[119,4],[119,3],[120,1],[120,4],[120,3],[121,1],[121,2],[121,4],[121,3],[123,1],[123,2],[123,4],[123,3],[122,2],[122,3],[124,1],[124,3],[72,1],[72,1],[125,1],[125,1],[126,1],[127,1],[128,2],[128,2],[128,2],[130,1],[130,1],[133,1],[133,1],[134,1],[134,3],[134,3],[134,3],[134,3],[139,1],[139,3],[139,3],[139,3],[139,3],[140,1],[140,3],[140,3],[141,1],[141,3],[141,3],[142,1],[142,3],[142,3],[145,1],[145,3],[145,3],[146,1],[146,3],[146,3],[147,1],[147,3],[147,3],[147,3],[147,3],[152,1],[152,3],[152,3],[152,3],[152,3],[153,1],[153,3],[153,3],[153,3],[153,3],[154,1],[154,3],[156,1],[156,3],[157,1],[157,3],[158,1],[158,3],[160,1],[160,3],[161,1],[161,3],[162,1],[162,5],[164,1],[164,5],[165,1],[35,1],[78,1],[79,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -105,29 +105,29 @@ case 1:
         console.log('-----      ERRORES        ------');
         for(let m of errores)
         {
-            console.log(m);
+           
         }
         console.log('-----   ERRORES LEXICOS   ------');
         for(let m of lexicos)
         {
-            console.log(m);
+           
         }
         console.log('----- ERRORES SINTACTICOS ------');
         for(let m of sintacticos)
         {
-            console.log(m);
+           
         }
         console.log('----- ERRORES SEMANTICOS ------');
         for(let m of semanticos)
         {
-            console.log(m);
+           
         }
         console.log('----- TABLA DE SIMBOLOS  ------');
         tab.printSimbolos();
         return this.$;
     
 break;
-case 3: case 62:
+case 3: case 63:
 
         if($$[$0] instanceof Array)
         {
@@ -135,7 +135,7 @@ case 3: case 62:
         }
     
 break;
-case 4: case 63:
+case 4: case 64:
 
         if($$[$0-1] instanceof Array)
         {
@@ -144,7 +144,7 @@ case 4: case 63:
 
     
 break;
-case 6: case 7: case 8: case 9: case 10: case 11: case 12: case 13: case 14: case 15: case 16: case 65: case 66: case 67: case 68: case 69: case 70: case 71: case 72: case 73: case 74:
+case 6: case 7: case 9: case 10: case 12: case 13: case 14: case 15: case 16: case 66: case 67: case 68: case 69: case 70: case 71: case 72: case 73: case 74: case 75:
 
         var r = [];
         r[0]  = $$[$0][0];
@@ -154,18 +154,48 @@ case 6: case 7: case 8: case 9: case 10: case 11: case 12: case 13: case 14: cas
         this.$ = r;
     
 break;
-case 18:
+case 8:
 
-        console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column);
-        sintacticos.push('{\"token\":\"'+yytext+'\", \"linea\":\"'+this._$.first_line+'\", \"columna\":\"'+this._$.first_column+'\"}');
-        this.$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"\"}';
-      
+        tab.ambitoLevel = tab.ambitoLevel-1;
+        entorno = 'global';
+        func = !func;
+        tab.deleteAmbitoLast();
+        var r = [];
+        r[0]  = $$[$0][0];
+        r[1] = $$[$0][1];
+        r[2] = $$[$0][2];
+        r[3] = $$[$0][3];
+        this.$ = r;
+    
 break;
-case 19:
+case 11:
 
 
         var r = [];
-        if($$[$0-2][0] == 'ARPRINT')
+        r[0]  = $$[$0][0];
+        r[1] = $$[$0][1];
+        r[2] = $$[$0][2];
+        r[3] = $$[$0][3];
+        this.$ = r;
+    
+break;
+case 17:
+
+         this.$ = ['','','','','','','','','',''];
+    
+break;
+case 18: case 19:
+
+        console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column);
+        sintacticos.push('{\"token\":\"'+yytext+'\", \"linea\":\"'+this._$.first_line+'\", \"columna\":\"'+this._$.first_column+'\"}');
+        this.$ = ['','','','','','','','','',''];
+      
+break;
+case 20:
+
+        console.log($$[$0-2]);
+        var r = [];
+        if($$[$0-2][0].toUpperCase() == 'ARPRINT')
         {
             r[3] = '';
             for(let val of $$[$0-2][1])
@@ -363,7 +393,7 @@ case 19:
             }
             r[3] += 'printf("\\n");\n';
         }
-        else if($$[$0-2][0] == "STRING")
+        else if($$[$0-2][0].toUpperCase() == "STRING")
         {
             var valor = '';
             for(var a =0; a<$$[$0-2][6].length;a++)
@@ -373,7 +403,7 @@ case 19:
             valor += 'printf("\\n");\n';
             r[3] = valor;
         }
-        else if($$[$0-2][0] == "NUMBER")
+        else if($$[$0-2][0].toUpperCase() == "NUMBER")
         {
             if($$[$0-2][6]%1==0)
             {
@@ -392,7 +422,7 @@ case 19:
                 r[3] = valor;
             }
         }
-        else if($$[$0-2][0] == "FLOAT")
+        else if($$[$0-2][0].toUpperCase() == "FLOAT")
         {
             var valor = $$[$0-2][3];
             valor += '\n';
@@ -400,7 +430,7 @@ case 19:
             valor += 'printf("\\n");\n';
             r[3] = valor;
         }
-        else if($$[$0-2][0] == "BOOLEAN")
+        else if($$[$0-2][0].toUpperCase() == "BOOLEAN")
         {
             //convert ASCII
             var valor = $$[$0-2][3];
@@ -588,11 +618,11 @@ case 19:
         this.$ = r;
     
 break;
-case 20:
+case 21:
 
 
         var r = [];
-        if($$[$0-1][0] == 'ARPRINT')
+        if($$[$0-1][0].toUpperCase() == 'ARPRINT')
         {
             r[3] = '';
             for(let val of $$[$0-1][1])
@@ -795,7 +825,7 @@ case 20:
             }
             r[3] += 'printf("\\n");\n';
         }
-        else if($$[$0-1][0] == "STRING")
+        else if($$[$0-1][0].toUpperCase() == "STRING")
         {
             var valor = '';
             for(var a =0; a<$$[$0-1][6].length;a++)
@@ -805,7 +835,7 @@ case 20:
             valor += 'printf("\\n");\n';
             r[3] = valor;
         }
-        else if($$[$0-1][0] == "NUMBER")
+        else if($$[$0-1][0].toUpperCase() == "NUMBER")
         {
             if($$[$0-1][6]%1==0)
             {
@@ -824,7 +854,7 @@ case 20:
                 r[3] = valor;
             }
         }
-        else if($$[$0-1][0] == "FLOAT")
+        else if($$[$0-1][0].toUpperCase() == "FLOAT")
         {
             var valor = $$[$0-1][3];
             valor += '\n';
@@ -832,7 +862,7 @@ case 20:
             valor += 'printf("\\n");\n';
             r[3] = valor;
         }
-        else if($$[$0-1][0] == "BOOLEAN")
+        else if($$[$0-1][0].toUpperCase() == "BOOLEAN")
         {
             //convert ASCII
             var valor = $$[$0-1][3];
@@ -1020,22 +1050,22 @@ case 20:
         this.$ = r;
     
 break;
-case 21: case 25: case 153: case 171:
+case 22: case 26: case 154: case 162:
 
         this.$ = $$[$0-1];
     
 break;
-case 22: case 28: case 108: case 109: case 110: case 112: case 113: case 135: case 147: case 150: case 151: case 154: case 163: case 188: case 191: case 206: case 207: case 208: case 209: case 210: case 211: case 215: case 216: case 217: case 218: case 219: case 224: case 229: case 232: case 235: case 238: case 241: case 244: case 249: case 254: case 259: case 261: case 263: case 265: case 267: case 269: case 271: case 273: case 275: case 276: case 277: case 278:
+case 23: case 29: case 109: case 110: case 111: case 113: case 114: case 136: case 148: case 151: case 152: case 155: case 159: case 190: case 193: case 208: case 209: case 210: case 211: case 212: case 213: case 217: case 218: case 219: case 220: case 221: case 226: case 231: case 234: case 237: case 240: case 243: case 246: case 251: case 256: case 261: case 263: case 265: case 267: case 269: case 271: case 273: case 275: case 277: case 278: case 279: case 280:
 
         this.$ = $$[$0];
     
 break;
-case 23: case 24:
+case 24: case 25:
 
         this.$ = ['','','','','',''];
     
 break;
-case 26:
+case 27:
 
         var n = tab.getPositionAmbito($$[$0-6]);
         if(n!=null)
@@ -1272,7 +1302,7 @@ case 26:
         }
     
 break;
-case 27:
+case 28:
 
         var n = tab.getPositionAmbito($$[$0-2]);
         if(n!=null)
@@ -1735,8 +1765,32 @@ case 27:
         }
     
 break;
-case 29:
+case 30:
 
+        var s =  eval('$$');
+        if(s.includes('function'))
+        {
+            if(!func)
+            {
+                tab.ambitoLevel = tab.ambitoLevel+1;
+                func = !func;
+            }
+            var posd = -1;
+            for(var a = 0; a<s.length; a++)
+            {
+                if(s[a] != null)
+                {
+                    if(s[a].includes('function'))
+                    {
+                        posd = a+1;
+                        break;
+                    }
+                }
+            }
+            var name = '';
+            if(posd!=-1) name = s[posd];
+            entorno = 'function_'+name;
+        }
         if(tab.getPositionAmbito($$[$0-2])==null)
         {
             if($$[$0-3].toUpperCase() == 'CONST')
@@ -1760,7 +1814,7 @@ case 29:
                 }
                 else
                 {
-                    posicion = stack;
+                    posicion = stac;
                     valor += temp1 + ' =  P;';
                     valor += '\n';
                     valor += 'P = P + 1;\n';
@@ -1830,7 +1884,7 @@ case 29:
         }
     
 break;
-case 30:
+case 31:
 
         if(tab.getPositionAmbito($$[$0])==null)
         {
@@ -1923,7 +1977,7 @@ case 30:
         }
     
 break;
-case 31:
+case 32:
 
         if(tab.getPositionAmbito($$[$0-5])==null)
         {
@@ -2008,8 +2062,19 @@ case 31:
                             r[5] = '';
                             r[6] = '';
                             r[7] = '';
+                            $$[$0][6].name = $$[$0-5];
 
-                            arr.valores.push($$[$0][6]);
+                            var a = new intermedia.arreglo()
+                            a.name = $$[$0-5];
+                            a.tipo = ($$[$0-3][8]!='')?$$[$0][8]:$$[$0-3][0];
+                            a.positions = $$[$0][6].positions;
+                            a.c3d = valor;
+                            a.valor = $$[$0][6].valor;
+                            a.temporal = temp3;
+                            a.bandera = '';
+
+                            arr.insert(a);
+
 
                             this.$ = r;
 
@@ -2045,7 +2110,7 @@ case 31:
         }
     
 break;
-case 32:
+case 33:
 
         if(tab.getPositionAmbito($$[$0-9])==null)
         {
@@ -2150,7 +2215,7 @@ case 32:
 
                     this.$ = r;
 
-                    arr.valores.push(a);
+                    arr.insert(a);
 
                     //if(pos >0 && pos != 0) pos++;
                     //if (pos == 0) pos++;
@@ -2273,7 +2338,7 @@ case 32:
 
                                     this.$ = r;
 
-                                    arr.valores.push(a);
+                                    arr.insert(a);
 
                                     //if(pos >0 && pos != 0) pos++;
                                     //if (pos == 0) pos++;
@@ -2311,7 +2376,7 @@ case 32:
         }
     
 break;
-case 33:
+case 34:
 
         if(tab.getPositionAmbito($$[$0-6])==null)
         {
@@ -2415,7 +2480,7 @@ case 33:
 
                     this.$ = r;
 
-                    arr.valores.push(a);
+                    arr.insert(a);
 
                     //if(pos >0 && pos != 0) pos++;
                     //if (pos == 0) pos++;
@@ -2536,7 +2601,7 @@ case 33:
 
                                     this.$ = r;
 
-                                    arr.valores.push(a);
+                                    arr.insert(a);
 
                                     //if(pos >0 && pos != 0) pos++;
                                     //if (pos == 0) pos++;
@@ -2574,7 +2639,7 @@ case 33:
         }
     
 break;
-case 34:
+case 35:
 
         if(tab.getPositionAmbito($$[$0-4])==null)
         {
@@ -3142,7 +3207,7 @@ case 34:
 
     
 break;
-case 35:
+case 36:
 
         if(tab.getPositionAmbito($$[$0-2])==null)
         {
@@ -3503,7 +3568,16 @@ case 35:
                         r[6] = '';
                         r[7] = '';
 
-                        arr.valores.push($$[$0][6]);
+                        $$[$0][6].name = $$[$0-2];
+                        var a = new intermedia.arreglo()
+                        a.name = $$[$0-2];
+                        a.tipo = ($$[$0][8]!='')?$$[$0][8]:$$[$0][0];
+                        a.positions = $$[$0][6].positions;
+                        a.c3d = valor;
+                        a.valor = $$[$0][6].valor;
+                        a.temporal = temp2;
+                        a.bandera = '';
+                        arr.insert(a);
 
                         this.$ = r;
 
@@ -3635,7 +3709,7 @@ case 35:
                                        stac++;
                                   }
                                   var temp1 = Temp.getTemporal();
-                                  if(entorno == 'global')
+                                  if(n.entorno == 'global')
                                   {
                                       valor += temp1 + ' = heap[(int)'+n.position+'];';
                                       valor += '\n';
@@ -3707,7 +3781,7 @@ case 35:
                                        stac++;
                                   }
                                   var temp1 = Temp.getTemporal();
-                                  if(entorno == 'global')
+                                  if(n.entorno == 'global')
                                   {
                                       valor += temp1 + ' = heap[(int)'+n.position+'];';
                                       valor += '\n';
@@ -3799,7 +3873,7 @@ case 35:
         }
     
 break;
-case 111:
+case 112:
 
         var r  = [];
         r[0] = 'ARPRINT';
@@ -3822,7 +3896,7 @@ case 111:
 
     
 break;
-case 137:
+case 138:
 
         var r = [];
         r[0] = 'BOOLEAN';
@@ -3838,7 +3912,7 @@ case 137:
         this.$ = r;
     
 break;
-case 138:
+case 139:
 
         var r = [];
         r[0] = 'BOOLEAN';
@@ -3854,7 +3928,7 @@ case 138:
         this.$ = r;
     
 break;
-case 139:
+case 140:
 
         var r = [];
         r[0] = "NUMBER";
@@ -3871,7 +3945,7 @@ case 139:
 
     
 break;
-case 140:
+case 141:
 
         var temp = Temp.getTemporal();
         var r = [];
@@ -3896,7 +3970,7 @@ case 140:
 
     
 break;
-case 141:
+case 142:
 
         var temp = Temp.getTemporal();
         var r = [];
@@ -3921,12 +3995,12 @@ case 141:
 
     
 break;
-case 148: case 149: case 190: case 193: case 197: case 201:
+case 149: case 150: case 192: case 195: case 199: case 203:
 
         this.$ = ['','','','','','']
     
 break;
-case 152: case 194: case 198:
+case 153: case 196: case 200:
 
         var r = [];
         r[0] = '';
@@ -3939,28 +4013,12 @@ case 152: case 194: case 198:
         this.$ = r;
     
 break;
-case 155: case 156: case 157: case 158: case 159: case 160: case 162:
+case 156: case 157: case 158: case 180: case 181:
 
         this.$ = ['','','','','','','','','','','','','','',''];
     
 break;
-case 161:
-
-        var r = [];
-        r[10] = 'LENGTHPOS';
-        r[11] = $$[$0-2];
-        this.$ = r;
-
-    
-break;
-case 168:
-
-        var r = [];
-        r[10] = 'LENGTH';
-        this.$ = r;
-    
-break;
-case 169:
+case 160:
 
         this.$ = $$[$0-1];
         var r = [];
@@ -3970,7 +4028,7 @@ case 169:
         this.$.push(r);
     
 break;
-case 170:
+case 161:
 
         var r = [];
         r[10] = 'ARRPOS';
@@ -3981,250 +4039,1980 @@ case 170:
 
     
 break;
-case 172:
+case 163:
 
-        if($$[$0][0] instanceof Array)
-        {
-            var n = tab.getPositionAmbito($$[$0-1]);
-            if(n!=null)
-            {
-                var valor = '';
-                var temp  = Temp.getTemporal();
-                var l = arr.getProf($$[$0-1]);
-                if(l>=$$[$0].length)
-                {
-                    var nivel = 1;
-                    for(let posi of $$[$0])
-                    {
-                        var m = arr.getTam($$[$0-1],nivel);
-                        var pass = false;
 
-                        if(posi[12][0] != '')
+         var n = tab.getPositionAmbito($$[$0-1]);
+         var arres = [];
+         var poses = [];
+         if(n!=null)
+         {
+             var valor = '';
+             var temp  = Temp.getTemporal();
+             var l = arr.getProf($$[$0-1]);
+             var posss = 0;
+             if(l>=$$[$0].length)
+             {
+                 var nivel = 1;
+                 console.log($$[$0]);
+                 for(let posi of $$[$0])
+                 {
+                     var m = arr.getTam($$[$0-1],nivel);
+                    
+                     var pass = false;
+
+                     if(posi[12][0] != '')
+                     {
+                         if(posi[12][0].toUpperCase() == 'NUMBER')
+                         {
+                             var num = posi[12][6];
+                             if(num <= (m-1))
+                             {
+                                 arres.push(m);
+                                 poses.push(posi[12][1]);
+                                 valor += posi[12][3] + '\n';
+                                 posss = posss * m + num;
+                                 pass = true;
+                             }
+                             else
+                             {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                 this.$ = ['','','',''];
+                                 break;
+                             }
+                         }
+                         else
+                          {
+                              pass = false;
+                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion`+'\"}');
+                              this.$ = ['','','',''];
+                              break;
+                          }
+                     }
+                     else
+                     {
+                        var n1 = tab.getPositionAmbito(posi[12][4]);
+                        if(n1!=null)
                         {
-                            if(posi[12][0].toUpperCase() == 'NUMBER')
+                            if(n1.rol.toUpperCase() != 'ARREGLO')
                             {
-                                var num = posi[12][6];
-                                if(num <= (m-1))
+                                if(n1.tipo.toUpperCase() == 'NUMBER')
                                 {
-                                    pass = true;
+                                     var num = Number(n1.valor);
+                                     if(num <= (m-1))
+                                     {
+                                         arres.push(m);
+
+                                         var temp = Temp.getTemporal();
+                                         posss = posss * m + n1.valor;
+                                         poses.push(temp);
+                                         if(n1.entorno == 'global')
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         else
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         pass = true;
+                                     }
+                                     else
+                                     {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${n1.valor}`+'\"}');
+                                         this.$ = ['','','',''];
+                                         break;
+                                     }
                                 }
                                 else
                                 {
-                                    pass = false;
-                                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
-                                    this.$ = ['','','',''];
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                         this.$ = ['','','',''];
+                                         break;
                                 }
                             }
-                        }
-                        else
-                        {
-
-                        }
-                        nivel++;
-                    }
-                    if(pass)
-                    {
-                    }
-                }
-                else
-                {
-                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$$[$0-1]}, el tamaño del arreglo es de: ${l}`+'\"}');
-                    this.$ = ['','','',''];
-                }
-            }
-            else
-            {
-                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
-                 this.$ = ['','','',''];
-            }
-
-        }
-        else if($$[$0][10] == 'LENGTHPOS')
-        {
-            var n = tab.getPositionAmbito($$[$0-1]);
-            if(n!=null)
-            {
-                var valor = '';
-                var temp  = Temp.getTemporal();
-                var l = arr.getProf($$[$0-1]);
-                if(l>=$$[$0][11].length)
-                {
-                    var nivel = 1;
-                    k = null;
-                    for(let posi of $$[$0][11])
-                    {
-                        var m = arr.getTam($$[$0-1],nivel);
-                        var pass = false;
-
-                        if(posi[12][0] != '')
-                        {
-                            if(posi[12][0].toUpperCase() == 'NUMBER')
+                            else
                             {
-                                var num = posi[12][6];
-                                if(num <= (m-1))
-                                {
-                                    //console.log(k!=null);
-                                    if(k!=null)
-                                    {
-                                        //console.log(k);
-                                        k = arr.getsize1(k,posi[12][6]);
-                                    }
-                                    else
-                                    {
-                                        k = arr.getTampos($$[$0-1],nivel, posi[12][6]);
-                                    }
-                                    pass = true;
-                                }
-                                else
-                                {
-                                    pass = false;
-                                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
-                                    this.$ = ['','','',''];
-                                }
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                 this.$ = ['','','',''];
+                                 break;
                             }
+
                         }
                         else
                         {
-
+                             pass = false;
+                             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, variable no existe: ${posi[12][0]}`+'\"}');
+                             this.$ = ['','','',''];
+                             break;
                         }
-                        nivel++;
-                    }
-                    if(pass)
+
+                     }
+                     nivel++;
+                 }
+                 if(pass)
+                 {
+                    var temp0 = Temp.getTemporal();
+                    var temp = Temp.getTemporal();
+
+                    valor += `${temp} = ${poses[0]};\n`
+
+                    for(var a = 1; a<arres.length; a++)
                     {
-                       //console.log(k);
-                       if(k!=null && k[0] instanceof intermedia.arreglo)
-                       {
-                            var valor = '\n';
-                            var temp = Temp.getTemporal();
-                            var temp1 = Temp.getTemporal();
-                            var temp2 = Temp.getTemporal();
-                            valor += `${temp} = ${n.position};\n`;
-                            valor += `${temp1} = stack[(int)${temp}];\n`;
-                            valor += `${temp2} = heap[(int)${temp1}];\n`;
-                            var temp3 = Temp.getTemporal();
-                            valor += `${temp3} = ${k[0].positions[0]};\n`;
-
-                             var r = [];
-                             r[0] = "NUMBER";
-                             r[1] = temp3;
-                             r[2] = ''
-                             r[3] = valor;
-                             r[4] = '';
-                             r[5] = Number(k[0].positions[0]);
-                             r[6] = Number(k[0].positions[0]);
-                             r[7] = '';
-                             r[8] = '';
-
-                             this.$ = r;
-
-                       }
-                       else
-                       {
-                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, el valor en la ultima posicion no es un arreglo.`+'\"}');
-                            this.$ = ['','','',''];
-                       }
+                        valor += `${temp0} = ${temp} * ${arres[a-1]};\n`;
+                        valor += `${temp} = ${temp0} + ${poses[a]};\n`;
+                        valor += `${temp} = heap[(int) ${temp}] +2;\n`;
                     }
-                }
-                else
-                {
-                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$$[$0-1]}, el tamaño del arreglo es de: ${l}`+'\"}');
-                    this.$ = ['','','',''];
-                }
-            }
-            else
-            {
-                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
-                 this.$ = ['','','',''];
-            }
-        }
-        else if($$[$0][10] == 'LENGTH')
-        {
-            var n = tab.getPositionAmbito($$[$0-1]);
-            if(n!=null)
-            {
-                if(n.rol.toUpperCase() == 'ARREGLO')
-                {
-                     var valor = '';
-                     var temp1 = Temp.getTemporal();
-                     valor += temp1 + ' = ' + n.position +';';
-                     valor += '\n';
-                     var temp2 = Temp.getTemporal();
-                     var temp3 = Temp.getTemporal();
-                     valor += temp2 + ' = stack[(int)'+temp1+'];';
-                     valor += '\n';
-                     valor += temp3+' = heap[(int)' + temp2 +'];';
-                     valor += '\n';
-                     var k = arr.getTamposd($$[$0-1]);
-                     valor += `${temp2} = ${k};\n`
 
-                     var r = [];
-                     r[0] = "NUMBER";
-                     r[1] = temp2;
-                     r[2] = ''
-                     r[3] = valor;
-                     r[4] = '';
-                     r[5] = Number(arr.getTamposd($$[$0-1]));
-                     r[6] = Number(arr.getTamposd($$[$0-1]));
-                     r[7] = '';
-                     r[8] = '';
-
-                     this.$ = r;
-
-                }
-                else
-                {
-                    if(n.tipo.toUpperCase() == 'STRING')
+                    var temp1 = Temp.getTemporal();
+                    var temp2 = Temp.getTemporal();
+                    if(n.entorno == 'global')
                     {
-                          var valor = '';
-                          var temp1 = Temp.getTemporal();
-                          valor += temp1 + ' = ' + n.position +';';
-                          valor += '\n';
-                          var temp2 = Temp.getTemporal();
-                          var temp3 = Temp.getTemporal();
-                          valor += temp2 + ' = stack[(int)'+temp1+'];';
-                          valor += '\n';
-                          valor += temp3+' = heap[(int)' + temp2 +'];';
-                          valor += '\n';
-                          valor += `${temp2} = heap[(int)${temp3}];`
-
-                          var r = [];
-                          r[0] = "NUMBER";
-                          r[1] = temp2;
-                          r[2] = ''
-                          r[3] = valor;
-                          r[4] = '';
-                          r[5] = n.valor.length;
-                          r[6] = n.valor.length;
-                          r[7] = '';
-                          r[8] = '';
-
-                          this.$ = r;
+                        valor += `${temp1} = heap[${n.position}];\n`;
                     }
                     else
                     {
-                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion`+'\"}');
-                        this.$ = ['','','',''];
+                        valor += `${temp1} = stack[${n.position}];\n`;
                     }
+                    valor += `${temp2} = heap[(int)${temp1}] + 1;\n`;
+
+                    var temp3 = Temp.getTemporal();
+                    valor += `${temp3} = ${temp2} + ${temp};\n`;
+
+                    var temp4 = Temp.getTemporal();
+                    valor += `${temp4} = heap[(int)${temp3}];\n`;
+
+                   var temp5 = Temp.getTemporal();
+                   var temp6 = Temp.getTemporal();
+
+                   valor += `${temp5} = ${temp2} + ${poses[0]};\n`;
+                   for(var a = 1; a<poses.length; a++)
+                   {
+                       valor += `${temp6} = heap[(int) ${temp5}] + 1;\n`;
+                       valor += `${temp5} = ${temp6} + ${poses[a]};\n`;
+                   }
+
+                   valor += `${temp6} = heap[(int) ${temp5}];\n`;
+
+                    var arrayss = arr.getValores(n.name);
+                    console.log(arrayss[posss]);
+
+                    var r = [];
+                    r[0] = typeof arrayss[0].toString().toUpperCase();
+                    r[1] = temp6;
+                    r[2] = '';
+                    r[3] = valor;
+                    r[4] = '';
+                    r[5] = arrayss[posss];
+                    r[6] = arrayss[posss];
+                    this.$ = r;
+
+                 }
+                 else
+                 {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                    this.$ = ['','','',''];
+                 }
+             }
+             else
+             {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$$[$0-1]}, el tamaño del arreglo es de: ${l}`+'\"}');
+                 this.$ = ['','','',''];
+             }
+         }
+         else
+         {
+              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
+              this.$ = ['','','',''];
+         }
+    
+break;
+case 164:
+
+        var n = tab.getPositionAmbito($$[$0-1]);
+        if(n!=null)
+        {
+            if(n.tipo.toUpperCase() == 'NUMBER')
+            {
+                var r = [];
+                var valor = '';
+                var temp = Temp.getTemporal();
+                if(n.entorno == 'global')
+                {
+                    valor += `${temp} = heap[${n.position}];\n`;
                 }
+                else
+                {
+                    valor += `${temp} = stack[${n.position}];\n`;
+                }
+                var temp1 = Temp.getTemporal();
+                valor += `${temp1} = ${temp} + 1;\n`;
+                if(n.entorno == 'global')
+                {
+                    valor += `heap[${n.position}] = ${temp1};\n`;
+                }
+                else
+                {
+                    valor += `stack[${n.position}] = ${temp1};\n`;
+                }
+
+                n.valor = n.valor + 1;
+                tab.update(n.name,n);
+
+                var r = [];
+                r[0] = "NUMBER";
+                r[1] = temp;
+                r[2] = ''
+                r[3] = valor;
+                r[4] = '';
+                r[5] = n.valor;
+                r[6] = n.valor;
+                r[7] = '';
+                r[8] = '';
+
+                this.$ = r;
             }
             else
             {
-                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
-                 this.$ = ['','','',''];
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
+                this.$ = ['','','',''];
             }
         }
         else
         {
-            this.$ = ['','','','','','','',''];
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
+            this.$ = ['','','',''];
         }
     
 break;
-case 181:
+case 165:
+
+        var n = tab.getPositionAmbito($$[$0-1]);
+        if(n!=null)
+        {
+            if(n.tipo.toUpperCase() == 'NUMBER')
+            {
+                var r = [];
+                var valor = '';
+                var temp = Temp.getTemporal();
+                if(n.entorno == 'global')
+                {
+                    valor += `${temp} = heap[${n.position}];\n`;
+                }
+                else
+                {
+                    valor += `${temp} = stack[${n.position}];\n`;
+                }
+                var temp1 = Temp.getTemporal();
+                valor += `${temp1} = ${temp} - 1;\n`;
+                if(n.entorno == 'global')
+                {
+                    valor += `heap[${n.position}] = ${temp1};\n`;
+                }
+                else
+                {
+                    valor += `stack[${n.position}] = ${temp1};\n`;
+                }
+
+                n.valor = n.valor - 1;
+                tab.update(n.name,n);
+
+                var r = [];
+                r[0] = "NUMBER";
+                r[1] = temp;
+                r[2] = ''
+                r[3] = valor;
+                r[4] = '';
+                r[5] = n.valor;
+                r[6] = n.valor;
+                r[7] = '';
+                r[8] = '';
+
+                this.$ = r;
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 166:
+
+        var n = tab.getPositionAmbito($$[$0]);
+        if(n!=null)
+        {
+            if(n.tipo.toUpperCase() == 'NUMBER')
+            {
+                var r = [];
+                var valor = '';
+                var temp = Temp.getTemporal();
+                if(n.entorno == 'global')
+                {
+                    valor += `${temp} = heap[${n.position}];\n`;
+                }
+                else
+                {
+                    valor += `${temp} = stack[${n.position}];\n`;
+                }
+                var temp1 = Temp.getTemporal();
+                valor += `${temp1} = ${temp} - 1;\n`;
+                if(n.entorno == 'global')
+                {
+                    valor += `heap[${n.position}] = ${temp1};\n`;
+                }
+                else
+                {
+                    valor += `stack[${n.position}] = ${temp1};\n`;
+                }
+
+                n.valor = n.valor - 1;
+                tab.update(n.name,n);
+
+                var r = [];
+                r[0] = "NUMBER";
+                r[1] = temp1;
+                r[2] = ''
+                r[3] = valor;
+                r[4] = '';
+                r[5] = n.valor;
+                r[6] = n.valor;
+                r[7] = '';
+                r[8] = '';
+
+                this.$ = r;
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 167:
+
+        var n = tab.getPositionAmbito($$[$0]);
+        if(n!=null)
+        {
+            if(n.tipo.toUpperCase() == 'NUMBER')
+            {
+                var r = [];
+                var valor = '';
+                var temp = Temp.getTemporal();
+                if(n.entorno == 'global')
+                {
+                    valor += `${temp} = heap[${n.position}];\n`;
+                }
+                else
+                {
+                    valor += `${temp} = stack[${n.position}];\n`;
+                }
+                var temp1 = Temp.getTemporal();
+                valor += `${temp1} = ${temp} + 1;\n`;
+                if(n.entorno == 'global')
+                {
+                    valor += `heap[${n.position}] = ${temp1};\n`;
+                }
+                else
+                {
+                    valor += `stack[${n.position}] = ${temp1};\n`;
+                }
+
+                n.valor = n.valor + 1;
+                tab.update(n.name,n);
+
+                var r = [];
+                r[0] = "NUMBER";
+                r[1] = temp1;
+                r[2] = ''
+                r[3] = valor;
+                r[4] = '';
+                r[5] = n.valor;
+                r[6] = n.valor;
+                r[7] = '';
+                r[8] = '';
+
+                this.$ = r;
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 168:
+
+         var n = tab.getPositionAmbito($$[$0-2]);
+         var arres = [];
+         var poses = [];
+         if(n!=null)
+         {
+             var valor = '';
+             var temp  = Temp.getTemporal();
+             var l = arr.getProf($$[$0-2]);
+             var posss = 0;
+             
+             if(l>=$$[$0-1].length)
+             {
+                 var nivel = 1;
+                 for(let posi of $$[$0-1])
+                 {
+                     var m = arr.getTam($$[$0-2],nivel);
+                    
+                     var pass = false;
+
+                     if(posi[12][0] != '')
+                     {
+                         if(posi[12][0].toUpperCase() == 'NUMBER')
+                         {
+                             var num = posi[12][6];
+                             if(num <= (m-1))
+                             {
+                                 arres.push(m);
+                                 poses.push(posi[12][1]);
+                                 valor += posi[12][3] + '\n';
+                                 posss = posss * m + num;
+                                 pass = true;
+                             }
+                             else
+                             {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                 this.$ = ['','','',''];
+                                 break;
+                             }
+                         }
+                         else
+                          {
+                              pass = false;
+                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion`+'\"}');
+                              this.$ = ['','','',''];
+                              break;
+                          }
+                     }
+                     else
+                     {
+                        var n1 = tab.getPositionAmbito(posi[12][4]);
+                        if(n1!=null)
+                        {
+                            if(n1.rol.toUpperCase() != 'ARREGLO')
+                            {
+                                if(n1.tipo.toUpperCase() == 'NUMBER')
+                                {
+                                     var num = Number(n1.valor);
+                                     if(num <= (m-1))
+                                     {
+                                         arres.push(m);
+
+                                         var temp = Temp.getTemporal();
+                                         posss = posss * m + n1.valor;
+                                         poses.push(temp);
+                                         if(n1.entorno == 'global')
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         else
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         pass = true;
+                                     }
+                                     else
+                                     {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${n1.valor}`+'\"}');
+                                         this.$ = ['','','',''];
+                                         break;
+                                     }
+                                }
+                                else
+                                {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                         this.$ = ['','','',''];
+                                         break;
+                                }
+                            }
+                            else
+                            {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                 this.$ = ['','','',''];
+                                 break;
+                            }
+
+                        }
+                        else
+                        {
+                             pass = false;
+                             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, variable no existe: ${posi[12][0]}`+'\"}');
+                             this.$ = ['','','',''];
+                             break;
+                        }
+
+                     }
+                     nivel++;
+                 }
+                 if(pass)
+                 {
+                    var temp0 = Temp.getTemporal();
+                    var temp = Temp.getTemporal();
+
+                    valor += `${temp} = ${poses[0]};\n`
+
+                    for(var a = 1; a<arres.length; a++)
+                    {
+                        valor += `${temp0} = ${temp} * ${arres[a-1]};\n`;
+                        valor += `${temp} = ${temp0} + ${poses[a]};\n`;
+                        valor += `${temp} = heap[(int) ${temp}] +2;\n`;
+                    }
+
+                    var temp1 = Temp.getTemporal();
+                    var temp2 = Temp.getTemporal();
+                    if(n.entorno == 'global')
+                    {
+                        valor += `${temp1} = heap[${n.position}];\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp1} = stack[${n.position}];\n`;
+                    }
+                    valor += `${temp2} = heap[(int)${temp1}] + 1;\n`;
+
+                    var temp3 = Temp.getTemporal();
+                    valor += `${temp3} = ${temp2} + ${temp};\n`;
+
+                    var temp4 = Temp.getTemporal();
+                    valor += `${temp4} = heap[(int)${temp3}];\n`;
+
+                   var temp5 = Temp.getTemporal();
+                   var temp6 = Temp.getTemporal();
+
+                   valor += `${temp5} = ${temp2} + ${poses[0]};\n`;
+                   for(var a = 1; a<poses.length; a++)
+                   {
+                       valor += `${temp6} = heap[(int) ${temp5}] + 1;\n`;
+                       valor += `${temp5} = ${temp6} + ${poses[a]};\n`;
+                   }
+
+                   valor += `${temp6} = heap[(int) ${temp5}];\n`;
+
+
+                    var arrayss = arr.getValores(n.name);
+                    if(typeof arrayss[0] == 'number')
+                    {
+                        var temp7 = Temp.getTemporal();
+                        valor += `${temp7} = ${temp6} + 1;\n`;
+                        valor += `heap[(int) ${temp5}] = ${temp7};\n`;
+
+                        var r = [];
+                        r[0] = typeof arrayss[0];
+                        r[1] = temp6;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = arrayss[posss];
+                        r[6] = arrayss[posss];
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrays[0]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                 }
+                 else
+                 {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                    this.$ = ['','','',''];
+                 }
+             }
+             else
+             {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$$[$0-2]}, el tamaño del arreglo es de: ${l}`+'\"}');
+                 this.$ = ['','','',''];
+             }
+         }
+         else
+         {
+              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-2]}`+'\"}');
+              this.$ = ['','','',''];
+         }
+    
+break;
+case 169:
+
+         var n = tab.getPositionAmbito($$[$0-2]);
+         var arres = [];
+         var poses = [];
+         if(n!=null)
+         {
+             var valor = '';
+             var temp  = Temp.getTemporal();
+             var l = arr.getProf($$[$0-2]);
+             var posss = 0;
+             if(l>=$$[$0-1].length)
+             {
+                 var nivel = 1;
+                 for(let posi of $$[$0-1])
+                 {
+                     var m = arr.getTam($$[$0-2],nivel);
+                    
+                     var pass = false;
+
+                     if(posi[12][0] != '')
+                     {
+                         if(posi[12][0].toUpperCase() == 'NUMBER')
+                         {
+                             var num = posi[12][6];
+                             if(num <= (m-1))
+                             {
+                                 arres.push(m);
+                                 poses.push(posi[12][1]);
+                                 valor += posi[12][3] + '\n';
+                                 posss = posss * m + num;
+                                 pass = true;
+                             }
+                             else
+                             {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                 this.$ = ['','','',''];
+                                 break;
+                             }
+                         }
+                         else
+                          {
+                              pass = false;
+                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion`+'\"}');
+                              this.$ = ['','','',''];
+                              break;
+                          }
+                     }
+                     else
+                     {
+                        var n1 = tab.getPositionAmbito(posi[12][4]);
+                        if(n1!=null)
+                        {
+                            if(n1.rol.toUpperCase() != 'ARREGLO')
+                            {
+                                if(n1.tipo.toUpperCase() == 'NUMBER')
+                                {
+                                     var num = Number(n1.valor);
+                                     if(num <= (m-1))
+                                     {
+                                         arres.push(m);
+
+                                         var temp = Temp.getTemporal();
+                                         posss = posss * m + n1.valor;
+                                         poses.push(temp);
+                                         if(n1.entorno == 'global')
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         else
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         pass = true;
+                                     }
+                                     else
+                                     {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${n1.valor}`+'\"}');
+                                         this.$ = ['','','',''];
+                                         break;
+                                     }
+                                }
+                                else
+                                {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                         this.$ = ['','','',''];
+                                         break;
+                                }
+                            }
+                            else
+                            {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                 this.$ = ['','','',''];
+                                 break;
+                            }
+
+                        }
+                        else
+                        {
+                             pass = false;
+                             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, variable no existe: ${posi[12][0]}`+'\"}');
+                             this.$ = ['','','',''];
+                             break;
+                        }
+
+                     }
+                     nivel++;
+                 }
+                 if(pass)
+                 {
+                    var temp0 = Temp.getTemporal();
+                    var temp = Temp.getTemporal();
+
+                    valor += `${temp} = ${poses[0]};\n`
+
+                    for(var a = 1; a<arres.length; a++)
+                    {
+                        valor += `${temp0} = ${temp} * ${arres[a-1]};\n`;
+                        valor += `${temp} = ${temp0} + ${poses[a]};\n`;
+                        valor += `${temp} = heap[(int) ${temp}] +2;\n`;
+                    }
+
+                    var temp1 = Temp.getTemporal();
+                    var temp2 = Temp.getTemporal();
+                    if(n.entorno == 'global')
+                    {
+                        valor += `${temp1} = heap[${n.position}];\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp1} = stack[${n.position}];\n`;
+                    }
+                    valor += `${temp2} = heap[(int)${temp1}] + 1;\n`;
+
+                    var temp3 = Temp.getTemporal();
+                    valor += `${temp3} = ${temp2} + ${temp};\n`;
+
+                    var temp4 = Temp.getTemporal();
+                    valor += `${temp4} = heap[(int)${temp3}];\n`;
+
+                   var temp5 = Temp.getTemporal();
+                   var temp6 = Temp.getTemporal();
+
+                   valor += `${temp5} = ${temp2} + ${poses[0]};\n`;
+                   for(var a = 1; a<poses.length; a++)
+                   {
+                       valor += `${temp6} = heap[(int) ${temp5}] + 1;\n`;
+                       valor += `${temp5} = ${temp6} + ${poses[a]};\n`;
+                   }
+
+                   valor += `${temp6} = heap[(int) ${temp5}];\n`;
+
+
+                    var arrayss = arr.getValores(n.name);
+                    if(typeof arrayss[0] == 'number')
+                    {
+                        var temp7 = Temp.getTemporal();
+                        valor += `${temp7} = ${temp6} - 1;\n`;
+                        valor += `heap[(int) ${temp5}] = ${temp7};\n`;
+
+                        var r = [];
+                        r[0] = typeof arrayss[0];
+                        r[1] = temp6;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = arrayss[posss];
+                        r[6] = arrayss[posss];
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrays[0]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                 }
+                 else
+                 {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                    this.$ = ['','','',''];
+                 }
+             }
+             else
+             {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$$[$0-2]}, el tamaño del arreglo es de: ${l}`+'\"}');
+                 this.$ = ['','','',''];
+             }
+         }
+         else
+         {
+              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-2]}`+'\"}');
+              this.$ = ['','','',''];
+         }
+    
+break;
+case 170:
+
+         var n = tab.getPositionAmbito($$[$0-2]);
+         var arres = [];
+         var poses = [];
+         if(n!=null)
+         {
+             var valor = '';
+             var temp  = Temp.getTemporal();
+             var l = arr.getProf($$[$0-2]);
+             var posss = 0;
+             
+             if(l>=$$[$0-1].length)
+             {
+                 var nivel = 1;
+                 for(let posi of $$[$0-1])
+                 {
+                     var m = arr.getTam($$[$0-2],nivel);
+                    
+                     var pass = false;
+
+                     if(posi[12][0] != '')
+                     {
+                         if(posi[12][0].toUpperCase() == 'NUMBER')
+                         {
+                             var num = posi[12][6];
+                             if(num <= (m-1))
+                             {
+                                 arres.push(m);
+                                 poses.push(posi[12][1]);
+                                 valor += posi[12][3] + '\n';
+                                 posss = posss * m + num;
+                                 pass = true;
+                             }
+                             else
+                             {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                 this.$ = ['','','',''];
+                                 break;
+                             }
+                         }
+                         else
+                          {
+                              pass = false;
+                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion`+'\"}');
+                              this.$ = ['','','',''];
+                              break;
+                          }
+                     }
+                     else
+                     {
+                        var n1 = tab.getPositionAmbito(posi[12][4]);
+                        if(n1!=null)
+                        {
+                            if(n1.rol.toUpperCase() != 'ARREGLO')
+                            {
+                                if(n1.tipo.toUpperCase() == 'NUMBER')
+                                {
+                                     var num = Number(n1.valor);
+                                     if(num <= (m-1))
+                                     {
+                                         arres.push(m);
+
+                                         var temp = Temp.getTemporal();
+                                         posss = posss * m + n1.valor;
+                                         poses.push(temp);
+                                         if(n1.entorno == 'global')
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         else
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         pass = true;
+                                     }
+                                     else
+                                     {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${n1.valor}`+'\"}');
+                                         this.$ = ['','','',''];
+                                         break;
+                                     }
+                                }
+                                else
+                                {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                         this.$ = ['','','',''];
+                                         break;
+                                }
+                            }
+                            else
+                            {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                 this.$ = ['','','',''];
+                                 break;
+                            }
+
+                        }
+                        else
+                        {
+                             pass = false;
+                             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, variable no existe: ${posi[12][0]}`+'\"}');
+                             this.$ = ['','','',''];
+                             break;
+                        }
+
+                     }
+                     nivel++;
+                 }
+                 if(pass)
+                 {
+                    var temp0 = Temp.getTemporal();
+                    var temp = Temp.getTemporal();
+
+                    valor += `${temp} = ${poses[0]};\n`
+
+                    for(var a = 1; a<arres.length; a++)
+                    {
+                        valor += `${temp0} = ${temp} * ${arres[a-1]};\n`;
+                        valor += `${temp} = ${temp0} + ${poses[a]};\n`;
+                        valor += `${temp} = heap[(int) ${temp}] +2;\n`;
+                    }
+
+                    var temp1 = Temp.getTemporal();
+                    var temp2 = Temp.getTemporal();
+                    if(n.entorno == 'global')
+                    {
+                        valor += `${temp1} = heap[${n.position}];\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp1} = stack[${n.position}];\n`;
+                    }
+                    valor += `${temp2} = heap[(int)${temp1}] + 1;\n`;
+
+                    var temp3 = Temp.getTemporal();
+                    valor += `${temp3} = ${temp2} + ${temp};\n`;
+
+                    var temp4 = Temp.getTemporal();
+                    valor += `${temp4} = heap[(int)${temp3}];\n`;
+
+                   var temp5 = Temp.getTemporal();
+                   var temp6 = Temp.getTemporal();
+
+                   valor += `${temp5} = ${temp2} + ${poses[0]};\n`;
+                   for(var a = 1; a<poses.length; a++)
+                   {
+                       valor += `${temp6} = heap[(int) ${temp5}] + 1;\n`;
+                       valor += `${temp5} = ${temp6} + ${poses[a]};\n`;
+                   }
+
+                   valor += `${temp6} = heap[(int) ${temp5}];\n`;
+
+
+                    var arrayss = arr.getValores(n.name);
+                    if(typeof arrayss[0] == 'number')
+                    {
+                        var temp7 = Temp.getTemporal();
+                        valor += `${temp7} = ${temp6} - 1;\n`;
+                        valor += `heap[(int) ${temp5}] = ${temp7};\n`;
+
+                        var r = [];
+                        r[0] = typeof arrayss[0];
+                        r[1] = temp7;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = arrayss[posss];
+                        r[6] = arrayss[posss];
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrays[0]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                 }
+                 else
+                 {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                    this.$ = ['','','',''];
+                 }
+             }
+             else
+             {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$$[$0-2]}, el tamaño del arreglo es de: ${l}`+'\"}');
+                 this.$ = ['','','',''];
+             }
+         }
+         else
+         {
+              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-2]}`+'\"}');
+              this.$ = ['','','',''];
+         }
+    
+break;
+case 171:
+
+         var n = tab.getPositionAmbito($$[$0-2]);
+         var arres = [];
+         var poses = [];
+         if(n!=null)
+         {
+             var valor = '';
+             var temp  = Temp.getTemporal();
+             var l = arr.getProf($$[$0-2]);
+             var posss = 0;
+             
+             if(l>=$$[$0-1].length)
+             {
+                 var nivel = 1;
+                 for(let posi of $$[$0-1])
+                 {
+                     var m = arr.getTam($$[$0-2],nivel);
+                    
+                     var pass = false;
+
+                     if(posi[12][0] != '')
+                     {
+                         if(posi[12][0].toUpperCase() == 'NUMBER')
+                         {
+                             var num = posi[12][6];
+                             if(num <= (m-1))
+                             {
+                                 arres.push(m);
+                                 poses.push(posi[12][1]);
+                                 valor += posi[12][3] + '\n';
+                                 posss = posss * m + num;
+                                 pass = true;
+                             }
+                             else
+                             {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                 this.$ = ['','','',''];
+                                 break;
+                             }
+                         }
+                         else
+                          {
+                              pass = false;
+                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion`+'\"}');
+                              this.$ = ['','','',''];
+                              break;
+                          }
+                     }
+                     else
+                     {
+                        var n1 = tab.getPositionAmbito(posi[12][4]);
+                        if(n1!=null)
+                        {
+                            if(n1.rol.toUpperCase() != 'ARREGLO')
+                            {
+                                if(n1.tipo.toUpperCase() == 'NUMBER')
+                                {
+                                     var num = Number(n1.valor);
+                                     if(num <= (m-1))
+                                     {
+                                         arres.push(m);
+
+                                         var temp = Temp.getTemporal();
+                                         posss = posss * m + n1.valor;
+                                         poses.push(temp);
+                                         if(n1.entorno == 'global')
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         else
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         pass = true;
+                                     }
+                                     else
+                                     {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${n1.valor}`+'\"}');
+                                         this.$ = ['','','',''];
+                                         break;
+                                     }
+                                }
+                                else
+                                {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                         this.$ = ['','','',''];
+                                         break;
+                                }
+                            }
+                            else
+                            {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                 this.$ = ['','','',''];
+                                 break;
+                            }
+
+                        }
+                        else
+                        {
+                             pass = false;
+                             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, variable no existe: ${posi[12][0]}`+'\"}');
+                             this.$ = ['','','',''];
+                             break;
+                        }
+
+                     }
+                     nivel++;
+                 }
+                 if(pass)
+                 {
+                    var temp0 = Temp.getTemporal();
+                    var temp = Temp.getTemporal();
+
+                    valor += `${temp} = ${poses[0]};\n`
+
+                    for(var a = 1; a<arres.length; a++)
+                    {
+                        valor += `${temp0} = ${temp} * ${arres[a-1]};\n`;
+                        valor += `${temp} = ${temp0} + ${poses[a]};\n`;
+                        valor += `${temp} = heap[(int) ${temp}] +2;\n`;
+                    }
+
+                    var temp1 = Temp.getTemporal();
+                    var temp2 = Temp.getTemporal();
+                    if(n.entorno == 'global')
+                    {
+                        valor += `${temp1} = heap[${n.position}];\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp1} = stack[${n.position}];\n`;
+                    }
+                    valor += `${temp2} = heap[(int)${temp1}] + 1;\n`;
+
+                    var temp3 = Temp.getTemporal();
+                    valor += `${temp3} = ${temp2} + ${temp};\n`;
+
+                    var temp4 = Temp.getTemporal();
+                    valor += `${temp4} = heap[(int)${temp3}];\n`;
+
+                   var temp5 = Temp.getTemporal();
+                   var temp6 = Temp.getTemporal();
+
+                   valor += `${temp5} = ${temp2} + ${poses[0]};\n`;
+                   for(var a = 1; a<poses.length; a++)
+                   {
+                       valor += `${temp6} = heap[(int) ${temp5}] + 1;\n`;
+                       valor += `${temp5} = ${temp6} + ${poses[a]};\n`;
+                   }
+
+                   valor += `${temp6} = heap[(int) ${temp5}];\n`;
+
+
+                    var arrayss = arr.getValores(n.name);
+                    if(typeof arrayss[0] == 'number')
+                    {
+                        var temp7 = Temp.getTemporal();
+                        valor += `${temp7} = ${temp6} + 1;\n`;
+                        valor += `heap[(int) ${temp5}] = ${temp7};\n`;
+
+                        var r = [];
+                        r[0] = typeof arrayss[0];
+                        r[1] = temp7;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = arrayss[posss];
+                        r[6] = arrayss[posss];
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrays[0]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                 }
+                 else
+                 {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                    this.$ = ['','','',''];
+                 }
+             }
+             else
+             {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$$[$0-2]}, el tamaño del arreglo es de: ${l}`+'\"}');
+                 this.$ = ['','','',''];
+             }
+         }
+         else
+         {
+              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-2]}`+'\"}');
+              this.$ = ['','','',''];
+         }
+    
+break;
+case 172:
+
+        var n = tab.getPositionAmbito($$[$0-4]);
+        if(n!=null)
+        {
+            if(n.tipo.toUpperCase() == 'STRING')
+            {
+
+                    var valor = '';
+                    var temp = Temp.getTemporal();
+                    if(n.entorno == 'global')
+                    {
+                        valor += `${temp} = heap[${n.position}];\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp} = stack[${n.position}];\n`;
+                    }
+                    valor += `${temp} = ${temp} + 1;\n`;
+                    var temp1 = Temp.getTemporal();
+                    valor += `${temp1} = heap[(int)${temp}];\n`;
+                    valor += `${temp} = ${temp} + 1;\n`;
+                    var temp2  = Temp.getTemporal();
+                    valor += `${temp2} = 0;\n`;
+
+                    var r = [];
+                    var label = Label.getBandera();
+                    var label1 = Label.getBandera();
+                    var label2 = Label.getBandera();
+                    var label3 = Label.getBandera();
+                    var temp3 = Temp.getTemporal();
+                    var temp4 = Temp.getTemporal();
+
+                    valor += `${label}:\n`;
+                    valor += `\tif(${temp2}==${temp1}) goto ${label1};\n`;
+                    valor += `\t${temp4} = ${temp} + ${temp2};\n`
+                    valor += `\t${temp3} = heap[(int)${temp4}];\n`;
+                    valor += `\tif(${temp3}>=97) goto ${label2};\n`;
+                    valor += `\t${temp2} = ${temp2} + 1;\n`;
+                    valor += `\tgoto ${label};\n`;
+                    valor += `${label2}:\n`;
+                    valor += `\tif(${temp3}<=122) goto ${label3};\n`;
+                    valor += `\t${temp2} = ${temp2} + 1;\n`;
+                    valor += `\tgoto ${label};\n`;
+                    valor += `${label3}:\n`;
+                    valor += `\t${temp3} = ${temp3} - 32;\n`;
+                    valor += `\theap[(int)${temp4}] = ${temp3};\n`;
+                    valor += `\t${temp2} = ${temp2} + 1;\n`;
+                    valor += `\tgoto ${label};\n`;
+                    valor += `${label1}:\n`;
+
+                    n.valor = n.valor.toString().toUpperCase();
+
+                    tab.update(n.name,n);
+                    r[0] = "STRING";
+                    r[1] = temp2;
+                    r[2] = label1;
+                    r[3] = valor;
+                    r[4] = '';
+                    r[7] = '';
+                    r[8] = '';
+
+                    this.$ = r;
+
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, la variable no es de tipo string`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-4]}`+'\"}');
+             this.$ = ['','','',''];
+        }
+    
+break;
+case 173:
+
+        var n = tab.getPositionAmbito($$[$0-4]);
+        if(n!=null)
+        {
+            if(n.tipo.toUpperCase() == 'STRING')
+            {
+
+                    var valor = '';
+                    var temp = Temp.getTemporal();
+                    if(n.entorno == 'global')
+                    {
+                        valor += `${temp} = heap[${n.position}];\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp} = stack[${n.position}];\n`;
+                    }
+                    valor += `${temp} = ${temp} + 1;\n`;
+                    var temp1 = Temp.getTemporal();
+                    valor += `${temp1} = heap[(int)${temp}];\n`;
+                    valor += `${temp} = ${temp} + 1;\n`;
+                    var temp2  = Temp.getTemporal();
+                    valor += `${temp2} = 0;\n`;
+
+                    var r = [];
+                    var label = Label.getBandera();
+                    var label1 = Label.getBandera();
+                    var label2 = Label.getBandera();
+                    var label3 = Label.getBandera();
+                    var temp3 = Temp.getTemporal();
+                    var temp4 = Temp.getTemporal();
+
+                    valor += `${label}:\n`;
+                    valor += `\tif(${temp2}==${temp1}) goto ${label1};\n`;
+                    valor += `\t${temp4} = ${temp} + ${temp2};\n`
+                    valor += `\t${temp3} = heap[(int)${temp4}];\n`;
+                    valor += `\tif(${temp3}>=65) goto ${label2};\n`;
+                    valor += `\t${temp2} = ${temp2} + 1;\n`;
+                    valor += `\tgoto ${label};\n`;
+                    valor += `${label2}:\n`;
+                    valor += `\tif(${temp3}<=90) goto ${label3};\n`;
+                    valor += `\t${temp2} = ${temp2} + 1;\n`;
+                    valor += `\tgoto ${label};\n`;
+                    valor += `${label3}:\n`;
+                    valor += `\t${temp3} = ${temp3} + 32;\n`;
+                    valor += `\theap[(int)${temp4}] = ${temp3};\n`;
+                    valor += `\t${temp2} = ${temp2} + 1;\n`;
+                    valor += `\tgoto ${label};\n`;
+                    valor += `${label1}:\n`;
+
+                    n.valor = n.valor.toString().toLowerCase();
+
+                    tab.update(n.name,n);
+                    r[0] = "STRING";
+                    r[1] = temp2;
+                    r[2] = label1;
+                    r[3] = valor;
+                    r[4] = '';
+                    r[7] = '';
+                    r[8] = '';
+
+                    this.$ = r;
+
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, la variable no es de tipo string`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-4]}`+'\"}');
+             this.$ = ['','','',''];
+        }
+    
+break;
+case 174:
+
+        var n = tab.getPositionAmbito($$[$0-2]);
+        if(n!=null)
+        {
+            if(n.rol.toUpperCase() == 'ARREGLO')
+            {
+                 var valor = '';
+                 var temp1 = Temp.getTemporal();
+                 valor += temp1 + ' = ' + n.position +';';
+                 valor += '\n';
+                 var temp2 = Temp.getTemporal();
+                 var temp3 = Temp.getTemporal();
+                 if(n.entorno == 'global')
+                 {
+                     valor += temp2 + ' = heap[(int)'+temp1+'];';
+                     valor += '\n';
+                 }
+                 else
+                 {
+                     valor += temp2 + ' = stack[(int)'+temp1+'];';
+                     valor += '\n';
+                 }
+
+                 valor += temp3+' = heap[(int)' + temp2 +'];';
+                 valor += '\n';
+                 var k = arr.getTamposd($$[$0-2]);
+                 valor += `${temp2} = ${k};\n`
+
+                 var r = [];
+                 r[0] = "NUMBER";
+                 r[1] = temp2;
+                 r[2] = ''
+                 r[3] = valor;
+                 r[4] = '';
+                 r[5] = Number(arr.getTamposd($$[$0-2]));
+                 r[6] = Number(arr.getTamposd($$[$0-2]));
+                 r[7] = '';
+                 r[8] = '';
+
+                 this.$ = r;
+
+            }
+            else
+            {
+                if(n.tipo.toUpperCase() == 'STRING')
+                {
+                      var valor = '';
+                      var temp1 = Temp.getTemporal();
+                      valor += temp1 + ' = ' + n.position +';';
+                      valor += '\n';
+                      var temp2 = Temp.getTemporal();
+                      var temp3 = Temp.getTemporal();
+                      if(n.entorno == 'global')
+                      {
+                          valor += temp2 + ' = heap[(int)'+temp1+'];';
+                          valor += '\n';
+                      }
+                      else
+                      {
+                          valor += temp2 + ' = stack[(int)'+temp1+'];';
+                          valor += '\n';
+                      }
+
+                      valor += temp3+' = heap[(int)' + temp2 +'];';
+                      valor += '\n';
+                      valor += `${temp2} = heap[(int)${temp3}];`
+
+                      var r = [];
+                      r[0] = "NUMBER";
+                      r[1] = temp2;
+                      r[2] = ''
+                      r[3] = valor;
+                      r[4] = '';
+                      r[5] = n.valor.length;
+                      r[6] = n.valor.length;
+                      r[7] = '';
+                      r[8] = '';
+
+                      this.$ = r;
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-2]}`+'\"}');
+             this.$ = ['','','',''];
+        }
+     
+break;
+case 175:
+
+        var n = tab.getPositionAmbito($$[$0-5]);
+        if(n!=null)
+        {
+            if(n.tipo.toUpperCase() == 'STRING')
+            {
+                var expr = $$[$0-1];
+
+                    var valor = '';
+                    var temp = Temp.getTemporal();
+                    if(n.entorno == 'global')
+                    {
+                        valor += `${temp} = heap[${n.position}];\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp} = stack[${n.position}];\n`;
+                    }
+                    valor += `${temp} = ${temp} + 1;\n`;
+                    var temp1 = Temp.getTemporal();
+                    valor += `${temp1} = heap[(int)${temp}];\n`;
+                    var temp2  = Temp.getTemporal();
+                    valor += `${temp2} = ${temp} + ${temp1};\n`;
+                    var r = [];
+
+                    if(expr[0].toUpperCase() != '')
+                    {
+                        for(var a = 0; a<expr[5].toString().length; a++)
+                        {
+                            valor += `${temp2} = ${temp2} + 1;\n`;
+                            valor += `heap[(int)${temp2}] = ${expr[5].toString().charCodeAt(a)};\n`
+                        }
+                        valor += `${temp1} = ${temp1} + ${expr[5].toString().length};\n`;
+                        valor += `heap[(int)${temp}] = ${temp1};\n`;
+                        r[5] = n.valor.toString() + expr[5].toString();
+                        r[6] = n.valor.toString() + expr[5].toString();
+                        n.valor = n.valor.toString() + expr[5].toString();
+
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0-5]);
+                        if(n1!=null)
+                        {
+                            if(n1.rol != 'ARREGLO')
+                            {
+                                 for(var a = 0; a<n1.valor.toString().length; a++)
+                                {
+                                    valor += `${temp2} = ${temp2} + 1;\n`;
+                                    valor += `heap[(int)${temp2}] = ${n1.valor.toString().charCodeAt(a)};\n`
+                                }
+                                valor += `${temp1} = ${temp1} + ${n1.valor.toString().length};\n`;
+                                valor += `heap[(int)${temp}] = ${temp1};\n`;
+                                r[5] = n.valor.toString() + n1.valor.toString();
+                                r[6] = n.valor.toString() + n1.valor.toString();
+                                n.valor = n.valor.toString() + n1.valor.toString();
+                            }
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, la variable no es de tipo string`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+
+                    tab.update(n.name,n);
+                    r[0] = "STRING";
+                    r[1] = temp2;
+                    r[2] = ''
+                    r[3] = valor;
+                    r[4] = '';
+                    r[7] = '';
+                    r[8] = '';
+
+                    this.$ = r;
+
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, la variable no es de tipo string`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-5]}`+'\"}');
+             this.$ = ['','','',''];
+        }
+     
+break;
+case 176:
+
+        var n = tab.getPositionAmbito($$[$0-5]);
+        if(n!=null)
+        {
+            if(n.tipo.toUpperCase() == 'STRING')
+            {
+                var expr = $$[$0-1];
+                if(expr[5] < n.valor.length)
+                {
+                    var valor = '';
+                    var temp = Temp.getTemporal();
+                    if(n.entorno == 'global')
+                    {
+                        valor += `${temp} = heap[${n.position}];\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp} = stack[${n.position}];\n`;
+                    }
+                    valor += `${temp} = ${temp} + 1;\n`;
+                    var temp1 = Temp.getTemporal();
+                    valor += `${temp1} = ${temp} + ${expr[5]};\n`;
+
+                    var r = [];
+                    r[0] = "STRING";
+                    r[1] = temp1;
+                    r[2] = ''
+                    r[3] = valor;
+                    r[4] = '';
+                    r[5] = n.valor.charAt(expr[5]);
+                    r[6] = n.valor.charAt(expr[5]);
+                    r[7] = '';
+                    r[8] = '';
+
+                    this.$ = r;
+
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, la posicion no se encuentra entre el rango del tamaño de la cadena.`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, la variable no es de tipo string`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-5]}`+'\"}');
+             this.$ = ['','','',''];
+        }
+     
+break;
+case 177:
+
+         var n = tab.getPositionAmbito($$[$0-5]);
+         var arres = [];
+         var poses = [];
+         var poses1 = [];
+         if(n!=null)
+         {
+             var valor = '';
+             var temp  = Temp.getTemporal();
+             var l = arr.getProf($$[$0-5]);
+             var posss = 0;
+             if(l>=$$[$0-4].length)
+             {
+                 var nivel = 1;
+                 for(let posi of $$[$0-4])
+                 {
+                     var m = arr.getTam($$[$0-5],nivel);
+                     var pass = false;
+
+                     if(posi[12][0] != '')
+                     {
+                         if(posi[12][0].toUpperCase() == 'NUMBER')
+                         {
+                             var num = posi[12][6];
+                             if(num <= (m-1))
+                             {
+                                 arres.push(m);
+                                 poses.push(posi[12][1]);
+                                 poses1.push(posi[12][6]);
+                                 valor += posi[12][3] + '\n';
+                                 posss = posss * m + num;
+                                 pass = true;
+                             }
+                             else
+                             {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                 this.$ = ['','','',''];
+                                 break;
+                             }
+                         }
+                         else
+                          {
+                              pass = false;
+                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion`+'\"}');
+                              this.$ = ['','','',''];
+                              break;
+                          }
+                     }
+                     else
+                     {
+                        var n1 = tab.getPositionAmbito(posi[12][4]);
+                        if(n1!=null)
+                        {
+                            if(n1.rol.toUpperCase() != 'ARREGLO')
+                            {
+                                if(n1.tipo.toUpperCase() == 'NUMBER')
+                                {
+                                     var num = Number(n1.valor);
+                                     if(num <= (m-1))
+                                     {
+                                         arres.push(m);
+
+                                         var temp = Temp.getTemporal();
+                                         posss = posss * m + n1.valor;
+                                         poses.push(temp);
+                                         poses1.push(n1.valor);
+                                         if(n1.entorno == 'global')
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         else
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         pass = true;
+                                     }
+                                     else
+                                     {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${n1.valor}`+'\"}');
+                                         this.$ = ['','','',''];
+                                         break;
+                                     }
+                                }
+                                else
+                                {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                         this.$ = ['','','',''];
+                                         break;
+                                }
+                            }
+                            else
+                            {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                 this.$ = ['','','',''];
+                                 break;
+                            }
+
+                        }
+                        else
+                        {
+                             pass = false;
+                             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, variable no existe: ${posi[12][0]}`+'\"}');
+                             this.$ = ['','','',''];
+                             break;
+                        }
+
+                     }
+                     nivel++;
+                 }
+                 if(pass)
+                 {
+                    var temp0 = Temp.getTemporal();
+                    var temp = Temp.getTemporal();
+
+                    valor += `${temp} = ${poses[0]};\n`
+
+                    for(var a = 1; a<arres.length; a++)
+                    {
+                        valor += `${temp0} = ${temp} * ${arres[a-1]};\n`;
+                        valor += `${temp} = ${temp0} + ${poses[a]};\n`;
+                        valor += `${temp} = heap[(int) ${temp}] +2;\n`;
+                    }
+
+                    var temp1 = Temp.getTemporal();
+                    var temp2 = Temp.getTemporal();
+                    if(n.entorno == 'global')
+                    {
+                        valor += `${temp1} = heap[${n.position}];\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp1} = stack[${n.position}];\n`;
+                    }
+                    valor += `${temp2} = heap[(int)${temp1}] + 1;\n`;
+
+                    var temp3 = Temp.getTemporal();
+                    valor += `${temp3} = ${temp2} + ${temp};\n`;
+
+                    var temp4 = Temp.getTemporal();
+                    valor += `${temp4} = heap[(int)${temp3}];\n`;
+
+                   var temp5 = Temp.getTemporal();
+                   var temp6 = Temp.getTemporal();
+
+                   valor += `${temp5} = ${temp2} + ${poses[0]};\n`;
+                   for(var a = 1; a<poses.length; a++)
+                   {
+                       valor += `${temp6} = heap[(int) ${temp5}] + 1;\n`;
+                       valor += `${temp5} = ${temp6} + ${poses[a]};\n`;
+                   }
+
+                   valor += `${temp6} = heap[(int) ${temp5}];\n`;
+
+
+                    var arrayss = arr.getValores(n.name);
+                    if(typeof arrayss[0] == 'string')
+                    {
+                        var temp7 = Temp.getTemporal();
+                        valor += `${temp7} = 0;\n`;
+
+                        var temp8 = Temp.getTemporal();
+                        valor += `${temp8} = heap[(int)${temp6}];\n`;
+                        valor += `${temp6} = ${temp6} + 1;\n`;
+
+                        var temp9 = Temp.getTemporal();
+                        valor += `${temp9} = ${temp8} + 1;\n`;
+
+                        var temp10 = Temp.getTemporal();
+                        var temp11 = Temp.getTemporal();
+
+                        var label = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+
+
+                        valor += `${label}:\n`;
+                        valor += `\tif(${temp7}==${temp9}) goto ${label1};\n`;
+                        valor += `\t${temp10} = ${temp6} + ${temp7};\n`
+                        valor += `\t${temp11} = heap[(int)${temp10}];\n`;
+                        valor += `\tif(${temp11}>=97) goto ${label2};\n`;
+                        valor += `\t${temp7} = ${temp7} + 1;\n`;
+                        valor += `\tgoto ${label};\n`;
+                        valor += `${label2}:\n`;
+                        valor += `\tif(${temp11}<=122) goto ${label3};\n`;
+                        valor += `\t${temp7} = ${temp7} + 1;\n`;
+                        valor += `\tgoto ${label};\n`;
+                        valor += `${label3}:\n`;
+                        valor += `\t${temp11} = ${temp11} - 32;\n`;
+                        valor += `\theap[(int)${temp10}] = ${temp11};\n`;
+                        valor += `\t${temp7} = ${temp7} + 1;\n`;
+                        valor += `\tgoto ${label};\n`;
+                        valor += `${label1}:\n`;
+
+                        arr.changeValue(n.name, arrayss[posss].toUpperCase(), poses1);
+                        var r = [];
+                        r[0] = typeof arrayss[0];
+                        r[1] = temp11;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = arrayss[posss].toUpperCase();
+                        r[6] = arrayss[posss].toUpperCase();
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrays[0]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                 }
+                 else
+                 {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                    this.$ = ['','','',''];
+                 }
+             }
+             else
+             {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$$[$0-5]}, el tamaño del arreglo es de: ${l}`+'\"}');
+                 this.$ = ['','','',''];
+             }
+         }
+         else
+         {
+              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-5]}`+'\"}');
+              this.$ = ['','','',''];
+         }
+    
+break;
+case 178: case 182:
+
+         this.$ = ['','','','','','','','','','','','','','',''];
+     
+break;
+case 179:
+
+        var n = tab.getPositionAmbito($$[$0-3]);
+        if(n!=null)
+        {
+            var valor = '';
+            var temp  = Temp.getTemporal();
+            var l = arr.getProf($$[$0-3]);
+            if(l>=$$[$0-2].length)
+            {
+                var nivel = 1;
+                k = null;
+                for(let posi of $$[$0-2])
+                {
+                    var m = arr.getTam($$[$0-3],nivel);
+                    var pass = false;
+
+                    if(posi[12][0] != '')
+                    {
+                        if(posi[12][0].toUpperCase() == 'NUMBER')
+                        {
+                            var num = posi[12][6];
+                            if(num <= (m-1))
+                            {
+                                //console.log(k!=null);
+                                if(k!=null)
+                                {
+                                    //console.log(k);
+                                    k = arr.getsize1(k,posi[12][6]);
+                                }
+                                else
+                                {
+                                    k = arr.getTampos($$[$0-3],nivel, posi[12][6]);
+                                }
+                                pass = true;
+                            }
+                            else
+                            {
+                                pass = false;
+                                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                this.$ = ['','','',''];
+                            }
+                        }
+                    }
+                    else
+                    {
+
+                    }
+                    nivel++;
+                }
+                if(pass)
+                {
+                   //console.log(k);
+                   if(k!=null && k[0] instanceof intermedia.arreglo)
+                   {
+                        var valor = '\n';
+                        var temp = Temp.getTemporal();
+                        var temp1 = Temp.getTemporal();
+                        var temp2 = Temp.getTemporal();
+                        valor += `${temp} = ${n.position};\n`;
+                        if(n.entorno == 'global')
+                        {
+                            valor += `${temp1} = heap[(int)${temp}];\n`;
+                        }
+                        else
+                        {
+                            valor += `${temp1} = stack[(int)${temp}];\n`;
+                        }
+
+                        valor += `${temp2} = heap[(int)${temp1}];\n`;
+                        var temp3 = Temp.getTemporal();
+                        valor += `${temp3} = ${k[0].positions[0]};\n`;
+
+                         var r = [];
+                         r[0] = "NUMBER";
+                         r[1] = temp3;
+                         r[2] = ''
+                         r[3] = valor;
+                         r[4] = '';
+                         r[5] = Number(k[0].positions[0]);
+                         r[6] = Number(k[0].positions[0]);
+                         r[7] = '';
+                         r[8] = '';
+
+                         this.$ = r;
+
+                   }
+                   else
+                   {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, el valor en la ultima posicion no es un arreglo.`+'\"}');
+                        this.$ = ['','','',''];
+                   }
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$$[$0-3]}, el tamaño del arreglo es de: ${l}`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-3]}`+'\"}');
+             this.$ = ['','','',''];
+        }
+     
+break;
+case 183:
 
         this.$ = ['','','','','','','',''];
     
 break;
-case 182:
+case 184:
 
         var temp = Temp.getTemporal();
         var r = [];
@@ -4251,7 +6039,7 @@ case 182:
         this.$ = r;
     
 break;
-case 183:
+case 185:
 
 
         var temp = Temp.getTemporal();
@@ -4406,7 +6194,7 @@ case 183:
 
     
 break;
-case 186:
+case 188:
 
         this.$ = [];
         var r = [];
@@ -4439,7 +6227,7 @@ case 186:
         this.$.push(r);
     
 break;
-case 187:
+case 189:
 
 
         r1 = $$[$0-2];
@@ -4477,7 +6265,7 @@ case 187:
 
     
 break;
-case 212:
+case 214:
 
         if($$[$0][0] == '')
         {
@@ -4525,7 +6313,7 @@ case 212:
 
     
 break;
-case 213:
+case 215:
 
         if($$[$0][0] != 'STRING' && $$[$0][0] != 'BOOLEAN')
         {
@@ -4606,7 +6394,7 @@ case 213:
         }
     
 break;
-case 214:
+case 216:
 
         if($$[$0][0] !='STRING' && $$[$0][0] != 'NUMBER')
         {
@@ -4709,7 +6497,7 @@ case 214:
         }
     
 break;
-case 220:
+case 222:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -4819,14 +6607,31 @@ case 220:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                                valor += '\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                                valor += '\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'*'+tempant111+';';
@@ -4861,7 +6666,7 @@ case 220:
         }
     
 break;
-case 221: case 226:
+case 223: case 228:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -4902,7 +6707,15 @@ case 221: case 226:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$$[$0-2][1]+'/'+tempant1+';';
@@ -4936,7 +6749,15 @@ case 221: case 226:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -4963,14 +6784,29 @@ case 221: case 226:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'/'+tempant111+';';
@@ -5005,7 +6841,7 @@ case 221: case 226:
         }
     
 break;
-case 222: case 227:
+case 224: case 229:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -5063,7 +6899,15 @@ case 222: case 227:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         var temp1 = Temp.getTemporal();
@@ -5114,7 +6958,15 @@ case 222: case 227:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -5158,13 +7010,29 @@ case 222: case 227:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             var temp1 = Temp.getTemporal();
@@ -5216,7 +7084,7 @@ case 222: case 227:
         }
     
 break;
-case 223: case 228:
+case 225:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -5257,7 +7125,15 @@ case 223: case 228:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$$[$0-2][1]+'%'+tempant1+';';
@@ -5291,7 +7167,15 @@ case 223: case 228:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -5318,14 +7202,29 @@ case 223: case 228:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'%'+tempant111+';';
@@ -5360,7 +7259,7 @@ case 223: case 228:
         }
     
 break;
-case 225:
+case 227:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -5401,7 +7300,15 @@ case 225:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$$[$0-2][1]+'*'+tempant1+';';
@@ -5435,7 +7342,15 @@ case 225:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -5462,14 +7377,29 @@ case 225:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'*'+tempant111+';';
@@ -5505,6 +7435,181 @@ case 225:
     
 break;
 case 230:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'%'+$$[$0][1]+';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])%Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'%'+tempant1+';';
+
+                        r[0] = 'NUMBER';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])%Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'%'+$$[$0][1]+';';
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)%Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                 valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                 valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            if(n1.entorno == 'global')
+                            {
+                                 valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                 valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'%'+tempant111+';';
+
+                            r[0] = 'NUMBER';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)%Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 232: case 235:
 
         if($$[$0-2][0] == 'STRING'  && $$[$0][0] == 'STRING')
         {
@@ -5609,14 +7714,30 @@ case 230:
                         valor += temp + ' = ' + n.position + ';';
                         valor += '\n';
                         var temp1 = Temp.getTemporal();
-                        valor += temp1 + ' = stack[(int)'+temp+'];';
+                        if(n.entorno == 'global')
+                        {
+                            valor += temp1 + ' = heap[(int)'+temp+'];';
+                        }
+                        else
+                        {
+                            valor += temp1 + ' = stack[(int)'+temp+'];';
+                        }
+
                         valor += '\n';
 
                         var temp2 = Temp.getTemporal();
                         valor += temp2 + ' = ' + n1.position + ';';
                         valor += '\n';
                         var temp3 = Temp.getTemporal();
-                        valor += temp3 + ' = stack[(int)'+temp2+'];';
+                        if(n1.entorno == 'global')
+                        {
+                            valor += temp3 + ' = heap[(int)'+temp2+'];';
+                        }
+                        else
+                        {
+                            valor += temp3 + ' = stack[(int)'+temp2+'];';
+                        }
+
                         valor += '\n';
 
                         var temp4 = Temp.getTemporal();
@@ -5758,7 +7879,15 @@ case 230:
                         valor += temp + ' = ' + n.position + ';';
                         valor += '\n';
                         var temp1 = Temp.getTemporal();
-                        valor += temp1 + ' = stack[(int)'+temp+'];';
+                        if(n.entorno == 'global')
+                        {
+                            valor += temp1 + ' = heap[(int)'+temp+'];';
+                        }
+                        else
+                        {
+                            valor += temp1 + ' = stack[(int)'+temp+'];';
+                        }
+
                         valor += '\n';
 
                         valor += $$[$0][3];
@@ -5866,7 +7995,15 @@ case 230:
                         valor += temp + ' = ' + n.position + ';';
                         valor += '\n';
                         var temp1 = Temp.getTemporal();
-                        valor += temp1 + ' = stack[(int)'+temp+'];';
+                        if(n.entorno == 'global')
+                        {
+                            valor += temp1 + ' = heap[(int)'+temp+'];';
+                        }
+                        else
+                        {
+                            valor += temp1 + ' = stack[(int)'+temp+'];';
+                        }
+
                         valor += '\n';
 
                         var temp4 = Temp.getTemporal();
@@ -5912,7 +8049,7 @@ case 230:
         }
     
 break;
-case 231: case 234:
+case 233: case 236:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -5953,7 +8090,15 @@ case 231: case 234:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$$[$0-2][1]+'-'+tempant1+';';
@@ -5987,7 +8132,15 @@ case 231: case 234:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -6014,14 +8167,29 @@ case 231: case 234:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'-'+tempant111+';';
@@ -6056,415 +8224,7 @@ case 231: case 234:
         }
     
 break;
-case 233:
-
-        if($$[$0-2][0] == 'STRING'  && $$[$0][0] == 'STRING')
-        {
-            var r = [];
-            r[0] = "STRING";
-            r[1] = $$[$0-2][1];
-            var valor = '';
-            valor += $$[$0-2][3];
-            for(var a = 0; a<$$[$0][5].length; a++)
-             {
-                 valor += $$[$0-2][1] + ' = ' + $$[$0-2][1] + ' + 1;';
-                 valor += '\n';
-                 valor += 'heap[(int)'+$$[$0-2][1]+'] = ' + $$[$0][5].charCodeAt(a) + ';';
-                 valor += '\n'
-             }
-            r[2] = '';
-            r[3] = valor;
-            r[4] = '';
-            r[5] = $$[$0-2][5] + $$[$0][5];
-            r[6] = $$[$0-2][6] + $$[$0][6];
-            this.$ = r;
-        }
-        else if($$[$0-2][0] == 'STRING' && $$[$0][0] != '')
-        {
-             var r = [];
-             r[0] = "STRING";
-             r[1] = $$[$0-2][1];
-             var valor = '';
-             valor += $$[$0-2][3];
-             var val = $$[$0][5].toString();
-             for(var a = 0; a<val.length; a++)
-              {
-                  valor += $$[$0-2][1] + ' = ' + $$[$0-2][1] + ' + 1;';
-                  valor += '\n';
-                  valor += 'heap[(int)'+$$[$0-2][1]+'] = ' + val.charCodeAt(a) + ';';
-                  valor += '\n'
-              }
-             r[2] = '';
-             r[3] = valor;
-             r[4] = '';
-             r[5] = $$[$0-2][5].toString() + $$[$0][5].toString();
-             r[6] = $$[$0-2][6].toString() + $$[$0][6].toString();
-             this.$ = r;
-        }
-        else if($$[$0-2][0] != '' && $$[$0][0] == 'STRING')
-        {
-             var r = [];
-             r[0] = "STRING";
-             r[1] = $$[$0-2][1];
-             var valor = '';
-             var val = $$[$0-2][5].toString();
-             for(var a = 0; a<val.length; a++)
-              {
-                  valor += $$[$0-2][1] + ' = ' + $$[$0-2][1] + ' + 1;';
-                  valor += '\n';
-                  valor += 'heap[(int)'+$$[$0-2][1]+'] = ' + val.charCodeAt(a) + ';';
-                  valor += '\n'
-              }
-              valor += $$[$0][3];
-             r[2] = '';
-             r[3] = valor;
-             r[4] = '';
-             r[5] = $$[$0-2][5].toString() + $$[$0][5].toString();
-             r[6] = $$[$0-2][6].toString() + $$[$0][6].toString();
-             this.$ = r;
-        }
-        else if ($$[$0-2][0] != '' && $$[$0][0] != '')
-        {
-            var valor = '';
-            var r = [];
-            valor += $$[$0-2][3];
-            valor += '\n';
-            valor += $$[$0][3];
-            valor += '\n';
-
-            var temp = Temp.getTemporal();
-            valor += temp + ' = ' + $$[$0-2][1] + ' + ' + $$[$0][1] + ';';
-
-            r[0] = 'NUMBER';
-            r[1] = temp;
-            r[2] = '';
-            r[3] = valor;
-            r[4] = '';
-            r[5] = '';
-            r[6] = Number($$[$0-2][6]) + Number($$[$0][6]);
-            this.$ = r;
-        }
-        else if ($$[$0-2][0] == '' && $$[$0][0] == '')
-        {
-            var n = tab.getPositionAmbito($$[$0-2][4]);
-            if(n!=null)
-            {
-                var n1 = tab.getPositionAmbito($$[$0][4]);
-                if(n1!=null)
-                {
-                    if(n.tipo.toUpperCase() != 'STRING' && n1.tipo.toUpperCase() != 'STRING')
-                    {
-                        var valor = '';
-                        var r = [];
-
-                        var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + n.position + ';';
-                        valor += '\n';
-                        var temp1 = Temp.getTemporal();
-                        valor += temp1 + ' = stack[(int)'+temp+'];';
-                        valor += '\n';
-
-                        var temp2 = Temp.getTemporal();
-                        valor += temp2 + ' = ' + n1.position + ';';
-                        valor += '\n';
-                        var temp3 = Temp.getTemporal();
-                        valor += temp3 + ' = stack[(int)'+temp2+'];';
-                        valor += '\n';
-
-                        var temp4 = Temp.getTemporal();
-                        valor += temp4 + ' = ' + temp1 + ' + ' + temp3 + ';';
-
-                        r[0] = 'NUMBER';
-                        r[1] = temp4;
-                        r[2] = '';
-                        r[3] = valor;
-                        r[4] = '';
-                        r[5] = '';
-                        r[6] = Number(n.valor) + Number(n1.valor);
-                        this.$ = r;
-                    }
-                    else
-                    {
-                        if(n.valor != null && n1.valor != null)
-                        {
-                            var temp = Temp.getTemporal();
-                            var r = [];
-                            r[0] = "STRING";
-                            r[1] = temp;
-                            r[2] = '';
-
-                            var valor = '';
-                            for(var a = 0; a<n.toString().length; a++)
-                            {
-                                valor += temp + ' = ' + temp + ' + 1;';
-                                valor += '\n';
-                                valor += 'heap[(int)'+temp+'] = ' + n.toString().charCodeAt(a) + ';';
-                                valor += '\n';
-                            }
-                            for(var a = 0; a<n1.toString().length; a++)
-                            {
-                                valor += temp + ' = ' + temp + ' + 1;';
-                                valor += '\n';
-                                valor += 'heap[(int)'+temp+'] = ' + n1.toString().charCodeAt(a) + ';';
-                                valor += '\n';
-                            }
-                            r[3] = valor;
-                            r[4] = '';
-                            r[5] = n.valor.toString() + n1.valor.toString();
-                            r[6] = n.valor.toString() + n1.valor.toString();
-
-                            this.$ = r;
-                        }
-                        else
-                        {
-                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se operar con variables nulas;`+'\"}');
-                            this.$ = ['','','',''];
-                        }
-                    }
-                }
-                else
-                {
-                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe una variable con el identificador: ${$$[$0][4]};`+'\"}');
-                    this.$ = ['','','',''];
-                }
-            }
-            else
-            {
-                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe una variable con el identificador:  ${$$[$0-2][4]};`+'\"}');
-                this.$ = ['','','',''];
-            }
-        }
-        else
-        {
-            if($$[$0-2][0] == '' && $$[$0][0] != '')
-            {
-                var n = tab.getPositionAmbito($$[$0-2][4]);
-                if(n!=null)
-                {
-                    if(n.tipo.toUpperCase() == "STRING")
-                    {
-                         var r = [];
-                         r[0] = "STRING";
-
-                         var temp = Temp.getTemporal();
-                         var valor = '';
-                         for(var a = 0; a<n.valor.toString().length; a++)
-                         {
-                            valor += temp + ' = ' + temp + ' + 1;';
-                            valor += '\n';
-                            valor += 'heap[(int)'+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
-                            valor += '\n';
-                         }
-
-                         for(var a = 0; a<$$[$0-2][6].toString().length; a++)
-                         {
-                            valor += temp + ' = ' + temp + ' + 1;';
-                            valor += '\n';
-                            valor += 'heap[(int)'+temp+'] = ' + $$[$0-2][6].toString().charCodeAt(a) + ';';
-                            valor += '\n';
-                         }
-                         r[1] = temp;
-                         r[2] = '';
-                         r[3] = valor;
-                         r[4] = '';
-                         r[5] = $$[$0-2][6].toString() + n.valor;
-                         r[6] = $$[$0-2][6] + n.valor;
-                         this.$ = r;
-                    }
-                    else if ( $$[$0][0] == 'STRING')
-                    {
-                         var r = [];
-                         r[0] = "STRING";
-
-                         var temp = Temp.getTemporal();
-                         var valor = '';
-                         for(var a = 0; a<n.valor.toString().length; a++)
-                         {
-                            valor += temp + ' = ' + temp + ' + 1;';
-                            valor += '\n';
-                            valor += 'heap[(int)'+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
-                            valor += '\n';
-                         }
-
-                         for(var a = 0; a<$$[$0][6].toString().length; a++)
-                         {
-                            valor += temp + ' = ' + temp + ' + 1;';
-                            valor += '\n';
-                            valor += 'heap[(int)'+temp+'] = ' + $$[$0][6].toString().charCodeAt(a) + ';';
-                            valor += '\n';
-                         }
-                         r[1] = temp;
-                         r[2] = '';
-                         r[3] = valor;
-                         r[4] = '';
-                         r[5] = n.valor.toString() + $$[$0][6].toString();
-                         r[6] = n.valor.toString() + $$[$0][6];
-                         this.$ = r;
-                    }
-                    else
-                    {
-                        var valor = '';
-                        var r = [];
-
-                        var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + n.position + ';';
-                        valor += '\n';
-                        var temp1 = Temp.getTemporal();
-                        valor += temp1 + ' = stack[(int)'+temp+'];';
-                        valor += '\n';
-
-                        valor += $$[$0][3];
-                        valor += '\n';
-
-                        var temp4 = Temp.getTemporal();
-                        valor += temp4 + ' = ' + temp1 + ' + ' + $$[$0][1] + ';';
-
-                        r[0] = 'NUMBER';
-                        r[1] = temp4;
-                        r[2] = '';
-                        r[3] = valor;
-                        r[4] = '';
-                        r[5] = Number(n.valor) + Number($$[$0][6]);
-                        r[6] = Number(n.valor) + Number($$[$0][6]);
-                        this.$ = r;
-                    }
-                }
-                else
-                {
-                   semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe una variable con el identificador:  ${$$[$0-2][4]};`+'\"}');
-                   this.$ = ['','','',''];
-                }
-            }
-            else if($$[$0-2][0] != '' && $$[$0][0] == '')
-            {
-                var n = tab.getPositionAmbito($$[$0][4]);
-                if(n!=null)
-                {
-                    if(n.tipo.toUpperCase() == "STRING")
-                    {
-                         var r = [];
-                         r[0] = "STRING";
-
-                         var temp = Temp.getTemporal();
-                         var valor = '';
-
-
-                         for(var a = 0; a<$$[$0-2][6].toString().length; a++)
-                         {
-                            valor += temp + ' = ' + temp + ' + 1;';
-                            valor += '\n';
-                            valor += 'heap[(int)'+temp+'] = ' + $$[$0-2][6].toString().charCodeAt(a) + ';';
-                            valor += '\n';
-                         }
-
-                        for(var a = 0; a<n.valor.toString().length; a++)
-                         {
-                            valor += temp + ' = ' + temp + ' + 1;';
-                            valor += '\n';
-                            valor += 'heap[(int)'+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
-                            valor += '\n';
-                         }
-
-                         r[1] = temp;
-                         r[2] = '';
-                         r[3] = valor;
-                         r[4] = '';
-                         r[5] = $$[$0-2][6].toString() + n.valor;
-                         r[6] = $$[$0-2][6].toString() + n.valor;
-                         this.$ = r;
-                    }
-                    else if ( $$[$0-2][0] == 'STRING')
-                    {
-                         var r = [];
-                         r[0] = "STRING";
-
-                         var temp = Temp.getTemporal();
-                         var valor = '';
-
-                          for(var a = 0; a<$$[$0-2][6].toString().length; a++)
-                          {
-                             valor += temp + ' = ' + temp + ' + 1;';
-                             valor += '\n';
-                             valor += 'heap[(int)'+temp+'] = ' + $$[$0-2][6].toString().charCodeAt(a) + ';';
-                             valor += '\n';
-                          }
-
-                         for(var a = 0; a<n.valor.toString().length; a++)
-                         {
-                            valor += temp + ' = ' + temp + ' + 1;';
-                            valor += '\n';
-                            valor += 'heap[(int)'+temp+'] = ' + n.valor.toString().charCodeAt(a) + ';';
-                            valor += '\n';
-                         }
-
-
-                         r[1] = temp;
-                         r[2] = '';
-                         r[3] = valor;
-                         r[4] = '';
-                         r[5] = $$[$0-2][6] + n.valor.toString();
-                         r[6] = $$[$0-2][6] + n.valor.toString();
-                         this.$ = r;
-                    }
-                    else
-                    {
-                        var valor = '';
-                        var r = [];
-
-                        valor += $$[$0-2][3];
-                        valor += '\n';
-
-                        var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + n.position + ';';
-                        valor += '\n';
-                        var temp1 = Temp.getTemporal();
-                        valor += temp1 + ' = stack[(int)'+temp+'];';
-                        valor += '\n';
-
-                        var temp4 = Temp.getTemporal();
-                        valor += temp4 + ' = ' + $$[$0-2][1] + ' + ' + temp1 + ';';
-
-                        r[0] = 'NUMBER';
-                        r[1] = temp4;
-                        r[2] = '';
-                        r[3] = valor;
-                        r[4] = '';
-                        r[5] = '';
-                        r[6] = Number($$[$0-2][6]) + Number(n.valor);
-                        this.$ = r;
-                    }
-                }
-                else
-                {
-                   semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe una variable con el identificador:  ${$$[$0-2][4]};`+'\"}');
-                   this.$ = ['','','',''];
-                }
-            }
-            else
-            {
-                        var valor = '';
-                        var r = [];
-                        valor += $$[$0-2][3];
-                        valor += '\n';
-                        valor += $$[$0][3];
-                        valor += '\n';
-
-                        var temp = Temp.getTemporal();
-                        valor += temp + ' = ' + $$[$0-2][1] + ' + ' + $$[$0][1] + ';';
-
-                        r[0] = 'NUMBER';
-                        r[1] = temp;
-                        r[2] = '';
-                        r[3] = valor;
-                        r[4] = '';
-                        r[5] = '';
-                        r[6] = Number($$[$0-2][6]) + Number($$[$0][6]);
-                        this.$ = r;
-            }
-        }
-    
-break;
-case 236:
+case 238:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -6505,7 +8265,15 @@ case 236:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$$[$0-2][1]+'<'+tempant1+';';
@@ -6539,7 +8307,15 @@ case 236:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -6566,14 +8342,29 @@ case 236:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'<'+tempant111+';';
@@ -6608,7 +8399,7 @@ case 236:
         }
     
 break;
-case 237: case 240: case 243:
+case 239:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -6649,7 +8440,15 @@ case 237: case 240: case 243:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$$[$0-2][1]+'>'+tempant1+';';
@@ -6683,7 +8482,15 @@ case 237: case 240: case 243:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -6710,14 +8517,30 @@ case 237: case 240: case 243:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'>'+tempant111+';';
@@ -6752,7 +8575,7 @@ case 237: case 240: case 243:
         }
     
 break;
-case 239: case 242:
+case 241: case 244:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -6793,7 +8616,15 @@ case 239: case 242:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$$[$0-2][1]+'<'+tempant1+';';
@@ -6827,7 +8658,15 @@ case 239: case 242:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -6854,14 +8693,29 @@ case 239: case 242:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'<'+tempant111+';';
@@ -6896,7 +8750,358 @@ case 239: case 242:
         }
     
 break;
-case 245: case 250: case 255:
+case 242:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'>'+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])>Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'>'+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])>Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'>'+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)>Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno = 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            valor += '\n';
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'>'+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)>Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 245:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'>'+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])>Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'>'+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])>Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'>'+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)>Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'>'+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)>Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 247:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -6937,7 +9142,15 @@ case 245: case 250: case 255:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$$[$0-2][1]+'=='+tempant1+';';
@@ -6971,7 +9184,15 @@ case 245: case 250: case 255:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -6998,14 +9219,29 @@ case 245: case 250: case 255:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'=='+tempant111+';';
@@ -7033,14 +9269,95 @@ case 245: case 250: case 255:
                 }
             }
         }
+        else if($$[$0-2][0] == 'STRING' && $$[$0][0] == '')
+        {
+            var valor = '';
+            var temp = Temp.getTemporal();
+            var n = tab.getPositionAmbito($$[$0][4]);
+            if(n!=null)
+            {
+                if(n.tipo.toUpperCase() == 'STRING')
+                {
+                    if($$[$0-2][5].toString() == n.valor.toString())
+                    {
+                        valor += `${temp} = 1;\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp} = 0;\n`;
+                    }
+                    var r = [];
+                    r[0] = 'BOOLEAN';
+                    r[1] = temp;
+                    r[2] = '';
+                    r[3] = valor;
+                    r[4] = '';
+                    r[5] = $$[$0-2][5].toString() == n.valor.toString();
+                    r[6] = $$[$0-2][5].toString() == n.valor.toString();
+                    this.$ = r;
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                this.$ = ['','','',''];
+            }
+
+        }
+        else if( $$[$0-2][0] == '' && $$[$0][0] == 'STRING')
+        {
+            var valor = '';
+            var temp = Temp.getTemporal();
+            var n = tab.getPositionAmbito($$[$0-2][4]);
+
+            if(n!=null)
+            {
+                if(n.tipo.toUpperCase() == 'STRING')
+                {
+                    if($$[$0][5].toString() == n.valor.toString())
+                    {
+                        valor += `${temp} = 1;\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp} = 0;\n`;
+                    }
+                    var r = [];
+                    r[0] = 'BOOLEAN';
+                    r[1] = temp;
+                    r[2] = '';
+                    r[3] = valor;
+                    r[4] = '';
+                    r[5] = $$[$0][5].toString() == n.valor.toString();
+                    r[6] = $$[$0][5].toString() == n.valor.toString();
+                    this.$ = r;
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                this.$ = ['','','',''];
+            }
+
+        }
         else
         {
-            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
             this.$ = ['','','',''];
         }
     
 break;
-case 246: case 251: case 256:
+case 248:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -7081,7 +9398,15 @@ case 246: case 251: case 256:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$$[$0-2][1]+'!='+tempant1+';';
@@ -7115,7 +9440,15 @@ case 246: case 251: case 256:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -7142,14 +9475,29 @@ case 246: case 251: case 256:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'!='+tempant111+';';
@@ -7177,14 +9525,94 @@ case 246: case 251: case 256:
                 }
             }
         }
+        else if($$[$0-2][0] == 'STRING' && $$[$0][0] == '')
+        {
+            var valor = '';
+            var temp = Temp.getTemporal();
+            var n = tab.getPositionAmbito($$[$0][4]);
+            if(n!=null)
+            {
+                if(n.tipo.toUpperCase() == 'STRING')
+                {
+                    if($$[$0-2][5].toString() != n.valor.toString())
+                    {
+                        valor += `${temp} = 1;\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp} = 0;\n`;
+                    }
+                    var r = [];
+                    r[0] = 'BOOLEAN';
+                    r[1] = temp;
+                    r[2] = '';
+                    r[3] = valor;
+                    r[4] = '';
+                    r[5] = $$[$0-2][5].toString() != n.valor.toString();
+                    r[6] = $$[$0-2][5].toString() != n.valor.toString();
+                    this.$ = r;
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                this.$ = ['','','',''];
+            }
+
+        }
+        else if( $$[$0-2][0] == '' && $$[$0][0] == 'STRING')
+        {
+            var valor = '';
+            var temp = Temp.getTemporal();
+            var n = tab.getPositionAmbito($$[$0-2][4]);
+            if(n!=null)
+            {
+                if(n.tipo.toUpperCase() == 'STRING')
+                {
+                    if($$[$0][5].toString() != n.valor.toString())
+                    {
+                        valor += `${temp} = 1;\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp} = 0;\n`;
+                    }
+                    var r = [];
+                    r[0] = 'BOOLEAN';
+                    r[1] = temp;
+                    r[2] = '';
+                    r[3] = valor;
+                    r[4] = '';
+                    r[5] = $$[$0][5].toString() != n.valor.toString();
+                    r[6] = $$[$0][5].toString() != n.valor.toString();
+                    this.$ = r;
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                this.$ = ['','','',''];
+            }
+
+        }
         else
         {
-            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
             this.$ = ['','','',''];
         }
     
 break;
-case 247: case 252: case 257:
+case 249:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -7225,7 +9653,15 @@ case 247: case 252: case 257:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$$[$0-2][1]+'>='+tempant1+';';
@@ -7259,7 +9695,15 @@ case 247: case 252: case 257:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -7286,14 +9730,30 @@ case 247: case 252: case 257:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += '\n';
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'>='+tempant111+';';
@@ -7321,14 +9781,94 @@ case 247: case 252: case 257:
                 }
             }
         }
+        else if($$[$0-2][0] == 'STRING' && $$[$0][0] == '')
+        {
+            var valor = '';
+            var temp = Temp.getTemporal();
+            var n = tab.getPositionAmbito($$[$0][4]);
+            if(n!=null)
+            {
+                if(n.tipo.toUpperCase() == 'STRING')
+                {
+                    if($$[$0-2][5].toString() >= n.valor.toString())
+                    {
+                        valor += `${temp} = 1;\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp} = 0;\n`;
+                    }
+                    var r = [];
+                    r[0] = 'BOOLEAN';
+                    r[1] = temp;
+                    r[2] = '';
+                    r[3] = valor;
+                    r[4] = '';
+                    r[5] = $$[$0-2][5].toString() >= n.valor.toString();
+                    r[6] = $$[$0-2][5].toString() >= n.valor.toString();
+                    this.$ = r;
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                this.$ = ['','','',''];
+            }
+
+        }
+        else if( $$[$0-2][0] == '' && $$[$0][0] == 'STRING')
+        {
+            var valor = '';
+            var temp = Temp.getTemporal();
+            var n = tab.getPositionAmbito($$[$0-2][4]);
+            if(n!=null)
+            {
+                if(n.tipo.toUpperCase() == 'STRING')
+                {
+                    if($$[$0][5].toString() >= n.valor.toString())
+                    {
+                        valor += `${temp} = 1;\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp} = 0;\n`;
+                    }
+                    var r = [];
+                    r[0] = 'BOOLEAN';
+                    r[1] = temp;
+                    r[2] = '';
+                    r[3] = valor;
+                    r[4] = '';
+                    r[5] = $$[$0][5].toString() >= n.valor.toString();
+                    r[6] = $$[$0][5].toString() >= n.valor.toString();
+                    this.$ = r;
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                this.$ = ['','','',''];
+            }
+
+        }
         else
         {
-            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
             this.$ = ['','','',''];
         }
     
 break;
-case 248: case 253: case 258:
+case 250:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -7369,7 +9909,15 @@ case 248: case 253: case 258:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         valor += temp +'='+$$[$0-2][1]+'<='+tempant1+';';
@@ -7403,7 +9951,15 @@ case 248: case 253: case 258:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -7430,14 +9986,805 @@ case 248: case 253: case 258:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'<='+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)<=Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else if($$[$0-2][0] == 'STRING' && $$[$0][0] == '')
+        {
+            var valor = '';
+            var temp = Temp.getTemporal();
+            var n = tab.getPositionAmbito($$[$0][4]);
+            if(n!=null)
+            {
+                if(n.tipo.toUpperCase() == 'STRING')
+                {
+                    if($$[$0-2][5].toString() <= n.valor.toString())
+                    {
+                        valor += `${temp} = 1;\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp} = 0;\n`;
+                    }
+                    var r = [];
+                    r[0] = 'BOOLEAN';
+                    r[1] = temp;
+                    r[2] = '';
+                    r[3] = valor;
+                    r[4] = '';
+                    r[5] = $$[$0-2][5].toString() <= n.valor.toString();
+                    r[6] = $$[$0-2][5].toString() <= n.valor.toString();
+                    this.$ = r;
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                this.$ = ['','','',''];
+            }
+
+        }
+        else if( $$[$0-2][0] == '' && $$[$0][0] == 'STRING')
+        {
+            var valor = '';
+            var temp = Temp.getTemporal();
+            var n = tab.getPositionAmbito($$[$0-2][4]);
+            if(n!=null)
+            {
+                if(n.tipo.toUpperCase() == 'STRING')
+                {
+                    if($$[$0][5].toString() <= n.valor.toString())
+                    {
+                        valor += `${temp} = 1;\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp} = 0;\n`;
+                    }
+                    var r = [];
+                    r[0] = 'BOOLEAN';
+                    r[1] = temp;
+                    r[2] = '';
+                    r[3] = valor;
+                    r[4] = '';
+                    r[5] = $$[$0][5].toString() <= n.valor.toString();
+                    r[6] = $$[$0][5].toString() <= n.valor.toString();
+                    this.$ = r;
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+                this.$ = ['','','',''];
+            }
+
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 252:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'=='+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])==Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'=='+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])==Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'=='+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)==Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'=='+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)==Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 253:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'!='+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])!=Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'!='+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])!=Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'!='+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)!=Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'!='+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)!=Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 254:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'>='+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])>=Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'>='+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])>=Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'>='+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)>=Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'>='+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)>=Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 255:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'<='+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])<=Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'<='+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])<=Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'<='+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)<=Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             valor += temp +'='+tempant1+'<='+tempant111+';';
@@ -7472,13 +10819,13 @@ case 248: case 253: case 258:
         }
     
 break;
-case 260:
+case 257:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
-            if($$[$0-2][0]!= '' && $$[$0-2][0] == 'BOOLEAN')
+            if($$[$0-2][0]!= '')
             {
-                if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                if($$[$0][0] != '')
                 {
                         var valor = '';
                         var r = [];
@@ -7488,40 +10835,21 @@ case 260:
                         valor += '\n';
 
                         var temp = Temp.getTemporal();
-                        var label0 = Label.getBandera();
-                        var label1 = Label.getBandera();
-                        var label2 = Label.getBandera();
-                        var label3 = Label.getBandera();
-                        var label4 = Label.getBandera();
-
-                        valor += label0 + ':\n';
-                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
-                        valor += '\t goto '+label3+';\n';
-                        valor += label1 + ':\n';
-                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
-                        valor += '\t goto '+label3+';\n';
-                        valor += label2 + ':\n';
-                        valor += '\t' + temp + '=1;\n';
-                        valor += '\t goto '+label4+';\n';
-                        valor += label3 + ':\n';
-                        valor += '\t' + temp + '=0;\n';
-                        valor += '\t goto '+label4+';\n';
-                        valor += label4 + ':\n';
-
+                        valor += temp +'='+$$[$0-2][1]+'=='+$$[$0][1]+';';
 
                         r[0] = 'BOOLEAN';
                         r[1] = temp;
-                        r[2] = label4;
+                        r[2] = '';
                         r[3] = valor;
                         r[4] = '';
                         r[5] = '';
-                        r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
+                        r[6] = Number($$[$0-2][6])==Number($$[$0][6]);
                         this.$ = r;
                 }
                 else
                 {
                     var n = tab.getPositionAmbito($$[$0][4]);
-                    if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                    if(n!=null)
                     {
                         var valor = '';
                         var r = [];
@@ -7532,42 +10860,31 @@ case 260:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
-                        var label0 = Label.getBandera();
-                        var label1 = Label.getBandera();
-                        var label2 = Label.getBandera();
-                        var label3 = Label.getBandera();
-                        var label4 = Label.getBandera();
-
-                        valor += label0 + ':\n';
-                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
-                        valor += '\t goto '+label3+';\n';
-                        valor += label1 + ':\n';
-                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
-                        valor += '\t goto '+label3+';\n';
-                        valor += label2 + ':\n';
-                        valor += '\t' + temp + '=1;\n';
-                        valor += '\t goto '+label4+';\n';
-                        valor += label3 + ':\n';
-                        valor += '\t' + temp + '=0;\n';
-                        valor += '\t goto '+label4+';\n';
-                        valor += label4 + ':\n';
-
+                        valor += temp +'='+$$[$0-2][1]+'=='+tempant1+';';
 
                         r[0] = 'BOOLEAN';
                         r[1] = temp;
-                        r[2] = label4;
+                        r[2] = '';
                         r[3] = valor;
                         r[4] = '';
                         r[5] = '';
-                        r[6] = Boolean($$[$0-2][6]) && Boolean(n.valor);
+                        r[6] = Number($$[$0-2][6])==Number(n.valor);
                         this.$ = r;
                     }
                     else
                     {
-                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
                         this.$ = ['','','',''];
                     }
                 }
@@ -7575,9 +10892,9 @@ case 260:
             else
             {
                 var n = tab.getPositionAmbito($$[$0-2][4]);
-                if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                if(n!=null)
                 {
-                    if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                    if($$[$0][0] != '')
                     {
                             var valor = '';
                             var r = [];
@@ -7585,45 +10902,34 @@ case 260:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
                             var temp = Temp.getTemporal();
-                            var label0 = Label.getBandera();
-                            var label1 = Label.getBandera();
-                            var label2 = Label.getBandera();
-                            var label3 = Label.getBandera();
-                            var label4 = Label.getBandera();
-
-                            valor += label0 + ':\n';
-                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
-                            valor += '\t goto '+label3+';\n';
-                            valor += label1 + ':\n';
-                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
-                            valor += '\t goto '+label3+';\n';
-                            valor += label2 + ':\n';
-                            valor += '\t' + temp + '=1;\n';
-                            valor += '\t goto '+label4+';\n';
-                            valor += label3 + ':\n';
-                            valor += '\t' + temp + '=0;\n';
-                            valor += '\t goto '+label4+';\n';
-                            valor += label4 + ':\n';
-
+                            valor += temp+'='+tempant1+'=='+$$[$0][1]+';';
 
                             r[0] = 'BOOLEAN';
                             r[1] = temp;
-                            r[2] = label4;
+                            r[2] = '';
                             r[3] = valor;
                             r[4] = '';
                             r[5] = '';
-                            r[6] = Boolean(n.valor) && Boolean($$[$0][6]);
+                            r[6] = Number(n.valor)==Number($$[$0][6]);
                             this.$ = r;
                     }
                     else
                     {
                         var n1 = tab.getPositionAmbito($$[$0][4]);
-                        if(n1!=null && n1.tipo.toUpperCase() == 'BOOLEAN')
+                        if(n1!=null)
                         {
                             var valor = '';
                             var r = [];
@@ -7631,63 +10937,584 @@ case 260:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
-                            var label0 = Label.getBandera();
-                            var label1 = Label.getBandera();
-                            var label2 = Label.getBandera();
-                            var label3 = Label.getBandera();
-                            var label4 = Label.getBandera();
-
-                            valor += label0 + ':\n';
-                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
-                            valor += '\t goto '+label3+';\n';
-                            valor += label1 + ':\n';
-                            valor += '\t if('+tempant111+'==1) goto '+label2+';\n';
-                            valor += '\t goto '+label3+';\n';
-                            valor += label2 + ':\n';
-                            valor += '\t' + temp + '=1;\n';
-                            valor += '\t goto '+label4+';\n';
-                            valor += label3 + ':\n';
-                            valor += '\t' + temp + '=0;\n';
-                            valor += '\t goto '+label4+';\n';
-                            valor += label4 + ':\n';
-
+                            valor += temp +'='+tempant1+'=='+tempant111+';';
 
                             r[0] = 'BOOLEAN';
                             r[1] = temp;
-                            r[2] = label4;
+                            r[2] = '';
                             r[3] = valor;
                             r[4] = '';
                             r[5] = '';
-                            r[6] = Boolean(n.valor) && Boolean(n1.valor);
+                            r[6] = Number(n.valor)==Number(n1.valor);
                             this.$ = r;
                         }
                         else
                         {
-                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
                             this.$ = ['','','',''];
                         }
                     }
                 }
                 else
                 {
-                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}, de tipo booleano.`+'\"}');
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
                     this.$ = ['','','',''];
                 }
             }
         }
         else
         {
-            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO.`+'\"}');
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 258:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'!='+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])!=Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'!='+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])!=Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'!='+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)!=Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                 valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                 valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'!='+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)!=Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 259:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'>='+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])>=Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'>='+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])>=Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'>='+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)>=Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'>='+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)>=Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 260:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '')
+            {
+                if($$[$0][0] != '')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'<='+$$[$0][1]+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])<=Number($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null)
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
+
+                        var temp = Temp.getTemporal();
+                        valor += temp +'='+$$[$0-2][1]+'<='+tempant1+';';
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Number($$[$0-2][6])<=Number(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null)
+                {
+                    if($$[$0][0] != '')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            valor += temp+'='+tempant1+'<='+$$[$0][1]+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)<=Number($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null)
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
+
+                            var temp = Temp.getTemporal();
+                            valor += temp +'='+tempant1+'<='+tempant111+';';
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = '';
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Number(n.valor)<=Number(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
     
@@ -7752,7 +11579,15 @@ case 262:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         var label0 = Label.getBandera();
@@ -7805,7 +11640,15 @@ case 262:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -7851,14 +11694,29 @@ case 262:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             var label0 = Label.getBandera();
@@ -7898,11 +11756,16 @@ case 262:
                         }
                     }
                 }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}, de tipo booleano.`+'\"}');
+                    this.$ = ['','','',''];
+                }
             }
         }
         else
         {
-            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO`+'\"}');
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO.`+'\"}');
             this.$ = ['','','',''];
         }
     
@@ -7967,7 +11830,259 @@ case 264:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) && Boolean(n.valor);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                {
+                    if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean(n.valor) && Boolean($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null && n1.tipo.toUpperCase() == 'BOOLEAN')
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+tempant111+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean(n.valor) && Boolean(n1.valor);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 266:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '' && $$[$0-2][0] == 'BOOLEAN')
+            {
+                if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         var label0 = Label.getBandera();
@@ -8020,7 +12135,15 @@ case 264:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -8066,14 +12189,29 @@ case 264:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             var label0 = Label.getBandera();
@@ -8132,7 +12270,7 @@ case 264:
         }
     
 break;
-case 266:
+case 268:
 
         if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
         {
@@ -8196,7 +12334,15 @@ case 266:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         var label0 = Label.getBandera();
@@ -8253,7 +12399,15 @@ case 266:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -8303,255 +12457,28 @@ case 266:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
 
-                            var temp = Temp.getTemporal();
-                            var label0 = Label.getBandera();
-                            var label1 = Label.getBandera();
-                            var label2 = Label.getBandera();
-                            var label3 = Label.getBandera();
-                            var label4 = Label.getBandera();
-                            var label5 = Label.getBandera();
-
-                            valor += label0 + ':\n';
-                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
-                            valor += '\t goto '+label3+';\n';
-                            valor += label1 + ':\n';
-                            valor += '\t if('+tempant11+'==1) goto '+label2+';\n';
-                            valor += '\t goto '+label2+';\n';
-                            valor += label2 + ':\n';
-                            valor += '\t' + temp + '=1;\n';
-                            valor += '\t goto '+label4+';\n';
-                            valor += label3 + ':\n';
-                            valor += '\t if('+tempant11+'==1) goto '+label2+';\n';
-                            valor += '\t goto '+label5+';\n';
-                            valor += label5 + ':\n';
-                            valor += '\t' + temp + '=0;\n';
-                            valor += '\t goto '+label4+';\n';
-                            valor += label4 + ':\n';
-
-
-                            r[0] = 'BOOLEAN';
-                            r[1] = temp;
-                            r[2] = label4;
-                            r[3] = valor;
-                            r[4] = '';
-                            r[5] = '';
-                            r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
-                            this.$ = r;
-                        }
-                        else
-                        {
-                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
-                            this.$ = ['','','',''];
-                        }
-                    }
-                }
-                else
-                {
-                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}, de tipo booleano`+'\"}');
-                    this.$ = ['','','',''];
-                }
-            }
-            else
-            {
-                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion`+'\"}');
-                this.$ = ['','','',''];
-            }
-        }
-        else
-        {
-            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO`+'\"}');
-            this.$ = ['','','',''];
-        }
-    
-break;
-case 268:
-
-        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
-        {
-            if($$[$0-2][0]!= '' && $$[$0-2][0] == 'BOOLEAN')
-            {
-                if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
-                {
-                        var valor = '';
-                        var r = [];
-                        valor += $$[$0-2][3];
-                        valor += '\n';
-                        valor += $$[$0][3];
-                        valor += '\n';
-
-                        var temp = Temp.getTemporal();
-                        var label0 = Label.getBandera();
-                        var label1 = Label.getBandera();
-                        var label2 = Label.getBandera();
-                        var label3 = Label.getBandera();
-                        var label4 = Label.getBandera();
-                        var label5 = Label.getBandera();
-
-                        valor += label0 + ':\n';
-                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
-                        valor += '\t goto '+label3+';\n';
-                        valor += label1 + ':\n';
-                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
-                        valor += '\t goto '+label2+';\n';
-                        valor += label2 + ':\n';
-                        valor += '\t' + temp + '=1;\n';
-                        valor += '\t goto '+label4+';\n';
-                        valor += label3 + ':\n';
-                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
-                        valor += '\t goto '+label5+';\n';
-                        valor += label5 + ':\n';
-                        valor += '\t' + temp + '=0;\n';
-                        valor += '\t goto '+label4+';\n';
-                        valor += label4 + ':\n';
-
-
-                        r[0] = 'BOOLEAN';
-                        r[1] = temp;
-                        r[2] = label4;
-                        r[3] = valor;
-                        r[4] = '';
-                        r[5] = '';
-                        r[6] = Boolean($$[$0-2][6]) || Boolean($$[$0][6]);
-                        this.$ = r;
-                }
-                else
-                {
-                    var n = tab.getPositionAmbito($$[$0][4]);
-                    if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
-                    {
-                        var valor = '';
-                        var r = [];
-                        valor += $$[$0-2][3];
-                        valor += '\n';
-
-                        var tempant = Temp.getTemporal();
-                        var tempant1 = Temp.getTemporal();
-
-                        valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-
-                        var temp = Temp.getTemporal();
-                        var label0 = Label.getBandera();
-                        var label1 = Label.getBandera();
-                        var label2 = Label.getBandera();
-                        var label3 = Label.getBandera();
-                        var label4 = Label.getBandera();
-                        var label5 = Label.getBandera();
-
-                        valor += label0 + ':\n';
-                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
-                        valor += '\t goto '+label3+';\n';
-                        valor += label1 + ':\n';
-                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
-                        valor += '\t goto '+label2+';\n';
-                        valor += label2 + ':\n';
-                        valor += '\t' + temp + '=1;\n';
-                        valor += '\t goto '+label4+';\n';
-                        valor += label3 + ':\n';
-                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
-                        valor += '\t goto '+label5+';\n';
-                        valor += label5 + ':\n';
-                        valor += '\t' + temp + '=0;\n';
-                        valor += '\t goto '+label4+';\n';
-                        valor += label4 + ':\n';
-
-
-                        r[0] = 'BOOLEAN';
-                        r[1] = temp;
-                        r[2] = label4;
-                        r[3] = valor;
-                        r[4] = '';
-                        r[5] = '';
-                        r[6] = Boolean($$[$0-2][6]) || Boolean($$[$0][6]);
-                        this.$ = r;
-                    }
-                    else
-                    {
-                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
-                        this.$ = ['','','',''];
-                    }
-                }
-            }
-            else if($$[$0-2][0] == '')
-            {
-                var n = tab.getPositionAmbito($$[$0-2][4]);
-                if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
-                {
-                    if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
-                    {
-                            var valor = '';
-                            var r = [];
-                            var tempant = Temp.getTemporal();
-                            var tempant1 = Temp.getTemporal();
-
-                            valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += $$[$0][3];
-                            valor += '\n';
-
-                            var temp = Temp.getTemporal();
-                            var label0 = Label.getBandera();
-                            var label1 = Label.getBandera();
-                            var label2 = Label.getBandera();
-                            var label3 = Label.getBandera();
-                            var label4 = Label.getBandera();
-                            var label5 = Label.getBandera();
-
-                            valor += label0 + ':\n';
-                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
-                            valor += '\t goto '+label3+';\n';
-                            valor += label1 + ':\n';
-                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
-                            valor += '\t goto '+label2+';\n';
-                            valor += label2 + ':\n';
-                            valor += '\t' + temp + '=1;\n';
-                            valor += '\t goto '+label4+';\n';
-                            valor += label3 + ':\n';
-                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
-                            valor += '\t goto '+label5+';\n';
-                            valor += label5 + ':\n';
-                            valor += '\t' + temp + '=0;\n';
-                            valor += '\t goto '+label4+';\n';
-                            valor += label4 + ':\n';
-
-
-                            r[0] = 'BOOLEAN';
-                            r[1] = temp;
-                            r[2] = label4;
-                            r[3] = valor;
-                            r[4] = '';
-                            r[5] = '';
-                            r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
-                            this.$ = r;
-                    }
-                    else
-                    {
-                        var n1 = tab.getPositionAmbito($$[$0][4]);
-                        if(n1!=null && n1.tipo.toUpperCase() == 'BOOLEAN')
-                        {
-                            var valor = '';
-                            var r = [];
-                            var tempant = Temp.getTemporal();
-                            var tempant1 = Temp.getTemporal();
-
-                            valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
-
-                            var tempant11 = Temp.getTemporal();
-                            var tempant111 = Temp.getTemporal();
-
-                            valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
 
                             var temp = Temp.getTemporal();
                             var label0 = Label.getBandera();
@@ -8678,7 +12605,286 @@ case 270:
                         var tempant1 = Temp.getTemporal();
 
                         valor += tempant +'='+n.position+';\n';
-                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+                        var label5 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label2+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t if('+tempant1+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label5+';\n';
+                        valor += label5 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) || Boolean($$[$0][6]);
+                        this.$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                        this.$ = ['','','',''];
+                    }
+                }
+            }
+            else if($$[$0-2][0] == '')
+            {
+                var n = tab.getPositionAmbito($$[$0-2][4]);
+                if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                {
+                    if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                    {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            valor += $$[$0][3];
+                            valor += '\n';
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+                            var label5 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label2+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label5+';\n';
+                            valor += label5 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
+                            this.$ = r;
+                    }
+                    else
+                    {
+                        var n1 = tab.getPositionAmbito($$[$0][4]);
+                        if(n1!=null && n1.tipo.toUpperCase() == 'BOOLEAN')
+                        {
+                            var valor = '';
+                            var r = [];
+                            var tempant = Temp.getTemporal();
+                            var tempant1 = Temp.getTemporal();
+
+                            valor += tempant +'='+n.position+';\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
+                            var tempant11 = Temp.getTemporal();
+                            var tempant111 = Temp.getTemporal();
+
+                            valor += tempant11 +'='+n1.position+';\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
+
+                            var temp = Temp.getTemporal();
+                            var label0 = Label.getBandera();
+                            var label1 = Label.getBandera();
+                            var label2 = Label.getBandera();
+                            var label3 = Label.getBandera();
+                            var label4 = Label.getBandera();
+                            var label5 = Label.getBandera();
+
+                            valor += label0 + ':\n';
+                            valor += '\t if('+tempant1+'==1) goto '+label1+';\n';
+                            valor += '\t goto '+label3+';\n';
+                            valor += label1 + ':\n';
+                            valor += '\t if('+tempant11+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label2+';\n';
+                            valor += label2 + ':\n';
+                            valor += '\t' + temp + '=1;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label3 + ':\n';
+                            valor += '\t if('+tempant11+'==1) goto '+label2+';\n';
+                            valor += '\t goto '+label5+';\n';
+                            valor += label5 + ':\n';
+                            valor += '\t' + temp + '=0;\n';
+                            valor += '\t goto '+label4+';\n';
+                            valor += label4 + ':\n';
+
+
+                            r[0] = 'BOOLEAN';
+                            r[1] = temp;
+                            r[2] = label4;
+                            r[3] = valor;
+                            r[4] = '';
+                            r[5] = '';
+                            r[6] = Boolean($$[$0-2][6]) && Boolean($$[$0][6]);
+                            this.$ = r;
+                        }
+                        else
+                        {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}, de tipo booleano`+'\"}');
+                            this.$ = ['','','',''];
+                        }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0-2][4]}, de tipo booleano`+'\"}');
+                    this.$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion`+'\"}');
+                this.$ = ['','','',''];
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO`+'\"}');
+            this.$ = ['','','',''];
+        }
+    
+break;
+case 272:
+
+        if($$[$0-2][0] != 'STRING' && $$[$0][0] != 'STRING')
+        {
+            if($$[$0-2][0]!= '' && $$[$0-2][0] == 'BOOLEAN')
+            {
+                if($$[$0][0] != '' && $$[$0][0] == 'BOOLEAN')
+                {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+                        valor += $$[$0][3];
+                        valor += '\n';
+
+                        var temp = Temp.getTemporal();
+                        var label0 = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+                        var label4 = Label.getBandera();
+                        var label5 = Label.getBandera();
+
+                        valor += label0 + ':\n';
+                        valor += '\t if('+$$[$0-2][1]+'==1) goto '+label1+';\n';
+                        valor += '\t goto '+label3+';\n';
+                        valor += label1 + ':\n';
+                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label2+';\n';
+                        valor += label2 + ':\n';
+                        valor += '\t' + temp + '=1;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label3 + ':\n';
+                        valor += '\t if('+$$[$0][1]+'==1) goto '+label2+';\n';
+                        valor += '\t goto '+label5+';\n';
+                        valor += label5 + ':\n';
+                        valor += '\t' + temp + '=0;\n';
+                        valor += '\t goto '+label4+';\n';
+                        valor += label4 + ':\n';
+
+
+                        r[0] = 'BOOLEAN';
+                        r[1] = temp;
+                        r[2] = label4;
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = Boolean($$[$0-2][6]) || Boolean($$[$0][6]);
+                        this.$ = r;
+                }
+                else
+                {
+                    var n = tab.getPositionAmbito($$[$0][4]);
+                    if(n!=null && n.tipo.toUpperCase() == 'BOOLEAN')
+                    {
+                        var valor = '';
+                        var r = [];
+                        valor += $$[$0-2][3];
+                        valor += '\n';
+
+                        var tempant = Temp.getTemporal();
+                        var tempant1 = Temp.getTemporal();
+
+                        valor += tempant +'='+n.position+';\n';
+                        if(n.entorno == 'global')
+                        {
+                            valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                        }
+                        else
+                        {
+                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                        }
+
 
                         var temp = Temp.getTemporal();
                         var label0 = Label.getBandera();
@@ -8735,7 +12941,15 @@ case 270:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
                             valor += $$[$0][3];
                             valor += '\n';
 
@@ -8785,14 +12999,29 @@ case 270:
                             var tempant1 = Temp.getTemporal();
 
                             valor += tempant +'='+n.position+';\n';
-                            valor += tempant1 +'=stack[(int)'+tempant+'];\n';
-                            valor += '\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                            }
+
 
                             var tempant11 = Temp.getTemporal();
                             var tempant111 = Temp.getTemporal();
 
                             valor += tempant11 +'='+n1.position+';\n';
-                            valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            if(n1.entorno == 'global')
+                            {
+                                valor += tempant111 +'=heap[(int)'+tempant11+'];\n';
+                            }
+                            else
+                            {
+                                valor += tempant111 +'=stack[(int)'+tempant11+'];\n';
+                            }
+
 
                             var temp = Temp.getTemporal();
                             var label0 = Label.getBandera();
@@ -8855,7 +13084,7 @@ case 270:
         }
     
 break;
-case 272:
+case 274:
 
 
         if($$[$0-4][0] != 'STRING')
@@ -8959,7 +13188,15 @@ case 272:
                     var tempant1 = Temp.getTemporal();
 
                     valor += tempant +'='+n.position+';\n';
-                    valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                    if(n.entorno == 'global')
+                    {
+                        valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                    }
+                    else
+                    {
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                    }
+
                     valor += $$[$0-2][3]+'\n';
                     valor += $$[$0][3]+'\n';
 
@@ -9060,7 +13297,7 @@ case 272:
         }
     
 break;
-case 274:
+case 276:
 
         if($$[$0-4][0] != 'STRING')
         {
@@ -9165,7 +13402,15 @@ case 274:
                     var tempant1 = Temp.getTemporal();
 
                     valor += tempant +'='+n.position+';\n';
-                    valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                    if(n.entorno == 'global')
+                    {
+                        valor += tempant1 +'=heap[(int)'+tempant+'];\n';
+                    }
+                    else
+                    {
+                        valor += tempant1 +'=stack[(int)'+tempant+'];\n';
+                    }
+
                     valor += $$[$0-2][3]+'\n';
                     valor += $$[$0][3]+'\n';
 
@@ -9269,8 +13514,8 @@ case 274:
 break;
 }
 },
-table: [{2:$V0,3:1,4:2,5:[1,3],6:4,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,25:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},{1:[3]},{1:[2,1]},{1:[2,2]},{1:[2,3],2:$V0,4:43,5:[1,44],6:4,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,25:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},o($Vo,[2,6]),o($Vo,[2,7]),o($Vo,[2,8]),o($Vo,[2,9]),o($Vo,[2,10]),o($Vo,[2,11]),o($Vo,[2,12]),o($Vo,[2,13]),o($Vo,[2,14]),o($Vo,[2,15]),o($Vo,[2,16]),o($Vo,[2,17]),o($Vo,[2,18]),{31:[1,45]},{20:$Vp,31:$Vq,32:[1,46],91:$Vr,107:47,108:51,114:52,115:$Vs,116:$Vt},o($Vo,[2,28]),{31:[1,54]},{20:[1,55]},{2:$Vu,5:$Vv,7:60,8:61,10:62,11:63,12:64,13:65,14:66,15:67,16:68,17:69,18:70,19:$V1,25:$V2,28:$V3,29:[1,56],30:57,31:$V4,36:20,37:18,53:58,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},{22:[1,72]},{2:$V0,6:73,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,25:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},{22:[1,74]},{22:[1,75]},o([1,2,5,19,29,50,54,55,56,57,63,64,66,67,68,69,70,81,82,83,84,85,86,87,88],[2,82],{23:77,35:78,162:79,158:80,154:81,147:82,142:83,140:84,134:85,130:86,126:87,128:88,72:89,119:93,121:94,104:95,105:97,95:99,106:100,36:102,22:$Vw,25:[1,76],28:$Vx,31:$Vy,91:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,115:$Vm,116:$Vn,129:$VG,131:$VH,132:$VI}),o($VJ,[2,80],{25:[1,110]}),o($VJ,[2,78],{25:[1,111]}),{22:[1,112]},o($Vo,[2,23]),o($VK,[2,118]),o($VK,[2,119]),o($VK,[2,120]),o($VK,[2,121]),o($VK,[2,122]),o($VK,[2,123]),o($VK,[2,124]),o($VK,[2,126]),{31:[1,113]},{31:[1,114]},{1:[2,4]},{1:[2,5]},o($Vo,[2,30],{32:[1,116],38:[1,115]}),{22:$Vw,28:$Vx,31:$Vy,33:[1,117],35:118,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},o([1,2,5,19,24,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,92,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],[2,172],{114:52,108:122,20:$VL,32:[1,121],91:$Vr,115:[1,119],116:[1,120]}),o($VM,[2,173]),o($VM,[2,174]),{31:[1,124],109:[1,125],110:[1,126],111:[1,127],112:[1,128],113:[1,129]},o($VN,[2,163],{114:130,91:$Vr}),o($VO,[2,170]),{22:$Vw,23:131,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{22:[1,132]},{21:[1,133]},o($Vo,[2,24]),{29:[1,134]},o($VP,[2,62],{37:18,36:20,53:58,7:60,8:61,10:62,11:63,12:64,13:65,14:66,15:67,16:68,17:69,18:70,30:135,2:$Vu,5:$Vv,19:$V1,25:$V2,28:$V3,31:$V4,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn}),o($VP,[2,64]),o($VQ,[2,65]),o($VQ,[2,66]),o($VQ,[2,67]),o($VQ,[2,68]),o($VQ,[2,69]),o($VQ,[2,70]),o($VQ,[2,71]),o($VQ,[2,72]),o($VQ,[2,73]),o($VQ,[2,74]),o($VQ,[2,75]),o($VQ,[2,76]),{22:$Vw,23:136,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{69:[1,137]},{22:$Vw,23:138,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{22:$Vw,28:$Vx,31:$VR,36:102,37:141,40:139,72:140,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94},o($Vo,[2,81]),o($VJ,[2,84],{25:[1,143],77:$VS}),o($VT,[2,110]),o($VM,[2,276]),o([1,2,5,19,20,24,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,115,116,129,131,135,136,137,138,143,144,148,149,150,151,155],[2,271],{159:[1,146],163:[1,145]}),o($VU,[2,265],{155:$VV}),o($VW,[2,259],{148:$VX,149:$VY,150:$VZ,151:$V_}),o($V$,[2,244],{143:$V01,144:$V11}),o($V21,[2,235],{129:$V31,131:$V41}),o($V51,[2,229],{135:$V61,136:$V71,137:$V81,138:$V91}),o($VM,[2,219]),o($VM,[2,215]),o($VM,[2,216]),o($VM,[2,210]),{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:160,131:$VH,132:$VI},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:161,131:$VH,132:$VI},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:162,131:$VH,132:$VI},o($Va1,[2,206],{20:[1,164],91:[1,163]}),o($Va1,[2,207],{122:165,20:[1,167],22:[1,168],91:[1,166]}),o($VM,[2,188]),o([1,2,5,19,22,24,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,92,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],[2,194],{107:47,108:51,114:52,20:$Vp,91:$Vr,115:$Vs,116:$Vt}),o($VM,[2,147]),{5:$Vb1,29:[1,169],31:$Vc1,102:171,103:170},o($VM,[2,150]),o($VM,[2,151]),{22:$Vw,23:174,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},o($VM,[2,154]),o($VM,[2,136]),o($VM,[2,137]),o($VM,[2,138]),o($VM,[2,139]),o($VM,[2,140]),o($VM,[2,141]),{22:$Vw,28:$Vx,31:$Vy,35:177,36:102,72:89,91:$Vz,92:[1,175],95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,117:176,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},o($Vo,[2,79]),o($Vo,[2,77]),{22:$Vw,23:178,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},o($Va1,[2,175],{108:51,114:52,107:179,20:$Vp,91:$Vr}),o($Va1,[2,176],{108:51,114:52,107:180,20:$Vp,91:$Vr}),{31:[1,182],37:181,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl},{22:$Vw,28:$Vx,31:$Vy,33:[1,183],35:184,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{34:[1,185]},o($Vo,[2,27]),o($VM,[2,177]),o($VM,[2,178]),{22:$Vw,28:$Vx,31:$Vy,35:186,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},o($VN,[2,155],{114:130,91:$Vr}),{31:[1,187],109:[1,188],110:[1,189],111:[1,190],112:[1,191],113:[1,192]},o($VO,[2,162]),{22:[1,193]},{22:[1,194]},{22:[1,195]},{22:[1,196]},o($VO,[2,168]),o($VO,[2,169]),{77:$VS,92:[1,197]},{24:[1,198],31:$Vd1,51:199,80:200},{22:[1,202]},o($Vo,[2,25]),o($VP,[2,63]),{24:[1,203],77:$VS},{22:[1,204]},{24:[1,205],77:$VS},{25:[1,206]},{73:[1,207],74:[1,208]},{31:[1,209]},o([22,29,31,73,74,77,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],$Vq,{107:47,108:51,114:52,20:$Vp,91:$Vr,115:$Vs,116:$Vt}),o($Vo,[2,83]),{22:$Vw,28:$Vx,31:$Vy,35:210,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{22:$Vw,28:$Vx,31:$Vy,35:211,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:212},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:213},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:214},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:215},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:216},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:217},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:218},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:219},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:220},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:221},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:222,131:$VH,132:$VI},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:223,131:$VH,132:$VI},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:224,131:$VH,132:$VI},{22:$Vw,28:$Vx,31:$Vy,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:225,131:$VH,132:$VI},o($VM,[2,212]),o($VM,[2,213]),o($VM,[2,214]),{22:$Vw,23:226,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{31:[1,227]},o($Ve1,[2,195]),{22:$Vw,23:228,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{31:[1,229]},{22:$Vw,24:[1,230],28:$Vx,31:$Vy,35:232,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,124:231,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},o($VM,[2,148]),{29:[1,233]},{29:[2,145],77:[1,234]},{38:[1,235]},o($Vf1,[2,144]),{24:[1,236],77:$VS},o($VM,[2,182]),{77:[1,238],92:[1,237]},o($Vg1,[2,186]),{24:[1,239],77:$VS},o($Va1,[2,179],{114:52,108:122,20:$VL,91:$Vr}),o($Va1,[2,180],{114:52,108:122,20:$VL,91:$Vr}),o($Vo,[2,29],{39:240,32:[1,241],91:[1,242]}),o([1,2,5,19,25,28,29,31,32,50,54,55,56,57,63,64,66,67,68,69,70,81,82,83,84,85,86,87,88,91,115,116],$Vq),{34:[1,243]},o($Vo,[2,35]),{22:[1,244]},o($VM,[2,181]),o($VO,[2,156]),{22:[1,245]},{22:[1,246]},{22:[1,247]},{22:[1,248]},o($VO,[2,161]),{22:$Vw,23:249,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{24:[1,250]},{24:[1,251]},{22:$Vw,23:252,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},o($VO,[2,171]),{28:[1,253],38:[1,254]},{24:[1,255]},{24:[2,115],77:[1,256]},o($Vh1,[2,117],{38:[1,257]}),{22:$Vw,23:258,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{2:$V0,6:259,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,25:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},{22:$Vw,23:260,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{2:$V0,6:261,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,25:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},{22:$Vw,23:263,28:$Vx,31:$Vy,35:78,36:102,71:262,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{22:$Vw,23:264,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{22:$Vw,23:265,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{32:$Vi1,38:[1,268],42:269,43:270,44:$Vj1,45:$Vk1,46:$Vl1,47:$Vm1,48:$Vn1,49:$Vo1,73:[1,266],74:[1,267]},o($VT,[2,111]),{38:[1,278]},o($VU,[2,266],{155:$VV}),o($VW,[2,260],{148:$VX,149:$VY,150:$VZ,151:$V_}),o($V$,[2,245],{143:$V01,144:$V11}),o($V$,[2,246],{143:$V01,144:$V11}),o($V$,[2,247],{143:$V01,144:$V11}),o($V$,[2,248],{143:$V01,144:$V11}),o($V21,[2,236],{129:$V31,131:$V41}),o($V21,[2,237],{129:$V31,131:$V41}),o($V51,[2,230],{135:$V61,136:$V71,137:$V81,138:$V91}),o($V51,[2,231],{135:$V61,136:$V71,137:$V81,138:$V91}),o($VM,[2,220]),o($VM,[2,221]),o($VM,[2,222]),o($VM,[2,223]),{77:$VS,92:[1,279]},o($VM,[2,190]),{77:$VS,92:[1,280]},o($Ve1,[2,197]),o($Ve1,[2,202]),{24:[1,281],77:[1,282]},o($Vh1,[2,204]),o($VM,[2,149]),{5:$Vb1,31:$Vc1,102:171,103:283},{22:$Vw,28:$Vx,31:$VR,35:284,36:102,37:285,72:89,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},o($VM,[2,153]),o($VM,[2,183]),{22:$Vw,28:$Vx,31:$Vy,35:286,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{28:[1,288],58:287},{32:[1,289]},{22:$Vw,28:$Vx,31:$Vy,35:290,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{92:[1,291]},{22:[1,292]},{22:$Vw,23:293,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{22:$Vw,23:294,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{24:[1,295]},{24:[1,296]},{22:$Vw,23:297,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{24:[1,298],77:$VS},o($VO,[2,165]),o($VO,[2,166]),{24:[1,299],77:$VS},{2:$Vu,5:$Vv,7:60,8:61,10:62,11:63,12:64,13:65,14:66,15:67,16:68,17:69,18:70,19:$V1,25:$V2,28:$V3,29:[1,301],30:300,31:$V4,36:20,37:18,53:58,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},{41:[1,302]},{28:[1,303],38:[1,304]},{31:$Vd1,51:305,80:200},{41:[1,306]},{24:[1,307],77:$VS},o([1,2,5,19,25,28,29,31,50,54,55,56,57,63,64,66,68,69,70,81,82,83,84,85,86,87,88,115,116],[2,98],{67:[1,308]}),{24:[1,309],77:$VS},o($Vo,[2,102]),{25:[1,310]},o([24,25],[2,108],{77:$VS}),{24:[1,311],77:$VS},{24:[1,312],77:$VS},{22:$Vw,23:313,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{22:$Vw,23:314,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{41:[1,315]},{25:[2,37]},{22:$Vw,28:$Vx,31:$Vy,35:316,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},o($Vp1,[2,39]),o($Vp1,[2,40]),o($Vp1,[2,41]),o($Vp1,[2,42]),o($Vp1,[2,43]),o($Vp1,[2,44]),o($Vp1,[2,45]),{22:$Vw,28:$Vx,31:$Vy,35:317,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},o($VM,[2,189]),o($Ve1,[2,196]),o($Ve1,[2,203]),{22:$Vw,28:$Vx,31:$Vy,35:318,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{29:[2,146]},o($Vf1,[2,142]),o($Vf1,[2,143]),o($Vg1,[2,187]),o($Vo,[2,85]),{29:[2,87],59:319,60:320,62:321,63:$Vq1,64:$Vr1},{22:$Vw,28:$Vx,31:$Vy,33:[1,325],35:324,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},o($Vo,[2,34]),{32:[2,132]},{22:$Vw,23:326,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{24:[1,327],77:$VS},{24:[1,328],77:$VS},o($VO,[2,158]),o($VO,[2,159]),{24:[1,329],77:$VS},o($VO,[2,164]),o($VO,[2,167]),{29:[1,330]},o($Vo,[2,50]),{28:[1,331]},{2:$Vu,5:$Vv,7:60,8:61,10:62,11:63,12:64,13:65,14:66,15:67,16:68,17:69,18:70,19:$V1,25:$V2,28:$V3,29:[1,333],30:332,31:$V4,36:20,37:18,53:58,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},{41:[1,334]},{24:[2,114]},o($Vh1,[2,116]),o($VJ,[2,20],{25:[1,335]}),{2:$V0,6:336,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,25:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},o($VJ,[2,101],{25:[1,337]}),{22:$Vw,23:263,28:$Vx,31:$Vy,35:78,36:102,71:338,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{2:$V0,6:339,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,25:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},{2:$V0,6:340,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,25:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},{24:[1,341],77:$VS},{24:[1,342],77:$VS},{32:$Vi1,42:343,43:270,44:$Vj1,45:$Vk1,46:$Vl1,47:$Vm1,48:$Vn1,49:$Vo1},{25:[2,38]},o($VM,[2,272]),o($Vh1,[2,205]),{29:[1,344]},{29:[2,88]},{29:[2,91],60:345,62:321,63:$Vq1,64:$Vr1},{22:$Vw,23:346,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},{38:[1,347]},o($Vo,[2,31]),{34:[1,348]},{24:[1,349],77:$VS},o($Vo,[2,26]),o($VO,[2,157]),o($VO,[2,160]),o($Vo,[2,46]),{2:$Vu,5:$Vv,7:60,8:61,10:62,11:63,12:64,13:65,14:66,15:67,16:68,17:69,18:70,19:$V1,25:$V2,28:$V3,29:[1,351],30:350,31:$V4,36:20,37:18,53:58,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},{29:[1,352]},o($Vo,[2,51]),{28:[1,353]},o($Vo,[2,19]),o($Vo,[2,99]),o($Vo,[2,100]),{24:[1,354]},o($Vo,[2,104]),o($Vo,[2,106]),{2:$V0,6:355,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,25:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},{2:$V0,6:356,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,25:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},{25:[2,36]},o($Vo,[2,86]),{29:[2,90]},{38:[1,357],77:$VS},o($VP,[2,94],{37:18,36:20,53:58,7:60,8:61,10:62,11:63,12:64,13:65,14:66,15:67,16:68,17:69,18:70,30:358,2:$Vu,5:$Vv,19:$V1,25:$V2,28:$V3,31:$V4,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn}),{22:[1,359]},o($Vo,[2,33]),{29:[1,360]},o($Vo,[2,52]),o($Vo,[2,47]),{2:$Vu,5:$Vv,7:60,8:61,10:62,11:63,12:64,13:65,14:66,15:67,16:68,17:69,18:70,19:$V1,25:$V2,28:$V3,29:[1,362],30:361,31:$V4,36:20,37:18,53:58,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},{2:$V0,6:363,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,25:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn},o($Vo,[2,105]),o($Vo,[2,107]),o($VP,[2,92],{37:18,36:20,53:58,7:60,8:61,10:62,11:63,12:64,13:65,14:66,15:67,16:68,17:69,18:70,30:364,2:$Vu,5:$Vv,19:$V1,25:$V2,28:$V3,31:$V4,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,115:$Vm,116:$Vn}),o($VP,[2,95]),{22:$Vw,23:365,28:$Vx,31:$Vy,35:78,36:102,72:89,91:$Vz,95:99,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF,104:95,105:97,106:100,115:$Vm,116:$Vn,119:93,121:94,126:87,128:88,129:$VG,130:86,131:$VH,132:$VI,134:85,140:84,142:83,147:82,154:81,158:80,162:79},o($Vo,[2,48]),{29:[1,366]},o($Vo,[2,53]),o($Vo,[2,103]),o($VP,[2,93]),{24:[1,367],77:$VS},o($Vo,[2,49]),o($Vo,[2,32])],
-defaultActions: {2:[2,1],3:[2,2],43:[2,4],44:[2,5],269:[2,37],283:[2,146],291:[2,132],305:[2,114],316:[2,38],320:[2,88],343:[2,36],345:[2,90]},
+table: [{2:$V0,3:1,4:2,5:[1,3],6:4,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,20:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},{1:[3]},{1:[2,1]},{1:[2,2]},{1:[2,3],2:$V0,4:43,5:[1,44],6:4,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,20:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},o($Vo,[2,6]),o($Vo,[2,7]),o($Vo,[2,8]),o($Vo,[2,9]),o($Vo,[2,10]),o($Vo,[2,11]),o($Vo,[2,12]),o($Vo,[2,13]),o($Vo,[2,14]),o($Vo,[2,15]),o($Vo,[2,16]),o($Vo,[2,17]),o($Vp,[2,19],{19:[1,45]}),{31:[1,46]},{21:$Vq,31:$Vr,32:[1,47],91:$Vs,107:48,108:52,109:53,110:$Vt,111:$Vu},o($Vo,[2,29]),{31:[1,55]},{21:[1,56]},{2:$Vv,5:$Vw,7:61,8:62,10:63,11:64,12:65,13:66,14:67,15:68,16:69,17:70,18:71,19:$V1,20:$V2,28:$V3,29:[1,57],30:58,31:$V4,36:20,37:18,53:59,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},{23:[1,73]},{2:$V0,6:74,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,20:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},{23:[1,75]},{23:[1,76]},o([1,2,5,20,29,50,54,55,56,57,63,64,66,67,68,69,70,81,82,83,84,85,86,87,88],[2,83],{24:78,35:79,162:80,158:81,154:82,147:83,142:84,140:85,134:86,130:87,126:88,128:89,72:90,119:94,121:95,104:96,105:98,95:100,106:101,36:103,19:[1,77],23:$Vx,28:$Vy,31:$Vz,91:$VA,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,110:$Vm,111:$Vn,129:$VH,131:$VI,132:$VJ}),o($Vp,[2,81],{19:[1,111]}),o($Vp,[2,79],{19:[1,112]}),{23:[1,113]},o($Vo,[2,24]),o($VK,[2,119]),o($VK,[2,120]),o($VK,[2,121]),o($VK,[2,122]),o($VK,[2,123]),o($VK,[2,124]),o($VK,[2,125]),o($VK,[2,127]),{31:[1,114]},{31:[1,115]},{1:[2,4]},{1:[2,5]},o($Vo,[2,18]),o($Vo,[2,31],{32:[1,117],38:[1,116]}),{23:$Vx,28:$Vy,31:$Vz,33:[1,118],35:119,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},o([1,2,5,19,20,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,92,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],[2,163],{109:53,108:124,21:[1,122],32:[1,123],91:$Vs,110:[1,120],111:[1,121]}),o($VL,[2,164]),o($VL,[2,165]),{31:$VM,112:[1,125],113:[1,126],114:[1,127],115:[1,128],116:[1,129]},o($VN,[2,159],{109:131,91:$Vs}),o($VO,[2,161]),{23:$Vx,24:132,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{23:[1,133]},{22:[1,134]},o($Vo,[2,25]),{29:[1,135]},o($VP,[2,63],{37:18,36:20,53:59,7:61,8:62,10:63,11:64,12:65,13:66,14:67,15:68,16:69,17:70,18:71,30:136,2:$Vv,5:$Vw,19:$V1,20:$V2,28:$V3,31:$V4,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn}),o($VP,[2,65]),o($VQ,[2,66]),o($VQ,[2,67]),o($VQ,[2,68]),o($VQ,[2,69]),o($VQ,[2,70]),o($VQ,[2,71]),o($VQ,[2,72]),o($VQ,[2,73]),o($VQ,[2,74]),o($VQ,[2,75]),o($VQ,[2,76]),o($VQ,[2,77]),{23:$Vx,24:137,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{69:[1,138]},{23:$Vx,24:139,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{23:$Vx,28:$Vy,31:$VR,36:103,37:142,40:140,72:141,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95},o($Vo,[2,82]),o($Vp,[2,85],{19:[1,144],77:$VS}),o($VT,[2,111]),o($VL,[2,278]),o([1,2,5,19,20,21,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,91,92,110,111,129,131,135,136,137,138,143,144,148,149,150,151,155],[2,273],{159:[1,147],163:[1,146]}),o($VU,[2,267],{155:$VV}),o($VW,[2,261],{148:$VX,149:$VY,150:$VZ,151:$V_}),o($V$,[2,246],{143:$V01,144:$V11}),o($V21,[2,237],{129:$V31,131:$V41}),o($V51,[2,231],{135:$V61,136:$V71,137:$V81,138:$V91}),o($VL,[2,221]),o($VL,[2,217]),o($VL,[2,218]),o($VL,[2,212]),{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:161,131:$VI,132:$VJ},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:162,131:$VI,132:$VJ},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:163,131:$VI,132:$VJ},o($Va1,[2,208],{21:[1,165],91:[1,164]}),o($Va1,[2,209],{122:166,21:[1,168],23:[1,169],91:[1,167]}),o($VL,[2,190]),o([1,2,5,19,20,23,25,28,29,31,38,50,54,55,56,57,63,64,66,67,68,69,70,73,74,77,81,82,83,84,85,86,87,88,92,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],[2,196],{107:48,108:52,109:53,21:$Vq,91:$Vs,110:$Vt,111:$Vu}),o($VL,[2,148]),{5:$Vb1,29:[1,170],31:$Vc1,102:172,103:171},o($VL,[2,151]),o($VL,[2,152]),{23:$Vx,24:175,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},o($VL,[2,155]),o($VL,[2,137]),o($VL,[2,138]),o($VL,[2,139]),o($VL,[2,140]),o($VL,[2,141]),o($VL,[2,142]),{23:$Vx,28:$Vy,31:$Vz,35:178,36:103,72:90,91:$VA,92:[1,176],95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,117:177,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},o($Vo,[2,80]),o($Vo,[2,78]),{23:$Vx,24:179,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},o($Va1,[2,166],{108:52,109:53,107:180,21:$Vd1,91:$Vs}),o($Va1,[2,167],{108:52,109:53,107:182,21:$Vd1,91:$Vs}),{31:[1,184],37:183,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl},{23:$Vx,28:$Vy,31:$Vz,33:[1,185],35:186,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{34:[1,187]},o($Vo,[2,28]),o($VL,[2,168]),o($VL,[2,169]),{31:$Ve1,112:[1,188],113:[1,189],114:[1,190],115:[1,191],116:[1,192]},{23:$Vx,28:$Vy,31:$Vz,35:194,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},o($VN,[2,156],{109:131,91:$Vs}),{23:[1,195]},{23:[1,196]},o($VL,[2,174]),{23:[1,197]},{23:[1,198]},o($VO,[2,158]),o($VO,[2,160]),{77:$VS,92:[1,199]},{25:[1,200],31:$Vf1,51:201,80:202},{23:[1,204]},o($Vo,[2,26]),o($VP,[2,64]),{25:[1,205],77:$VS},{23:[1,206]},{25:[1,207],77:$VS},{19:[1,208]},{73:[1,209],74:[1,210]},{31:[1,211]},o([23,29,31,73,74,77,129,131,135,136,137,138,143,144,148,149,150,151,155,159,163],$Vr,{107:48,108:52,109:53,21:$Vq,91:$Vs,110:$Vt,111:$Vu}),o($Vo,[2,84]),{23:$Vx,28:$Vy,31:$Vz,35:212,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{23:$Vx,28:$Vy,31:$Vz,35:213,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:214},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:215},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:216},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:217},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:218},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:219},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:220},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:221},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:222},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:223},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:224,131:$VI,132:$VJ},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:225,131:$VI,132:$VJ},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:226,131:$VI,132:$VJ},{23:$Vx,28:$Vy,31:$Vz,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:227,131:$VI,132:$VJ},o($VL,[2,214]),o($VL,[2,215]),o($VL,[2,216]),{23:$Vx,24:228,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{31:[1,229]},o($Vg1,[2,197]),{23:$Vx,24:230,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{31:[1,231]},{23:$Vx,25:[1,232],28:$Vy,31:$Vz,35:234,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,124:233,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},o($VL,[2,149]),{29:[1,235]},{29:[2,146],77:[1,236]},{38:[1,237]},o($Vh1,[2,145]),{25:[1,238],77:$VS},o($VL,[2,184]),{77:[1,240],92:[1,239]},o($Vi1,[2,188]),{25:[1,241],77:$VS},o($Va1,[2,170],{109:53,108:124,21:$Vj1,91:$Vs}),{31:$VM},o($Va1,[2,171],{109:53,108:124,21:$Vj1,91:$Vs}),o($Vo,[2,30],{39:243,32:[1,244],91:[1,245]}),o([1,2,5,19,20,28,29,31,32,50,54,55,56,57,63,64,66,67,68,69,70,81,82,83,84,85,86,87,88,91,110,111],$Vr),{34:[1,246]},o($Vo,[2,36]),{23:[1,247]},{23:[1,248]},{23:[1,249]},o($VL,[2,179]),{23:[1,250]},{23:[1,251]},o($VO,[2,157]),o($VL,[2,183]),{25:[1,252]},{25:[1,253]},{23:$Vx,24:254,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{23:$Vx,24:255,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},o($VO,[2,162]),{28:[1,256],38:[1,257]},{25:[1,258]},{25:[2,116],77:[1,259]},o($Vk1,[2,118],{38:[1,260]}),{23:$Vx,24:261,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{2:$V0,6:262,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,20:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},{23:$Vx,24:263,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{2:$V0,6:264,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,20:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},{23:$Vx,24:266,28:$Vy,31:$Vz,35:79,36:103,71:265,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{23:$Vx,24:267,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{23:$Vx,24:268,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{32:$Vl1,38:[1,271],42:272,43:273,44:$Vm1,45:$Vn1,46:$Vo1,47:$Vp1,48:$Vq1,49:$Vr1,73:[1,269],74:[1,270]},o($VT,[2,112]),{38:[1,281]},o($VU,[2,268],{155:$VV}),o($VW,[2,262],{148:$VX,149:$VY,150:$VZ,151:$V_}),o($V$,[2,247],{143:$V01,144:$V11}),o($V$,[2,248],{143:$V01,144:$V11}),o($V$,[2,249],{143:$V01,144:$V11}),o($V$,[2,250],{143:$V01,144:$V11}),o($V21,[2,238],{129:$V31,131:$V41}),o($V21,[2,239],{129:$V31,131:$V41}),o($V51,[2,232],{135:$V61,136:$V71,137:$V81,138:$V91}),o($V51,[2,233],{135:$V61,136:$V71,137:$V81,138:$V91}),o($VL,[2,222]),o($VL,[2,223]),o($VL,[2,224]),o($VL,[2,225]),{77:$VS,92:[1,282]},o($VL,[2,192]),{77:$VS,92:[1,283]},o($Vg1,[2,199]),o($Vg1,[2,204]),{25:[1,284],77:[1,285]},o($Vk1,[2,206]),o($VL,[2,150]),{5:$Vb1,31:$Vc1,102:172,103:286},{23:$Vx,28:$Vy,31:$VR,35:287,36:103,37:288,72:90,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},o($VL,[2,154]),o($VL,[2,185]),{23:$Vx,28:$Vy,31:$Vz,35:289,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{28:[1,291],58:290},{31:$Ve1},{32:[1,292]},{23:$Vx,28:$Vy,31:$Vz,35:293,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{92:[1,294]},{23:[1,295]},{23:$Vx,24:296,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{25:[1,297]},{25:[1,298]},{23:$Vx,24:299,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{23:$Vx,24:300,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},o($VL,[2,172]),o($VL,[2,173]),{25:[1,301],77:$VS},{25:[1,302],77:$VS},{2:$Vv,5:$Vw,7:61,8:62,10:63,11:64,12:65,13:66,14:67,15:68,16:69,17:70,18:71,19:$V1,20:$V2,28:$V3,29:[1,304],30:303,31:$V4,36:20,37:18,53:59,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},{41:[1,305]},{28:[1,306],38:[1,307]},{31:$Vf1,51:308,80:202},{41:[1,309]},{25:[1,310],77:$VS},o([1,2,5,19,20,28,29,31,50,54,55,56,57,63,64,66,68,69,70,81,82,83,84,85,86,87,88,110,111],[2,99],{67:[1,311]}),{25:[1,312],77:$VS},o($Vo,[2,103]),{19:[1,313]},o([19,25],[2,109],{77:$VS}),{25:[1,314],77:$VS},{25:[1,315],77:$VS},{23:$Vx,24:316,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{23:$Vx,24:317,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{41:[1,318]},{19:[2,38]},{23:$Vx,28:$Vy,31:$Vz,35:319,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},o($Vs1,[2,40]),o($Vs1,[2,41]),o($Vs1,[2,42]),o($Vs1,[2,43]),o($Vs1,[2,44]),o($Vs1,[2,45]),o($Vs1,[2,46]),{23:$Vx,28:$Vy,31:$Vz,35:320,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},o($VL,[2,191]),o($Vg1,[2,198]),o($Vg1,[2,205]),{23:$Vx,28:$Vy,31:$Vz,35:321,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{29:[2,147]},o($Vh1,[2,143]),o($Vh1,[2,144]),o($Vi1,[2,189]),o($Vo,[2,86]),{29:[2,88],59:322,60:323,62:324,63:$Vt1,64:$Vu1},{23:$Vx,28:$Vy,31:$Vz,33:[1,328],35:327,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},o($Vo,[2,35]),{32:[2,133]},{23:$Vx,24:329,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{25:[1,330],77:$VS},o($VL,[2,177]),o($VL,[2,178]),{25:[1,331],77:$VS},{25:[1,332],77:$VS},o($VL,[2,175]),o($VL,[2,176]),{29:[1,333]},o($Vo,[2,51]),{28:[1,334]},{2:$Vv,5:$Vw,7:61,8:62,10:63,11:64,12:65,13:66,14:67,15:68,16:69,17:70,18:71,19:$V1,20:$V2,28:$V3,29:[1,336],30:335,31:$V4,36:20,37:18,53:59,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},{41:[1,337]},{25:[2,115]},o($Vk1,[2,117]),o($Vp,[2,21],{19:[1,338]}),{2:$V0,6:339,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,20:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},o($Vp,[2,102],{19:[1,340]}),{23:$Vx,24:266,28:$Vy,31:$Vz,35:79,36:103,71:341,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{2:$V0,6:342,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,20:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},{2:$V0,6:343,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,20:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},{25:[1,344],77:$VS},{25:[1,345],77:$VS},{32:$Vl1,42:346,43:273,44:$Vm1,45:$Vn1,46:$Vo1,47:$Vp1,48:$Vq1,49:$Vr1},{19:[2,39]},o($VL,[2,274]),o($Vk1,[2,207]),{29:[1,347]},{29:[2,89]},{29:[2,92],60:348,62:324,63:$Vt1,64:$Vu1},{23:$Vx,24:349,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},{38:[1,350]},o($Vo,[2,32]),{34:[1,351]},{25:[1,352],77:$VS},o($Vo,[2,27]),o($VL,[2,180]),o($VL,[2,181]),o($Vo,[2,47]),{2:$Vv,5:$Vw,7:61,8:62,10:63,11:64,12:65,13:66,14:67,15:68,16:69,17:70,18:71,19:$V1,20:$V2,28:$V3,29:[1,354],30:353,31:$V4,36:20,37:18,53:59,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},{29:[1,355]},o($Vo,[2,52]),{28:[1,356]},o($Vo,[2,20]),o($Vo,[2,100]),o($Vo,[2,101]),{25:[1,357]},o($Vo,[2,105]),o($Vo,[2,107]),{2:$V0,6:358,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,20:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},{2:$V0,6:359,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,20:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},{19:[2,37]},o($Vo,[2,87]),{29:[2,91]},{38:[1,360],77:$VS},o($VP,[2,95],{37:18,36:20,53:59,7:61,8:62,10:63,11:64,12:65,13:66,14:67,15:68,16:69,17:70,18:71,30:361,2:$Vv,5:$Vw,19:$V1,20:$V2,28:$V3,31:$V4,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn}),{23:[1,362]},o($Vo,[2,34]),{29:[1,363]},o($Vo,[2,53]),o($Vo,[2,48]),{2:$Vv,5:$Vw,7:61,8:62,10:63,11:64,12:65,13:66,14:67,15:68,16:69,17:70,18:71,19:$V1,20:$V2,28:$V3,29:[1,365],30:364,31:$V4,36:20,37:18,53:59,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},{2:$V0,6:366,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:13,16:14,17:15,18:16,19:$V1,20:$V2,28:$V3,31:$V4,36:20,37:18,50:$V5,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn},o($Vo,[2,106]),o($Vo,[2,108]),o($VP,[2,93],{37:18,36:20,53:59,7:61,8:62,10:63,11:64,12:65,13:66,14:67,15:68,16:69,17:70,18:71,30:367,2:$Vv,5:$Vw,19:$V1,20:$V2,28:$V3,31:$V4,54:$V6,55:$V7,56:$V8,57:$V9,66:$Va,68:$Vb,69:$Vc,70:$Vd,81:$Ve,82:$Vf,83:$Vg,84:$Vh,85:$Vi,86:$Vj,87:$Vk,88:$Vl,110:$Vm,111:$Vn}),o($VP,[2,96]),{23:$Vx,24:368,28:$Vy,31:$Vz,35:79,36:103,72:90,91:$VA,95:100,96:$VB,97:$VC,98:$VD,99:$VE,100:$VF,101:$VG,104:96,105:98,106:101,110:$Vm,111:$Vn,119:94,121:95,126:88,128:89,129:$VH,130:87,131:$VI,132:$VJ,134:86,140:85,142:84,147:83,154:82,158:81,162:80},o($Vo,[2,49]),{29:[1,369]},o($Vo,[2,54]),o($Vo,[2,104]),o($VP,[2,94]),{25:[1,370],77:$VS},o($Vo,[2,50]),o($Vo,[2,33])],
+defaultActions: {2:[2,1],3:[2,2],43:[2,4],44:[2,5],272:[2,38],286:[2,147],294:[2,133],308:[2,115],319:[2,39],323:[2,89],346:[2,37],348:[2,91]},
 parseError: function parseError (str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -9537,6 +13782,7 @@ _handle_error:
     var posA = 1000000;
     var entorno = 'global';
     var entornoanterior = 'global';
+    var func = false;
 /* generated by jison-lex 0.3.4 */
 var lexer = (function(){
 var lexer = ({
@@ -9903,9 +14149,9 @@ case 17:return 34
 break;
 case 18:return 33
 break;
-case 19:return 19
+case 19:return 20
 break;
-case 20:return 21
+case 20:return 22
 break;
 case 21:return 55
 break;
@@ -9935,15 +14181,15 @@ case 33:return 73
 break;
 case 34:return 56
 break;
-case 35:return 113
+case 35:return 114
 break;
-case 36:return 109
+case 36:return 116
 break;
-case 37:return 110
+case 37:return 113
 break;
-case 38:return 111
+case 38:return 112
 break;
-case 39:return 112
+case 39:return 115
 break;
 case 40:return 44
 break;
@@ -9975,9 +14221,9 @@ case 53:return 155
 break;
 case 54:return 132
 break;
-case 55:return 115
+case 55:return 110
 break;
-case 56:return 116
+case 56:return 111
 break;
 case 57:return 137
 break;
@@ -10001,17 +14247,17 @@ case 66: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 101;
 break;
 case 67:return 32
 break;
-case 68:return 25
+case 68:return 19
 break;
 case 69:return 38
 break;
 case 70:return 77
 break;
-case 71:return 20
+case 71:return 21
 break;
-case 72:return 22
+case 72:return 23
 break;
-case 73:return 24
+case 73:return 25
 break;
 case 74:return 91
 break;
