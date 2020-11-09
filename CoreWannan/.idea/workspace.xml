@@ -26,15 +26,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7fdf22b-a013-458f-bf4c-2ee3c5c3b35f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/app/ef.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C3D/TS.js" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/TS.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C3D/TS.ts" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/TS.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/C3D/WE_C3D.jison" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/WE_C3D.jison" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C3D/WE_C3D.js" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/WE_C3D.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C3D/entrada.txt" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/entrada.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C3D/salida.c" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/salida.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../FRONTEND/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRONTEND/JWEV2/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/JWEV2/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRONTEND/JWEV2/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/JWEV2/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/app/app.module.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +118,7 @@
       <workItem from="1604574923372" duration="3113000" />
       <workItem from="1604757458633" duration="9121000" />
       <workItem from="1604811220259" duration="30657000" />
-      <workItem from="1604906071835" duration="1897000" />
+      <workItem from="1604906071835" duration="9970000" />
     </task>
     <servers />
   </component>

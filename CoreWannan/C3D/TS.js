@@ -256,6 +256,16 @@ var Arreglos = /** @class */ (function () {
             }
         }
     };
+    Arreglos.prototype.get = function (id) {
+        for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
+            var simbolito = _a[_i];
+            if (simbolito instanceof arreglo) {
+                if (simbolito.name == id) {
+                    return simbolito;
+                }
+            }
+        }
+    };
     Arreglos.prototype.getProf = function (id) {
         for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
             var simbolito = _a[_i];
@@ -454,8 +464,8 @@ var Arreglos = /** @class */ (function () {
             var simbolito = _a[_i];
             if (simbolito instanceof arreglo) {
                 if (simbolito.name == id) {
-                    simbolito.valor = simbolito.changeData(data, pos);
-                    console.log(this.getProf(simbolito.name));
+                    simbolito.changeData(data, pos);
+                    //console.log(simbolito.getValores());
                 }
             }
         }
@@ -472,6 +482,7 @@ var arreglo = /** @class */ (function () {
     }
     arreglo.prototype.getValores = function () {
         var value = [];
+        //console.log(this.valor);
         for (var _i = 0, _a = this.valor; _i < _a.length; _i++) {
             var pos = _a[_i];
             if (pos instanceof Array) {
@@ -519,53 +530,44 @@ var arreglo = /** @class */ (function () {
         return value;
     };
     arreglo.prototype.changeData = function (data, pos) {
-        var posi = pos.pop();
-        if (pos.length > 0) {
+        var posd = 0;
+        var posi = pos[posd];
+        posd++;
+        if (pos.length > posd) {
+            //console.log(this.valor[posi])
             if (this.valor[posi] instanceof arreglo) {
-                this.valor[posi].valor = this.changeData1(this.valor[posi].valor, data, pos);
-            }
-            else {
-                this.valor[posi] = this.changeData2(this.valor[posi], data, pos);
+                this.valor[posi].valor[0].valor = this.changeData1(this.valor[posi].valor[0].valor, data, pos, posd);
             }
         }
         else {
-            this.valor[posi] = data;
+            //console.log(this.valor[posi]);
+            if (this.valor[posi] instanceof arreglo) {
+                this.valor[posi].valor[0] = data;
+            }
         }
         return this.valor;
     };
-    arreglo.prototype.changeData1 = function (arr, data, pos) {
-        var posi = pos.pop();
-        if (pos.length > 0) {
+    arreglo.prototype.changeData1 = function (arr, data, pos, posd) {
+        var posi = pos[posd];
+        posd++;
+        //console.log('l', posi, pos);
+        if (pos.length > posd) {
             if (arr[posi] instanceof arreglo) {
-                arr[posi].valor = this.changeData1(arr[posi].valor, data, pos);
-                return arr;
-            }
-            else {
-                arr[posi] = this.changeData2(arr[posi], data, pos);
+                //console.log('l',arr.valor[posi].valor[0])
+                //console.log('l1',arr.valor[0].valor[posi])
+                //console.log('l2',arr.valor[0].valor[0].valor[posi])
+                arr[posi].valor = this.changeData1(arr[posi].valor, data, pos, posd);
                 return arr;
             }
         }
         else {
-            arr[posi] = data;
-            return arr;
-        }
-    };
-    arreglo.prototype.changeData2 = function (arr, data, pos) {
-        var posi = pos.pop();
-        if (pos.length > 0) {
-            if (arr[posi] instanceof arreglo) {
-                arr[posi].valor = this.changeData1(arr[posi].valor, data, pos);
-                return arr;
-            }
-            else {
-                arr[posi] = this.changeData2(arr[posi], data, pos);
+            //console.log(arr[0]);
+            if (arr[0] instanceof arreglo) {
+                arr[0].valor[posi].valor[0] = data;
                 return arr;
             }
         }
-        else {
-            arr[posi] = data;
-            return arr;
-        }
+        return arr;
     };
     return arreglo;
 }());

@@ -341,7 +341,6 @@ Statement
 Native_statements
     : CONSOLE '.' LOG '(' Expr ')' ';'
     {
-        console.log($5);
         var r = [];
         if($5[0].toUpperCase() == 'ARPRINT')
         {
@@ -553,7 +552,8 @@ Native_statements
         }
         else if($5[0].toUpperCase() == "NUMBER")
         {
-            if($5[6]%1==0)
+
+            if(Number($5[6])%1==0)
             {
                 var valor = $5[3];
                 valor += '\n';
@@ -3145,7 +3145,7 @@ Declaration_statements
                                   valor += '\n';
                                   valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
                                   var temp2 = Temp.getTemporal();
-                                  valor += temp2 + ' = '+ val.length + ';';
+                                  valor += temp2 + ' = '+ n.valor.length + ';';
                                   valor += '\n';
                                   valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
                                   valor += '\n';
@@ -3808,7 +3808,7 @@ Declaration_statements
                                   valor += '\n';
                                   valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
                                   var temp2 = Temp.getTemporal();
-                                  valor += temp2 + ' = '+ val.length + ';';
+                                  valor += temp2 + ' = '+ n.valor.length + ';';
                                   valor += '\n';
                                   valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
                                   valor += '\n';
@@ -4586,7 +4586,6 @@ Expr1_statements
              if(l>=$2.length)
              {
                  var nivel = 1;
-                 console.log($2);
                  for(let posi of $2)
                  {
                      var m = arr.getTam($1,nivel);
@@ -4689,16 +4688,6 @@ Expr1_statements
                  {
                     var temp0 = Temp.getTemporal();
                     var temp = Temp.getTemporal();
-
-                    valor += `${temp} = ${poses[0]};\n`
-
-                    for(var a = 1; a<arres.length; a++)
-                    {
-                        valor += `${temp0} = ${temp} * ${arres[a-1]};\n`;
-                        valor += `${temp} = ${temp0} + ${poses[a]};\n`;
-                        valor += `${temp} = heap[(int) ${temp}] +2;\n`;
-                    }
-
                     var temp1 = Temp.getTemporal();
                     var temp2 = Temp.getTemporal();
                     if(n.entorno == 'global')
@@ -4711,11 +4700,20 @@ Expr1_statements
                     }
                     valor += `${temp2} = heap[(int)${temp1}] + 1;\n`;
 
-                    var temp3 = Temp.getTemporal();
-                    valor += `${temp3} = ${temp2} + ${temp};\n`;
+                    valor += `${temp} = ${poses[0]} + ${temp2};\n`
 
-                    var temp4 = Temp.getTemporal();
-                    valor += `${temp4} = heap[(int)${temp3}];\n`;
+                    for(var a = 1; a<arres.length; a++)
+                    {
+                        valor += `${temp0} = ${temp} * ${arres[a-1]};\n`;
+                        valor += `${temp} = ${temp0} + ${poses[a]};\n`;
+                        valor += `${temp} = heap[(int) ${temp}] +2;\n`;
+                    }
+
+                    //var temp3 = Temp.getTemporal();
+                    //valor += `${temp3} = ${temp2};\n`;
+
+                    //var temp4 = Temp.getTemporal();
+                    //valor += `${temp4} = heap[(int)${temp}];\n`;
 
                    var temp5 = Temp.getTemporal();
                    var temp6 = Temp.getTemporal();
@@ -4723,17 +4721,18 @@ Expr1_statements
                    valor += `${temp5} = ${temp2} + ${poses[0]};\n`;
                    for(var a = 1; a<poses.length; a++)
                    {
-                       valor += `${temp6} = heap[(int) ${temp5}] + 1;\n`;
+                       valor += `${temp6} = heap[(int) ${temp5}] + 2;\n`;
                        valor += `${temp5} = ${temp6} + ${poses[a]};\n`;
                    }
 
                    valor += `${temp6} = heap[(int) ${temp5}];\n`;
 
                     var arrayss = arr.getValores(n.name);
-                    console.log(arrayss[posss]);
+                    //console.log(arrayss);
+                    //console.log(arrayss[posss]);
 
                     var r = [];
-                    r[0] = typeof arrayss[0].toString().toUpperCase();
+                    r[0] = (typeof arrayss[0]).toString().toUpperCase();
                     r[1] = temp6;
                     r[2] = '';
                     r[3] = valor;
@@ -5140,7 +5139,7 @@ Expr1_statements
                    valor += `${temp5} = ${temp2} + ${poses[0]};\n`;
                    for(var a = 1; a<poses.length; a++)
                    {
-                       valor += `${temp6} = heap[(int) ${temp5}] + 1;\n`;
+                       valor += `${temp6} = heap[(int) ${temp5}] + 2;\n`;
                        valor += `${temp5} = ${temp6} + ${poses[a]};\n`;
                    }
 
@@ -5166,7 +5165,7 @@ Expr1_statements
                     }
                     else
                     {
-                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrays[0]}`+'\"}');
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrayss[0]}`+'\"}');
                         $$ = ['','','',''];
                     }
                  }
@@ -5338,7 +5337,7 @@ Expr1_statements
                    valor += `${temp5} = ${temp2} + ${poses[0]};\n`;
                    for(var a = 1; a<poses.length; a++)
                    {
-                       valor += `${temp6} = heap[(int) ${temp5}] + 1;\n`;
+                       valor += `${temp6} = heap[(int) ${temp5}] + 2;\n`;
                        valor += `${temp5} = ${temp6} + ${poses[a]};\n`;
                    }
 
@@ -5364,7 +5363,7 @@ Expr1_statements
                     }
                     else
                     {
-                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrays[0]}`+'\"}');
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrayss[0]}`+'\"}');
                         $$ = ['','','',''];
                     }
                  }
@@ -5537,7 +5536,7 @@ Expr1_statements
                    valor += `${temp5} = ${temp2} + ${poses[0]};\n`;
                    for(var a = 1; a<poses.length; a++)
                    {
-                       valor += `${temp6} = heap[(int) ${temp5}] + 1;\n`;
+                       valor += `${temp6} = heap[(int) ${temp5}] + 2;\n`;
                        valor += `${temp5} = ${temp6} + ${poses[a]};\n`;
                    }
 
@@ -5563,7 +5562,7 @@ Expr1_statements
                     }
                     else
                     {
-                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrays[0]}`+'\"}');
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrayss[0]}`+'\"}');
                         $$ = ['','','',''];
                     }
                  }
@@ -5736,7 +5735,7 @@ Expr1_statements
                    valor += `${temp5} = ${temp2} + ${poses[0]};\n`;
                    for(var a = 1; a<poses.length; a++)
                    {
-                       valor += `${temp6} = heap[(int) ${temp5}] + 1;\n`;
+                       valor += `${temp6} = heap[(int) ${temp5}] + 2;\n`;
                        valor += `${temp5} = ${temp6} + ${poses[a]};\n`;
                    }
 
@@ -5762,7 +5761,7 @@ Expr1_statements
                     }
                     else
                     {
-                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrays[0]}`+'\"}');
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrayss[0]}`+'\"}');
                         $$ = ['','','',''];
                     }
                  }
@@ -6035,6 +6034,7 @@ Expr1_statements
     | IDENT '.' CONCAT '(' Expr ')'
     {
         var n = tab.getPositionAmbito($1);
+
         if(n!=null)
         {
             if(n.tipo.toUpperCase() == 'STRING')
@@ -6074,7 +6074,7 @@ Expr1_statements
                     }
                     else
                     {
-                        var n1 = tab.getPositionAmbito($1);
+                        var n1 = tab.getPositionAmbito(expr[4]);
                         if(n1!=null)
                         {
                             if(n1.rol != 'ARREGLO')
@@ -6331,7 +6331,7 @@ Expr1_statements
                    valor += `${temp5} = ${temp2} + ${poses[0]};\n`;
                    for(var a = 1; a<poses.length; a++)
                    {
-                       valor += `${temp6} = heap[(int) ${temp5}] + 1;\n`;
+                       valor += `${temp6} = heap[(int) ${temp5}] + 2;\n`;
                        valor += `${temp5} = ${temp6} + ${poses[a]};\n`;
                    }
 
@@ -6391,7 +6391,7 @@ Expr1_statements
                     }
                     else
                     {
-                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrays[0]}`+'\"}');
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrayss[0]}`+'\"}');
                         $$ = ['','','',''];
                     }
                  }
@@ -6414,9 +6414,239 @@ Expr1_statements
          }
     }
     | IDENT Expr1_statement '.' TOLOWER '(' ')'
-     {
-         $$ = ['','','','','','','','','','','','','','',''];
-     }
+    {
+         var n = tab.getPositionAmbito($1);
+         var arres = [];
+         var poses = [];
+         var poses1 = [];
+         if(n!=null)
+         {
+             var valor = '';
+             var temp  = Temp.getTemporal();
+             var l = arr.getProf($1);
+             var posss = 0;
+             if(l>=$2.length)
+             {
+                 var nivel = 1;
+                 for(let posi of $2)
+                 {
+                     var m = arr.getTam($1,nivel);
+                     var pass = false;
+
+                     if(posi[12][0] != '')
+                     {
+                         if(posi[12][0].toUpperCase() == 'NUMBER')
+                         {
+                             var num = posi[12][6];
+                             if(num <= (m-1))
+                             {
+                                 arres.push(m);
+                                 poses.push(posi[12][1]);
+                                 poses1.push(posi[12][6]);
+                                 valor += posi[12][3] + '\n';
+                                 posss = posss * m + num;
+                                 pass = true;
+                             }
+                             else
+                             {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                 $$ = ['','','',''];
+                                 break;
+                             }
+                         }
+                         else
+                          {
+                              pass = false;
+                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion`+'\"}');
+                              $$ = ['','','',''];
+                              break;
+                          }
+                     }
+                     else
+                     {
+                        var n1 = tab.getPositionAmbito(posi[12][4]);
+                        if(n1!=null)
+                        {
+                            if(n1.rol.toUpperCase() != 'ARREGLO')
+                            {
+                                if(n1.tipo.toUpperCase() == 'NUMBER')
+                                {
+                                     var num = Number(n1.valor);
+                                     if(num <= (m-1))
+                                     {
+                                         arres.push(m);
+
+                                         var temp = Temp.getTemporal();
+                                         posss = posss * m + n1.valor;
+                                         poses.push(temp);
+                                         poses1.push(n1.valor);
+                                         if(n1.entorno == 'global')
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         else
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         pass = true;
+                                     }
+                                     else
+                                     {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${n1.valor}`+'\"}');
+                                         $$ = ['','','',''];
+                                         break;
+                                     }
+                                }
+                                else
+                                {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                         $$ = ['','','',''];
+                                         break;
+                                }
+                            }
+                            else
+                            {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                 $$ = ['','','',''];
+                                 break;
+                            }
+
+                        }
+                        else
+                        {
+                             pass = false;
+                             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, variable no existe: ${posi[12][0]}`+'\"}');
+                             $$ = ['','','',''];
+                             break;
+                        }
+
+                     }
+                     nivel++;
+                 }
+                 if(pass)
+                 {
+                    var temp0 = Temp.getTemporal();
+                    var temp = Temp.getTemporal();
+
+                    valor += `${temp} = ${poses[0]};\n`
+
+                    for(var a = 1; a<arres.length; a++)
+                    {
+                        valor += `${temp0} = ${temp} * ${arres[a-1]};\n`;
+                        valor += `${temp} = ${temp0} + ${poses[a]};\n`;
+                        valor += `${temp} = heap[(int) ${temp}] +2;\n`;
+                    }
+
+                    var temp1 = Temp.getTemporal();
+                    var temp2 = Temp.getTemporal();
+                    if(n.entorno == 'global')
+                    {
+                        valor += `${temp1} = heap[${n.position}];\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp1} = stack[${n.position}];\n`;
+                    }
+                    valor += `${temp2} = heap[(int)${temp1}] + 1;\n`;
+
+                    var temp3 = Temp.getTemporal();
+                    valor += `${temp3} = ${temp2} + ${temp};\n`;
+
+                    var temp4 = Temp.getTemporal();
+                    valor += `${temp4} = heap[(int)${temp3}];\n`;
+
+                   var temp5 = Temp.getTemporal();
+                   var temp6 = Temp.getTemporal();
+
+                   valor += `${temp5} = ${temp2} + ${poses[0]};\n`;
+                   for(var a = 1; a<poses.length; a++)
+                   {
+                       valor += `${temp6} = heap[(int) ${temp5}] + 2;\n`;
+                       valor += `${temp5} = ${temp6} + ${poses[a]};\n`;
+                   }
+
+                   valor += `${temp6} = heap[(int) ${temp5}];\n`;
+
+
+                    var arrayss = arr.getValores(n.name);
+                    if(typeof arrayss[0] == 'string')
+                    {
+                        var temp7 = Temp.getTemporal();
+                        valor += `${temp7} = 0;\n`;
+
+                        var temp8 = Temp.getTemporal();
+                        valor += `${temp8} = heap[(int)${temp6}];\n`;
+                        valor += `${temp6} = ${temp6} + 1;\n`;
+
+                        var temp9 = Temp.getTemporal();
+                        valor += `${temp9} = ${temp8} + 1;\n`;
+
+                        var temp10 = Temp.getTemporal();
+                        var temp11 = Temp.getTemporal();
+
+                        var label = Label.getBandera();
+                        var label1 = Label.getBandera();
+                        var label2 = Label.getBandera();
+                        var label3 = Label.getBandera();
+
+
+                        valor += `${label}:\n`;
+                        valor += `\tif(${temp7}==${temp9}) goto ${label1};\n`;
+                        valor += `\t${temp10} = ${temp6} + ${temp7};\n`
+                        valor += `\t${temp11} = heap[(int)${temp10}];\n`;
+                        valor += `\tif(${temp11}>=65) goto ${label2};\n`;
+                        valor += `\t${temp7} = ${temp7} + 1;\n`;
+                        valor += `\tgoto ${label};\n`;
+                        valor += `${label2}:\n`;
+                        valor += `\tif(${temp11}<=90) goto ${label3};\n`;
+                        valor += `\t${temp7} = ${temp7} + 1;\n`;
+                        valor += `\tgoto ${label};\n`;
+                        valor += `${label3}:\n`;
+                        valor += `\t${temp11} = ${temp11} + 32;\n`;
+                        valor += `\theap[(int)${temp10}] = ${temp11};\n`;
+                        valor += `\t${temp7} = ${temp7} + 1;\n`;
+                        valor += `\tgoto ${label};\n`;
+                        valor += `${label1}:\n`;
+
+                        arr.changeValue(n.name, arrayss[posss].toLowerCase(), poses1);
+                        var r = [];
+                        r[0] = typeof arrayss[0];
+                        r[1] = temp11;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = arrayss[posss].toLowerCase();
+                        r[6] = arrayss[posss].toLowerCase();
+                        $$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrayss[0]}`+'\"}');
+                        $$ = ['','','',''];
+                    }
+                 }
+                 else
+                 {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                    $$ = ['','','',''];
+                 }
+             }
+             else
+             {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$1}, el tamaño del arreglo es de: ${l}`+'\"}');
+                 $$ = ['','','',''];
+             }
+         }
+         else
+         {
+              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$1}`+'\"}');
+              $$ = ['','','',''];
+         }
+    }
     | IDENT Expr1_statement '.' LENGTH
      {
         var n = tab.getPositionAmbito($1);
@@ -6531,13 +6761,299 @@ Expr1_statements
     {
         $$ = ['','','','','','','','','','','','','','',''];
     }
-    | IDENT Expr1_statement '.' TOUPPER '(' ')'
-     {
-         $$ = ['','','','','','','','','','','','','','',''];
-     }
     | IDENT Expr1_statement '=' AssignmentExpr
     {
-        $$ = ['','','','','','','',''];
+         var n = tab.getPositionAmbito($1);
+         var arres = [];
+         var poses = [];
+         var poses1 = [];
+         if(n!=null)
+         {
+             var valor = '';
+             var temp  = Temp.getTemporal();
+             var l = arr.getProf($1);
+             var posss = 0;
+             if(l>=$2.length)
+             {
+                 var nivel = 1;
+                 for(let posi of $2)
+                 {
+                     var m = arr.getTam($1,nivel);
+                     var pass = false;
+
+                     if(posi[12][0] != '')
+                     {
+                         if(posi[12][0].toUpperCase() == 'NUMBER')
+                         {
+                             var num = posi[12][6];
+                             if(num <= (m-1))
+                             {
+                                 arres.push(m);
+                                 poses.push(posi[12][1]);
+                                 poses1.push(posi[12][6]);
+                                 valor += posi[12][3] + '\n';
+                                 posss = posss * m + num;
+                                 pass = true;
+                             }
+                             else
+                             {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                 $$ = ['','','',''];
+                                 break;
+                             }
+                         }
+                         else
+                          {
+                              pass = false;
+                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion`+'\"}');
+                              $$ = ['','','',''];
+                              break;
+                          }
+                     }
+                     else
+                     {
+                        var n1 = tab.getPositionAmbito(posi[12][4]);
+                        if(n1!=null)
+                        {
+                            if(n1.rol.toUpperCase() != 'ARREGLO')
+                            {
+                                if(n1.tipo.toUpperCase() == 'NUMBER')
+                                {
+                                     var num = Number(n1.valor);
+                                     if(num <= (m-1))
+                                     {
+                                         arres.push(m);
+
+                                         var temp = Temp.getTemporal();
+                                         posss = posss * m + n1.valor;
+                                         poses.push(temp);
+                                         poses1.push(n1.valor);
+                                         if(n1.entorno == 'global')
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         else
+                                         {
+                                            valor += `${temp} = heap[${n1.position}];\n`;
+                                         }
+                                         pass = true;
+                                     }
+                                     else
+                                     {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${n1.valor}`+'\"}');
+                                         $$ = ['','','',''];
+                                         break;
+                                     }
+                                }
+                                else
+                                {
+                                         pass = false;
+                                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                         $$ = ['','','',''];
+                                         break;
+                                }
+                            }
+                            else
+                            {
+                                 pass = false;
+                                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                                 $$ = ['','','',''];
+                                 break;
+                            }
+
+                        }
+                        else
+                        {
+                             pass = false;
+                             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, variable no existe: ${posi[12][0]}`+'\"}');
+                             $$ = ['','','',''];
+                             break;
+                        }
+
+                     }
+                     nivel++;
+                 }
+                 if(pass)
+                 {
+                    var temp0 = Temp.getTemporal();
+                    var temp = Temp.getTemporal();
+
+                    valor += `${temp} = ${poses[0]};\n`
+
+                    for(var a = 1; a<arres.length; a++)
+                    {
+                        valor += `${temp0} = ${temp} * ${arres[a-1]};\n`;
+                        valor += `${temp} = ${temp0} + ${poses[a]};\n`;
+                        valor += `${temp} = heap[(int) ${temp}] +2;\n`;
+                    }
+
+                    var temp1 = Temp.getTemporal();
+                    var temp2 = Temp.getTemporal();
+                    if(n.entorno == 'global')
+                    {
+                        valor += `${temp1} = heap[${n.position}];\n`;
+                    }
+                    else
+                    {
+                        valor += `${temp1} = stack[${n.position}];\n`;
+                    }
+                    valor += `${temp2} = heap[(int)${temp1}] + 1;\n`;
+
+                   // var temp3 = Temp.getTemporal();
+                    //valor += `${temp3} = ${temp2} + ${temp};\n`;
+
+                    //var temp4 = Temp.getTemporal();
+                    //valor += `${temp4} = heap[(int)${temp3}];\n`;
+
+                   var temp5 = Temp.getTemporal();
+                   var temp6 = Temp.getTemporal();
+
+                   valor += `${temp5} = ${temp2} + ${poses[0]};\n`;
+                   for(var a = 1; a<poses.length; a++)
+                   {
+                       valor += `${temp6} = heap[(int) ${temp5}] + 2;\n`;
+                       valor += `${temp5} = ${temp6} + ${poses[a]};\n`;
+                   }
+
+                   valor += `${temp6} = heap[(int) ${temp5}];\n`;
+
+
+                    var arrayss = arr.getValores(n.name);
+                    if((typeof arrayss[0]).toString().toLowerCase() == $4[0].toLowerCase())
+                    {
+                        if($4[0].toUpperCase() == 'STRING')
+                        {
+                           var temp7 = Temp.getTemporal();
+                           valor += temp7 + ' = ' + temp5 + ';';
+                           var temp8 = Temp.getTemporal();
+                           valor += temp8 + ' = ' + posS + ';';
+                           valor += '\n';
+                           var temp9 = Temp.getTemporal();
+                           valor += temp9 + ' = ' + posS + ';';
+                           valor += '\n';
+                           if(entorno == 'global')
+                           {
+                               valor += 'heap[(int)'+temp7+'] = ' + temp8 + ';';
+                               valor += '\n';
+                           }
+                           else
+                           {
+                               valor += 'stack[(int)'+temp7+'] = ' + temp8 + ';';
+                               valor += '\n';
+                           }
+
+                           valor += temp8 + ' = ' + temp8 + ' + 1;';
+                           valor += '\n';
+                           valor += 'heap[(int)'+temp9+'] = ' + temp8 + ';\n';
+                           var temp10 = Temp.getTemporal();
+                           valor += temp10 + ' = '+ $4[5].length + ';';
+                           valor += '\n';
+                           valor += 'heap[(int)'+temp8+'] = ' + temp10 + ';';
+                           valor += '\n';
+
+                          for(var a = 0; a<$4[5].length; a++)
+                          {
+                              valor += temp8 + ' = ' + temp8 + ' + 1;';
+                              valor += '\n';
+                              valor += 'heap[(int)'+temp8+'] = ' + $4[5].charCodeAt(a) + ';';
+                              valor += '\n'
+                          }
+                        }
+                        else
+                        {
+                            valor += $4[3] + '\n';
+                            valor += `heap[(int)${temp5}] = ${$4[1]};\n`;
+                        }
+
+                        arr.changeValue(n.name, $4[5], poses1);
+
+                        var values = arr.get(n.name);
+                        n.valor = values;
+                        tab.update(n.name,n);
+                        arr.update(n.name,values);
+
+                        var r = [];
+                        r[0] = typeof arrayss[0];
+                        r[1] = temp6;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = $4[5];
+                        r[6] = $4[5];
+                        $$ = r;
+                    }
+                    else if($4[0].toUpperCase() == 'ARREGLO')
+                    {
+                        var temp7 = Temp.getTemporal();
+                        valor += temp7 + ' = ' + temp5 + ';';
+                        valor += '\n';
+
+                        var temp8 = Temp.getTemporal();
+                        var temp9 = Temp.getTemporal();
+                        valor += temp8 + ' = ' + posA + ';';
+                        valor += '\n';
+                        valor += temp9+ ' = ' + posA + ';\n';
+                        valor += 'heap[(int)'+temp7+'] = ' + temp8 + ';';
+                        valor += '\n';
+
+                        valor += temp8 + ' = ' + temp8 + ' + 1;';
+                        valor += '\n';
+                        valor += 'heap[(int)'+temp9+'] = ' + temp8 + ';\n';
+
+                        var temp2 = Temp.getTemporal();
+                        valor += temp2 + ' = '+ $4[7] + ';';
+                        valor += '\n';
+                        valor += 'heap[(int)'+temp8+'] = ' + temp2 + ';';
+                        valor += '\n';
+                        valor += $4[1] + ' = ' + temp8 + ';';
+                        valor += '\n';
+                        valor += $4[3];
+                        valor += '\n';
+
+                        arr.changeValue(n.name, $4[6], poses1);
+
+                        var values = arr.get(n.name);
+                        n.valor = values;
+                        tab.update(n.name,n);
+                        arr.update(n.name,values);
+
+                        var r = [];
+                        r[0] = 'ARREGLO';
+                        r[1] = temp6;
+                        r[2] = '';
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = $4[6];
+                        r[6] = $4[6];
+                        $$ = r;
+
+                    }
+                    else
+                    {
+                        console.log($4);
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, tipo invalido: ${typeof arrayss[0]}`+'\"}');
+                        $$ = ['','','',''];
+                    }
+                 }
+                 else
+                 {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion.`+'\"}');
+                    $$ = ['','','',''];
+                 }
+             }
+             else
+             {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$1}, el tamaño del arreglo es de: ${l}`+'\"}');
+                 $$ = ['','','',''];
+             }
+         }
+         else
+         {
+              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$1}`+'\"}');
+              $$ = ['','','',''];
+         }
     }
 
 ;
@@ -6724,10 +7240,6 @@ ArrayLiteral
 
     }
 ;
-ArrayLiterals
-    : '[' ElementList ']' ArrayLiterals
-    | '[' ElementList ']'
-;
 
 ElementList
     : AssignmentExpr
@@ -6758,7 +7270,16 @@ ElementList
           }
           else
           {
+                var n = tab.getPositionAmbito($1[4]);
+                if(n!=null)
+                {
 
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$1[4]}.`+'\"}');
+                    r = ['','','','','','','',''];
+                }
           }
         $$.push(r);
     }
@@ -6807,7 +7328,7 @@ MemberExpr
     {
         $$ = $1;
     }
-    | MemberExpr '[' Expr ']'
+//    | MemberExpr '[' Expr ']'
     | MemberExpr '.' IDENT
     {
         $$ = ['','','','','','']
@@ -6819,7 +7340,7 @@ MemberExprNoBF
     {
         $$ = $1;
     }
-    | MemberExprNoBF '[' Expr ']'
+//    | MemberExprNoBF '[' Expr ']'
     | MemberExprNoBF '.' IDENT
     {
         $$ = ['','','','','','']
@@ -6842,7 +7363,7 @@ CallExpr
         $$ = r;
     }
     | CallExpr Arguments
-    | CallExpr '[' Expr ']'
+//    | CallExpr '[' Expr ']'
     | CallExpr '.' IDENT
     {
         $$ = ['','','','','','']
@@ -6863,7 +7384,7 @@ CallExprNoBF
         $$ = r;
     }
     | CallExprNoBF Arguments
-    | CallExprNoBF '[' Expr ']'
+//    | CallExprNoBF '[' Expr ']'
     | CallExprNoBF '.' IDENT
     {
         $$ = ['','','','','','']

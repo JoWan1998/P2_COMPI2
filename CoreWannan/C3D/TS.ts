@@ -333,6 +333,16 @@ export class Arreglos
             }
         }
     }
+    get(id)
+    {
+        for(let simbolito of this.valores) {
+            if (simbolito instanceof arreglo) {
+                if (simbolito.name == id) {
+                    return simbolito;
+                }
+            }
+        }
+    }
 
     getProf(id) : number
     {
@@ -606,8 +616,8 @@ export class Arreglos
             {
                 if(simbolito.name == id)
                 {
-                    simbolito.valor = simbolito.changeData(data, pos);
-                    console.log(this.getProf(simbolito.name));
+                    simbolito.changeData(data, pos);
+                    //console.log(simbolito.getValores());
                 }
             }
         }
@@ -636,6 +646,7 @@ export class arreglo
     getValores(): any[]
     {
         let value = [];
+        //console.log(this.valor);
         for(let pos of this.valor)
         {
             if(pos instanceof Array)
@@ -691,67 +702,54 @@ export class arreglo
     }
     changeData(data,pos)
     {
-        let posi = pos.pop();
-        if(pos.length>0)
+        let posd = 0
+        let posi = pos[posd];
+        posd++;
+
+        if(pos.length>posd)
         {
+            //console.log(this.valor[posi])
             if(this.valor[posi] instanceof arreglo)
             {
-                this.valor[posi].valor = this.changeData1(this.valor[posi].valor,data,pos);
-            }
-            else
-            {
-                this.valor[posi] = this.changeData2(this.valor[posi],data,pos);
+                this.valor[posi].valor[0].valor = this.changeData1(this.valor[posi].valor[0].valor,data,pos, posd);
             }
         }
         else
         {
-            this.valor[posi] = data;
+            //console.log(this.valor[posi]);
+            if(this.valor[posi] instanceof arreglo)
+            {
+                this.valor[posi].valor[0] = data;
+            }
         }
         return this.valor;
     }
-    changeData1(arr, data, pos)
+    changeData1(arr, data, pos, posd)
     {
-        let posi = pos.pop();
-        if(pos.length>0)
+        let posi = pos[posd];
+        posd++;
+        //console.log('l', posi, pos);
+        if(pos.length>posd)
         {
             if(arr[posi] instanceof arreglo)
             {
-                arr[posi].valor = this.changeData1(arr[posi].valor,data,pos);
-                return arr;
-            }
-            else
-            {
-                arr[posi] = this.changeData2(arr[posi],data,pos);
+                //console.log('l',arr.valor[posi].valor[0])
+                //console.log('l1',arr.valor[0].valor[posi])
+                //console.log('l2',arr.valor[0].valor[0].valor[posi])
+                arr[posi].valor = this.changeData1(arr[posi].valor,data,pos,posd);
                 return arr;
             }
         }
         else
         {
-            arr[posi] = data;
-            return arr;
-        }
-    }
-    changeData2(arr,data,pos)
-    {
-        let posi = pos.pop();
-        if(pos.length>0)
-        {
-            if(arr[posi] instanceof arreglo)
+            //console.log(arr[0]);
+            if(arr[0] instanceof arreglo)
             {
-                arr[posi].valor = this.changeData1(arr[posi].valor,data,pos);
-                return arr;
-            }
-            else
-            {
-                arr[posi] = this.changeData2(arr[posi],data,pos);
+                arr[0].valor[posi].valor[0] = data;
                 return arr;
             }
         }
-        else
-        {
-            arr[posi] = data;
-            return arr;
-        }
+        return arr;
     }
 
 }
