@@ -1,0 +1,21 @@
+let a:number = 1989.5 + 0.5 + 8;
+let numero  = a++;
+let b:string =  a + ': hola mundo';
+let c = b <= '19981: hola mundo';
+let d = new Array(5);
+console.log(a)
+a = 1900;
+console.log(a)
+b.Concat(a);
+b.ToUpperCase();
+console.log(b);
+b.ToLowerCase();
+console.log(b);
+console.log(numero);
+console.log(c)
+console.log("TAMAÑO: ["+b.length, "], VALOR: ["+b+"]");
+d = [[['a','1','2'],['3','4','5']],[['6','7','8'],['9','10','11']],[['12','13','14'],['15','16','17']]];
+let e = [true,false,true,false,true];
+//let m = (d[0][1][1]);
+d[0][0][0].ToUpperCase();
+console.log(d[0][0][0]);

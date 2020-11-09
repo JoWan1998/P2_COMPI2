@@ -20,6 +20,11 @@
 "true"                          return 'TRUETOKEN'
 "false"                         return 'FALSETOKEN'
 
+"length"                        return 'LENGTH'
+"CharAt"                        return 'CHARAT'
+"ToLowerCase"                   return 'TOLOWER'
+"ToUpperCase"                   return 'TOUPPER'
+"Concat"                        return 'CONCAT'
 "const"                         return 'CONST'
 "let"                           return 'LET'
 "var"                           return 'VAR'
@@ -363,21 +368,55 @@ Expr1_statements
 */
 Expr1_statement
     : Expr1_statement ArrList
-        {
-            $$ = $1 + ',{\"statement\":\"ArrayList\",\"value\":['+$2+']}';
-        }
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
     | Expr1_statement '.' IDENT
-        {
-            $$ = $1 + ',{\"statement\":\"Object\",\"value\":\"'+$3+'\"}';
-        }
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
+    | Expr1_statement '.' CHARAT '(' Expr ')'
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
+    | Expr1_statement '.' TOLOWER '(' ')'
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
+    | Expr1_statement '.' TOUPPER '(' ')'
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
+    | Expr1_statement '.' CONCAT '(' Expr ')'
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
+    | Expr1_statement '.' LENGTH
+    {
+        var r = [];
+        r[10] = 'LENGTHPOS';
+        r[11] = $1;
+        $$ = r;
+
+    }
     | '.' IDENT
-        {
-            $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"Object\",\"value\":\"'+$2+'\"}';
-        }
+    {
+        $$ = ['','','','','','','','','','','','','','',''];
+    }
     | ArrList
-        {
-            $$ = '{\"linea\":\"'+(yylineno+1)+'\",\"statement\":\"ArrayList\",\"value\":['+$1+']}';
-        }
+    {
+        $$ = $1;
+    }
+    | '.' CHARAT '(' Expr ')'
+    | '.' TOLOWER '(' ')'
+    | '.' TOUPPER '(' ')'
+    | '.' CONCAT '(' Expr ')'
+    | '.' LENGTH
+    {
+        var r = [];
+        r[10] = 'LENGTH';
+        $$ = r;
+    }
 ;
 
 

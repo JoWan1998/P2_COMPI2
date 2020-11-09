@@ -1,0 +1,367 @@
+console.log('a');
+        if($2[10] == 'ARRPOS')
+        {
+            var n = tab.getPositionAmbito($1);
+            if(n!=null)
+            {
+                var valor = '';
+                var temp  = Temp.getTemporal();
+                var l = arr.getProf($1);
+                if(l>=$2.length)
+                {
+                    var nivel = 1;
+                    for(let posi of $2)
+                    {
+                        var m = arr.getTam($1,nivel);
+                        var pass = false;
+
+                        if(posi[12][0] != '')
+                        {
+                            if(posi[12][0].toUpperCase() == 'NUMBER')
+                            {
+                                var num = posi[12][6];
+                                if(num <= (m-1))
+                                {
+                                    pass = true;
+                                }
+                                else
+                                {
+                                    pass = false;
+                                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                    $$ = ['','','',''];
+                                }
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                        nivel++;
+                    }
+                    if(pass)
+                    {
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$1}, el tamaño del arreglo es de: ${l}`+'\"}');
+                    $$ = ['','','',''];
+                }
+            }
+            else
+            {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$1}`+'\"}');
+                 $$ = ['','','',''];
+            }
+
+        }
+        else if($2[10] == 'LENGTHPOS')
+        {
+            var n = tab.getPositionAmbito($1);
+            if(n!=null)
+            {
+                var valor = '';
+                var temp  = Temp.getTemporal();
+                var l = arr.getProf($1);
+                if(l>=$2[11].length)
+                {
+                    var nivel = 1;
+                    k = null;
+                    for(let posi of $2[11])
+                    {
+                        var m = arr.getTam($1,nivel);
+                        var pass = false;
+
+                        if(posi[12][0] != '')
+                        {
+                            if(posi[12][0].toUpperCase() == 'NUMBER')
+                            {
+                                var num = posi[12][6];
+                                if(num <= (m-1))
+                                {
+                                    //console.log(k!=null);
+                                    if(k!=null)
+                                    {
+                                        //console.log(k);
+                                        k = arr.getsize1(k,posi[12][6]);
+                                    }
+                                    else
+                                    {
+                                        k = arr.getTampos($1,nivel, posi[12][6]);
+                                    }
+                                    pass = true;
+                                }
+                                else
+                                {
+                                    pass = false;
+                                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, posicion fuera del rango, nivel: ${nivel}, tamaño: ${m}, posicion: ${posi[12][6]}`+'\"}');
+                                    $$ = ['','','',''];
+                                }
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                        nivel++;
+                    }
+                    if(pass)
+                    {
+                       //console.log(k);
+                       if(k!=null && k[0] instanceof intermedia.arreglo)
+                       {
+                            var valor = '\n';
+                            var temp = Temp.getTemporal();
+                            var temp1 = Temp.getTemporal();
+                            var temp2 = Temp.getTemporal();
+                            valor += `${temp} = ${n.position};\n`;
+                            if(n.entorno == 'global')
+                            {
+                                valor += `${temp1} = heap[(int)${temp}];\n`;
+                            }
+                            else
+                            {
+                                valor += `${temp1} = stack[(int)${temp}];\n`;
+                            }
+
+                            valor += `${temp2} = heap[(int)${temp1}];\n`;
+                            var temp3 = Temp.getTemporal();
+                            valor += `${temp3} = ${k[0].positions[0]};\n`;
+
+                             var r = [];
+                             r[0] = "NUMBER";
+                             r[1] = temp3;
+                             r[2] = ''
+                             r[3] = valor;
+                             r[4] = '';
+                             r[5] = Number(k[0].positions[0]);
+                             r[6] = Number(k[0].positions[0]);
+                             r[7] = '';
+                             r[8] = '';
+
+                             $$ = r;
+
+                       }
+                       else
+                       {
+                            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, el valor en la ultima posicion no es un arreglo.`+'\"}');
+                            $$ = ['','','',''];
+                       }
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, tamaño muy grande para el arreglo ${$1}, el tamaño del arreglo es de: ${l}`+'\"}');
+                    $$ = ['','','',''];
+                }
+            }
+            else
+            {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$1}`+'\"}');
+                 $$ = ['','','',''];
+            }
+        }
+        else if($2[10] == 'LENGTH')
+        {
+            var n = tab.getPositionAmbito($1);
+            if(n!=null)
+            {
+                if(n.rol.toUpperCase() == 'ARREGLO')
+                {
+                     var valor = '';
+                     var temp1 = Temp.getTemporal();
+                     valor += temp1 + ' = ' + n.position +';';
+                     valor += '\n';
+                     var temp2 = Temp.getTemporal();
+                     var temp3 = Temp.getTemporal();
+                     if(n.entorno == 'global')
+                     {
+                         valor += temp2 + ' = heap[(int)'+temp1+'];';
+                         valor += '\n';
+                     }
+                     else
+                     {
+                         valor += temp2 + ' = stack[(int)'+temp1+'];';
+                         valor += '\n';
+                     }
+
+                     valor += temp3+' = heap[(int)' + temp2 +'];';
+                     valor += '\n';
+                     var k = arr.getTamposd($1);
+                     valor += `${temp2} = ${k};\n`
+
+                     var r = [];
+                     r[0] = "NUMBER";
+                     r[1] = temp2;
+                     r[2] = ''
+                     r[3] = valor;
+                     r[4] = '';
+                     r[5] = Number(arr.getTamposd($1));
+                     r[6] = Number(arr.getTamposd($1));
+                     r[7] = '';
+                     r[8] = '';
+
+                     $$ = r;
+
+                }
+                else
+                {
+                    if(n.tipo.toUpperCase() == 'STRING')
+                    {
+                          var valor = '';
+                          var temp1 = Temp.getTemporal();
+                          valor += temp1 + ' = ' + n.position +';';
+                          valor += '\n';
+                          var temp2 = Temp.getTemporal();
+                          var temp3 = Temp.getTemporal();
+                          if(n.entorno == 'global')
+                          {
+                              valor += temp2 + ' = heap[(int)'+temp1+'];';
+                              valor += '\n';
+                          }
+                          else
+                          {
+                              valor += temp2 + ' = stack[(int)'+temp1+'];';
+                              valor += '\n';
+                          }
+
+                          valor += temp3+' = heap[(int)' + temp2 +'];';
+                          valor += '\n';
+                          valor += `${temp2} = heap[(int)${temp3}];`
+
+                          var r = [];
+                          r[0] = "NUMBER";
+                          r[1] = temp2;
+                          r[2] = ''
+                          r[3] = valor;
+                          r[4] = '';
+                          r[5] = n.valor.length;
+                          r[6] = n.valor.length;
+                          r[7] = '';
+                          r[8] = '';
+
+                          $$ = r;
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion`+'\"}');
+                        $$ = ['','','',''];
+                    }
+                }
+            }
+            else
+            {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$1}`+'\"}');
+                 $$ = ['','','',''];
+            }
+        }
+        /*
+        else if($2[10] == 'CHARAT')
+        {
+            var n = tab.getPositionAmbito($1);
+            if(n!=null)
+            {
+                if(n.tipo.toUpperCase() == 'STRING')
+                {
+                    var expr = $2[11];
+                    if(expr[5] < n.valor.length)
+                    {
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        if(n.entorno == 'global')
+                        {
+                            valor += `${temp} = heap[${n.position}];\n`;
+                        }
+                        else
+                        {
+                            valor += `${temp} = stack[${n.position}];\n`;
+                        }
+                        valor += `${temp} = ${temp} + 1;\n`;
+                        var temp1 = Temp.getTemporal();
+                        valor += `${temp1} = ${temp} + ${expr[5]};\n`;
+
+                        var r = [];
+                        r[0] = "CADENA";
+                        r[1] = temp1;
+                        r[2] = ''
+                        r[3] = valor;
+                        r[4] = '';
+                        r[5] = n.valor.charAt(expr[5]);
+                        r[6] = n.valor.charAt(expr[5]);
+                        r[7] = '';
+                        r[8] = '';
+
+                        $$ = r;
+
+                    }
+                    else
+                    {
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, la posicion no se encuentra entre el rango del tamaño de la cadena.`+'\"}');
+                        $$ = ['','','',''];
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, la variable no es de tipo string`+'\"}');
+                    $$ = ['','','',''];
+                }
+            }
+            else
+            {
+                 semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$1}`+'\"}');
+                 $$ = ['','','',''];
+            }
+        }
+        */
+        else
+        {
+            $$ = ['','','','','','','',''];
+        }
+
+
+    /*
+    | '.' CHARAT '(' Expr ')'
+    {
+        console.log('as');
+        var r = [];
+        r[10] = 'CHARAT';
+        r[11] = $4;
+        $$ = r;
+    }
+    | '.' TOLOWER '(' ')'
+    | '.' TOUPPER '(' ')'
+    | '.' CONCAT '(' Expr ')'
+    | '.' LENGTH
+    {
+        var r = [];
+        r[10] = 'LENGTH';
+        $$ = r;
+    }
+    */
+
+        /*
+        | Expr1_statement '.' CHARAT '(' Expr ')'
+        {
+            $$ = ['','','','','','','','','','','','','','',''];
+        }
+        | Expr1_statement '.' TOLOWER '(' ')'
+        {
+            $$ = ['','','','','','','','','','','','','','',''];
+        }
+        | Expr1_statement '.' TOUPPER '(' ')'
+        {
+            $$ = ['','','','','','','','','','','','','','',''];
+        }
+        | Expr1_statement '.' CONCAT '(' Expr ')'
+        {
+            $$ = ['','','','','','','','','','','','','','',''];
+        }
+        | Expr1_statement '.' LENGTH
+        {
+            var r = [];
+            r[10] = 'LENGTHPOS';
+            r[11] = $1;
+            $$ = r;
+
+        }
+        */
