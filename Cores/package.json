@@ -1,0 +1,12 @@
+{
+  "name": "wannancore1",
+  "version": "0.0.2",
+  "description": "Core Wannan, by wannantraduction - C3D",
+  "main": "WE_C3D.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "José Wannan",
+  "license": "ISC"
+}

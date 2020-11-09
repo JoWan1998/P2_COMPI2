@@ -3,6 +3,7 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import Parser from 'node_modules/wannantraduction/WT';
 import * as ParserE from 'node_modules/wannancompile/WE';
 import Core from 'node_modules/wannancore/globalCore';
+import WE_C3D from 'node_modules/wannancore1/WE_C3D';
 import {formatDate} from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from './toast-service';
@@ -21,7 +22,7 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 export class AppComponent implements OnInit{
   title = 'JWEditor';
   images = [700, 533, 807, 124].map((n) => `https://picsum.photos/id/${n}/900/500`);
-  constructor(private modalService: NgbModal, public toastService: ToastService,config: NgbCarouselConfig) {
+  constructor(private modalService: NgbModal, public toastService: ToastService, config: NgbCarouselConfig) {
     // customize default values of carousels used by this component tree
     config.interval = 10000;
     config.wrap = false;
@@ -170,7 +171,6 @@ export class AppComponent implements OnInit{
 
         this.EL = this.traduction[1].length;
         this.ES = this.traduction[2].length;
-        this.progreso = 25;
         if ( this.EL > 0 || this.ES > 0 )
         {
           sus = false;
@@ -262,96 +262,29 @@ export class AppComponent implements OnInit{
 
   Traductor(event, value, dg)
   {
-    this.simbolos = [];
-    this.erroresLexicos = [];
-    this.erroresSintacticos = [];
-    this.simbolitos = [];
-    let sus = true;
-    this.EL = 0;
-    this.ES = 0;
+    // tslint:disable-next-line:max-line-length
     (async () => {
       const start = new Date().getTime();
       this.traduce = true;
       this.progreso = 10;
       this.salida = '';
       this.obj1 = '';
+      let sus = false;
       await delay(1000);
       try {
         // tslint:disable-next-line:no-console
         console.time('mytimer');
         this.progreso = 25;
-        this.traduction = Parser.parse(value.value);
+        this.traduction = WE_C3D.parse(value.value);
 
-        this.obj2 = this.traduction[0];
-        this.EL = this.traduction[1].length;
-        this.ES = this.traduction[2].length;
+        console.log(this.traduction);
         this.progreso = 50;
-        if ( this.EL > 0 || this.ES > 0 )
-        {
-          sus = false;
-          let b = 1;
-          // tslint:disable-next-line:no-shadowed-variable
-          for (const value of this.traduction[1])
-          {
-            const values = JSON.parse(value.toString());
-            const valor = { no: b.toString(), token: values.token, linea: values.linea, columna: values.columna };
-            this.erroresLexicos.push(valor);
-            b++;
-          }
-
-          b = 1;
-          // tslint:disable-next-line:no-shadowed-variable
-          for (const value of this.traduction[2])
-          {
-            const values = JSON.parse(value);
-            const valor = { no: b.toString(), token: values.token, linea: values.linea, columna: values.columna };
-            this.erroresSintacticos.push(valor);
-            b++;
-          }
-        }
-
-        Core.jsondata = this.traduction[0];
-        Core.generate(this.traduction[0]);
-        this.core = Core.exec();
-        this.progreso = 75;
-        this.progreso = 75;
-        this.salida = '';
-        for (const values of Core.resultado()) {
-          // console.log(values);
-          if (values.toString().includes('Error:'))
-          {
-            sus = false;
-            this.salida += '[JoWan1998][' + formatDate(new Date(), 'yyyy/MM/dd  HH:mm:ss', 'en') + '] ' + values + '\n';
-
-          }
-          else {
-            this.salida += '[JoWan1998][' + formatDate(new Date(), 'yyyy/MM/dd  HH:mm:ss', 'en') + '] ' + values + '\n';
-
-          }
-        }
-
         try {
-          this.obj1 = this.salida;
-          this.rows1 = Core.tablasimbolos();
-          const val = JSON.parse(this.rows1);
-          let a = 1;
-          this.rows = '';
-          for (const values of val.simbolos)
-          {
-            const valor = { no: a.toString(), name: values.name, ambito: values.ambito, tipo: values.tipo, type: values.type };
-            this.simbolos.push(valor);
-            a++;
-          }
-          const nnm = JSON.parse(Core.graphs().toString());
-          a = 1;
-          for (const values of nnm.simbolos)
-          {
-            const valor = { no: a.toString(), name: values.name, ambito: values.ambito, tipo: values.tipo, type: values.type };
-            this.simbolitos.push(valor);
-            a++;
-          }
+          sus = true;
+          this.obj2 = this.traduction[0];
         }
         catch (e) {
+          sus = false;
         }
 
         const end = new Date().getTime();
@@ -377,6 +310,8 @@ export class AppComponent implements OnInit{
       this.progreso = 0;
 
     })();
+
+
   }
 
   showSuccess() {

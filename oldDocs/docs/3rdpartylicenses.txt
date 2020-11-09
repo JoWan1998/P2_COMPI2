@@ -519,7 +519,7 @@ ISC
 wannancore
 ISC
 
-wannancore1
+wannantraduction
 ISC
 
 webpack
