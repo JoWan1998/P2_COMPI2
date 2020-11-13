@@ -36,10 +36,11 @@ var TablaSimbolos = /** @class */ (function () {
     };
     TablaSimbolos.prototype.deleteAmbitoLast = function () {
         var simbols = [];
+        var amb = this.ambitoLevel - 1;
         for (var _i = 0, _a = this.simbolos; _i < _a.length; _i++) {
             var a = _a[_i];
             if (a instanceof simbolo) {
-                if (a.ambito == 0)
+                if (a.ambito <= amb || a.ambito == 0)
                     simbols.push(a);
             }
         }
@@ -122,6 +123,26 @@ var TablaSimbolos = /** @class */ (function () {
         return null;
     };
     TablaSimbolos.prototype.getPositionAmbito = function (name) {
+        /*
+        let ambitoglob = true;
+        let ambitoloc = false;
+        for(let simbolito of this.simbolos) {
+            if (simbolito instanceof simbolo) {
+                if (simbolito.name == name) {
+
+                    if(simbolito.ambito == this.ambitoLevel && this.ambitoLevel>0 && simbolito.ambito >0)
+                    {
+                        ambitoglob = false;
+                        ambitoloc = true;
+                    }
+                    else if(simbolito.ambito < this.ambitoLevel && this.ambitoLevel>0 && simbolito.ambito >0)
+                    {
+                        ambitoglob = false;
+                    }
+                }
+            }
+        }
+        */
         var ambitoglob = true;
         var ambitoloc = false;
         for (var _i = 0, _a = this.simbolos; _i < _a.length; _i++) {
@@ -138,16 +159,14 @@ var TablaSimbolos = /** @class */ (function () {
                 }
             }
         }
+        //if(name == 'k') console.log(this.ambitoLevel)
         if (ambitoglob) {
             for (var _b = 0, _c = this.simbolos; _b < _c.length; _b++) {
                 var simbolito = _c[_b];
                 if (simbolito instanceof simbolo) {
-                    if (simbolito.name == name && simbolito.ambito == 0) {
+                    if (simbolito.name == name) {
                         return simbolito;
                     }
-                }
-                else {
-                    return -1;
                 }
             }
         }
@@ -156,10 +175,8 @@ var TablaSimbolos = /** @class */ (function () {
                 for (var _d = 0, _e = this.simbolos; _d < _e.length; _d++) {
                     var simbolito = _e[_d];
                     if (simbolito instanceof simbolo) {
-                        if (simbolito.name == name) {
-                            if (simbolito.ambito == this.ambitoLevel) {
-                                return simbolito;
-                            }
+                        if (simbolito.name == name && simbolito.ambito == this.ambitoLevel) {
+                            return simbolito;
                         }
                     }
                 }
@@ -168,10 +185,8 @@ var TablaSimbolos = /** @class */ (function () {
                 for (var _f = 0, _g = this.simbolos; _f < _g.length; _f++) {
                     var simbolito = _g[_f];
                     if (simbolito instanceof simbolo) {
-                        if (simbolito.name == name) {
-                            if (simbolito.ambito < this.ambitoLevel && simbolito.ambito > 0) {
-                                return simbolito;
-                            }
+                        if (simbolito.name == name && simbolito.ambito < this.ambitoLevel && simbolito.ambito > 0) {
+                            return simbolito;
                         }
                     }
                 }

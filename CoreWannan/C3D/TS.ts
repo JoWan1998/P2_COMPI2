@@ -41,11 +41,12 @@ export class TablaSimbolos
     deleteAmbitoLast()
     {
         let simbols = [];
+        var amb = this.ambitoLevel - 1;
         for(let a of this.simbolos)
         {
             if(a instanceof simbolo)
             {
-                if(a.ambito == 0) simbols.push(a);
+                if(a.ambito <= amb || a.ambito == 0) simbols.push(a);
             }
         }
         this.simbolos = [];
@@ -150,6 +151,7 @@ export class TablaSimbolos
     }
     getPositionAmbito(name:string)
     {
+        /*
         let ambitoglob = true;
         let ambitoloc = false;
         for(let simbolito of this.simbolos) {
@@ -168,21 +170,36 @@ export class TablaSimbolos
                 }
             }
         }
+        */
+        let ambitoglob = true;
+        let ambitoloc = false;
+        for(let simbolito of this.simbolos) {
+            if (simbolito instanceof simbolo) {
+                if (simbolito.name == name) {
+                    if(simbolito.ambito == this.ambitoLevel && this.ambitoLevel>0 && simbolito.ambito >0)
+                    {
+                        ambitoglob = false;
+                        ambitoloc = true;
+                    }
+                    else if(simbolito.ambito < this.ambitoLevel && this.ambitoLevel>0 && simbolito.ambito >0)
+                    {
+                        ambitoglob = false;
 
+                    }
+                }
+            }
+        }
+        //if(name == 'k') console.log(this.ambitoLevel)
         if(ambitoglob)
         {
             for(let simbolito of this.simbolos)
             {
                 if(simbolito instanceof simbolo)
                 {
-                    if(simbolito.name == name && simbolito.ambito == 0)
+                    if(simbolito.name == name)
                     {
                         return simbolito;
                     }
-                }
-                else
-                {
-                    return -1;
                 }
             }
         }
@@ -194,12 +211,9 @@ export class TablaSimbolos
                 {
                     if (simbolito instanceof simbolo)
                     {
-                        if (simbolito.name == name)
+                        if (simbolito.name == name && simbolito.ambito == this.ambitoLevel)
                         {
-                            if(simbolito.ambito == this.ambitoLevel)
-                            {
-                                return simbolito;
-                            }
+                            return simbolito;
                         }
                     }
                 }
@@ -210,12 +224,9 @@ export class TablaSimbolos
                 {
                     if (simbolito instanceof simbolo)
                     {
-                        if (simbolito.name == name)
+                        if (simbolito.name == name && simbolito.ambito < this.ambitoLevel && simbolito.ambito > 0)
                         {
-                            if(simbolito.ambito < this.ambitoLevel && simbolito.ambito >0)
-                            {
-                                return simbolito
-                            }
+                            return simbolito
                         }
                     }
                 }

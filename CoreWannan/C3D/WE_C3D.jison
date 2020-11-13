@@ -21,6 +21,14 @@
     var entorno = 'global';
     var entornoanterior = 'global';
     var func = false;
+    var ifs = false;
+    var whiles = false;
+    var fores = false;
+    var does = false;
+    var switches = false;
+    var breaks = '';
+    var continues = '';
+
 %}
 
 // ANALISIS LEXICO
@@ -160,7 +168,7 @@ S
         }
         valor = valor.slice(0, -1);
         valor +=' = -1;\nint main()\n{\n';
-        valor += C3D;
+        valor += $1[3];
         valor +='return 0;\n}';
         $$ =[];
         $$.push(valor);
@@ -169,17 +177,17 @@ S
         console.log('-----      ERRORES        ------');
         for(let m of errores)
         {
-           
+           console.log(m);
         }
         console.log('-----   ERRORES LEXICOS   ------');
         for(let m of lexicos)
         {
-           
+           console.log(m);
         }
         console.log('----- ERRORES SINTACTICOS ------');
         for(let m of sintacticos)
         {
-           
+           console.log(m);
         }
         console.log('----- ERRORES SEMANTICOS ------');
         for(let m of semanticos)
@@ -197,20 +205,31 @@ S
 Source1
     :  Statement
     {
-        if($1 instanceof Array)
-        {
-            C3D = $1[3] + C3D;
-        }
+        var valor = '';
+        valor += $1[3];
+        var r = [];
+        r[0] = '';
+        r[1] = '';
+        r[2] = '';
+        r[3] = valor;
+        $$ = r;
     }
     |  Statement Source1
     {
-        if($1 instanceof Array)
-        {
-            C3D = $1[3] + C3D;
-        }
-
+        var valor = '';
+        valor += $1[3] + '\n';
+        valor += $2[3];
+        var r = [];
+        r[0] = '';
+        r[1] = '';
+        r[2] = '';
+        r[3] = valor;
+        $$ = r;
     }
     |  EOF
+    {
+        $$ = ['','','','',''];
+    }
 
 ;
 
@@ -236,8 +255,7 @@ Statement
     }
     | Function_statements
     {
-        tab.ambitoLevel = tab.ambitoLevel-1;
-        entorno = 'global';
+        if(tab.ambitoLevel > 0) tab.ambitoLevel = tab.ambitoLevel-1;
         func = !func;
         tab.deleteAmbitoLast();
         var r = [];
@@ -267,16 +285,26 @@ Statement
     }
     | If_statements
     {
-
+        if(tab.ambitoLevel > 0) tab.ambitoLevel = tab.ambitoLevel-1;
+        ifs = !ifs;
+        tab.deleteAmbitoLast();
+        entorno  = entorno.slice(3,-3);
         var r = [];
         r[0]  = $1[0];
         r[1] = $1[1];
         r[2] = $1[2];
         r[3] = $1[3];
+
         $$ = r;
     }
     | Iteration_statements
     {
+        if(tab.ambitoLevel > 0) tab.ambitoLevel = tab.ambitoLevel-1;
+        if(fores) fores = !fores;
+        if(whiles) whiles = !whiles;
+        if(does) does = !does;
+        tab.deleteAmbitoLast();
+        entorno = entorno.slice(3,-3);
         var r = [];
         r[0]  = $1[0];
         r[1] = $1[1];
@@ -313,6 +341,10 @@ Statement
     }
     | Switch_statements
     {
+        if(tab.ambitoLevel > 0) tab.ambitoLevel = tab.ambitoLevel-1;
+        switches = !switches;
+        tab.deleteAmbitoLast();
+        entorno = entorno.slice(3,-3);
         var r = [];
         r[0]  = $1[0];
         r[1] = $1[1];
@@ -762,6 +794,10 @@ Native_statements
                     r[3] = '';
                 }
             }
+            else
+            {
+                r[3] = '';
+            }
         }
         $$ = r;
     }
@@ -1192,6 +1228,10 @@ Native_statements
                     semanticos.push('{\"valor\":\"'+`Error Semantico en la linea: ${(yylineno+1)}, no existe la variable ${$5[4]}`+'\"}');
                     r[3] = '';
                 }
+            }
+            else
+            {
+                r[3] = '';
             }
         }
         $$ = r;
@@ -1936,30 +1976,136 @@ Declaration_statements
     : TypeV IDENT ':' TypeV
     {
         var s =  eval('$$');
-        if(s.includes('function'))
+        var posd = -1;
+        var att = false;
+        var att1 = false;
+        var att2 = false;
+        var att3 = false;
+        var att4 = false;
+        for(var a = 0; a<s.length; a++)
         {
-            if(!func)
+            if(s[a] != null)
             {
-                tab.ambitoLevel = tab.ambitoLevel+1;
-                func = !func;
-            }
-            var posd = -1;
-            for(var a = 0; a<s.length; a++)
-            {
-                if(s[a] != null)
+                if(s[a] == ('function') && !func)
                 {
-                    if(s[a].includes('function'))
-                    {
-                        posd = a+1;
-                        break;
-                    }
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    func = !func;
+                    var name = '';
+                    if(posd!=-1) name = s[posd];
+                    entorno = 'function_'+name;
+                    break;
+                }
+                else if( s[a] == 'if' && !ifs)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_if';
+                    ifs = !ifs;
+                    if(att) att = !att;
+                    break;
+                }
+                else if( s[a] == 'if' && ifs )
+                {
+                    att = true;
+                    ifs = !ifs;
+                }
+                else if( s[a] == 'while' && !whiles)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_while';
+                    whiles = !whiles;
+                    if(att1) att1 = !att1;
+                    break;
+                }
+                else if( s[a] == 'whiles' && whiles )
+                {
+                    att1 = true;
+                    whiles = !whiles;
+                }
+                else if( s[a] == 'for' && !fores)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_for';
+                    fores = !fores;
+                    if(att2) att2 = !att2;
+                    break;
+                }
+                else if( s[a] == 'for' && fores )
+                {
+                    att2 = true;
+                    fores = !fores;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && !does)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_do';
+                    does = !does;
+                    if(att3) att3 = !att3;
+                    break;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && does )
+                {
+                    att3 = true;
+                    does = !does;
+                }
+                else if( s[a] == 'switch' && !switches)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_switch';
+                    switches = !switches;
+                    if(att4) att4 = !att4;
+                    break;
+                }
+                else if( s[a] == 'switch' && switches )
+                {
+                    att4 = true;
+                    switches = !switches;
                 }
             }
-            var name = '';
-            if(posd!=-1) name = s[posd];
-            entorno = 'function_'+name;
         }
-        if(tab.getPositionAmbito($2)==null)
+        if(att)
+        {
+            ifs = !ifs;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att1)
+        {
+            whiles = !whiles;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att2)
+        {
+            fores = !fores;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att3)
+        {
+            does = !does;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att4)
+        {
+            switches = !switches;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+
+        var n = tab.getPositionAmbito($2);
+        var pass = false;
+        if(n==null)
+        {
+            pass = true;
+        }
+        else
+        {
+            if(n.ambito < tab.ambitoLevel) pass = true;
+        }
+
+        if(pass)
         {
             if($1.toUpperCase() == 'CONST')
             {
@@ -2053,7 +2199,138 @@ Declaration_statements
     }
     | TypeV IDENT
     {
-        if(tab.getPositionAmbito($2)==null)
+        var s =  eval('$$');
+        var posd = -1;
+        var att = false;
+        var att1 = false;
+        var att2 = false;
+        var att3 = false;
+        var att4 = false;
+        for(var a = 0; a<s.length; a++)
+        {
+            if(s[a] != null)
+            {
+                if(s[a] == ('function') && !func)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    func = !func;
+                    var name = '';
+                    if(posd!=-1) name = s[posd];
+                    entorno = 'function_'+name;
+                    break;
+                }
+                else if( s[a] == 'if' && !ifs)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_if';
+                    ifs = !ifs;
+                    if(att) att = !att;
+                    break;
+                }
+                else if( s[a] == 'if' && ifs )
+                {
+                    att = true;
+                    ifs = !ifs;
+                }
+                else if( s[a] == 'while' && !whiles)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_while';
+                    whiles = !whiles;
+                    if(att1) att1 = !att1;
+                    break;
+                }
+                else if( s[a] == 'whiles' && whiles )
+                {
+                    att1 = true;
+                    whiles = !whiles;
+                }
+                else if( s[a] == 'for' && !fores)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_for';
+                    fores = !fores;
+                    if(att2) att2 = !att2;
+                    break;
+                }
+                else if( s[a] == 'for' && fores )
+                {
+                    att2 = true;
+                    fores = !fores;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && !does)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_do';
+                    does = !does;
+                    if(att3) att3 = !att3;
+                    break;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && does )
+                {
+                    att3 = true;
+                    does = !does;
+                }
+                else if( s[a] == 'switch' && !switches)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_switch';
+                    switches = !switches;
+                    if(att4) att4 = !att4;
+                    break;
+                }
+                else if( s[a] == 'switch' && switches )
+                {
+                    att4 = true;
+                    switches = !switches;
+                }
+            }
+        }
+
+        if(att)
+        {
+            ifs = !ifs;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att1)
+        {
+            whiles = !whiles;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att2)
+        {
+            fores = !fores;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att3)
+        {
+            does = !does;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att4)
+        {
+            switches = !switches;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+
+        var n = tab.getPositionAmbito($2);
+        var pass = false;
+        if(n==null)
+        {
+            pass = true;
+        }
+        else
+        {
+            if(n.ambito < tab.ambitoLevel) pass = true;
+        }
+
+        if(pass)
         {
             if($1.toUpperCase() == 'CONST')
             {
@@ -2145,7 +2422,138 @@ Declaration_statements
     }
     | TypeV IDENT  ':' TypeV Array '=' AssignmentExpr
     {
-        if(tab.getPositionAmbito($2)==null)
+
+        var s =  eval('$$');
+        var posd = -1;
+        var att = false;
+        var att1 = false;
+        var att2 = false;
+        var att3 = false;
+        var att4 = false;
+        for(var a = 0; a<s.length; a++)
+        {
+            if(s[a] != null)
+            {
+                if(s[a] == ('function') && !func)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    func = !func;
+                    var name = '';
+                    if(posd!=-1) name = s[posd];
+                    entorno = 'function_'+name;
+                    break;
+                }
+                else if( s[a] == 'if' && !ifs)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_if';
+                    ifs = !ifs;
+                    if(att) att = !att;
+                    break;
+                }
+                else if( s[a] == 'if' && ifs )
+                {
+                    att = true;
+                    ifs = !ifs;
+                }
+                else if( s[a] == 'while' && !whiles)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_while';
+                    whiles = !whiles;
+                    if(att1) att1 = !att1;
+                    break;
+                }
+                else if( s[a] == 'whiles' && whiles )
+                {
+                    att1 = true;
+                    whiles = !whiles;
+                }
+                else if( s[a] == 'for' && !fores)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_for';
+                    fores = !fores;
+                    if(att2) att2 = !att2;
+                    break;
+                }
+                else if( s[a] == 'for' && fores )
+                {
+                    att2 = true;
+                    fores = !fores;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && !does)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_do';
+                    does = !does;
+                    if(att3) att3 = !att3;
+                    break;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && does )
+                {
+                    att3 = true;
+                    does = !does;
+                }
+                else if( s[a] == 'switch' && !switches)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_switch';
+                    switches = !switches;
+                    if(att4) att4 = !att4;
+                    break;
+                }
+                else if( s[a] == 'switch' && switches )
+                {
+                    att4 = true;
+                    switches = !switches;
+                }
+            }
+        }
+        if(att)
+        {
+            ifs = !ifs;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att1)
+        {
+            whiles = !whiles;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att2)
+        {
+            fores = !fores;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att3)
+        {
+            does = !does;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att4)
+        {
+            switches = !switches;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+
+        var n = tab.getPositionAmbito($2);
+        var pass = false;
+        if(n==null)
+        {
+            pass = true;
+        }
+        else
+        {
+            if(n.ambito < tab.ambitoLevel) pass = true;
+        }
+
+        if(pass)
         {
             if($7[0].toString().toUpperCase() != '')
             {
@@ -2277,7 +2685,138 @@ Declaration_statements
     }
     | TypeV IDENT  ':' TypeV Array '=' NEWT ARRAYS '(' Expr ')'
     {
-        if(tab.getPositionAmbito($2)==null)
+
+        var s =  eval('$$');
+        var posd = -1;
+        var att = false;
+        var att1 = false;
+        var att2 = false;
+        var att3 = false;
+        var att4 = false;
+        for(var a = 0; a<s.length; a++)
+        {
+            if(s[a] != null)
+            {
+                if(s[a] == ('function') && !func)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    func = !func;
+                    var name = '';
+                    if(posd!=-1) name = s[posd];
+                    entorno = 'function_'+name;
+                    break;
+                }
+                else if( s[a] == 'if' && !ifs)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_if';
+                    ifs = !ifs;
+                    if(att) att = !att;
+                    break;
+                }
+                else if( s[a] == 'if' && ifs )
+                {
+                    att = true;
+                    ifs = !ifs;
+                }
+                else if( s[a] == 'while' && !whiles)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_while';
+                    whiles = !whiles;
+                    if(att1) att1 = !att1;
+                    break;
+                }
+                else if( s[a] == 'whiles' && whiles )
+                {
+                    att1 = true;
+                    whiles = !whiles;
+                }
+                else if( s[a] == 'for' && !fores)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_for';
+                    fores = !fores;
+                    if(att2) att2 = !att2;
+                    break;
+                }
+                else if( s[a] == 'for' && fores )
+                {
+                    att2 = true;
+                    fores = !fores;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && !does)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_do';
+                    does = !does;
+                    if(att3) att3 = !att3;
+                    break;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && does )
+                {
+                    att3 = true;
+                    does = !does;
+                }
+                else if( s[a] == 'switch' && !switches)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_switch';
+                    switches = !switches;
+                    if(att4) att4 = !att4;
+                    break;
+                }
+                else if( s[a] == 'switch' && switches )
+                {
+                    att4 = true;
+                    switches = !switches;
+                }
+            }
+        }
+        if(att)
+        {
+            ifs = !ifs;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att1)
+        {
+            whiles = !whiles;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att2)
+        {
+            fores = !fores;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att3)
+        {
+            does = !does;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att4)
+        {
+            switches = !switches;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+
+        var n = tab.getPositionAmbito($2);
+        var pass = false;
+        if(n==null)
+        {
+            pass = true;
+        }
+        else
+        {
+            if(n.ambito < tab.ambitoLevel) pass = true;
+        }
+
+        if(pass)
         {
                 var temp1 = Temp.getTemporal();
 
@@ -2543,7 +3082,138 @@ Declaration_statements
 
     | TypeV IDENT  '=' NEWT ARRAYS '(' Expr ')'
     {
-        if(tab.getPositionAmbito($2)==null)
+
+        var s =  eval('$$');
+        var posd = -1;
+        var att = false;
+        var att1 = false;
+        var att2 = false;
+        var att3 = false;
+        var att4 = false;
+        for(var a = 0; a<s.length; a++)
+        {
+            if(s[a] != null)
+            {
+                if(s[a] == ('function') && !func)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    func = !func;
+                    var name = '';
+                    if(posd!=-1) name = s[posd];
+                    entorno = 'function_'+name;
+                    break;
+                }
+                else if( s[a] == 'if' && !ifs)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_if';
+                    ifs = !ifs;
+                    if(att) att = !att;
+                    break;
+                }
+                else if( s[a] == 'if' && ifs )
+                {
+                    att = true;
+                    ifs = !ifs;
+                }
+                else if( s[a] == 'while' && !whiles)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_while';
+                    whiles = !whiles;
+                    if(att1) att1 = !att1;
+                    break;
+                }
+                else if( s[a] == 'whiles' && whiles )
+                {
+                    att1 = true;
+                    whiles = !whiles;
+                }
+                else if( s[a] == 'for' && !fores)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_for';
+                    fores = !fores;
+                    if(att2) att2 = !att2;
+                    break;
+                }
+                else if( s[a] == 'for' && fores )
+                {
+                    att2 = true;
+                    fores = !fores;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && !does)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_do';
+                    does = !does;
+                    if(att3) att3 = !att3;
+                    break;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && does )
+                {
+                    att3 = true;
+                    does = !does;
+                }
+                else if( s[a] == 'switch' && !switches)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_switch';
+                    switches = !switches;
+                    if(att4) att4 = !att4;
+                    break;
+                }
+                else if( s[a] == 'switch' && switches )
+                {
+                    att4 = true;
+                    switches = !switches;
+                }
+            }
+        }
+        if(att)
+        {
+            ifs = !ifs;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att1)
+        {
+            whiles = !whiles;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att2)
+        {
+            fores = !fores;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att3)
+        {
+            does = !does;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att4)
+        {
+            switches = !switches;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+
+        var n = tab.getPositionAmbito($2);
+        var pass = false;
+        if(n==null)
+        {
+            pass = true;
+        }
+        else
+        {
+            if(n.ambito < tab.ambitoLevel) pass = true;
+        }
+
+        if(pass)
         {
                 var temp1 = Temp.getTemporal();
 
@@ -2805,7 +3475,138 @@ Declaration_statements
     }
     | TypeV IDENT ':' TypeV '=' AssignmentExpr
     {
-        if(tab.getPositionAmbito($2)==null)
+
+        var s =  eval('$$');
+        var posd = -1;
+        var att = false;
+        var att1 = false;
+        var att2 = false;
+        var att3 = false;
+        var att4 = false;
+        for(var a = 0; a<s.length; a++)
+        {
+            if(s[a] != null)
+            {
+                if(s[a] == ('function') && !func)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    func = !func;
+                    var name = '';
+                    if(posd!=-1) name = s[posd];
+                    entorno = 'function_'+name;
+                    break;
+                }
+                else if( s[a] == 'if' && !ifs)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_if';
+                    ifs = !ifs;
+                    if(att) att = !att;
+                    break;
+                }
+                else if( s[a] == 'if' && ifs )
+                {
+                    att = true;
+                    ifs = !ifs;
+                }
+                else if( s[a] == 'while' && !whiles)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_while';
+                    whiles = !whiles;
+                    if(att1) att1 = !att1;
+                    break;
+                }
+                else if( s[a] == 'whiles' && whiles )
+                {
+                    att1 = true;
+                    whiles = !whiles;
+                }
+                else if( s[a] == 'for' && !fores)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_for';
+                    fores = !fores;
+                    if(att2) att2 = !att2;
+                    break;
+                }
+                else if( s[a] == 'for' && fores )
+                {
+                    att2 = true;
+                    fores = !fores;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && !does)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_do';
+                    does = !does;
+                    if(att3) att3 = !att3;
+                    break;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && does )
+                {
+                    att3 = true;
+                    does = !does;
+                }
+                else if( s[a] == 'switch' && !switches)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_switch';
+                    switches = !switches;
+                    if(att4) att4 = !att4;
+                    break;
+                }
+                else if( s[a] == 'switch' && switches )
+                {
+                    att4 = true;
+                    switches = !switches;
+                }
+            }
+        }
+        if(att)
+        {
+            ifs = !ifs;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att1)
+        {
+            whiles = !whiles;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att2)
+        {
+            fores = !fores;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att3)
+        {
+            does = !does;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att4)
+        {
+            switches = !switches;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+
+        var n = tab.getPositionAmbito($2);
+        var pass = false;
+        if(n==null)
+        {
+            pass = true;
+        }
+        else
+        {
+            if(n.ambito < tab.ambitoLevel) pass = true;
+        }
+
+        if(pass)
         {
             if($4.toUpperCase() == $6[0].toUpperCase())
             {
@@ -3372,7 +4173,138 @@ Declaration_statements
     }
     | TypeV IDENT  '=' AssignmentExpr
     {
-        if(tab.getPositionAmbito($2)==null)
+
+        var s =  eval('$$');
+        var posd = -1;
+        var att = false;
+        var att1 = false;
+        var att2 = false;
+        var att3 = false;
+        var att4 = false;
+        for(var a = 0; a<s.length; a++)
+        {
+            if(s[a] != null)
+            {
+                if(s[a] == ('function') && !func)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    func = !func;
+                    var name = '';
+                    if(posd!=-1) name = s[posd];
+                    entorno = 'function_'+name;
+                    break;
+                }
+                else if( s[a] == 'if' && !ifs)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_if';
+                    ifs = !ifs;
+                    if(att) att = !att;
+                    break;
+                }
+                else if( s[a] == 'if' && ifs )
+                {
+                    att = true;
+                    ifs = !ifs;
+                }
+                else if( s[a] == 'while' && !whiles)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_while';
+                    whiles = !whiles;
+                    if(att1) att1 = !att1;
+                    break;
+                }
+                else if( s[a] == 'whiles' && whiles )
+                {
+                    att1 = true;
+                    whiles = !whiles;
+                }
+                else if( s[a] == 'for' && !fores)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_for';
+                    fores = !fores;
+                    if(att2) att2 = !att2;
+                    break;
+                }
+                else if( s[a] == 'for' && fores )
+                {
+                    att2 = true;
+                    fores = !fores;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && !does)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_do';
+                    does = !does;
+                    if(att3) att3 = !att3;
+                    break;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && does )
+                {
+                    att3 = true;
+                    does = !does;
+                }
+                else if( s[a] == 'switch' && !switches)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_switch';
+                    switches = !switches;
+                    if(att4) att4 = !att4;
+                    break;
+                }
+                else if( s[a] == 'switch' && switches )
+                {
+                    att4 = true;
+                    switches = !switches;
+                }
+            }
+        }
+        if(att)
+        {
+            ifs = !ifs;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att1)
+        {
+            whiles = !whiles;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att2)
+        {
+            fores = !fores;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att3)
+        {
+            does = !does;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att4)
+        {
+            switches = !switches;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+
+        var n = tab.getPositionAmbito($2);
+        var pass = false;
+        if(n==null)
+        {
+            pass = true;
+        }
+        else
+        {
+            if(n.ambito < tab.ambitoLevel) pass = true;
+        }
+
+        if(pass)
         {
             if($4[0].toString().toUpperCase() != '')
             {
@@ -4038,8 +4970,802 @@ Declaration_statements
 ;
 
 ValStatement1
-    : TypeV IDENT ':' Type initialNo
-    | TypeV IDENT  initialNo
+    : TypeV IDENT  '=' AssignmentExpr
+    {
+
+        var s =  eval('$$');
+        var posd = -1;
+        var att = false;
+        var att1 = false;
+        var att2 = false;
+        var att3 = false;
+        var att4 = false;
+        for(var a = 0; a<s.length; a++)
+        {
+            if(s[a] != null)
+            {
+                if(s[a] == ('function') && !func)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    func = !func;
+                    var name = '';
+                    if(posd!=-1) name = s[posd];
+                    entorno = 'function_'+name;
+                    break;
+                }
+                else if( s[a] == 'if' && !ifs)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_if';
+                    ifs = !ifs;
+                    if(att) att = !att;
+                    break;
+                }
+                else if( s[a] == 'if' && ifs )
+                {
+                    att = true;
+                    ifs = !ifs;
+                }
+                else if( s[a] == 'while' && !whiles)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_while';
+                    whiles = !whiles;
+                    if(att1) att1 = !att1;
+                    break;
+                }
+                else if( s[a] == 'whiles' && whiles )
+                {
+                    att1 = true;
+                    whiles = !whiles;
+                }
+                else if( s[a] == 'for' && !fores)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_for';
+                    fores = !fores;
+                    if(att2) att2 = !att2;
+                    break;
+                }
+                else if( s[a] == 'for' && fores )
+                {
+                    att2 = true;
+                    fores = !fores;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && !does)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_do';
+                    does = !does;
+                    if(att3) att3 = !att3;
+                    break;
+                }
+                else if( s[a].toString().toLowerCase() == 'do' && does )
+                {
+                    att3 = true;
+                    does = !does;
+                }
+                else if( s[a] == 'switch' && !switches)
+                {
+                    posd = a+1;
+                    tab.ambitoLevel = tab.ambitoLevel+1;
+                    entorno = entorno + '_switch';
+                    switches = !switches;
+                    if(att4) att4 = !att4;
+                    break;
+                }
+                else if( s[a] == 'switch' && switches )
+                {
+                    att4 = true;
+                    switches = !switches;
+                }
+            }
+        }
+        if(att)
+        {
+            ifs = !ifs;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att1)
+        {
+            whiles = !whiles;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att2)
+        {
+            fores = !fores;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att3)
+        {
+            does = !does;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+        if(att4)
+        {
+            switches = !switches;
+            tab.ambitoLevel = tab.ambitoLevel+1;
+        }
+
+        var n = tab.getPositionAmbito($2);
+        var pass = false;
+        if(n==null)
+        {
+            pass = true;
+        }
+        else
+        {
+            if(n.ambito < tab.ambitoLevel) pass = true;
+        }
+
+        if(pass)
+        {
+            if($4[0].toString().toUpperCase() != '')
+            {
+                switch($4[0].toString().toUpperCase())
+                {
+                    case "STRING":
+                        var val = $4[6].toString();
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
+                       var posicion = -1;
+                       if(entorno == 'global')
+                       {
+                           posicion = pos;
+                           valor += temp + ' = ' + pos +';';
+                           valor += '\n';
+                           pos++;
+                       }
+                       else
+                       {
+                           posicion = stac;
+                           valor += temp + ' =  P;';
+                           valor += '\n';
+                           valor += 'P = P + 1;\n';
+                           stac++;
+                      }
+
+                      var temp1 = Temp.getTemporal();
+                      valor += temp1 + ' = ' + posS + ';';
+                      valor += '\n';
+                      var temp0 = Temp.getTemporal();
+                      valor += temp0 + ' = ' + posS + ';';
+                      valor += '\n';
+                      if(entorno == 'global')
+                      {
+                         valor += 'heap[(int)'+temp+'] = ' + temp1 + ';';
+                         valor += '\n';
+                      }
+                      else
+                      {
+                         valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
+                         valor += '\n';
+                      }
+
+                      valor += temp1 + ' = ' + temp1 + ' + 1;';
+                      valor += '\n';
+                      valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
+                      var temp2 = Temp.getTemporal();
+                      valor += temp2 + ' = '+ val.length + ';';
+                      valor += '\n';
+                      valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
+                      valor += '\n';
+                      valor += $4[1] + ' = ' + temp1 + ';';
+                      valor += '\n';
+                      valor += $4[3];
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp2;
+                        r[2] = label1;
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+                        var sym = new intermedia.simbolo();
+                        sym.ambito = tab.ambitoLevel;
+                        sym.name = $2;
+                        sym.position = posicion;
+                        sym.rol = 'variable';
+                        sym.direccion = posicion;
+                        sym.direccionrelativa = posicion;
+                        sym.tipo = $4[0];
+                        sym.valor = $4[6];
+                        sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                        if(entorno != 'global') sym.entorno = entorno;
+                        tab.insert(sym);
+
+                        $$ = r;
+
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
+                        posS += 5000;
+                        break;
+
+                    case "NUMBER":
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
+                           var posicion = -1;
+                           if(entorno == 'global')
+                           {
+                               posicion = pos;
+                               valor += temp + ' = ' + pos +';';
+                               valor += '\n';
+                               pos++;
+                           }
+                           else
+                           {
+                               posicion = stac;
+                               valor += temp + ' =  P;';
+                               valor += '\n';
+                               valor += 'P = P + 1;\n';
+                               stac++;
+                          }
+                        valor += $4[3];
+                        valor += '\n';
+                        if(entorno == 'global')
+                        {
+                            valor += 'heap[(int)'+ temp + '] = ' + $4[1] +';';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += 'stack[(int)'+ temp + '] = ' + $4[1] +';';
+                            valor += '\n';
+                        }
+
+
+                         var sym = new intermedia.simbolo();
+                         sym.ambito = tab.ambitoLevel;
+                         sym.name = $2;
+                         sym.position = posicion;
+                         sym.rol = 'variable';
+                         sym.direccion = posicion;
+                         sym.direccionrelativa = posicion;
+                         sym.tipo = $4[0];
+                         sym.valor = $4[6];
+                         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                         if(entorno != 'global') sym.entorno = entorno ;
+                         tab.insert(sym);
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+
+                        $$ = r;
+
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
+                        break;
+
+                    case 'BOOLEAN':
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
+                           var posicion = -1;
+                           if(entorno == 'global')
+                           {
+                               posicion = pos;
+                               valor += temp + ' = ' + pos +';';
+                               valor += '\n';
+                               pos++;
+                           }
+                           else
+                           {
+                               posicion = stac;
+                               valor += temp + ' =  P;';
+                               valor += '\n';
+                               valor += 'P = P + 1;\n';
+                               stac++;
+                          }
+                        valor += $4[3];
+                        valor += '\n';
+                        if(entorno == 'global')
+                        {
+                            valor += 'heap[(int)'+ temp + '] = ' + $4[1] +';';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += 'stack[(int)'+ temp + '] = ' + $4[1] +';';
+                            valor += '\n';
+                        }
+
+
+                         var sym = new intermedia.simbolo();
+                         sym.ambito = tab.ambitoLevel;
+                         sym.name = $2;
+                         sym.position = posicion;
+                         sym.rol = 'variable';
+                         sym.direccion = posicion;
+                         sym.direccionrelativa = posicion;
+                         sym.tipo = $4[0];
+                         sym.valor = $4[6];
+                         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                         if(entorno != 'global') sym.entorno = entorno;
+                         tab.insert(sym);
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+
+                        $$ = r;
+
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
+                        break;
+
+                    case "FLOAT":
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
+                           var posicion = -1;
+                           if(entorno == 'global')
+                           {
+                               posicion = pos;
+                               valor += temp + ' = ' + pos +';';
+                               valor += '\n';
+                               pos++;
+                           }
+                           else
+                           {
+                               posicion = stac;
+                               valor += temp + ' =  P;';
+                               valor += '\n';
+                               valor += 'P = P + 1;\n';
+                               stac++;
+                          }
+                        valor += $4[3];
+                        valor += '\n';
+                        if(entorno == 'global')
+                        {
+                            valor += 'heap[(int)'+ temp + '] = ' + $4[1] +';';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += 'stack[(int)'+ temp + '] = ' + $4[1] +';';
+                            valor += '\n';
+                        }
+
+
+                         var sym = new intermedia.simbolo();
+                         sym.ambito = tab.ambitoLevel;
+                         sym.name = $2;
+                         sym.position = posicion;
+                         sym.rol = 'variable';
+                         sym.direccion = posicion;
+                         sym.direccionrelativa = posicion;
+                         sym.tipo = $4[0];
+                         sym.valor = $4[6];
+                         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                         if(entorno != 'global') sym.entorno = entorno;
+                         tab.insert(sym);
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+
+                        $$ = r;
+
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
+                        break;
+
+                    case 'ARREGLO':
+                        var val = $4[6].toString();
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
+                           var posicion = -1;
+                           if(entorno == 'global')
+                           {
+                               posicion = pos;
+                               valor += temp + ' = ' + pos +';';
+                               valor += '\n';
+                               pos++;
+                           }
+                           else
+                           {
+                               posicion = stac;
+                               valor += temp + ' =  P;';
+                               valor += '\n';
+                               valor += 'P = P + 1;\n';
+                               stac++;
+                          }
+
+                        var temp1 = Temp.getTemporal();
+                        var temp0 = Temp.getTemporal();
+                        valor += temp1 + ' = ' + posA + ';';
+                        valor += '\n';
+                        valor += temp0+ ' = ' + posA + ';\n';
+                        if(entorno == 'global')
+                        {
+                            valor += 'heap[(int)'+temp+'] = ' + temp1 + ';';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
+                            valor += '\n';
+                        }
+
+                        valor += temp1 + ' = ' + temp1 + ' + 1;';
+                        valor += '\n';
+                        valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
+
+                        var temp2 = Temp.getTemporal();
+                        valor += temp2 + ' = '+ $4[7] + ';';
+                        valor += '\n';
+                        valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
+                        valor += '\n';
+                        valor += $4[1] + ' = ' + temp1 + ';';
+                        valor += '\n';
+                        valor += $4[3];
+                        valor += '\n';
+
+                         var sym = new intermedia.simbolo();
+                         sym.ambito = tab.ambitoLevel;
+                         sym.name = $2;
+                         sym.position = posicion;
+                         sym.rol = 'arreglo';
+                         sym.direccion = posicion;
+                         sym.direccionrelativa = posicion;
+                         sym.tipo = ($4[8]!='')?$4[8]:$4[0];
+                         sym.valor = $4[6];
+                         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                         if(entorno != 'global') sym.entorno = entorno;
+                         tab.insert(sym);
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp2;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+                        $4[6].name = $2;
+                        var a = new intermedia.arreglo()
+                        a.name = $2;
+                        a.tipo = ($4[8]!='')?$4[8]:$4[0];
+                        a.positions = $4[6].positions;
+                        a.c3d = valor;
+                        a.valor = $4[6].valor;
+                        a.temporal = temp2;
+                        a.bandera = '';
+                        arr.insert(a);
+
+                        $$ = r;
+
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
+                        posA += 5000;
+                        break;
+
+                    DEFAULT:
+                        semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$4[0]}, a una variable de tipo arreglo;`+'\"}');
+                        $$ = ['','','',''];
+
+                }
+            }
+            else if($4[0] == '')
+            {
+                 var n = tab.getPositionAmbito($4[4]);
+                 if(n!=null)
+                 {
+                     if(n.tipo.toUpperCase()!='')
+                     {
+                         switch(n.tipo.toUpperCase())
+                         {
+                             case 'STRING':
+                                 var valor = '';
+                                  var temp = Temp.getTemporal();
+                                  //valor += temp + ' = ' + pos + ';';
+                                  //valor += '\n';
+                                   var posicion = -1;
+                                   if(entorno == 'global')
+                                   {
+                                       posicion = pos;
+                                       valor += temp + ' = ' + pos +';';
+                                       valor += '\n';
+                                       pos++;
+                                   }
+                                   else
+                                   {
+                                       posicion = stac;
+                                       valor += temp + ' =  P;';
+                                       valor += '\n';
+                                       valor += 'P = P + 1;\n';
+                                       stac++;
+                                  }
+
+
+                                  var temp1 = Temp.getTemporal();
+                                  valor += temp1 + ' = ' + posS + ';';
+                                  valor += '\n';
+                                  var temp0 = Temp.getTemporal();
+                                  valor += temp0 + ' = ' + posS + ';';
+                                  valor += '\n';
+                                  if(entorno == 'global')
+                                  {
+                                      valor += 'heap[(int)'+temp+'] = ' + temp1 + ';';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += 'stack[(int)'+temp+'] = ' + temp1 + ';';
+                                      valor += '\n';
+                                  }
+
+                                  valor += temp1 + ' = ' + temp1 + ' + 1;';
+                                  valor += '\n';
+                                  valor += 'heap[(int)'+temp0+'] = ' + temp1 + ';\n';
+                                  var temp2 = Temp.getTemporal();
+                                  valor += temp2 + ' = '+ n.valor.length + ';';
+                                  valor += '\n';
+                                  valor += 'heap[(int)'+temp1+'] = ' + temp2 + ';';
+                                  valor += '\n';
+
+                                 for(var a = 0; a<n.valor.length; a++)
+                                 {
+                                     valor += temp1 + ' = ' + temp1 + ' + 1;';
+                                     valor += '\n';
+                                     valor += 'heap[(int)'+temp1+'] = ' + n.valor.charCodeAt(a) + ';';
+                                     valor += '\n'
+                                 }
+                               var r = [];
+                               r[3] = valor;
+                               r[0] = '';
+                               r[1] = temp1;
+                               r[2] = '';
+                               r[4] = '';
+                               r[5] = '';
+                               r[6] = '';
+                               r[7] = '';
+
+                               var sym = new intermedia.simbolo();
+                               sym.ambito = tab.ambitoLevel;
+                               sym.name = $2;
+                               sym.position = posicion;
+                               sym.rol = 'variable';
+                               sym.direccion = posicion;
+                               sym.direccionrelativa = posicion;
+                               sym.tipo = n.tipo;
+                               sym.valor = n.valor;
+                               sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                               if(entorno != 'global') sym.entorno = entorno;
+                               tab.insert(sym);
+
+                               $$ = r;
+
+                               //if(pos >0 && pos != 0) pos++;
+                               //if (pos == 0) pos++;
+                               posS += 5000;
+                               break;
+
+                             case 'NUMBER':
+                                  var valor = '';
+                                  var temp = Temp.getTemporal();
+                                  //valor += temp + ' = ' + pos + ';';
+                                  //valor += '\n';
+                                   var posicion = -1;
+                                   if(entorno == 'global')
+                                   {
+                                       posicion = pos;
+                                       valor += temp + ' = ' + pos +';';
+                                       valor += '\n';
+                                       pos++;
+                                   }
+                                   else
+                                   {
+                                       posicion = stac;
+                                       valor += temp + ' =  P;';
+                                       valor += '\n';
+                                       valor += 'P = P + 1;\n';
+                                       stac++;
+                                  }
+                                  var temp1 = Temp.getTemporal();
+                                  if(n.entorno == 'global')
+                                  {
+                                      valor += temp1 + ' = heap[(int)'+n.position+'];';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += temp1 + ' = stack[(int)'+n.position+'];';
+                                      valor += '\n';
+                                  }
+
+                                  if(entorno == 'global')
+                                  {
+                                      valor += 'heap[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  }
+
+
+                                   var sym = new intermedia.simbolo();
+                                   sym.ambito = tab.ambitoLevel;
+                                   sym.name = $2;
+                                   sym.position = posicion;
+                                   sym.rol = 'variable';
+                                   sym.direccion = posicion;
+                                   sym.direccionrelativa = posicion;
+                                   sym.tipo = n.tipo;
+                                   sym.valor = n.valor;
+                                   sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                                   if(entorno != 'global') sym.entorno = entorno;
+                                   tab.insert(sym);
+
+                                  var r = [];
+                                  r[3] = valor;
+                                  r[0] = '';
+                                  r[1] = temp1;
+                                  r[2] = '';
+                                  r[4] = '';
+                                  r[5] = '';
+                                  r[6] = '';
+                                  r[7] = '';
+
+
+                                  $$ = r;
+
+                                  //if(pos >0 && pos != 0) pos++;
+                                  //if (pos == 0) pos++;
+                                  break;
+                             case 'BOOLEAN':
+                                  var valor = '';
+                                  var temp = Temp.getTemporal();
+                                   var posicion = -1;
+                                   if(entorno == 'global')
+                                   {
+                                       posicion = pos;
+                                       valor += temp + ' = ' + pos +';';
+                                       valor += '\n';
+                                       pos++;
+                                   }
+                                   else
+                                   {
+                                       posicion = stac;
+                                       valor += temp + ' =  P;';
+                                       valor += '\n';
+                                       valor += 'P = P + 1;\n';
+                                       stac++;
+                                  }
+                                  var temp1 = Temp.getTemporal();
+                                  if(n.entorno == 'global')
+                                  {
+                                      valor += temp1 + ' = heap[(int)'+n.position+'];';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += temp1 + ' = stack[(int)'+n.position+'];';
+                                      valor += '\n';
+                                  }
+
+                                  if(entorno == 'global')
+                                  {
+                                      valor += 'heap[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  }
+                                  /*
+                                      valor += temp + ' = ' + pos + ';';
+                                      valor += '\n';
+                                      var temp1 = Temp.getTemporal();
+                                      valor += temp1 + ' = stack[(int)'+n.position+'];';
+                                      valor += '\n';
+                                      valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  */
+
+                                   var sym = new intermedia.simbolo();
+                                   sym.ambito = tab.ambitoLevel;
+                                   sym.name = $2;
+                                   sym.position = posicion;
+                                   sym.rol = 'variable';
+                                   sym.direccion = posicion;
+                                   sym.direccionrelativa = posicion;
+                                   sym.tipo = n.tipo;
+                                   sym.valor = n.valor;
+                                   sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                                   if(entorno != 'global') sym.entorno = entorno;
+                                   tab.insert(sym);
+
+                                  var r = [];
+                                  r[3] = valor;
+                                  r[0] = '';
+                                  r[1] = temp1;
+                                  r[2] = '';
+                                  r[4] = '';
+                                  r[5] = '';
+                                  r[6] = '';
+                                  r[7] = '';
+
+
+                                  $$ = r;
+
+                                  //if(pos >0 && pos != 0) pos++;
+                                  //if (pos == 0) pos++;
+                                  break;
+                             DEFAULT:
+                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$4[0]}, a una variable de tipo arreglo;`+'\"}');
+                              $$ = ['','','',''];
+                              break;
+                         }
+                     }
+                     else
+                     {
+                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$4[0]}, a una variable de tipo ${$4};`+'\"}');
+                         $$ = ['','','',''];
+                     }
+
+                 }
+                 else
+                 {
+                     semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$4[0]}, a una variable de tipo ${$4};`+'\"}');
+                     $$ = ['','','',''];
+                 }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no puedes asignar ${$4[6]}, a una variable de tipo ${$4[0]};d`+'\"}');
+                $$ = ['','','',''];
+            }
+        }
+        else
+        {
+            semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, ya existe una variable con el nombre ${$2};`+'\"}');
+            $$ = ['','','',''];
+        }
+    }
 ;
 
 initialNo
@@ -4078,21 +5804,31 @@ FunctionExpr
 Source2
     :  Statement1
     {
-        if($1 instanceof Array)
-        {
-            C3D = $1[3] + C3D;
-        }
+        var valor = '';
+        valor += $1[3];
+        var r = [];
+        r[0] = '';
+        r[1] = '';
+        r[2] = '';
+        r[3] = valor;
+        $$ = r;
     }
     |  Statement1 Source2
     {
-        if($1 instanceof Array)
-        {
-            C3D = $1[3] + C3D;
-        }
-
+        var valor = '';
+        valor += $1[3] + '\n';
+        valor += $2[3];
+        var r = [];
+        r[0] = '';
+        r[1] = '';
+        r[2] = '';
+        r[3] = valor;
+        $$ = r;
     }
     |  EOF
-
+    {
+        $$ = ['','','','',''];
+    }
 ;
 
 Statement1
@@ -4134,15 +5870,26 @@ Statement1
     }
     | If_statements
     {
+        if(tab.ambitoLevel > 0) tab.ambitoLevel = tab.ambitoLevel-1;
+        ifs = !ifs;
+        tab.deleteAmbitoLast();
+        entorno = entorno.slice(3,-3);
         var r = [];
         r[0]  = $1[0];
         r[1] = $1[1];
         r[2] = $1[2];
         r[3] = $1[3];
+
         $$ = r;
     }
     | Iteration_statements
     {
+        if(tab.ambitoLevel > 0) tab.ambitoLevel = tab.ambitoLevel-1;
+        if(fores) fores = !fores;
+        if(whiles) whiles = !whiles;
+        if(does) does = !does;
+        tab.deleteAmbitoLast();
+        entorno = entorno.slice(3,-3);
         var r = [];
         r[0]  = $1[0];
         r[1] = $1[1];
@@ -4179,6 +5926,10 @@ Statement1
     }
     | Switch_statements
     {
+        if(tab.ambitoLevel > 0) tab.ambitoLevel = tab.ambitoLevel-1;
+        switches = !switches;
+        tab.deleteAmbitoLast();
+        entorno = entorno.slice(3,-3);
         var r = [];
         r[0]  = $1[0];
         r[1] = $1[1];
@@ -4243,16 +5994,300 @@ DefaultClause
 
 If_statements
     : IF '(' Expr ')' Statement %prec IF_WITHOUT_ELSE
+    {
+        var valor = '';
+        var r = [];
+
+        var label = Label.getBandera();
+
+        valor += $3[3] +'\n';
+        valor += `if(${$3[1]}==0) goto ${label};\n`;
+        valor += $5[3] + '\n';
+        valor += `${label}:\n`;
+
+        r[0] = '';
+        r[1] = '';
+        r[2] = '';
+        r[3] = valor;
+        r[4] = '';
+        $$ = r;
+
+    }
     | IF '(' Expr ')' Statement ELSE Statement
+    {
+        var valor = '';
+        var r = [];
+
+        var label = Label.getBandera();
+        var label1 = Label.getBandera();
+
+        valor += $3[3] +'\n';
+        valor += `if(${$3[1]}==0) goto ${label};\n`;
+        valor += $5[3] + '\n';
+        valor += `goto ${label1};\n`;
+        valor += `${label}:\n`;
+        valor += $7[3] + '\n';
+        valor += `goto ${label1};\n`
+
+        r[0] = '';
+        r[1] = '';
+        r[2] = '';
+        r[3] = valor;
+        r[4] = '';
+        $$ = r;
+
+    }
 ;
 Iteration_statements
-    : DO Statement WHILE '(' Expr ')' ';'
-    | DO Statement WHILE '(' Expr ')'
+    : DO Statement WHILE '(' Expr ')'
+    {
+        var valor = '';
+        var r = [];
+        var label;
+        if(continues != '')
+        {
+            label = continues;
+        }
+        else
+        {
+            label = Label.getBandera();
+        }
+
+        var label1;
+        if(breaks!= '')
+        {
+            label1 = breaks;
+        }
+        else
+        {
+            label1 = Label.getBandera();
+        }
+
+        if($2[3] != '')
+        {
+            valor += `${label}:\n`;
+            valor += `${$2[3]}\n`;
+            valor += `${$5[3]}\n`;
+            valor += `if(${$5[1]}==0) goto ${label1};\n`;
+            valor += `goto ${label};\n`;
+            valor += `${label1}:\n`;
+
+            r[0] = '';
+            r[1] = '';
+            r[2] = '';
+            r[3] = valor;
+            breaks = '';
+            continues = '';
+            $$ = r;
+        }
+        else
+        {
+            $$ = ['','','','',''];
+        }
+
+    }
     | WHILE '(' Expr ')' Statement
+    {
+        var valor = '';
+        var r = [];
+        var label;
+        if(continues != '')
+        {
+            label = continues;
+        }
+        else
+        {
+            label = Label.getBandera();
+        }
+
+        var label1;
+        if(breaks!= '')
+        {
+            label1 = breaks;
+        }
+        else
+        {
+            label1 = Label.getBandera();
+        }
+        if($3[3] != '')
+        {
+            valor += `${label}:\n`;
+            valor += $3[3] + '\n';
+            valor += `if(${$3[1]} == 0) goto ${label1};\n`;
+            valor += $5[3] +'\n';
+            valor += `goto ${label};\n`;
+            valor += `${label1}:\n`;
+
+            r[0] = '';
+            r[1] = '';
+            r[2] = '';
+            r[3] = valor;
+            breaks = '';
+            continues = '';
+            $$ = r;
+        }
+        else
+        {
+             $$ = ['','','',''];
+        }
+
+    }
     | FOR '(' ValStatement1 ';' ExprOpt ';' ExprOpt ')' Statement
-    | FOR '(' LeftHandSideExpr INTOKEN Expr ')' Statement
+    {
+        var valor = '';
+        var r = [];
+        if($3[3] != '' && $5[3] != '' && $7[3] != '')
+        {
+            valor += $3[3] + '\n';
+
+            var label;
+            if(continues != '')
+            {
+                label = continues;
+            }
+            else
+            {
+                label = Label.getBandera();
+            }
+
+            var label0 = Label.getBandera();
+
+            var label1;
+            if(breaks!= '')
+            {
+                label1 = breaks;
+            }
+            else
+            {
+                label1 = Label.getBandera();
+            }
+
+
+            valor += `${label}:\n`;
+            valor += $5[3] + '\n';
+            valor += `if(${$5[1]} == 0) goto ${label1};\n`;
+            valor += $9[3] + '\n';
+            valor += `goto ${label0};\n`;
+            valor += `${label0}:\n`;
+            valor += $7[3] + '\n';
+            valor += `goto ${label};\n`;
+            valor += `${label1}:\n`;
+
+            r[0] = '';
+            r[1] = '';
+            r[2] = '';
+            r[3] = valor;
+            breaks = '';
+            continues = '';
+            $$ = r;
+        }
+        else
+        {
+            $$ = ['','','','',''];
+        }
+
+
+    }
     | FOR '(' TypeV IDENT INTOKEN Expr ')' Statement
-    | FOR '(' LeftHandSideExpr OFTOKEN Expr ')' Statement
+    {
+        var valor = '';
+        var r = [];
+
+        if($6[0] == 'ARREGLO')
+        {
+            var k = $6[6].getValores();
+            var temp = Temp.getTemporal();
+
+            var temp1 = Temp.getTemporal();
+            valor += temp1 + ' = ' + posA + ';\n';
+            posA = posA + 5000;
+
+            var temp2 = Temp.getTemporal();
+            valor += `${temp2} = ${temp1} + 1;\n`;
+            valor += `heap[(int) ${temp1}] = ${temp2};\n`;
+            valor += `heap[(int)${temp2}] = ${k.length};\n`;
+
+
+
+            valor += `${$6[1]} = ${temp1};\n`;
+            valor += $6[3] + '\n';
+
+            valor += `${temp} = ${k.length};\n`;
+            var temp3 = Temp.getTemporal();
+            valor += `${temp3} = -1;\n`;
+
+            var label;
+            if(continues != '')
+            {
+                label = continues;
+            }
+            else
+            {
+                label = Label.getBandera();
+            }
+
+            var label0 = Label.getBandera();
+
+            var label1;
+            if(breaks!= '')
+            {
+                label1 = breaks;
+            }
+            else
+            {
+                label1 = Label.getBandera();
+            }
+
+            var temp4 = Temp.getTemporal();
+
+            var posicion = stac;
+            valor += temp4 + ' =  P;';
+            valor += '\n';
+            valor += 'P = P + 1;\n';
+            stac++;
+            valor += 'stack[(int)'+ temp4 + '] = -1;\n';
+
+            tab.ambitoLevel = tab.ambitoLevel + 1;
+            entorno = entorno + '_forin';
+            var sym = new intermedia.simbolo();
+            sym.ambito = tab.ambitoLevel;
+            sym.name = $4;
+            sym.position = posicion;
+            sym.rol = 'variable';
+            sym.direccion = posicion;
+            sym.direccionrelativa = posicion;
+            sym.tipo = 'NUMBER';
+            sym.valor = -1;
+            sym.constante = false;
+            if(entorno != 'global') sym.entorno = entorno ;
+            tab.insert(sym);
+
+            valor += `${label}:\n`;
+            valor += `if(${temp3} == ${temp}) goto ${label1};\n`;
+            valor += `${temp3} = ${temp3} + 1;\n`;
+            valor += `stack[${posicion}] = ${temp3};\n`;
+            valor += $8[3] + '\n';
+            valor += `goto ${label};\n`;
+            valor += `${label1}:\n`;
+
+            r[0] = '';
+            r[1] = '';
+            r[2] = '';
+            r[3] = valor;
+            breaks = '';
+            continues = '';
+            $$ = r;
+
+        }
+        else if($6[0] == '')
+        {
+
+        }
+        else
+        {
+            $$ = ['','','',''];
+        }
+    }
     | FOR '(' TypeV IDENT OFTOKEN Expr ')' Statement
 ;
 
@@ -4730,6 +6765,7 @@ Expr1_statements
                     var arrayss = arr.getValores(n.name);
                     //console.log(arrayss);
                     //console.log(arrayss[posss]);
+
 
                     var r = [];
                     r[0] = (typeof arrayss[0]).toString().toUpperCase();
@@ -6764,6 +8800,7 @@ Expr1_statements
     | IDENT Expr1_statement '=' AssignmentExpr
     {
          var n = tab.getPositionAmbito($1);
+         //console.log(n);
          var arres = [];
          var poses = [];
          var poses1 = [];
@@ -6806,7 +8843,7 @@ Expr1_statements
                          else
                           {
                               pass = false;
-                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion`+'\"}');
+                              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar la operacion, ${posi[12][0]}`+'\"}');
                               $$ = ['','','',''];
                               break;
                           }
