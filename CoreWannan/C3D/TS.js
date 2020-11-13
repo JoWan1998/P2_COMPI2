@@ -40,7 +40,7 @@ var TablaSimbolos = /** @class */ (function () {
         for (var _i = 0, _a = this.simbolos; _i < _a.length; _i++) {
             var a = _a[_i];
             if (a instanceof simbolo) {
-                if (a.ambito <= amb || a.ambito == 0)
+                if (a.ambito <= amb || a.ambito == 0 || a.rol == 'funcion')
                     simbols.push(a);
             }
         }
@@ -71,7 +71,7 @@ var TablaSimbolos = /** @class */ (function () {
             for (var _b = 0, _c = this.simbolos; _b < _c.length; _b++) {
                 var simbolito = _c[_b];
                 if (simbolito instanceof simbolo) {
-                    if (simbolito.name == name && simbolito.ambito == 0) {
+                    if (simbolito.name == name && simbolito.ambito == 0 && simbolito.rol != 'funcion') {
                         simbolito = simbolor;
                         return true;
                     }
@@ -84,7 +84,7 @@ var TablaSimbolos = /** @class */ (function () {
                     var simbolito = _e[_d];
                     if (simbolito instanceof simbolo) {
                         if (simbolito.name == name) {
-                            if (simbolito.ambito == this.ambitoLevel) {
+                            if (simbolito.ambito == this.ambitoLevel && simbolito.rol != 'funcion') {
                                 simbolito = simbolor;
                                 return true;
                             }
@@ -97,7 +97,7 @@ var TablaSimbolos = /** @class */ (function () {
                     var simbolito = _g[_f];
                     if (simbolito instanceof simbolo) {
                         if (simbolito.name == name) {
-                            if (simbolito.ambito < this.ambitoLevel && simbolito.ambito > 0) {
+                            if (simbolito.ambito < this.ambitoLevel && simbolito.ambito > 0 && simbolito.rol != 'funcion') {
                                 simbolito = simbolor;
                                 return true;
                             }
@@ -164,7 +164,7 @@ var TablaSimbolos = /** @class */ (function () {
             for (var _b = 0, _c = this.simbolos; _b < _c.length; _b++) {
                 var simbolito = _c[_b];
                 if (simbolito instanceof simbolo) {
-                    if (simbolito.name == name) {
+                    if (simbolito.name == name && simbolito.rol != 'funcion') {
                         return simbolito;
                     }
                 }
@@ -175,7 +175,7 @@ var TablaSimbolos = /** @class */ (function () {
                 for (var _d = 0, _e = this.simbolos; _d < _e.length; _d++) {
                     var simbolito = _e[_d];
                     if (simbolito instanceof simbolo) {
-                        if (simbolito.name == name && simbolito.ambito == this.ambitoLevel) {
+                        if (simbolito.name == name && simbolito.ambito == this.ambitoLevel && simbolito.rol != 'funcion') {
                             return simbolito;
                         }
                     }
@@ -185,7 +185,7 @@ var TablaSimbolos = /** @class */ (function () {
                 for (var _f = 0, _g = this.simbolos; _f < _g.length; _f++) {
                     var simbolito = _g[_f];
                     if (simbolito instanceof simbolo) {
-                        if (simbolito.name == name && simbolito.ambito < this.ambitoLevel && simbolito.ambito > 0) {
+                        if (simbolito.name == name && simbolito.ambito < this.ambitoLevel && simbolito.ambito > 0 && simbolito.rol != 'funcion') {
                             return simbolito;
                         }
                     }
@@ -207,6 +207,19 @@ var TablaSimbolos = /** @class */ (function () {
             }
         }
     };
+    TablaSimbolos.prototype.getFunctions = function () {
+        var vals = [];
+        for (var _i = 0, _a = this.simbolos; _i < _a.length; _i++) {
+            var simbolito = _a[_i];
+            if (simbolito instanceof simbolo) {
+                if (simbolito.rol == 'funcion')
+                    vals.push(simbolito.name);
+            }
+        }
+        return vals;
+    };
+    TablaSimbolos.prototype.getFunction = function (name) {
+    };
     return TablaSimbolos;
 }());
 exports.TablaSimbolos = TablaSimbolos;
@@ -221,6 +234,7 @@ var simbolo = /** @class */ (function () {
         this.tipo = '';
         this.constante = false;
         this.entorno = '';
+        this.params = -1;
     }
     return simbolo;
 }());
@@ -474,12 +488,36 @@ var Arreglos = /** @class */ (function () {
             }
         }
     };
+    Arreglos.prototype.getValoresL = function (id) {
+        for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
+            var simbolito = _a[_i];
+            if (simbolito instanceof arreglo) {
+                if (simbolito.name == id) {
+                    return simbolito.getValoresL();
+                }
+            }
+            else {
+                return null;
+            }
+        }
+    };
     Arreglos.prototype.changeValue = function (id, data, pos) {
         for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
             var simbolito = _a[_i];
             if (simbolito instanceof arreglo) {
                 if (simbolito.name == id) {
                     simbolito.changeData(data, pos);
+                    //console.log(simbolito.getValores());
+                }
+            }
+        }
+    };
+    Arreglos.prototype.getValue = function (id, pos) {
+        for (var _i = 0, _a = this.valores; _i < _a.length; _i++) {
+            var simbolito = _a[_i];
+            if (simbolito instanceof arreglo) {
+                if (simbolito.name == id) {
+                    return simbolito.getData(pos);
                     //console.log(simbolito.getValores());
                 }
             }
@@ -495,6 +533,43 @@ var arreglo = /** @class */ (function () {
         this.name = '';
         this.c3d = '';
     }
+    arreglo.prototype.getValoresL = function () {
+        var value = [];
+        //console.log(this.valor);
+        for (var _i = 0, _a = this.valor; _i < _a.length; _i++) {
+            var pos = _a[_i];
+            if (pos instanceof Array) {
+                var aux = this.getValoresL1(pos);
+                value.push(aux);
+            }
+            else if (pos instanceof arreglo) {
+                var aux = pos.getValoresL();
+                value.push(aux);
+            }
+            else {
+                value.push(pos);
+            }
+        }
+        return value;
+    };
+    arreglo.prototype.getValoresL1 = function (val) {
+        var value = [];
+        for (var _i = 0, val_1 = val; _i < val_1.length; _i++) {
+            var pos = val_1[_i];
+            if (pos instanceof Array) {
+                var aux = this.getValoresL1(pos);
+                value.push(aux);
+            }
+            else if (pos instanceof arreglo) {
+                var aux = pos.getValoresL();
+                value.push(aux);
+            }
+            else {
+                value.push(pos);
+            }
+        }
+        return value;
+    };
     arreglo.prototype.getValores = function () {
         var value = [];
         //console.log(this.valor);
@@ -522,8 +597,8 @@ var arreglo = /** @class */ (function () {
     };
     arreglo.prototype.getValores1 = function (val) {
         var value = [];
-        for (var _i = 0, val_1 = val; _i < val_1.length; _i++) {
-            var pos = val_1[_i];
+        for (var _i = 0, val_2 = val; _i < val_2.length; _i++) {
+            var pos = val_2[_i];
             if (pos instanceof Array) {
                 var aux = this.getValores1(pos);
                 for (var _a = 0, aux_3 = aux; _a < aux_3.length; _a++) {
@@ -583,6 +658,39 @@ var arreglo = /** @class */ (function () {
             }
         }
         return arr;
+    };
+    arreglo.prototype.getData = function (pos) {
+        var posd = 0;
+        var posi = pos[posd];
+        posd++;
+        if (pos.length > posd) {
+            //console.log(this.valor[posi])
+            if (this.valor[posi] instanceof arreglo) {
+                return this.getData1(this.valor[posi].valor[0].valor, pos, posd);
+            }
+        }
+        else {
+            //console.log(this.valor[posi]);
+            return this.valor[posi];
+        }
+        return null;
+    };
+    arreglo.prototype.getData1 = function (arr, pos, posd) {
+        var posi = pos[posd];
+        posd++;
+        //console.log('l', posi, pos);
+        if (pos.length > posd) {
+            if (arr[posi] instanceof arreglo) {
+                //console.log('l',arr.valor[posi].valor[0])
+                //console.log('l1',arr.valor[0].valor[posi])
+                //console.log('l2',arr.valor[0].valor[0].valor[posi])
+                return this.getData1(arr[posi].valor, pos, posd);
+            }
+        }
+        else {
+            return arr[posi];
+        }
+        return null;
     };
     return arreglo;
 }());

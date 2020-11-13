@@ -46,7 +46,7 @@ export class TablaSimbolos
         {
             if(a instanceof simbolo)
             {
-                if(a.ambito <= amb || a.ambito == 0) simbols.push(a);
+                if(a.ambito <= amb || a.ambito == 0 || a.rol == 'funcion') simbols.push(a);
             }
         }
         this.simbolos = [];
@@ -83,7 +83,7 @@ export class TablaSimbolos
             {
                 if(simbolito instanceof simbolo)
                 {
-                    if(simbolito.name == name && simbolito.ambito == 0)
+                    if(simbolito.name == name && simbolito.ambito == 0 && simbolito.rol != 'funcion' )
                     {
                         simbolito = simbolor;
                         return true;
@@ -101,7 +101,7 @@ export class TablaSimbolos
                     {
                         if (simbolito.name == name)
                         {
-                            if(simbolito.ambito == this.ambitoLevel)
+                            if(simbolito.ambito == this.ambitoLevel && simbolito.rol != 'funcion')
                             {
                                 simbolito = simbolor;
                                 return true;
@@ -118,7 +118,7 @@ export class TablaSimbolos
                     {
                         if (simbolito.name == name)
                         {
-                            if(simbolito.ambito < this.ambitoLevel && simbolito.ambito >0)
+                            if(simbolito.ambito < this.ambitoLevel && simbolito.ambito >0 && simbolito.rol != 'funcion')
                             {
                                 simbolito = simbolor;
                                 return true;
@@ -196,7 +196,7 @@ export class TablaSimbolos
             {
                 if(simbolito instanceof simbolo)
                 {
-                    if(simbolito.name == name)
+                    if(simbolito.name == name && simbolito.rol != 'funcion')
                     {
                         return simbolito;
                     }
@@ -211,7 +211,7 @@ export class TablaSimbolos
                 {
                     if (simbolito instanceof simbolo)
                     {
-                        if (simbolito.name == name && simbolito.ambito == this.ambitoLevel)
+                        if (simbolito.name == name && simbolito.ambito == this.ambitoLevel && simbolito.rol != 'funcion')
                         {
                             return simbolito;
                         }
@@ -224,7 +224,7 @@ export class TablaSimbolos
                 {
                     if (simbolito instanceof simbolo)
                     {
-                        if (simbolito.name == name && simbolito.ambito < this.ambitoLevel && simbolito.ambito > 0)
+                        if (simbolito.name == name && simbolito.ambito < this.ambitoLevel && simbolito.ambito > 0 && simbolito.rol != 'funcion')
                         {
                             return simbolito
                         }
@@ -255,6 +255,22 @@ export class TablaSimbolos
             }
         }
     }
+    getFunctions()
+    {
+        let vals = [];
+        for(let simbolito of this.simbolos)
+        {
+            if(simbolito instanceof simbolo)
+            {
+                if(simbolito.rol == 'funcion') vals.push(simbolito.name);
+            }
+        }
+        return vals;
+    }
+    getFunction(name)
+    {
+
+    }
 }
 export class simbolo
 {
@@ -268,6 +284,7 @@ export class simbolo
     constante:boolean;
     valor:any;
     entorno:string;
+    params:number;
 
     constructor() {
         this.ambito = -1;
@@ -279,6 +296,7 @@ export class simbolo
         this.tipo = '';
         this.constante = false;
         this.entorno  = '';
+        this.params = -1;
     }
 
 
@@ -619,6 +637,23 @@ export class Arreglos
             }
         }
     }
+    getValoresL(id)
+    {
+        for(let simbolito of this.valores)
+        {
+            if(simbolito instanceof arreglo)
+            {
+                if(simbolito.name == id)
+                {
+                    return simbolito.getValoresL();
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
     changeValue(id,data, pos)
     {
         for(let simbolito of this.valores)
@@ -628,6 +663,20 @@ export class Arreglos
                 if(simbolito.name == id)
                 {
                     simbolito.changeData(data, pos);
+                    //console.log(simbolito.getValores());
+                }
+            }
+        }
+    }
+    getValue(id,pos)
+    {
+        for(let simbolito of this.valores)
+        {
+            if(simbolito instanceof arreglo)
+            {
+                if(simbolito.name == id)
+                {
+                    return simbolito.getData(pos);
                     //console.log(simbolito.getValores());
                 }
             }
@@ -652,7 +701,51 @@ export class arreglo
         this.name = '';
         this.c3d = '';
     }
-
+    getValoresL()
+    {
+        let value = [];
+        //console.log(this.valor);
+        for(let pos of this.valor)
+        {
+            if(pos instanceof Array)
+            {
+                let aux = this.getValoresL1(pos);
+                value.push(aux);
+            }
+            else if(pos instanceof arreglo)
+            {
+                let aux = pos.getValoresL();
+                value.push(aux);
+            }
+            else
+            {
+                value.push(pos);
+            }
+        }
+        return value;
+    }
+    getValoresL1(val):any[]
+    {
+        let value = []
+        for(let pos of val)
+        {
+            if(pos instanceof Array)
+            {
+                let aux = this.getValoresL1(pos);
+                value.push(aux);
+            }
+            else if(pos instanceof arreglo)
+            {
+                let aux = pos.getValoresL();
+                value.push(aux);
+            }
+            else
+            {
+                value.push(pos);
+            }
+        }
+        return value;
+    }
 
     getValores(): any[]
     {
@@ -711,6 +804,7 @@ export class arreglo
         }
         return value;
     }
+
     changeData(data,pos)
     {
         let posd = 0
@@ -761,6 +855,51 @@ export class arreglo
             }
         }
         return arr;
+    }
+
+
+    getData(pos)
+    {
+        let posd = 0
+        let posi = pos[posd];
+        posd++;
+
+        if(pos.length>posd)
+        {
+            //console.log(this.valor[posi])
+            if(this.valor[posi] instanceof arreglo)
+            {
+               return this.getData1(this.valor[posi].valor[0].valor,pos, posd);
+            }
+        }
+        else
+        {
+            //console.log(this.valor[posi]);
+            return this.valor[posi];
+        }
+        return null;
+    }
+    getData1(arr, pos, posd)
+    {
+        let posi = pos[posd];
+        posd++;
+        //console.log('l', posi, pos);
+        if(pos.length>posd)
+        {
+            if(arr[posi] instanceof arreglo)
+            {
+                //console.log('l',arr.valor[posi].valor[0])
+                //console.log('l1',arr.valor[0].valor[posi])
+                //console.log('l2',arr.valor[0].valor[0].valor[posi])
+                return this.getData1(arr[posi].valor,pos,posd);
+            }
+        }
+        else
+        {
+
+            return arr[posi];
+        }
+        return null;
     }
 
 }

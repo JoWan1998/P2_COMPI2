@@ -1,5 +1,36 @@
-let a:number = 1989.5 + 0.5 + 8;
-let d = new Array(5);
-d = [[[0,1,2],[3,4,5]],[[6,7,8],[9,10,11]],[[12,13,14],[15,16,17]]];
-let m = (d[0]);
-console.log(m);
+    let val1 = 0;
+    let val2 = 0;
+    let val3 = 0;
+    let a = 0;
+    let b = 0;
+
+    val1 = 7 - (5 + 10 * (20 / 5 - 2 + 4 * (5 + 2 * 3)) - 8 * 3 ** 2) + 50 * (6 * 2); //214
+    val2 = 2 ** 4 - 9 * (8 - 6 * (3 ** 2 - 6 * 5 - 7 * (9 + 7 ** 3) + 10) - 5 ) + 8 * (36 / 6 - 5 * ( 2 * 3)); //-133853
+    val3 = (8 ** 3 * 36 ** 0 - 2 ** 5 + 2 ** 3 + 16 ** 0 + 2) / 3; //-1018
+    //let val4 = val1+val2+val3+val4; //Error, comentar despues de reportar
+    let val4 = val1 - val2 + val3; //El resultado es 135085
+    if(val1 - val2 + val3 != 135085){
+        console.log('Aritmeticas 100');
+    }
+
+    let String_3: string;
+    let String_4: string;
+    let int2_:number;
+    let TRUE :boolean = true;
+    let FALSE :boolean = false;
+    int2_ = 45;
+    int2_ --;
+    String_3 = (int2_ > 77 || FALSE) + "," + (int2_ < 78 && TRUE) + "," + (int2_ + 10 <= int2_ || FALSE) + "," + (!!!!!!!!!!!! (int2_ + 10 >= int2_));
+    String_4 = (int2_ >= 77 || -1 < 100) + "," + (int2_ > 78 && 100 + 0);
+
+    console.log("Lógica 1" + " = " + String_3); //false,true,false,true
+    console.log("Lógica 2" + " = " + String_4); //true,false
+
+    let relacionaes : boolean = (a == 0) != (44.3 < 44.4) == (2**5 == 31 + 2 % 1);
+    relacionaes = relacionaes == (b == a) != ((532 > 532)) == (String_3 == "false,true,false,true") == (String_4 == "true,false");
+    if(relacionaes){
+        console.log("Relacionels 100");
+    }
+    else{
+        console.log("Relacionales 0");
+    }
