@@ -28,6 +28,14 @@ var TablaSimbolos = /** @class */ (function () {
             console.log("VARIABLE: " + simbolitos.name + "   |   TIPO: " + simbolitos.tipo + "    |   ROL: " + simbolitos.rol + "  |   AMBITO: " + simbolitos.ambito + "    |   POSITION: " + simbolitos.position + "   |   VALOR: " + simbolitos.valor + "   |   CONSTANTE: " + simbolitos.constante + " | ENTORNO: " + simbolitos.entorno);
         }
     };
+    TablaSimbolos.prototype.getSimbolos = function () {
+        var simb = [];
+        for (var _i = 0, _a = this.simbolos; _i < _a.length; _i++) {
+            var simbolitos = _a[_i];
+            simb.push("{\"nombre\": \"" + simbolitos.name + "\",\"tipo\": \"" + simbolitos.tipo + "\",\"rol\": \"" + simbolitos.rol + "\",\"ambito\": \"" + simbolitos.ambito + "\", \"entorno\": \"" + simbolitos.entorno + "\"}");
+        }
+        return simb;
+    };
     TablaSimbolos.prototype.insert = function (simbolo) {
         if (this.ambitoLevel == 0 && simbolo.entorno == '') {
             simbolo.entorno = 'global';

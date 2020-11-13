@@ -185,6 +185,11 @@ S
         }
         $$ =[];
         $$.push(valor);
+        $$.push(errores);
+        $$.push(lexicos);
+        $$.push(sintacticos);
+        $$.push(semanticos);
+        $$.push(tab.getSimbolos());
         console.log('-----      CODIGO         ------')
         //console.log(valor);
         console.log('-----      ERRORES        ------');

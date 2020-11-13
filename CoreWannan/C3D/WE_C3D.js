@@ -111,6 +111,11 @@ case 1:
         }
         this.$ =[];
         this.$.push(valor);
+        this.$.push(errores);
+        this.$.push(lexicos);
+        this.$.push(sintacticos);
+        this.$.push(semanticos);
+        this.$.push(tab.getSimbolos());
         console.log('-----      CODIGO         ------')
         //console.log(valor);
         console.log('-----      ERRORES        ------');

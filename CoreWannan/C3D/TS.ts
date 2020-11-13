@@ -28,7 +28,17 @@ export class TablaSimbolos
         for(let simbolitos of this.simbolos)
         {
             console.log(`VARIABLE: ${simbolitos.name}   |   TIPO: ${simbolitos.tipo}    |   ROL: ${simbolitos.rol}  |   AMBITO: ${simbolitos.ambito}    |   POSITION: ${simbolitos.position}   |   VALOR: ${simbolitos.valor}   |   CONSTANTE: ${simbolitos.constante} | ENTORNO: ${simbolitos.entorno}`);
+
         }
+    }
+    getSimbolos()
+    {
+        let simb = [];
+        for(let simbolitos of this.simbolos)
+        {
+            simb.push(`{"nombre": "${simbolitos.name}","tipo": "${simbolitos.tipo}","rol": "${simbolitos.rol}","ambito": "${simbolitos.ambito}", "entorno": "${simbolitos.entorno}"}`);
+        }
+        return simb;
     }
     insert(simbolo:any)
     {

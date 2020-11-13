@@ -21,6 +21,12 @@
   <component name="ChangeListManager">
     <list default="true" id="8273d9a9-2e76-421e-aae0-5513d92d4763" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../CoreWannan/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../CoreWannan/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CoreWannan/C3D/TS.js" beforeDir="false" afterPath="$PROJECT_DIR$/../CoreWannan/C3D/TS.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CoreWannan/C3D/TS.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../CoreWannan/C3D/TS.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CoreWannan/C3D/WE_C3D.jison" beforeDir="false" afterPath="$PROJECT_DIR$/../CoreWannan/C3D/WE_C3D.jison" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CoreWannan/C3D/WE_C3D.js" beforeDir="false" afterPath="$PROJECT_DIR$/../CoreWannan/C3D/WE_C3D.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CoreWannan/C3D/entrada.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../CoreWannan/C3D/entrada.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CoreWannan/C3D/salida.c" beforeDir="false" afterPath="$PROJECT_DIR$/../CoreWannan/C3D/salida.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,6 +104,7 @@
       <workItem from="1601241407556" duration="14693000" />
       <workItem from="1604045693320" duration="1326000" />
       <workItem from="1604906638799" duration="2512000" />
+      <workItem from="1605285778344" duration="635000" />
     </task>
     <servers />
   </component>

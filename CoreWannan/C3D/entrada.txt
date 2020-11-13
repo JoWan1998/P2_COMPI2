@@ -34,3 +34,15 @@
     else{
         console.log("Relacionales 0");
     }
+
+    const dimension = 3;
+
+    //Error porque una constante debe estar asginada
+    //Si no reporta el error -0.5 en declaracion de variables
+    const dim2;
+    let arreglo : string[] = ["Estudiante1", "Estudiante2", "Estudiante3"];
+    //Posicion 0 - 2 para estudiante 1
+    //Posicion 3 - 5 para estudiante 2
+    //Posicion 6 - 8 para estudiante 3
+    let tablero : number[] = [0,0,0,0,0,0,0,0,0];
+    let estado : boolean[] = [false, false, false, false, false, false, false, false, false];
