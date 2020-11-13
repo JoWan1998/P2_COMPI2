@@ -451,12 +451,38 @@
                       </div>
                     </ng-template>
                   </ngb-panel>
-                  <ngb-panel id="static-4" [disabled]="true">
-                    <ng-template ngbPanelTitle>
-                            <span> Errores Semanticos <b>[PRO]</b> </span>
-                    </ng-template>
+                  <ngb-panel id="static-4" title="Errores Semanticos">
                     <ng-template ngbPanelContent>
+                      <div class="table-responsive-xl">
+                        <table class="table table-borderless">
+                          <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Error</th>
+                          </tr>
+                          </thead>
+                          <tbody *ngFor="let row of erroresSemanticos">
+                          <tr>
+                            <th scope="row">{{row.no}}</th>
+                            <td>{{row.error}}</td>
+                          </tr>
+                          <!--
 
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td colspan="2">Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                          -->
+                          </tbody>
+                        </table>
+                      </div>
                     </ng-template>
                   </ngb-panel>
                   <ngb-panel id="static-2">

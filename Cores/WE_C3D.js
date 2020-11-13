@@ -97,7 +97,7 @@ case 1:
         valor = valor.slice(0, -1);
         valor +=' = -1;\n';
         var tabs = tab.getFunctions();
-        console.log(tabs);
+        //console.log(tabs);
         for(let t of tabs)
         {
             valor += `void ${t}();\n`;
@@ -109,13 +109,15 @@ case 1:
         {
             valor += f + '\n\n';
         }
-        this.$ =[];
-        this.$.push(valor);
-        this.$.push(errores);
-        this.$.push(lexicos);
-        this.$.push(sintacticos);
-        this.$.push(semanticos);
-        this.$.push(tab.getSimbolos());
+        var r = [];
+        r[0] = (valor);
+        r[1] =(errores);
+        r[2] =(lexicos);
+        r[3] =(sintacticos);
+        r[4] =(semanticos);
+        r[5] =(tab.getSimbolos());
+        r[6] = 'JW - 2020';
+        this.$ = r;
         console.log('-----      CODIGO         ------')
         //console.log(valor);
         console.log('-----      ERRORES        ------');
@@ -141,7 +143,7 @@ case 1:
         console.log('----- TABLA DE SIMBOLOS  ------');
         tab.printSimbolos();
         return this.$;
-
+    
 break;
 case 3: case 62:
 
@@ -153,7 +155,7 @@ case 3: case 62:
         r[2] = '';
         r[3] = valor;
         this.$ = r;
-
+    
 break;
 case 4: case 63:
 
@@ -166,12 +168,12 @@ case 4: case 63:
         r[2] = '';
         r[3] = valor;
         this.$ = r;
-
+    
 break;
 case 5: case 64:
 
         this.$ = ['','','','',''];
-
+    
 break;
 case 6: case 7: case 9: case 10: case 13: case 14: case 15: case 65: case 66: case 67: case 68: case 71: case 72: case 73:
 
@@ -181,7 +183,7 @@ case 6: case 7: case 9: case 10: case 13: case 14: case 15: case 65: case 66: ca
         r[2] = $$[$0][2];
         r[3] = $$[$0][3];
         this.$ = r;
-
+    
 break;
 case 8:
 
@@ -194,7 +196,7 @@ case 8:
         r[2] = $$[$0][2];
         r[3] = $$[$0][3];
         this.$ = r;
-
+    
 break;
 case 11:
 
@@ -209,7 +211,7 @@ case 11:
         r[3] = $$[$0][3];
 
         this.$ = r;
-
+    
 break;
 case 12: case 70:
 
@@ -225,7 +227,7 @@ case 12: case 70:
         r[2] = $$[$0][2];
         r[3] = $$[$0][3];
         this.$ = r;
-
+    
 break;
 case 16: case 74:
 
@@ -239,19 +241,19 @@ case 16: case 74:
         r[2] = $$[$0][2];
         r[3] = $$[$0][3];
         this.$ = r;
-
+    
 break;
 case 17:
 
          this.$ = ['','','','','','','','','',''];
-
+    
 break;
 case 18: case 19:
 
         console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column);
         sintacticos.push('{\"token\":\"'+yytext+'\", \"linea\":\"'+this._$.first_line+'\", \"columna\":\"'+this._$.first_column+'\"}');
         this.$ = ['','','','','','','','','',''];
-
+      
 break;
 case 20:
 
@@ -323,7 +325,7 @@ case 20:
                              {
 
 
-
+         
                              }
                              else if(n.rol.toUpperCase() == "VARIABLE")
                              {
@@ -366,7 +368,7 @@ case 20:
                                          valor += 'printf("%f",(float)'+temp+');\n';
                                          r[3] += valor;
                                      }
-
+         
                                  }
                                  else if(n.tipo.toUpperCase() == "FLOAT")
                                  {
@@ -390,7 +392,7 @@ case 20:
                                  {
                                      var valor = '';
                                      valor += '\n';
-
+         
                                      var temp = Temp.getTemporal();
                                         if(n.entorno == 'global')
                                          {
@@ -402,35 +404,35 @@ case 20:
                                              valor = temp+' = stack['+n.position+'];';
                                              valor += '\n';
                                          }
-
+         
                                      var temp1 = Temp.getTemporal();
                                      valor += '\n';
                                      valor += temp1 + '= heap[(int)'+temp+'];\n';
                                      valor += temp1 + ' = '+ temp1 + ' + 1;';
-
+         
                                      var temp2  = Temp.getTemporal();
                                      valor += '\n';
                                      valor += temp2 + '= heap[(int)'+temp1+'];';
-
+         
                                      var temp3 = Temp.getTemporal();
                                      valor += '\n';
                                      valor += temp3 + ' = 0;';
-
+         
                                      var label = Label.getBandera();
                                      valor += '\n';
                                      valor += label + ':';
                                      var label1 = Label.getBandera();
-
+         
                                      valor += '\n';
                                      valor += 'if(' + temp3 + '==' + temp2 + ') goto '+label1+';';
                                      valor += '\n';
-
+         
                                      var temp4 = Temp.getTemporal();
                                      valor += temp4 + ' = ' + temp3 + ' + ' + temp1 + ';';
                                      valor += '\n';
                                      valor += temp3 + ' = ' + temp3 + ' + 1;';
                                      valor += '\n';
-
+         
                                      var temp5 = Temp.getTemporal();
                                      valor += temp5 + ' = heap[(int)' + temp4 + '];';
                                      valor += '\n';
@@ -682,7 +684,7 @@ case 20:
             }
         }
         this.$ = r;
-
+    
 break;
 case 21:
 
@@ -1118,22 +1120,22 @@ case 21:
             }
         }
         this.$ = r;
-
+    
 break;
 case 22: case 26: case 151: case 159:
 
         this.$ = $$[$0-1];
-
+    
 break;
 case 23: case 29: case 105: case 106: case 107: case 109: case 110: case 133: case 145: case 148: case 149: case 152: case 156: case 184: case 186: case 198: case 199: case 200: case 201: case 202: case 203: case 207: case 208: case 209: case 210: case 211: case 216: case 221: case 224: case 227: case 230: case 233: case 236: case 241: case 246: case 251: case 253: case 255: case 257: case 259: case 261: case 263: case 265: case 267: case 268: case 269: case 270:
 
         this.$ = $$[$0];
-
+    
 break;
 case 24: case 25:
 
         this.$ = ['','','','','',''];
-
+    
 break;
 case 27:
 
@@ -1377,7 +1379,7 @@ case 27:
             semanticos.push('{\"valor\":\"'+`Error Semantico en la linea: ${(yylineno+1)}, no existe la variable ${$$[$0-6]};`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 28:
 
@@ -1840,7 +1842,7 @@ case 28:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe una variable con el nombre ${$$[$0-2]};`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 30:
 
@@ -2066,7 +2068,7 @@ case 30:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, ya existe una variable con el nombre ${$$[$0-2]};`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 31:
 
@@ -2291,7 +2293,7 @@ case 31:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, ya existe una variable con el nombre ${$$[$0]};`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 32:
 
@@ -2556,7 +2558,7 @@ case 32:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, ya existe una variable con el nombre ${$$[$0-5]};`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 33:
 
@@ -2961,7 +2963,7 @@ case 33:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, ya existe una variable con el nombre ${$$[$0-9]};`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 34:
 
@@ -3364,7 +3366,7 @@ case 34:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, ya existe una variable con el nombre ${$$[$0-6]};`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 35:
 
@@ -4125,7 +4127,7 @@ case 35:
             this.$ = ['','','',''];
         }
 
-
+    
 break;
 case 36: case 37:
 
@@ -4922,7 +4924,7 @@ case 36: case 37:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, ya existe una variable con el nombre ${$$[$0-2]};`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 46:
 
@@ -4960,7 +4962,7 @@ case 46:
         sym.entorno = 'global';
         tab.insert(sym);
         this.$ = ['','','','','',''];
-
+    
 break;
 case 47:
 
@@ -4999,7 +5001,7 @@ case 47:
         sym.entorno = 'global';
         tab.insert(sym);
         this.$ = ['','','','','',''];
-
+    
 break;
 case 48:
 
@@ -5037,11 +5039,11 @@ case 48:
         sym.entorno = 'global';
         tab.insert(sym);
         this.$ = ['','','','','',''];
-
+    
 break;
 case 49: case 51: case 53:
 
-
+    
 break;
 case 50:
 
@@ -5079,7 +5081,7 @@ case 50:
         sym.entorno = 'global';
         tab.insert(sym);
         this.$ = ['','','','','',''];
-
+    
 break;
 case 52:
 
@@ -5116,12 +5118,12 @@ case 52:
         sym.entorno = 'global';
         tab.insert(sym);
         this.$ = ['','','','','',''];
-
+    
 break;
 case 54: case 55: case 56: case 57: case 58: case 59: case 60: case 61:
 
         this.$ = ['','','','','','',''];
-
+    
 break;
 case 69:
 
@@ -5136,7 +5138,7 @@ case 69:
         r[3] = $$[$0][3];
 
         this.$ = r;
-
+    
 break;
 case 98:
 
@@ -5187,7 +5189,7 @@ case 98:
         r[4] = '';
         this.$ = r;
 
-
+    
 break;
 case 99:
 
@@ -5249,7 +5251,7 @@ case 99:
         r[4] = '';
         this.$ = r;
 
-
+    
 break;
 case 100:
 
@@ -5331,7 +5333,7 @@ case 100:
             this.$ = ['','','','',''];
         }
 
-
+    
 break;
 case 101:
 
@@ -5405,7 +5407,7 @@ case 101:
         continues = '';
         this.$ = r;
 
-
+    
 break;
 case 102:
 
@@ -5462,7 +5464,7 @@ case 102:
         }
 
 
-
+    
 break;
 case 103:
 
@@ -5563,7 +5565,7 @@ case 103:
         {
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 108:
 
@@ -5586,7 +5588,7 @@ case 108:
         }
         this.$ = r;
 
-
+    
 break;
 case 111:
 
@@ -5619,19 +5621,19 @@ case 111:
         r[2] = '';
         r[3] = valor;
         this.$ = r;
-
+    
 break;
 case 112:
 
         this.$ = $$[$0-2];
         this.$.push($$[$0]);
-
+    
 break;
 case 113:
 
         this.$ = [];
         this.$.push($$[$0]);
-
+    
 break;
 case 114:
 
@@ -5646,7 +5648,7 @@ case 114:
         r[6] = '';
         r[7] = $$[$0];
         this.$ = r;
-
+    
 break;
 case 115:
 
@@ -5660,7 +5662,7 @@ case 115:
         r[6] = '';
         r[7] = '';
         this.$ = r;
-
+    
 break;
 case 135:
 
@@ -5676,7 +5678,7 @@ case 135:
         r[5] = 1;
         r[6] = true;
         this.$ = r;
-
+    
 break;
 case 136:
 
@@ -5692,7 +5694,7 @@ case 136:
         r[5] = 1;
         r[6] = false;
         this.$ = r;
-
+    
 break;
 case 137:
 
@@ -5709,7 +5711,7 @@ case 137:
         r[6] = Number($$[$0]);
         this.$ = r;
 
-
+    
 break;
 case 138:
 
@@ -5734,7 +5736,7 @@ case 138:
 
         this.$ = r;
 
-
+    
 break;
 case 139:
 
@@ -5759,12 +5761,12 @@ case 139:
 
         this.$ = r;
 
-
+    
 break;
 case 146: case 147: case 185: case 187: case 190: case 193:
 
         this.$ = ['','','','','','']
-
+    
 break;
 case 150: case 188: case 191:
 
@@ -5777,12 +5779,12 @@ case 150: case 188: case 191:
         r[5] = '';
         r[6] = '';
         this.$ = r;
-
+    
 break;
 case 153: case 154: case 155: case 177: case 178:
 
         this.$ = ['','','','','','','','','','','','','','',''];
-
+    
 break;
 case 157:
 
@@ -5792,7 +5794,7 @@ case 157:
         r[11] = this.$.length+1;
         r[12] = $$[$0];
         this.$.push(r);
-
+    
 break;
 case 158:
 
@@ -5803,7 +5805,7 @@ case 158:
         this.$ = [];
         this.$.push(r);
 
-
+    
 break;
 case 160:
 
@@ -5825,7 +5827,7 @@ case 160:
                  for(let posi of $$[$0])
                  {
                      var m = arr.getTam($$[$0-1],nivel);
-
+                    
 
 
                      if(posi[12][0] != '')
@@ -6002,7 +6004,7 @@ case 160:
               semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
               this.$ = ['','','',''];
          }
-
+    
 break;
 case 161:
 
@@ -6060,7 +6062,7 @@ case 161:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 162:
 
@@ -6118,7 +6120,7 @@ case 162:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 163:
 
@@ -6176,7 +6178,7 @@ case 163:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 164:
 
@@ -6234,7 +6236,7 @@ case 164:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-1]}`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 165:
 
@@ -6247,14 +6249,14 @@ case 165:
              var temp  = Temp.getTemporal();
              var l = arr.getProf($$[$0-2]);
              var posss = 0;
-
+             
              if(l>=$$[$0-1].length)
              {
                  var nivel = 1;
                  for(let posi of $$[$0-1])
                  {
                      var m = arr.getTam($$[$0-2],nivel);
-
+                    
                      var pass = false;
 
                      if(posi[12][0] != '')
@@ -6434,7 +6436,7 @@ case 165:
               semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-2]}`+'\"}');
               this.$ = ['','','',''];
          }
-
+    
 break;
 case 166:
 
@@ -6453,7 +6455,7 @@ case 166:
                  for(let posi of $$[$0-1])
                  {
                      var m = arr.getTam($$[$0-2],nivel);
-
+                    
                      var pass = false;
 
                      if(posi[12][0] != '')
@@ -6633,7 +6635,7 @@ case 166:
               semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-2]}`+'\"}');
               this.$ = ['','','',''];
          }
-
+    
 break;
 case 167:
 
@@ -6646,14 +6648,14 @@ case 167:
              var temp  = Temp.getTemporal();
              var l = arr.getProf($$[$0-2]);
              var posss = 0;
-
+             
              if(l>=$$[$0-1].length)
              {
                  var nivel = 1;
                  for(let posi of $$[$0-1])
                  {
                      var m = arr.getTam($$[$0-2],nivel);
-
+                    
                      var pass = false;
 
                      if(posi[12][0] != '')
@@ -6833,7 +6835,7 @@ case 167:
               semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-2]}`+'\"}');
               this.$ = ['','','',''];
          }
-
+    
 break;
 case 168:
 
@@ -6846,14 +6848,14 @@ case 168:
              var temp  = Temp.getTemporal();
              var l = arr.getProf($$[$0-2]);
              var posss = 0;
-
+             
              if(l>=$$[$0-1].length)
              {
                  var nivel = 1;
                  for(let posi of $$[$0-1])
                  {
                      var m = arr.getTam($$[$0-2],nivel);
-
+                    
                      var pass = false;
 
                      if(posi[12][0] != '')
@@ -7033,7 +7035,7 @@ case 168:
               semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-2]}`+'\"}');
               this.$ = ['','','',''];
          }
-
+    
 break;
 case 169:
 
@@ -7111,7 +7113,7 @@ case 169:
              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-4]}`+'\"}');
              this.$ = ['','','',''];
         }
-
+    
 break;
 case 170:
 
@@ -7189,7 +7191,7 @@ case 170:
              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-4]}`+'\"}');
              this.$ = ['','','',''];
         }
-
+    
 break;
 case 171:
 
@@ -7284,7 +7286,7 @@ case 171:
              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-2]}`+'\"}');
              this.$ = ['','','',''];
         }
-
+     
 break;
 case 172:
 
@@ -7376,7 +7378,7 @@ case 172:
              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-5]}`+'\"}');
              this.$ = ['','','',''];
         }
-
+     
 break;
 case 173:
 
@@ -7433,7 +7435,7 @@ case 173:
              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-5]}`+'\"}');
              this.$ = ['','','',''];
         }
-
+     
 break;
 case 174:
 
@@ -7668,7 +7670,7 @@ case 174:
               semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-5]}`+'\"}');
               this.$ = ['','','',''];
          }
-
+    
 break;
 case 175:
 
@@ -7903,7 +7905,7 @@ case 175:
               semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-5]}`+'\"}');
               this.$ = ['','','',''];
          }
-
+    
 break;
 case 176:
 
@@ -8010,7 +8012,7 @@ case 176:
              semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-3]}`+'\"}');
              this.$ = ['','','',''];
         }
-
+     
 break;
 case 179:
 
@@ -8353,7 +8355,7 @@ case 179:
               semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable ${$$[$0-3]}`+'\"}');
               this.$ = ['','','',''];
          }
-
+    
 break;
 case 180:
 
@@ -8380,7 +8382,7 @@ case 180:
         r[8] = '';
 
         this.$ = r;
-
+    
 break;
 case 181:
 
@@ -8537,7 +8539,7 @@ case 181:
             this.$ = ['','','','','','','',''];
         }
 
-
+    
 break;
 case 182:
 
@@ -8579,7 +8581,7 @@ case 182:
                 }
           }
         this.$.push(r);
-
+    
 break;
 case 183:
 
@@ -8617,7 +8619,7 @@ case 183:
 
         this.$ = r1;
 
-
+    
 break;
 case 204:
 
@@ -8665,7 +8667,7 @@ case 204:
             this.$ = $$[$0];
         }
 
-
+    
 break;
 case 205:
 
@@ -8746,7 +8748,7 @@ case 205:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar dicha operacion.`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 206:
 
@@ -8849,7 +8851,7 @@ case 206:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede realizar dicha operacion.`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 212:
 
@@ -9018,7 +9020,7 @@ case 212:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 213: case 218:
 
@@ -9193,7 +9195,7 @@ case 213: case 218:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 214: case 219:
 
@@ -9436,7 +9438,7 @@ case 214: case 219:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 215:
 
@@ -9611,7 +9613,7 @@ case 215:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 217:
 
@@ -9786,7 +9788,7 @@ case 217:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 220:
 
@@ -9961,11 +9963,11 @@ case 220:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 222:
 
-        console.log('++', $$[$0-2], $$[$0]);
+        //console.log('++', $$[$0-2], $$[$0]);
         if($$[$0-2][0] == 'STRING'  && $$[$0][0] == 'STRING')
         {
             var r = [];
@@ -10402,7 +10404,7 @@ case 222:
                         this.$ = r;
             }
         }
-
+    
 break;
 case 223: case 226:
 
@@ -10577,7 +10579,7 @@ case 223: case 226:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 225:
 
@@ -11017,7 +11019,7 @@ case 225:
                         this.$ = r;
             }
         }
-
+    
 break;
 case 228:
 
@@ -11192,7 +11194,7 @@ case 228:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 229:
 
@@ -11368,7 +11370,7 @@ case 229:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 231: case 234:
 
@@ -11543,7 +11545,7 @@ case 231: case 234:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 232:
 
@@ -11719,7 +11721,7 @@ case 232:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 235:
 
@@ -11894,7 +11896,7 @@ case 235:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 237:
 
@@ -12150,7 +12152,7 @@ case 237:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 238:
 
@@ -12405,7 +12407,7 @@ case 238:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 239:
 
@@ -12661,7 +12663,7 @@ case 239:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 240:
 
@@ -12916,7 +12918,7 @@ case 240:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion.`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 242:
 
@@ -13090,7 +13092,7 @@ case 242:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 243:
 
@@ -13264,7 +13266,7 @@ case 243:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 244:
 
@@ -13438,7 +13440,7 @@ case 244:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 245:
 
@@ -13612,7 +13614,7 @@ case 245:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 247:
 
@@ -13787,7 +13789,7 @@ case 247:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 248:
 
@@ -13962,7 +13964,7 @@ case 248:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 249:
 
@@ -14137,7 +14139,7 @@ case 249:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 250:
 
@@ -14312,7 +14314,7 @@ case 250:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, no se puede aplicar  a variables de tipo STRING`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 252:
 
@@ -14417,7 +14419,7 @@ case 252:
                     }
                     else
                     {
-                        console.log('ERror', $$[$0-2], $$[$0]);
+                        //console.log('ERror', $$[$0-2], $$[$0]);
                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}..., de tipo booleano`+'\"}');
                         this.$ = ['','','',''];
                     }
@@ -14564,7 +14566,7 @@ case 252:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO.`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 254:
 
@@ -14808,7 +14810,7 @@ case 254:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 256:
 
@@ -15064,7 +15066,7 @@ case 256:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente valores de tipo BOOLEANO`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 258:
 
@@ -15335,7 +15337,7 @@ case 258:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 260:
 
@@ -15606,7 +15608,7 @@ case 260:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 262:
 
@@ -15878,7 +15880,7 @@ case 262:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion, unicamente variables de tipo BOOLEANO`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 264:
 
@@ -16091,7 +16093,7 @@ case 264:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 case 266:
 
@@ -16306,7 +16308,7 @@ case 266:
             semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no se puede ejecutar la operacion`+'\"}');
             this.$ = ['','','',''];
         }
-
+    
 break;
 }
 },
@@ -17047,9 +17049,9 @@ case 63:return 31
 break;
 case 64:return 99;
 break;
-case 65: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 100;
+case 65: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 100; 
 break;
-case 66: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 101;
+case 66: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 101; 
 break;
 case 67:return 32
 break;
@@ -17080,7 +17082,7 @@ break;
 case 80:
                                    console.error('Error léxico: ' + yy_.yytext + ', en la linea: ' + yy_.yylloc.first_line + ', en la columna: ' + yy_.yylloc.first_column+';');
                                    lexicos.push('{\"token\":\"' + yy_.yytext + '\", \"linea\": \"' + yy_.yylloc.first_line + '\", \"columna\": \"' + yy_.yylloc.first_column+'\"}');
-
+                                
 break;
 }
 },

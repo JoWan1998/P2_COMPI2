@@ -171,7 +171,7 @@ S
         valor = valor.slice(0, -1);
         valor +=' = -1;\n';
         var tabs = tab.getFunctions();
-        console.log(tabs);
+        //console.log(tabs);
         for(let t of tabs)
         {
             valor += `void ${t}();\n`;
@@ -183,13 +183,15 @@ S
         {
             valor += f + '\n\n';
         }
-        $$ =[];
-        $$.push(valor);
-        $$.push(errores);
-        $$.push(lexicos);
-        $$.push(sintacticos);
-        $$.push(semanticos);
-        $$.push(tab.getSimbolos());
+        var r = [];
+        r[0] = (valor);
+        r[1] =(errores);
+        r[2] =(lexicos);
+        r[3] =(sintacticos);
+        r[4] =(semanticos);
+        r[5] =(tab.getSimbolos());
+        r[6] = 'JW - 2020';
+        $$ = r;
         console.log('-----      CODIGO         ------')
         //console.log(valor);
         console.log('-----      ERRORES        ------');
@@ -11842,7 +11844,7 @@ AdicionExpr
     }
     | AdicionExpr '+' MultiplicativeExpr
     {
-        console.log('++', $1, $3);
+        //console.log('++', $1, $3);
         if($1[0] == 'STRING'  && $3[0] == 'STRING')
         {
             var r = [];
@@ -16679,7 +16681,7 @@ LogicaYYExpr
                     }
                     else
                     {
-                        console.log('ERror', $1, $3);
+                        //console.log('ERror', $1, $3);
                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$3[4]}..., de tipo booleano`+'\"}');
                         $$ = ['','','',''];
                     }

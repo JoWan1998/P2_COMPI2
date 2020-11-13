@@ -97,7 +97,7 @@ case 1:
         valor = valor.slice(0, -1);
         valor +=' = -1;\n';
         var tabs = tab.getFunctions();
-        console.log(tabs);
+        //console.log(tabs);
         for(let t of tabs)
         {
             valor += `void ${t}();\n`;
@@ -109,13 +109,15 @@ case 1:
         {
             valor += f + '\n\n';
         }
-        this.$ =[];
-        this.$.push(valor);
-        this.$.push(errores);
-        this.$.push(lexicos);
-        this.$.push(sintacticos);
-        this.$.push(semanticos);
-        this.$.push(tab.getSimbolos());
+        var r = [];
+        r[0] = (valor);
+        r[1] =(errores);
+        r[2] =(lexicos);
+        r[3] =(sintacticos);
+        r[4] =(semanticos);
+        r[5] =(tab.getSimbolos());
+        r[6] = 'JW - 2020';
+        this.$ = r;
         console.log('-----      CODIGO         ------')
         //console.log(valor);
         console.log('-----      ERRORES        ------');
@@ -9965,7 +9967,7 @@ case 220:
 break;
 case 222:
 
-        console.log('++', $$[$0-2], $$[$0]);
+        //console.log('++', $$[$0-2], $$[$0]);
         if($$[$0-2][0] == 'STRING'  && $$[$0][0] == 'STRING')
         {
             var r = [];
@@ -14417,7 +14419,7 @@ case 252:
                     }
                     else
                     {
-                        console.log('ERror', $$[$0-2], $$[$0]);
+                        //console.log('ERror', $$[$0-2], $$[$0]);
                         semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la variable: ${$$[$0][4]}..., de tipo booleano`+'\"}');
                         this.$ = ['','','',''];
                     }

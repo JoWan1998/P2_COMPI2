@@ -97,6 +97,8 @@ export class AppComponent implements OnInit{
   erroresSintacticos: any[];
   erroresLexicos: any[];
   simbolitos: any[];
+  erroresSemanticos: any[];
+  ESS: number;
 
   ngOnInit() {
     this.obj = 'let a:number = 1989.5 + 0.5 + 8.5;\n' +
@@ -282,9 +284,56 @@ export class AppComponent implements OnInit{
         try {
           sus = true;
           this.obj2 = this.traduction[0];
+          this.simbolos = [];
+          let a = 1;
+          for (const values of this.traduction[5])
+          {
+            const vall = JSON.parse(values);
+
+            const valor = { no: a.toString(), name: vall.nombre, ambito: vall.entorno, tipo: vall.tipo, type: vall.rol };
+            this.simbolos.push(valor);
+            a++;
+          }
+          this.EL = this.traduction[2].length;
+          this.ES = this.traduction[3].length;
+          this.ESS = this.traduction[4].length;
+          if ( this.EL > 0 || this.ES > 0 || this.ESS >0)
+          {
+            sus = false;
+            let b = 1;
+            // tslint:disable-next-line:no-shadowed-variable
+            for (const value of this.traduction[2])
+            {
+              const values = JSON.parse(value.toString());
+              const valor = { no: b.toString(), token: values.token, linea: values.linea, columna: values.columna };
+              this.erroresLexicos.push(valor);
+              b++;
+            }
+
+            b = 1;
+            // tslint:disable-next-line:no-shadowed-variable
+            for (const value of this.traduction[3])
+            {
+              const values = JSON.parse(value);
+              const valor = { no: b.toString(), token: values.token, linea: values.linea, columna: values.columna };
+              this.erroresSintacticos.push(valor);
+              b++;
+            }
+            b = 1;
+            this.erroresSemanticos = [];
+            // tslint:disable-next-line:no-shadowed-variable
+            for (const value of this.traduction[4])
+            {
+              const values = JSON.parse(value);
+              const valor = { no: b.toString(), error: values.valor };
+              this.erroresSemanticos.push(valor);
+              b++;
+            }
+          }
         }
         catch (e) {
           sus = false;
+          console.log(e);
         }
 
         const end = new Date().getTime();
