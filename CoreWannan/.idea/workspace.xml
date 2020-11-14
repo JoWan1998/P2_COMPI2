@@ -79,12 +79,12 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/C3D" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/C3D" />
       <recent name="$PROJECT_DIR$" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/C3D" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -124,6 +124,7 @@
       <workItem from="1605252513559" duration="16832000" />
       <workItem from="1605285744323" duration="10578000" />
       <workItem from="1605304000094" duration="15401000" />
+      <workItem from="1605322876932" duration="8952000" />
     </task>
     <servers />
   </component>

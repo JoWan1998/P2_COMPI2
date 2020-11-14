@@ -130,6 +130,17 @@ var TablaSimbolos = /** @class */ (function () {
         }
         return null;
     };
+    TablaSimbolos.prototype.getFuncion = function (name) {
+        for (var _i = 0, _a = this.simbolos; _i < _a.length; _i++) {
+            var simbolito = _a[_i];
+            if (simbolito instanceof simbolo) {
+                if (simbolito.name == name && simbolito.rol.toUpperCase() == 'FUNCION') {
+                    return simbolito;
+                }
+            }
+        }
+        return null;
+    };
     TablaSimbolos.prototype.getPositionAmbito = function (name) {
         /*
         let ambitoglob = true;
@@ -220,7 +231,7 @@ var TablaSimbolos = /** @class */ (function () {
         for (var _i = 0, _a = this.simbolos; _i < _a.length; _i++) {
             var simbolito = _a[_i];
             if (simbolito instanceof simbolo) {
-                if (simbolito.rol == 'funcion')
+                if (simbolito.rol.toUpperCase() == 'FUNCION')
                     vals.push(simbolito.name);
             }
         }

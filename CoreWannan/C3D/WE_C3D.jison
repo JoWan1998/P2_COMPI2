@@ -30,6 +30,7 @@
     var breaks = '';
     var continues = '';
     var returns = '';
+    var params = 0;
 
 %}
 
@@ -383,6 +384,7 @@ Statement
 Native_statements
     : CONSOLE '.' LOG '(' Expr ')'
     {
+        tab.printSimbolos()
         var r = [];
         //console.log($5);
         if($5[0].toUpperCase() == 'ARPRINT')
@@ -1738,9 +1740,15 @@ Declaration_statements
                 {
                     var valor = '';
                     var r = [];
+                    valor += `P = P + ${params+1};\n`;
                     valor += `${$1}();\n`;
+                    var temp = Temp.getTemporal();
+                    var temp1 = Temp.getTemporal();
+                    valor += `${temp} = P + ${n.params};\n`;
+                    valor += `${temp1} = stack[(int)${temp}];\n`;
+                    valor += `P = P - ${params+1};\n`;
                     r[0] = 'FUNCION';
-                    r[1] = '';
+                    r[1] = temp1;
                     r[2] = '';
                     r[3] = valor;
                     $$ = r;
@@ -1760,7 +1768,103 @@ Declaration_statements
         }
         else
         {
+            var pams = $2[1];
+            var n = tab.getFuncion($1);
+            if(n!=null)
+            {
+                if(pams.length == n.params)
+                {
+                    var valor = '';
+                    var r = [];
+                    valor += `P = P + ${params+1};\n`;
 
+                    var posk = 0;
+                    var p = true;
+                    for(let arg of pams)
+                    {
+                        var temp = Temp.getTemporal();
+
+                        if(arg[0] != '')
+                        {
+                            valor += arg[3] + '\n';
+                            valor += `${temp} = P + ${posk};\n`;
+                            valor += `stack[(int)${temp}] = ${arg[1]};\n`;
+                        }
+                        else
+                        {
+                            var nn = tab.getPositionAmbito(arg[4]);
+                            if(nn!= null)
+                            {
+                                if(nn.tipo.toUpperCase() != 'STRING' && nn.tipo.toUpperCase() != 'ARREGLO')
+                                {
+                                    if(nn.rol == 'Parametro')
+                                    {
+                                        valor += `${temp} = P + ${posk};\n`;
+                                        valor += `stack[(int)${temp}] = ${nn.valor};\n`;
+                                    }
+                                    else
+                                    {
+                                        var temp1 = Temp.getTemporal();
+
+                                        if(nn.entorno == 'global')
+                                        {
+                                             valor += `${temp} = P + ${posk};\n`;
+                                             valor += `${temp1} = heap[${nn.position}];\n`;
+                                             valor += `stack[(int)${temp}] = ${temp1};\n`;
+                                        }
+                                        else
+                                        {
+                                            valor += `${temp} = P + ${posk};\n`;
+                                             valor += `${temp1} = stack[${nn.position}];\n`;
+                                             valor += `stack[(int)${temp}] = ${temp1};\n`;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, funcion:  ${$1[4]}, no implementado :c.`+'\"}');
+                                    $$ = ['','','',''];
+                                    p = false;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, funcion:  ${$1[4]}, invalida.`+'\"}');
+                                $$ = ['','','',''];
+                                p = false;
+                                break;
+                            }
+                        }
+                        posk++;
+                    }
+
+                    if(p)
+                    {
+                        valor += `${$1}();\n`;
+                        var temp = Temp.getTemporal();
+                        var temp1 = Temp.getTemporal();
+                        valor += `${temp} = P + ${n.params};\n`;
+                        valor += `${temp1} = stack[(int)${temp}];\n`;
+                        valor += `P = P - ${params+1};\n`;
+                        r[0] = 'FUNCION';
+                        r[1] = temp1;
+                        r[2] = '';
+                        r[3] = valor;
+                        $$ = r;
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, funcion:  ${$1}, invalida.`+'\"}');
+                    $$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la funcion:  ${$1}.`+'\"}');
+                $$ = ['','','',''];
+            }
         }
     }
     | TypeV IDENT ':' TypeV
@@ -4184,7 +4288,130 @@ Declaration_statements
                         //if(pos >0 && pos != 0) pos++;
                         //if (pos == 0) pos++;
                         break;
+/*                    case "lET":
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
+                           var posicion = -1;
+                           if(entorno == 'global')
+                           {
+                               posicion = pos;
+                               valor += temp + ' = ' + pos +';';
+                               valor += '\n';
+                               pos++;
+                           }
+                           else
+                           {
+                               posicion = stac;
+                               valor += `${temp} =  ${posicion};\n`;
+                               stac++;
+                          }
+                        valor += $4[3];
+                        valor += '\n';
+                        if(entorno == 'global')
+                        {
+                            valor += 'heap[(int)'+ temp + '] = ' + $4[1] +';';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += 'stack[(int)'+ temp + '] = ' + $4[1] +';';
+                            valor += '\n';
+                        }
 
+
+                         var sym = new intermedia.simbolo();
+                         sym.ambito = tab.ambitoLevel;
+                         sym.name = $2;
+                         sym.position = posicion;
+                         sym.rol = 'variable';
+                         sym.direccion = posicion;
+                         sym.direccionrelativa = posicion;
+                         sym.tipo = $4[0];
+                         sym.valor = $4[3];
+                         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                         if(entorno != 'global') sym.entorno = entorno ;
+                         tab.insert(sym);
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+
+                        $$ = r;
+
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
+                        break;*/
+                    case "FUNCION":
+                        var valor = '';
+                        var temp = Temp.getTemporal();
+                        //valor += temp + ' = ' + pos + ';';
+                        //valor += '\n';
+                           var posicion = -1;
+                           if(entorno == 'global')
+                           {
+                               posicion = pos;
+                               valor += temp + ' = ' + pos +';';
+                               valor += '\n';
+                               pos++;
+                           }
+                           else
+                           {
+                               posicion = stac;
+                               valor += `${temp} =  ${posicion};\n`;
+                               stac++;
+                          }
+                        valor += $4[3];
+                        valor += '\n';
+                        if(entorno == 'global')
+                        {
+                            valor += 'heap[(int)'+ temp + '] = stack[(int)' + $4[1] +'];';
+                            valor += '\n';
+                        }
+                        else
+                        {
+                            valor += 'stack[(int)'+ temp + '] = ' + $4[1] +';';
+                            valor += '\n';
+                        }
+
+
+                         var sym = new intermedia.simbolo();
+                         sym.ambito = tab.ambitoLevel;
+                         sym.name = $2;
+                         sym.position = posicion;
+                         sym.rol = 'variable';
+                         sym.direccion = posicion;
+                         sym.direccionrelativa = posicion;
+                         sym.tipo = 'NUMBER';
+                         sym.valor = -1;
+                         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                         if(entorno != 'global') sym.entorno = entorno ;
+                         tab.insert(sym);
+
+                        var r = [];
+                        r[3] = valor;
+                        r[0] = '';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[4] = '';
+                        r[5] = '';
+                        r[6] = '';
+                        r[7] = '';
+
+
+                        $$ = r;
+
+                        //if(pos >0 && pos != 0) pos++;
+                        //if (pos == 0) pos++;
+                        break;
                     case 'BOOLEAN':
                         var valor = '';
                         var temp = Temp.getTemporal();
@@ -4412,12 +4639,14 @@ Declaration_statements
             else if($4[0] == '')
             {
                  var n = tab.getPositionAmbito($4[4]);
+                 //console.log(n);
                  if(n!=null)
                  {
                      if(n.tipo.toUpperCase()!='')
                      {
                          switch(n.tipo.toUpperCase())
                          {
+
                              case 'STRING':
                                  var valor = '';
                                   var temp = Temp.getTemporal();
@@ -4501,7 +4730,85 @@ Declaration_statements
                                //if (pos == 0) pos++;
                                posS += 5000;
                                break;
+                             case 'LET':
+                                  var valor = '';
+                                  var temp = Temp.getTemporal();
+                                  //valor += temp + ' = ' + pos + ';';
+                                  //valor += '\n';
+                                   var posicion = -1;
+                                   if(entorno == 'global')
+                                   {
+                                       posicion = pos;
+                                       valor += temp + ' = ' + pos +';';
+                                       valor += '\n';
+                                       pos++;
+                                   }
+                                   else
+                                   {
+                                       posicion = stac;
+                                       valor += `${temp} =  ${posicion};\n`;
+                                       stac++;
+                                  }
+                                  var temp1 = Temp.getTemporal();
+                                  if(n.rol == 'Parametro')
+                                  {
+                                      valor += `${temp1} = ${n.valor};\n`;
+                                  }
+                                  else
+                                  {
+                                      if(n.entorno == 'global')
+                                      {
+                                          valor += temp1 + ' = heap[(int)'+n.position+'];';
+                                          valor += '\n';
+                                      }
+                                      else
+                                      {
+                                          valor += temp1 + ' = stack[(int)'+n.position+'];';
+                                          valor += '\n';
+                                      }
+                                  }
 
+                                  if(entorno == 'global')
+                                  {
+                                      valor += 'heap[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  }
+                                  else
+                                  {
+                                      valor += 'stack[(int)'+ temp + '] = ' + temp1 +';';
+                                      valor += '\n';
+                                  }
+
+
+                                   var sym = new intermedia.simbolo();
+                                   sym.ambito = tab.ambitoLevel;
+                                   sym.name = $2;
+                                   sym.position = posicion;
+                                   sym.rol = 'variable';
+                                   sym.direccion = posicion;
+                                   sym.direccionrelativa = posicion;
+                                   sym.tipo = n.tipo;
+                                   sym.valor = n.valor;
+                                   sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
+                                   if(entorno != 'global') sym.entorno = entorno;
+                                   tab.insert(sym);
+
+                                  var r = [];
+                                  r[3] = valor;
+                                  r[0] = '';
+                                  r[1] = temp1;
+                                  r[2] = '';
+                                  r[4] = '';
+                                  r[5] = '';
+                                  r[6] = '';
+                                  r[7] = '';
+
+
+                                  $$ = r;
+
+                                  //if(pos >0 && pos != 0) pos++;
+                                  //if (pos == 0) pos++;
+                                  break;
                              case 'NUMBER':
                                   var valor = '';
                                   var temp = Temp.getTemporal();
@@ -5527,7 +5834,7 @@ Function_statements
         sym.name = $2;
         sym.params = 0;
         sym.position = -1;
-        sym.rol = 'funcion';
+        sym.rol = 'FUNCION';
         sym.direccion = -1;
         sym.direccionrelativa = -1;
         sym.tipo = 'void';
@@ -5535,6 +5842,8 @@ Function_statements
         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
         sym.entorno = 'global';
         tab.insert(sym);
+        params = 0;
+        entorno = 'global';
 
         $$ = ['','','','','',''];
     }
@@ -5566,7 +5875,7 @@ Function_statements
         sym.name = $2;
         sym.params = 0;
         sym.position = -1;
-        sym.rol = 'funcion';
+        sym.rol = 'FUNCION';
         sym.direccion = -1;
         sym.direccionrelativa = -1;
         sym.tipo = 'void';
@@ -5575,6 +5884,8 @@ Function_statements
         sym.entorno = 'global';
         tab.insert(sym);
         */
+        params = 0;
+        entorno = 'global';
         $$ = ['','','','','',''];
     }
     | FUNCTION IDENT '(' ')' ':' Type OPENBRACE Source2 CLOSEBRACE
@@ -5604,7 +5915,7 @@ Function_statements
         sym.name = $2;
         sym.params = 0;
         sym.position = -1;
-        sym.rol = 'funcion';
+        sym.rol = 'FUNCION';
         sym.direccion = -1;
         sym.direccionrelativa = -1;
         sym.tipo = $6;
@@ -5612,7 +5923,8 @@ Function_statements
         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
         sym.entorno = 'global';
         tab.insert(sym);
-
+        params = 0;
+        entorno = 'global';
         $$ = ['','','','','',''];
     }
     | FUNCTION IDENT '(' ParameterList ')' ':' Type OPENBRACE Source2 CLOSEBRACE
@@ -5645,7 +5957,7 @@ Function_statements
         sym.name = $2;
         sym.params = 0;
         sym.position = -1;
-        sym.rol = 'funcion';
+        sym.rol = 'FUNCION';
         sym.direccion = -1;
         sym.direccionrelativa = -1;
         sym.tipo = 'void';
@@ -5653,7 +5965,8 @@ Function_statements
         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
         sym.entorno = 'global';
         tab.insert(sym);
-
+        params = 0;
+        entorno = 'global';
         $$ = ['','','','','',''];
     }
     | FUNCTION IDENT '(' ParameterList ')' OPENBRACE  CLOSEBRACE
@@ -5685,7 +5998,7 @@ Function_statements
         sym.name = $2;
         sym.params = 0;
         sym.position = -1;
-        sym.rol = 'funcion';
+        sym.rol = 'FUNCION';
         sym.direccion = -1;
         sym.direccionrelativa = -1;
         sym.tipo = 'void';
@@ -5693,7 +6006,8 @@ Function_statements
         sym.constante = ($1.toUpperCase() == 'CONST')?true:false;
         sym.entorno = 'global';
         tab.insert(sym);
-
+        params = 0;
+        entorno = 'global';
         $$ = ['','','','','',''];
     }
     | FUNCTION IDENT '(' ParameterList ')' ':' Type OPENBRACE  CLOSEBRACE
@@ -5890,10 +6204,124 @@ Break_statements
 ;
 
 Return_statements
-    : RETURN ';'
-    | RETURN
-    | RETURN Expr ';'
+    : RETURN
+    {
+        var valor = '';
+        if(returns != '')
+        {
+            valor += `goto ${returns};\n`;
+        }
+        else
+        {
+            var label = Label.getBandera();
+            returns = label;
+            valor += `goto ${returns};\n`;
+        }
+        var r = [];
+        r[0] = '';
+        r[1] = '';
+        r[2] = '';
+        r[3] = valor;
+        r[5] = null;
+        r[6] = null;
+        $$ = r;
+    }
     | RETURN Expr
+    {
+        var valor = '';
+        if(returns != '')
+        {
+            if($2[0] != '')
+            {
+                var temp = Temp.getTemporal();
+                valor += `${temp} = P + ${params};\n`;
+                valor += $2[3] + '\n';
+                valor += `stack[(int)${temp}] = ${$2[1]};\n`;
+                valor += `goto ${returns};\n`;
+            }
+            else
+            {
+                var n = tab.getPositionAmbito($2[4]);
+                if(n!=null)
+                {
+
+                    var valor = '';
+                    var temp = Temp.getTemporal();
+                    var temp1 = Temp.getTemporal();
+                    valor += `${temp} = P + ${params};\n`;
+                    valor += `${temp1} = stack[${n.position}];\n`;
+                    valor += `stack[(int)${temp}] = ${temp1};\n`;
+                    valor += `goto ${returns};\n`;
+                }
+                else
+                {
+                     valor += `goto ${returns};\n`;
+                }
+           }
+/*
+            if($2[0] == 'FUNCION')
+            {
+
+                valor += `${temp} = P + ${params};\n`;
+                valor += $2[3] + '\n';
+                valor += `stack[(int)${temp}] = ${$2[1]};\n`;
+                valor += `goto ${returns};\n`;
+            }
+            else
+            {
+                if($2[0] != '')
+                {
+                    valor += `${temp} = P + ${params};\n`;
+                    valor += $2[3] + '\n';
+                    valor += `stack[(int)${temp}] = ${$2[1]};\n`;
+                    valor += `goto ${returns};\n`;
+                }
+            }
+*/
+
+        }
+        else
+        {
+            var label = Label.getBandera();
+            returns = label;
+            if($2[0] == '')
+            {
+                var n = tab.getPositionAmbito($2[4]);
+                if(n!=null)
+                {
+
+                    var valor = '';
+                    var temp = Temp.getTemporal();
+                    var temp1 = Temp.getTemporal();
+                    valor += `${temp} = P + ${params};\n`;
+                    valor += `${temp1} = stack[${n.position}];\n`;
+                    valor += `stack[(int)${temp}] = ${temp1};\n`;
+                    valor += `goto ${returns};\n`;
+                }
+                else
+                {
+                     valor += `goto ${returns};\n`;
+                }
+            }
+            else
+            {
+                var temp = Temp.getTemporal();
+                valor += `${temp} = P + ${params};\n`;
+                valor += $2[3] + '\n';
+                valor += `stack[(int)${temp}] = ${$2[1]};\n`;
+                valor += `goto ${returns};\n`;
+            }
+
+        }
+        var r = [];
+        r[0] = $1[0];
+        r[1] = '';
+        r[2] = '';
+        r[3] = valor;
+        r[5] = $1[5];
+        r[6] = $1[6];
+        $$ = r;
+    }
 ;
 
 Switch_statements
@@ -6452,9 +6880,10 @@ ParameterList
         var posm = 0;
         for(let param of $1)
         {
-            valor += `P = P + ${posm};\n`;
+            var temp1 = Temp.getTemporal();
+            valor += `${temp1} = P + ${posm};\n`;
             var temp = Temp.getTemporal();
-            valor += `${temp} = stack[(int) P];\n`;
+            valor += `${temp} = stack[(int) ${temp1}];\n`;
 
             var sym = new intermedia.simbolo();
             sym.ambito = 0;
@@ -6463,7 +6892,7 @@ ParameterList
             sym.rol = 'Parametro';
             sym.direccion = posm;
             sym.direccionrelativa = posm;
-            sym.tipo = (param[7]=='')?'let':param[7];
+            sym.tipo = (param[7]=='')?'number':param[7];
             sym.valor = temp;
             sym.constante = false;
             sym.entorno = 'funcion_'+s[s.length-3];
@@ -6476,13 +6905,18 @@ ParameterList
         sym.ambito = 0;
         sym.name = s[s.length-3];
         sym.position = -1;
-        sym.rol = 'Funcion';
+        sym.rol = 'FUNCION';
         sym.direccion = -1;
         sym.direccionrelativa = -1;
         sym.valor = null;
         sym.constante = false;
         sym.entorno = 'global';
+        sym.params = $1.length;
         tab.insert(sym);
+        params = $1.length;
+
+        entorno = 'funcion_'+s[s.length-3];
+        tab.ambitoLevel = tab.ambitoLevel + 1;
 
         var r = [];
         r[0] = '';
@@ -6805,7 +7239,7 @@ Expr1_statements
                  for(let posi of $2)
                  {
                      var m = arr.getTam($1,nivel);
-                    
+
 
 
                      if(posi[12][0] != '')
@@ -7222,14 +7656,14 @@ Expr1_statements
              var temp  = Temp.getTemporal();
              var l = arr.getProf($1);
              var posss = 0;
-             
+
              if(l>=$2.length)
              {
                  var nivel = 1;
                  for(let posi of $2)
                  {
                      var m = arr.getTam($1,nivel);
-                    
+
                      var pass = false;
 
                      if(posi[12][0] != '')
@@ -7427,7 +7861,7 @@ Expr1_statements
                  for(let posi of $2)
                  {
                      var m = arr.getTam($1,nivel);
-                    
+
                      var pass = false;
 
                      if(posi[12][0] != '')
@@ -7619,14 +8053,14 @@ Expr1_statements
              var temp  = Temp.getTemporal();
              var l = arr.getProf($1);
              var posss = 0;
-             
+
              if(l>=$2.length)
              {
                  var nivel = 1;
                  for(let posi of $2)
                  {
                      var m = arr.getTam($1,nivel);
-                    
+
                      var pass = false;
 
                      if(posi[12][0] != '')
@@ -7818,14 +8252,14 @@ Expr1_statements
              var temp  = Temp.getTemporal();
              var l = arr.getProf($1);
              var posss = 0;
-             
+
              if(l>=$2.length)
              {
                  var nivel = 1;
                  for(let posi of $2)
                  {
                      var m = arr.getTam($1,nivel);
-                    
+
                      var pass = false;
 
                      if(posi[12][0] != '')
@@ -9694,11 +10128,17 @@ CallExpr
                 {
                     var valor = '';
                     var r = [];
+                    valor += `P = P + ${params+1};\n`;
                     valor += `${$1[4]}();\n`;
+                    var temp = Temp.getTemporal();
+                    var temp1 = Temp.getTemporal();
+                    valor += `${temp} = P + ${n.params};\n`;
+                    valor += `${temp1} = stack[(int)${temp}];\n`;
+                    valor += `P = P - ${params+1};\n`;
                     r[0] = 'FUNCION';
-                    r[1] = '';
+                    r[1] = temp1;
                     r[2] = '';
-                    r[3] = '';
+                    r[3] = valor;
                     $$ = r;
                 }
                 else
@@ -9716,7 +10156,103 @@ CallExpr
         }
         else
         {
+            var pams = $2[1];
+            var n = tab.getFuncion($1[4]);
+            if(n!=null)
+            {
+                if(pams.length == n.params)
+                {
+                    var valor = '';
+                    var r = [];
+                    valor += `P = P + ${params+1};\n`;
 
+                    var posk = 0;
+                    var p = true;
+                    for(let arg of pams)
+                    {
+                        var temp = Temp.getTemporal();
+
+                        if(arg[0] != '')
+                        {
+                            valor += arg[3] + '\n';
+                            valor += `${temp} = P + ${posk};\n`;
+                            valor += `stack[(int)${temp}] = ${arg[1]};\n`;
+                        }
+                        else
+                        {
+                            var nn = tab.getPositionAmbito(arg[4]);
+                            if(nn!= null)
+                            {
+                                if(nn.tipo.toUpperCase() != 'STRING' && nn.tipo.toUpperCase() != 'ARREGLO')
+                                {
+                                    if(nn.rol == 'Parametro')
+                                    {
+                                        valor += `${temp} = P + ${posk};\n`;
+                                        valor += `stack[(int)${temp}] = ${nn.valor};\n`;
+                                    }
+                                    else
+                                    {
+                                        var temp1 = Temp.getTemporal();
+
+                                        if(nn.entorno == 'global')
+                                        {
+                                             valor += `${temp} = P + ${posk};\n`;
+                                             valor += `${temp1} = heap[${nn.position}];\n`;
+                                             valor += `stack[(int)${temp}] = ${temp1};\n`;
+                                        }
+                                        else
+                                        {
+                                            valor += `${temp} = P + ${posk};\n`;
+                                             valor += `${temp1} = stack[${nn.position}];\n`;
+                                             valor += `stack[(int)${temp}] = ${temp1};\n`;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, funcion:  ${$1[4]}, no implementado :c.`+'\"}');
+                                    $$ = ['','','',''];
+                                    p = false;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, funcion:  ${$1[4]}, invalida.`+'\"}');
+                                $$ = ['','','',''];
+                                p = false;
+                                break;
+                            }
+                        }
+                        posk++;
+                    }
+
+                    if(p)
+                    {
+                        valor += `${$1[4]}();\n`;
+                        var temp = Temp.getTemporal();
+                        var temp1 = Temp.getTemporal();
+                        valor += `${temp} = P + ${n.params};\n`;
+                        valor += `${temp1} = stack[(int)${temp}];\n`;
+                        valor += `P = P - ${params+1};\n`;
+                        r[0] = 'FUNCION';
+                        r[1] = temp1;
+                        r[2] = '';
+                        r[3] = valor;
+                        $$ = r;
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, funcion:  ${$1[4]}, invalida.`+'\"}');
+                    $$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la funcion:  ${$1[4]}.`+'\"}');
+                $$ = ['','','',''];
+            }
         }
     }
     | CallExpr '.' IDENT
@@ -9749,11 +10285,17 @@ CallExprNoBF
                 {
                     var valor = '';
                     var r = [];
+                    valor += `P = P + ${params+1};\n`;
                     valor += `${$1[4]}();\n`;
+                    var temp = Temp.getTemporal();
+                    var temp1 = Temp.getTemporal();
+                    valor += `${temp} = P + ${n.params};\n`;
+                    valor += `${temp1} = stack[(int)${temp}];\n`;
+                    valor += `P = P - ${params+1};\n`;
                     r[0] = 'FUNCION';
-                    r[1] = '';
+                    r[1] = temp1;
                     r[2] = '';
-                    r[3] = '';
+                    r[3] = valor;
                     $$ = r;
                 }
                 else
@@ -9771,7 +10313,103 @@ CallExprNoBF
         }
         else
         {
+            var pams = $2[1];
+            var n = tab.getFuncion($1[4]);
+            if(n!=null)
+            {
+                if(pams.length == n.params)
+                {
+                    var valor = '';
+                    var r = [];
+                    valor += `P = P + ${params+1};\n`;
 
+                    var posk = 0;
+                    var p = true;
+                    for(let arg of pams)
+                    {
+                        var temp = Temp.getTemporal();
+
+                        if(arg[0] != '')
+                        {
+                            valor += arg[3] + '\n';
+                            valor += `${temp} = P + ${posk};\n`;
+                            valor += `stack[(int)${temp}] = ${arg[1]};\n`;
+                        }
+                        else
+                        {
+                            var nn = tab.getPositionAmbito(arg[4]);
+                            if(nn!= null)
+                            {
+                                if(nn.tipo.toUpperCase() != 'STRING' && nn.tipo.toUpperCase() != 'ARREGLO')
+                                {
+                                    if(nn.rol == 'Parametro')
+                                    {
+                                        valor += `${temp} = P + ${posk};\n`;
+                                        valor += `stack[(int)${temp}] = ${nn.valor};\n`;
+                                    }
+                                    else
+                                    {
+                                        var temp1 = Temp.getTemporal();
+
+                                        if(nn.entorno == 'global')
+                                        {
+                                             valor += `${temp} = P + ${posk};\n`;
+                                             valor += `${temp1} = heap[${nn.position}];\n`;
+                                             valor += `stack[(int)${temp}] = ${temp1};\n`;
+                                        }
+                                        else
+                                        {
+                                            valor += `${temp} = P + ${posk};\n`;
+                                             valor += `${temp1} = stack[${nn.position}];\n`;
+                                             valor += `stack[(int)${temp}] = ${temp1};\n`;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, funcion:  ${$1[4]}, no implementado :c.`+'\"}');
+                                    $$ = ['','','',''];
+                                    p = false;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, funcion:  ${$1[4]}, invalida.`+'\"}');
+                                $$ = ['','','',''];
+                                p = false;
+                                break;
+                            }
+                        }
+                        posk++;
+                    }
+
+                    if(p)
+                    {
+                        valor += `${$1[4]}();\n`;
+                        var temp = Temp.getTemporal();
+                        var temp1 = Temp.getTemporal();
+                        valor += `${temp} = P + ${n.params};\n`;
+                        valor += `${temp1} = stack[(int)${temp}];\n`;
+                        valor += `P = P - ${params+1};\n`;
+                        r[0] = 'FUNCION';
+                        r[1] = temp;
+                        r[2] = '';
+                        r[3] = valor;
+                        $$ = r;
+                    }
+                }
+                else
+                {
+                    semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, funcion:  ${$1[4]}, invalida.`+'\"}');
+                    $$ = ['','','',''];
+                }
+            }
+            else
+            {
+                semanticos.push('{\"valor\":\"'+`Error semantico en la linea ${(yylineno+1)}, no existe la funcion:  ${$1[4]}.`+'\"}');
+                $$ = ['','','',''];
+            }
         }
     }
     | CallExprNoBF '.' IDENT
@@ -9786,11 +10424,24 @@ Arguments
         $$ = ['','','','','',''];
     }
     | '(' ArgumentList ')'
+    {
+        $$ = ['Arguments',$2];
+    }
 ;
 
 ArgumentList
     : AssignmentExpr
+    {
+        var r = [];
+        r.push($1);
+        $$ = r;
+
+    }
     | ArgumentList ',' AssignmentExpr
+    {
+        $$ = $1;
+        $$.push($3);
+    }
 ;
 
 LeftHandSideExpr
@@ -9902,13 +10553,20 @@ UnaryExprCommon
                         valor += '';
 
                         var temp = Temp.getTemporal();
-                        if(n.entorno == 'global')
+                        if(n.rol == 'Parametro')
                         {
-                            valor += temp + ' = heap[(int)'+temp0+'];\n';
+                            valor += `${temp} = ${n.valor};\n`;
                         }
                         else
                         {
-                            valor += temp + ' = stack[(int)'+temp0+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += temp + ' = heap[(int)'+temp0+'];\n';
+                            }
+                            else
+                            {
+                                valor += temp + ' = stack[(int)'+temp0+'];\n';
+                            }
                         }
 
 
@@ -10018,13 +10676,20 @@ UnaryExprCommon
                         valor += $2[3];
 
                         valor += temp0 + ' = '+n.position +';\n';
-                        if(n.entorno == 'global')
+                        if(n.rol == 'Parametro')
                         {
-                            valor += temp1 + ' = heap[(int)'+temp0+'];\n';
+                            valor += `${temp1} = ${n.valor};\n`;
                         }
                         else
                         {
-                            valor += temp1 + ' = stack[(int)'+temp0+'];\n';
+                            if(n.entorno == 'global')
+                            {
+                                valor += temp1 + ' = heap[(int)'+temp0+'];\n';
+                            }
+                            else
+                            {
+                                valor += temp1 + ' = stack[(int)'+temp0+'];\n';
+                            }
                         }
 
 

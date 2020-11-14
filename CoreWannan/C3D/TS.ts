@@ -286,7 +286,7 @@ export class TablaSimbolos
         {
             if(simbolito instanceof simbolo)
             {
-                if(simbolito.rol == 'funcion') vals.push(simbolito.name);
+                if(simbolito.rol.toUpperCase() == 'FUNCION') vals.push(simbolito.name);
             }
         }
         return vals;

@@ -44,7 +44,7 @@
     "tslib": "^2.0.0",
     "wannancompile": "^1.3.0",
     "wannancore": "^1.3.3",
-    "wannancore1": "0.0.4",
+    "wannancore1": "0.0.5",
     "wannantraduction": "^1.3.0",
     "zone.js": "~0.10.2"
   },
