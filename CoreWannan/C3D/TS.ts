@@ -159,6 +159,20 @@ export class TablaSimbolos
         }
         return null;
     }
+    getFuncion(name:string)
+    {
+        for(let simbolito of this.simbolos)
+        {
+            if(simbolito instanceof simbolo)
+            {
+                if(simbolito.name == name && simbolito.rol.toUpperCase() == 'FUNCION')
+                {
+                    return simbolito;
+                }
+            }
+        }
+        return null;
+    }
     getPositionAmbito(name:string)
     {
         /*

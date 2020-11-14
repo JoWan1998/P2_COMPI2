@@ -27,13 +27,13 @@
   <component name="ChangeListManager">
     <list default="true" id="e7fdf22b-a013-458f-bf4c-2ee3c5c3b35f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C3D/TS.js" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/TS.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C3D/TS.ts" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/TS.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/C3D/WE_C3D.jison" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/WE_C3D.jison" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/C3D/WE_C3D.js" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/WE_C3D.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRONTEND/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRONTEND/JWEV2/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/JWEV2/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRONTEND/JWEV2/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/JWEV2/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../FRONTEND/JWEV2/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C3D/entrada.txt" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/entrada.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C3D/salida" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/salida" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C3D/salida.c" beforeDir="false" afterPath="$PROJECT_DIR$/C3D/salida.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +122,8 @@
       <workItem from="1605085111881" duration="2805000" />
       <workItem from="1605198327917" duration="21012000" />
       <workItem from="1605252513559" duration="16832000" />
-      <workItem from="1605285744323" duration="3246000" />
+      <workItem from="1605285744323" duration="10578000" />
+      <workItem from="1605304000094" duration="15401000" />
     </task>
     <servers />
   </component>
@@ -159,10 +160,10 @@
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
     <state x="695" y="393" width="521" height="288" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.28.1920.1024@0.28.1920.1024" timestamp="1604846050096" />
-    <state x="743" y="298" width="426" height="478" key="FileChooserDialogImpl" timestamp="1604906634101">
+    <state x="743" y="298" width="426" height="478" key="FileChooserDialogImpl" timestamp="1605308911655">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
-    <state x="743" y="298" width="426" height="478" key="FileChooserDialogImpl/0.28.1920.1024@0.28.1920.1024" timestamp="1604906634101" />
+    <state x="743" y="298" width="426" height="478" key="FileChooserDialogImpl/0.28.1920.1024@0.28.1920.1024" timestamp="1605308911655" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1603379489144">
       <screen x="0" y="28" width="1920" height="1024" />
     </state>
